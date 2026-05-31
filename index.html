@@ -1,1 +1,462 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QuantParticle | Quantitative Trading. Engineered.</title>
+    <link rel="icon" href="quant_particle_logo_fevicon.png" type="image/png">
+    
+    <style>
+        /* Base Styles & Typography */
+        :root {
+            --bg-color: #0a0a0a;
+            --text-main: #f0f0f0;
+            --text-muted: #a0a0a0;
+            --accent: #00e5ff; /* Electric cyan for a quant/tech feel */
+            --card-bg: rgba(255, 255, 255, 0.05);
+        }
 
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Particle Canvas Background */
+        #particle-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: -1; /* Keeps it behind the content */
+            pointer-events: none; /* Allows clicks to pass through to the website */
+        }
+
+        /* Header & Navigation */
+        header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(10, 10, 10, 0.8);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            z-index: 1000;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo img {
+            height: 40px; /* Adjust based on your actual logo */
+            vertical-align: middle;
+        }
+
+        .logo-text {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--text-main);
+            text-decoration: none;
+            margin-left: 10px;
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            gap: 2rem;
+        }
+
+        nav a {
+            color: var(--text-main);
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: color 0.3s;
+            position: relative;
+        }
+
+        nav a:hover {
+            color: var(--accent);
+        }
+
+        /* Dropdown Menu for Solutions */
+        .dropdown {
+            position: relative;
+        }
+        
+        .dropdown-menu {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background: #111;
+            min-width: 200px;
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 4px;
+            padding: 0.5rem 0;
+        }
+
+        .dropdown:hover .dropdown-menu {
+            display: block;
+        }
+
+        .dropdown-menu li {
+            padding: 0.5rem 1rem;
+        }
+
+        /* Layout & Sections */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        section {
+            padding: 100px 0;
+        }
+
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            text-align: left;
+            padding-top: 80px; /* Offset for header */
+        }
+
+        .hero h1 {
+            font-size: 4rem;
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+            text-transform: uppercase;
+            letter-spacing: -1px;
+        }
+
+        .hero h1 span {
+            color: var(--accent);
+        }
+
+        .hero p {
+            font-size: 1.25rem;
+            color: var(--text-muted);
+            max-width: 800px;
+            margin-bottom: 2rem;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 1rem 2rem;
+            background: var(--accent);
+            color: #000;
+            text-decoration: none;
+            font-weight: bold;
+            border-radius: 4px;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(0, 229, 255, 0.4);
+        }
+
+        /* Section Headers */
+        .section-title {
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+            text-align: center;
+            text-transform: uppercase;
+        }
+
+        /* Grid for Cards (What we do, Approach) */
+        .grid-3 {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .card {
+            background: var(--card-bg);
+            padding: 2rem;
+            border-radius: 8px;
+            border: 1px solid rgba(255,255,255,0.05);
+            transition: transform 0.3s;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            border-color: rgba(0, 229, 255, 0.3);
+        }
+
+        .card h3 {
+            color: var(--accent);
+            margin-bottom: 1rem;
+            font-size: 1.25rem;
+        }
+
+        .card p {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+        }
+
+        /* Footer */
+        footer {
+            background: #050505;
+            padding: 4rem 0 2rem;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            text-align: center;
+        }
+
+        footer p {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            margin-top: 2rem;
+        }
+    </style>
+</head>
+<body>
+
+    <canvas id="particle-canvas"></canvas>
+
+    <header>
+        <div class="nav-container">
+            <a href="#" class="logo">
+                <img src="quant_particle_logo.png" alt="QuantParticle Logo" onerror="this.style.display='none'">
+                <span class="logo-text">QuantParticle</span>
+            </a>
+            <nav>
+                <ul>
+                    <li><a href="#">Home</a></li>
+                    <li><a href="#about">About</a></li>
+                    <li class="dropdown">
+                        <a href="#solutions">Solutions ▼</a>
+                        <ul class="dropdown-menu">
+                            <li><a href="#strategy">Strategy Research</a></li>
+                            <li><a href="#execution">Execution Systems</a></li>
+                            <li><a href="#lab">Quant Lab</a></li>
+                            <li><a href="#prop">Prop & Institutional</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="#technology">Technology</a></li>
+                    <li><a href="#insights">Insights</a></li>
+                    <li><a href="#careers">Careers</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <section class="hero container">
+            <h1>Quantitative Trading. <br><span>Engineered.</span></h1>
+            <p><strong>Research-Driven Trading Technology.</strong><br>
+            QuantParticle develops quantitative trading systems, execution infrastructure, and systematic trading solutions for professional traders, proprietary trading firms, institutions, and fintech businesses.</p>
+            <p>Our work spans strategy research, portfolio construction, execution automation, market microstructure analysis, and algorithmic trading infrastructure across Low Frequency (LFT), Medium Frequency (MFT), and High Frequency Trading (HFT) environments.</p>
+            <div>
+                <a href="#solutions" class="btn">Explore Our Solutions</a>
+            </div>
+        </section>
+
+        <section id="solutions" class="container">
+            <h2 class="section-title">What We Do</h2>
+            <div class="grid-3">
+                <div class="card">
+                    <h3>Quantitative Strategy Development</h3>
+                    <p>Design and development of systematic trading models based on statistical, mathematical, and market microstructure research.</p>
+                </div>
+                <div class="card">
+                    <h3>Execution Infrastructure</h3>
+                    <p>Institution-grade execution systems designed to automate order routing, position management, risk controls, and strategy deployment.</p>
+                </div>
+                <div class="card">
+                    <h3>Backtesting & Research</h3>
+                    <p>Robust simulation frameworks for validating strategies across multiple market conditions before capital deployment.</p>
+                </div>
+                <div class="card">
+                    <h3>Trading Automation</h3>
+                    <p>End-to-end automation solutions integrating data, signals, execution, and monitoring.</p>
+                </div>
+                <div class="card">
+                    <h3>Market Making Systems</h3>
+                    <p>Development of liquidity provision, spread capture, inventory management, and market making frameworks.</p>
+                </div>
+                <div class="card">
+                    <h3>Quantitative Analytics</h3>
+                    <p>Advanced performance analytics, factor modelling, optimization, and portfolio diagnostics.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="about" class="container">
+            <h2 class="section-title">Our Approach</h2>
+            <div class="grid-3">
+                <div class="card">
+                    <h3>Research First</h3>
+                    <p>Every strategy begins with research, not assumptions.</p>
+                </div>
+                <div class="card">
+                    <h3>Data Driven</h3>
+                    <p>Models are built on measurable market behaviour rather than opinions.</p>
+                </div>
+                <div class="card">
+                    <h3>Systematic Execution</h3>
+                    <p>Execution quality is treated as a core component of strategy performance.</p>
+                </div>
+                <div class="card">
+                    <h3>Continuous Improvement</h3>
+                    <p>Models evolve through testing, validation, monitoring, and refinement.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="container" style="text-align: center; max-width: 800px;">
+            <h2 class="section-title">Who We Serve</h2>
+            <p style="color: var(--text-muted); font-size: 1.2rem; margin-bottom: 3rem;">
+                Proprietary Trading Firms | Institutional Trading Teams | Quantitative Researchers <br>
+                Fintech Companies | Professional Traders | Brokerage Technology Platforms
+            </p>
+
+            <h2 class="section-title" style="font-size: 2rem;">Building the Future of Systematic Trading</h2>
+            <p style="color: var(--text-muted); font-size: 1.1rem;">
+                From idea generation to live deployment, we help transform trading concepts into scalable, data-driven systems. Our mission is to bridge quantitative research, execution technology, and automation infrastructure to create intelligent trading systems capable of operating across modern financial markets.
+            </p>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <h2 style="color: var(--text-main); margin-bottom: 1rem;">QuantParticle</h2>
+            <p>&copy; 2026 QuantParticle. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        const canvas = document.getElementById('particle-canvas');
+        const ctx = canvas.getContext('2d');
+
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        let particlesArray = [];
+        
+        // Mouse Object to track cursor position
+        let mouse = {
+            x: null,
+            y: null,
+            radius: 150 // Radius of the "magnet" effect
+        }
+
+        window.addEventListener('mousemove', function(event) {
+            mouse.x = event.x;
+            mouse.y = event.y;
+        });
+
+        // Ensure canvas resizes with the window
+        window.addEventListener('resize', function() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+            init();
+        });
+
+        class Particle {
+            constructor(x, y) {
+                this.x = x;
+                this.y = y;
+                this.size = Math.random() * 2 + 1; // Size of particles
+                this.baseX = this.x;
+                this.baseY = this.y;
+                // Random drift speeds
+                this.density = (Math.random() * 30) + 1;
+                this.vx = (Math.random() - 0.5) * 1; 
+                this.vy = (Math.random() - 0.5) * 1;
+            }
+
+            draw() {
+                ctx.fillStyle = 'rgba(0, 229, 255, 0.8)'; // Cyan particles
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.closePath();
+                ctx.fill();
+            }
+
+            update() {
+                // Calculate distance between mouse and particle
+                let dx = mouse.x - this.x;
+                let dy = mouse.y - this.y;
+                let distance = Math.sqrt(dx * dx + dy * dy);
+                
+                // Magnet Effect Logic
+                if (distance < mouse.radius) {
+                    // Force gets stronger the closer the mouse is
+                    let forceDirectionX = dx / distance;
+                    let forceDirectionY = dy / distance;
+                    let maxDistance = mouse.radius;
+                    let force = (maxDistance - distance) / maxDistance;
+                    let directionX = forceDirectionX * force * this.density;
+                    let directionY = forceDirectionY * force * this.density;
+                    
+                    // Move particle towards the mouse (Attraction)
+                    this.x += directionX * 0.1;
+                    this.y += directionY * 0.1;
+                } else {
+                    // Natural random floating movement when mouse is away
+                    this.x += this.vx;
+                    this.y += this.vy;
+
+                    // Bounce off screen edges
+                    if (this.x < 0 || this.x > canvas.width) this.vx *= -1;
+                    if (this.y < 0 || this.y > canvas.height) this.vy *= -1;
+
+                    // Slowly return to original position bounds to keep them distributed
+                    if (this.x !== this.baseX) {
+                        let dx = this.x - this.baseX;
+                        this.x -= dx / 100;
+                    }
+                    if (this.y !== this.baseY) {
+                        let dy = this.y - this.baseY;
+                        this.y -= dy / 100;
+                    }
+                }
+            }
+        }
+
+        // Initialize particles
+        function init() {
+            particlesArray = [];
+            let numberOfParticles = (canvas.width * canvas.height) / 8000; // Adjust density
+            for (let i = 0; i < numberOfParticles; i++) {
+                let x = Math.random() * canvas.width;
+                let y = Math.random() * canvas.height;
+                particlesArray.push(new Particle(x, y));
+            }
+        }
+
+        // Animation loop
+        function animate() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            for (let i = 0; i < particlesArray.length; i++) {
+                particlesArray[i].update();
+                particlesArray[i].draw();
+            }
+            requestAnimationFrame(animate);
+        }
+
+        init();
+        animate();
+    </script>
+</body>
+</html>
