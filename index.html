@@ -75,7 +75,6 @@
             transition: opacity 0.5s;
         }
 
-        /* Noise Texture Overlay */
         .noise-overlay {
             position: fixed;
             top: 0;
@@ -88,7 +87,6 @@
             background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
         }
 
-        /* Particle Canvas */
         #particle-canvas {
             position: fixed;
             top: 0;
@@ -99,7 +97,6 @@
             pointer-events: none;
         }
 
-        /* Scroll Progress */
         .scroll-progress {
             position: fixed;
             top: 0;
@@ -111,7 +108,7 @@
             transition: width 0.1s;
         }
 
-        /* Header */
+        /* ===== HEADER ===== */
         header {
             position: fixed;
             top: 0;
@@ -131,7 +128,7 @@
         .nav-container {
             max-width: 1300px;
             margin: 0 auto;
-            padding: 1.2rem 2rem;
+            padding: 1rem 2rem;
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -140,35 +137,21 @@
         .logo {
             display: flex;
             align-items: center;
-            gap: 12px;
             text-decoration: none;
         }
 
         .logo img {
-            height: 40px;
-            filter: drop-shadow(0 0 10px rgba(0, 229, 255, 0.3));
+            height: 44px;
+            filter: drop-shadow(0 0 15px rgba(0, 229, 255, 0.4));
+            animation: logoPulse 3s ease-in-out infinite;
         }
 
-        .logo-text {
-            font-size: 1.6rem;
-            font-weight: 800;
-            color: var(--text-primary);
-            letter-spacing: -0.5px;
-            background: linear-gradient(135deg, var(--text-primary) 0%, var(--accent-cyan) 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
+        @keyframes logoPulse {
+            0%, 100% { filter: drop-shadow(0 0 15px rgba(0, 229, 255, 0.4)); }
+            50% { filter: drop-shadow(0 0 25px rgba(0, 229, 255, 0.7)); }
         }
 
-        .logo-sub {
-            font-size: 0.65rem;
-            font-family: 'JetBrains Mono', monospace;
-            color: var(--accent-cyan);
-            letter-spacing: 2px;
-            text-transform: uppercase;
-            margin-top: -4px;
-        }
-
+        /* Animated nav links */
         nav ul {
             list-style: none;
             display: flex;
@@ -184,18 +167,20 @@
             transition: color 0.3s;
             position: relative;
             cursor: none;
+            padding: 0.5rem 0;
         }
 
         nav a::after {
             content: '';
             position: absolute;
-            bottom: -4px;
-            left: 0;
+            bottom: 0;
+            left: 50%;
             width: 0;
-            height: 1px;
-            background: var(--accent-cyan);
-            transition: width 0.3s ease;
-            box-shadow: 0 0 8px var(--accent-cyan);
+            height: 2px;
+            background: linear-gradient(90deg, var(--accent-cyan), var(--accent-blue));
+            transition: all 0.3s ease;
+            transform: translateX(-50%);
+            box-shadow: 0 0 10px var(--accent-cyan);
         }
 
         nav a:hover {
@@ -204,6 +189,16 @@
 
         nav a:hover::after {
             width: 100%;
+        }
+
+        /* Active nav glow */
+        nav a.active-nav {
+            color: var(--accent-cyan);
+        }
+
+        nav a.active-nav::after {
+            width: 100%;
+            background: var(--accent-cyan);
         }
 
         .dropdown {
@@ -215,7 +210,7 @@
             visibility: hidden;
             transform: translateY(10px);
             position: absolute;
-            top: calc(100% + 10px);
+            top: calc(100% + 15px);
             left: -20px;
             background: var(--glass-bg);
             backdrop-filter: blur(20px);
@@ -252,18 +247,19 @@
 
         .dropdown > a::before {
             content: '▼';
-            font-size: 0.6rem;
+            font-size: 0.5rem;
             margin-left: 6px;
             opacity: 0.6;
             display: inline-block;
             transition: transform 0.3s;
+            vertical-align: middle;
         }
 
         .dropdown:hover > a::before {
             transform: rotate(180deg);
         }
 
-        /* Layout */
+        /* ===== LAYOUT ===== */
         .container {
             max-width: 1300px;
             margin: 0 auto;
@@ -277,7 +273,7 @@
             position: relative;
         }
 
-        /* Hero Section */
+        /* ===== HERO ===== */
         .hero {
             min-height: 100vh;
             display: flex;
@@ -290,7 +286,7 @@
 
         .hero-grid {
             display: grid;
-            grid-template-columns: 1.2fr 0.8fr;
+            grid-template-columns: 1fr 1fr;
             gap: 4rem;
             align-items: center;
         }
@@ -298,8 +294,8 @@
         .hero-badge {
             display: inline-flex;
             align-items: center;
-            gap: 8px;
-            padding: 0.5rem 1rem;
+            gap: 10px;
+            padding: 0.6rem 1.2rem;
             background: rgba(0, 229, 255, 0.08);
             border: 1px solid var(--border-glow);
             border-radius: 100px;
@@ -313,21 +309,22 @@
         }
 
         .hero-badge .pulse {
-            width: 6px;
-            height: 6px;
+            width: 8px;
+            height: 8px;
             background: var(--accent-cyan);
             border-radius: 50%;
             animation: pulse 2s infinite;
+            box-shadow: 0 0 10px var(--accent-cyan);
         }
 
         @keyframes pulse {
             0%, 100% { opacity: 1; transform: scale(1); }
-            50% { opacity: 0.4; transform: scale(0.8); }
+            50% { opacity: 0.3; transform: scale(0.6); }
         }
 
         .hero h1 {
-            font-size: clamp(2.5rem, 5vw, 4.5rem);
-            line-height: 1.1;
+            font-size: clamp(2.8rem, 5vw, 4.8rem);
+            line-height: 1.05;
             margin-bottom: 1.5rem;
             font-weight: 800;
             letter-spacing: -2px;
@@ -345,7 +342,7 @@
         }
 
         .hero h1 .line:nth-child(1) span { animation-delay: 0.4s; }
-        .hero h1 .line:nth-child(2) span { animation-delay: 0.6s; }
+        .hero h1 .line:nth-child(2) span { animation-delay: 0.7s; }
 
         @keyframes revealText {
             to { transform: translateY(0); }
@@ -357,7 +354,7 @@
             -webkit-text-fill-color: transparent;
             background-clip: text;
             background-size: 200% 200%;
-            animation: gradientShift 6s ease infinite;
+            animation: gradientShift 4s ease infinite;
         }
 
         @keyframes gradientShift {
@@ -369,11 +366,11 @@
         .hero p {
             font-size: 1.15rem;
             color: var(--text-secondary);
-            max-width: 600px;
+            max-width: 560px;
             margin-bottom: 1.5rem;
-            line-height: 1.7;
+            line-height: 1.8;
             animation: fadeInUp 0.8s ease forwards;
-            animation-delay: 0.8s;
+            animation-delay: 1s;
             opacity: 0;
         }
 
@@ -383,7 +380,7 @@
             color: var(--text-secondary);
             margin-bottom: 2.5rem;
             animation: fadeInUp 0.8s ease forwards;
-            animation-delay: 1s;
+            animation-delay: 1.2s;
             opacity: 0;
         }
 
@@ -400,7 +397,7 @@
             display: flex;
             gap: 1rem;
             animation: fadeInUp 0.8s ease forwards;
-            animation-delay: 1.2s;
+            animation-delay: 1.4s;
             opacity: 0;
         }
 
@@ -412,7 +409,7 @@
             font-size: 0.95rem;
             font-weight: 600;
             text-decoration: none;
-            border-radius: 6px;
+            border-radius: 8px;
             transition: all 0.3s ease;
             cursor: none;
             position: relative;
@@ -458,95 +455,140 @@
             transform: translateY(-2px);
         }
 
-        /* Hero Right Side - Floating Elements */
+        /* ===== HFT ANIMATION ===== */
         .hero-visual {
             position: relative;
             height: 500px;
             display: flex;
             align-items: center;
             justify-content: center;
+            perspective: 1000px;
         }
 
-        .floating-card {
-            position: absolute;
+        .hft-terminal {
+            width: 100%;
+            max-width: 500px;
             background: var(--glass-bg);
             backdrop-filter: blur(20px);
             border: 1px solid var(--glass-border);
             border-radius: 16px;
-            padding: 1.5rem;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
-            animation: float 6s ease-in-out infinite;
+            overflow: hidden;
+            box-shadow: 0 25px 80px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(0, 229, 255, 0.1);
+            animation: terminalFloat 8s ease-in-out infinite;
+            transform-style: preserve-3d;
         }
 
-        .floating-card:nth-child(1) {
-            top: 10%;
-            right: 10%;
-            animation-delay: 0s;
-            width: 220px;
+        @keyframes terminalFloat {
+            0%, 100% { transform: translateY(0) rotateX(5deg) rotateY(-5deg); }
+            50% { transform: translateY(-15px) rotateX(5deg) rotateY(-5deg); }
         }
 
-        .floating-card:nth-child(2) {
-            bottom: 20%;
-            left: 0%;
-            animation-delay: 2s;
-            width: 200px;
+        .terminal-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 1rem 1.5rem;
+            background: rgba(0, 0, 0, 0.3);
+            border-bottom: 1px solid var(--border-subtle);
         }
 
-        .floating-card:nth-child(3) {
-            top: 40%;
-            left: 15%;
-            animation-delay: 4s;
-            width: 180px;
+        .terminal-dots {
+            display: flex;
+            gap: 8px;
         }
 
-        @keyframes float {
-            0%, 100% { transform: translateY(0px); }
-            50% { transform: translateY(-20px); }
+        .terminal-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
         }
 
-        .floating-card .label {
+        .terminal-dot:nth-child(1) { background: #ff5f56; }
+        .terminal-dot:nth-child(2) { background: #ffbd2e; }
+        .terminal-dot:nth-child(3) { background: #27ca40; }
+
+        .terminal-title {
             font-family: 'JetBrains Mono', monospace;
-            font-size: 0.7rem;
-            color: var(--accent-cyan);
-            margin-bottom: 0.5rem;
-            text-transform: uppercase;
+            font-size: 0.75rem;
+            color: var(--text-secondary);
             letter-spacing: 1px;
         }
 
-        .floating-card .value {
-            font-size: 1.5rem;
-            font-weight: 700;
-            color: var(--text-primary);
-        }
-
-        .floating-card .sub {
+        .terminal-body {
+            padding: 1.5rem;
+            font-family: 'JetBrains Mono', monospace;
             font-size: 0.8rem;
-            color: var(--text-secondary);
-            margin-top: 4px;
+            line-height: 1.8;
+            height: 350px;
+            overflow: hidden;
+            position: relative;
         }
 
-        .mini-chart {
+        .order-row {
             display: flex;
-            align-items: flex-end;
-            gap: 4px;
-            height: 40px;
-            margin-top: 12px;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.5rem 0;
+            border-bottom: 1px solid rgba(255,255,255,0.03);
+            animation: slideIn 0.4s ease forwards;
+            opacity: 0;
         }
 
-        .mini-bar {
-            flex: 1;
-            background: linear-gradient(to top, var(--accent-cyan), var(--accent-blue));
-            border-radius: 2px;
-            opacity: 0.6;
-            animation: barGrow 2s ease-in-out infinite alternate;
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateX(30px); }
+            to { opacity: 1; transform: translateX(0); }
         }
 
-        @keyframes barGrow {
-            from { transform: scaleY(0.3); }
-            to { transform: scaleY(1); }
+        .order-symbol { color: var(--text-primary); min-width: 60px; }
+        .order-side { font-size: 0.7rem; padding: 2px 8px; border-radius: 4px; font-weight: 500; }
+        .order-side.buy { background: rgba(39, 202, 64, 0.15); color: #27ca40; }
+        .order-side.sell { background: rgba(255, 95, 86, 0.15); color: #ff5f56; }
+        .order-qty { color: var(--text-secondary); }
+        .order-price { color: var(--accent-cyan); min-width: 70px; text-align: right; }
+        .order-status { font-size: 0.7rem; color: var(--text-secondary); min-width: 50px; text-align: right; }
+        .order-status.fill { color: #27ca40; animation: flash 0.5s; }
+
+        @keyframes flash {
+            0% { color: #fff; text-shadow: 0 0 10px #27ca40; }
+            100% { color: #27ca40; }
         }
 
-        /* Section Styling */
+        .latency-monitor {
+            position: absolute;
+            bottom: 1rem;
+            left: 1.5rem;
+            right: 1.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-top: 0.75rem;
+            border-top: 1px solid var(--border-subtle);
+        }
+
+        .latency-label { color: var(--text-secondary); font-size: 0.75rem; }
+        .latency-value { color: var(--accent-cyan); font-weight: 600; animation: latencyPulse 1s infinite; }
+
+        @keyframes latencyPulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+
+        .throughput-bar {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            height: 2px;
+            background: linear-gradient(90deg, var(--accent-cyan), var(--accent-blue));
+            animation: throughput 2s linear infinite;
+        }
+
+        @keyframes throughput {
+            0% { width: 0; left: 0; }
+            50% { width: 100%; left: 0; }
+            100% { width: 0; left: 100%; }
+        }
+
+        /* ===== SECTIONS ===== */
         .section-label {
             font-family: 'JetBrains Mono', monospace;
             font-size: 0.8rem;
@@ -569,12 +611,19 @@
 
         .section-title {
             font-size: clamp(2rem, 4vw, 3rem);
-            margin-bottom: 3rem;
+            margin-bottom: 1rem;
             font-weight: 800;
             letter-spacing: -1px;
         }
 
-        /* Reveal Animation Base */
+        .section-subtitle {
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+            max-width: 600px;
+            margin-bottom: 4rem;
+            line-height: 1.7;
+        }
+
         .reveal {
             opacity: 0;
             transform: translateY(40px);
@@ -586,80 +635,478 @@
             transform: translateY(0);
         }
 
-        /* Cards Grid */
-        .grid-3 {
+        /* ===== WHAT WE DO - ALTERNATING ===== */
+        .topic-row {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-            gap: 1.5rem;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+            margin-bottom: 100px;
         }
 
-        .card {
-            background: var(--bg-surface);
-            padding: 2.5rem;
-            border-radius: 16px;
-            border: 1px solid var(--border-subtle);
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-            position: relative;
-            overflow: hidden;
-            cursor: none;
+        .topic-row:last-child {
+            margin-bottom: 0;
         }
 
-        .card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 1px;
-            background: linear-gradient(90deg, transparent, var(--accent-cyan), transparent);
-            opacity: 0;
-            transition: opacity 0.4s;
+        .topic-row.reverse {
+            direction: rtl;
         }
 
-        .card:hover {
-            transform: translateY(-8px);
-            border-color: var(--border-glow);
-            box-shadow: 0 20px 60px rgba(0, 229, 255, 0.08), 0 0 0 1px var(--border-glow);
+        .topic-row.reverse > * {
+            direction: ltr;
         }
 
-        .card:hover::before {
-            opacity: 1;
+        .topic-content h3 {
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            color: var(--text-primary);
         }
 
-        .card-icon {
-            width: 48px;
-            height: 48px;
-            background: linear-gradient(135deg, rgba(0, 229, 255, 0.1), rgba(79, 70, 229, 0.1));
-            border: 1px solid var(--border-glow);
-            border-radius: 12px;
+        .topic-content h3 .topic-num {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.9rem;
+            color: var(--accent-cyan);
+            display: block;
+            margin-bottom: 0.5rem;
+            letter-spacing: 2px;
+        }
+
+        .topic-content p {
+            color: var(--text-secondary);
+            font-size: 1.05rem;
+            line-height: 1.8;
+            margin-bottom: 1.5rem;
+        }
+
+        .topic-features {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+
+        .topic-features li {
             display: flex;
             align-items: center;
-            justify-content: center;
-            margin-bottom: 1.5rem;
-            font-size: 1.5rem;
-            transition: all 0.3s;
+            gap: 10px;
+            color: var(--text-secondary);
+            font-size: 0.95rem;
         }
 
-        .card:hover .card-icon {
-            background: linear-gradient(135deg, rgba(0, 229, 255, 0.2), rgba(79, 70, 229, 0.2));
-            transform: scale(1.1);
-            box-shadow: 0 0 20px rgba(0, 229, 255, 0.2);
-        }
-
-        .card h3 {
-            color: var(--text-primary);
-            margin-bottom: 1rem;
-            font-size: 1.25rem;
+        .topic-features li::before {
+            content: '→';
+            color: var(--accent-cyan);
             font-weight: 700;
         }
 
-        .card p {
-            color: var(--text-secondary);
-            font-size: 0.95rem;
-            line-height: 1.7;
+        .topic-visual {
+            position: relative;
+            height: 350px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
-        /* Approach Section with Timeline */
+        /* Strategy Visual - Neural Network */
+        .neural-viz {
+            width: 100%;
+            height: 100%;
+            position: relative;
+        }
+
+        .neural-node {
+            position: absolute;
+            width: 12px;
+            height: 12px;
+            background: var(--accent-cyan);
+            border-radius: 50%;
+            box-shadow: 0 0 15px rgba(0, 229, 255, 0.5);
+            animation: nodePulse 3s ease-in-out infinite;
+        }
+
+        @keyframes nodePulse {
+            0%, 100% { transform: scale(1); opacity: 0.8; }
+            50% { transform: scale(1.3); opacity: 1; }
+        }
+
+        .neural-line {
+            position: absolute;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--accent-cyan), transparent);
+            opacity: 0.3;
+            animation: linePulse 3s ease-in-out infinite;
+        }
+
+        @keyframes linePulse {
+            0%, 100% { opacity: 0.1; }
+            50% { opacity: 0.4; }
+        }
+
+        /* Execution Visual - Data Pipeline */
+        .pipeline-viz {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            gap: 1.5rem;
+        }
+
+        .pipeline-stage {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .pipeline-box {
+            flex: 1;
+            padding: 1rem;
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: 10px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .pipeline-box.active {
+            border-color: var(--accent-cyan);
+            box-shadow: 0 0 20px rgba(0, 229, 255, 0.1);
+        }
+
+        .pipeline-box .fill-bar {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            height: 2px;
+            background: var(--accent-cyan);
+            animation: fillBar 2s ease-in-out infinite;
+        }
+
+        @keyframes fillBar {
+            0% { width: 0; }
+            50% { width: 100%; }
+            100% { width: 0; left: auto; right: 0; }
+        }
+
+        .pipeline-arrow {
+            color: var(--accent-cyan);
+            font-size: 1.2rem;
+            animation: arrowMove 1.5s ease-in-out infinite;
+        }
+
+        @keyframes arrowMove {
+            0%, 100% { transform: translateX(0); opacity: 0.5; }
+            50% { transform: translateX(5px); opacity: 1; }
+        }
+
+        /* Backtest Visual - Chart */
+        .chart-viz {
+            width: 100%;
+            height: 100%;
+            position: relative;
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: 16px;
+            padding: 1.5rem;
+        }
+
+        .chart-grid {
+            position: absolute;
+            top: 1.5rem;
+            left: 1.5rem;
+            right: 1.5rem;
+            bottom: 3rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .chart-grid-line {
+            width: 100%;
+            height: 1px;
+            background: rgba(255,255,255,0.05);
+        }
+
+        .chart-bars {
+            position: absolute;
+            bottom: 3rem;
+            left: 1.5rem;
+            right: 1.5rem;
+            height: calc(100% - 4.5rem);
+            display: flex;
+            align-items: flex-end;
+            justify-content: space-around;
+            gap: 4px;
+        }
+
+        .chart-bar {
+            flex: 1;
+            background: linear-gradient(to top, var(--accent-blue), var(--accent-cyan));
+            border-radius: 3px 3px 0 0;
+            opacity: 0.7;
+            animation: barGrow 2s ease-in-out infinite alternate;
+            min-height: 20px;
+        }
+
+        .chart-bar:nth-child(odd) {
+            background: linear-gradient(to top, var(--accent-purple), var(--accent-blue));
+            animation-delay: 0.3s;
+        }
+
+        @keyframes barGrow {
+            from { height: 20%; }
+            to { height: 90%; }
+        }
+
+        .chart-label {
+            position: absolute;
+            bottom: 1rem;
+            left: 1.5rem;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.7rem;
+            color: var(--text-secondary);
+        }
+
+        /* Automation Visual - Gears */
+        .automation-viz {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 2rem;
+        }
+
+        .gear {
+            width: 80px;
+            height: 80px;
+            border: 3px dashed var(--accent-cyan);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            color: var(--accent-cyan);
+            animation: spin 8s linear infinite;
+            box-shadow: 0 0 30px rgba(0, 229, 255, 0.1);
+        }
+
+        .gear:nth-child(2) {
+            width: 60px;
+            height: 60px;
+            animation-direction: reverse;
+            animation-duration: 6s;
+            border-color: var(--accent-blue);
+            color: var(--accent-blue);
+        }
+
+        .gear:nth-child(3) {
+            width: 50px;
+            height: 50px;
+            animation-duration: 5s;
+            border-color: var(--accent-purple);
+            color: var(--accent-purple);
+        }
+
+        @keyframes spin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        /* Market Making Visual - Order Book */
+        .ob-viz {
+            width: 100%;
+            height: 100%;
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: 16px;
+            padding: 1.5rem;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.75rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .ob-header {
+            display: flex;
+            justify-content: space-between;
+            color: var(--text-secondary);
+            font-size: 0.7rem;
+            margin-bottom: 0.5rem;
+            border-bottom: 1px solid var(--border-subtle);
+            padding-bottom: 0.5rem;
+        }
+
+        .ob-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 0.25rem 0;
+        }
+
+        .ob-price { min-width: 60px; }
+        .ob-size { min-width: 60px; text-align: center; }
+        .ob-total { min-width: 60px; text-align: right; }
+
+        .ob-bid .ob-price { color: #27ca40; }
+        .ob-bid .ob-size { color: rgba(39, 202, 64, 0.6); }
+        .ob-ask .ob-price { color: #ff5f56; }
+        .ob-ask .ob-size { color: rgba(255, 95, 86, 0.6); }
+
+        .ob-spread {
+            text-align: center;
+            padding: 0.5rem;
+            color: var(--accent-cyan);
+            font-size: 0.8rem;
+            border-top: 1px solid var(--border-subtle);
+            border-bottom: 1px solid var(--border-subtle);
+            margin: 0.25rem 0;
+        }
+
+        /* Analytics Visual - Radar */
+        .analytics-viz {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+
+        .radar-container {
+            width: 250px;
+            height: 250px;
+            position: relative;
+        }
+
+        .radar-ring {
+            position: absolute;
+            border: 1px solid rgba(0, 229, 255, 0.2);
+            border-radius: 50%;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            animation: radarExpand 3s ease-out infinite;
+        }
+
+        .radar-ring:nth-child(1) { width: 50px; height: 50px; animation-delay: 0s; }
+        .radar-ring:nth-child(2) { width: 100px; height: 100px; animation-delay: 0.5s; }
+        .radar-ring:nth-child(3) { width: 150px; height: 150px; animation-delay: 1s; }
+        .radar-ring:nth-child(4) { width: 200px; height: 200px; animation-delay: 1.5s; }
+
+        @keyframes radarExpand {
+            0% { opacity: 1; transform: translate(-50%, -50%) scale(0.8); }
+            100% { opacity: 0; transform: translate(-50%, -50%) scale(1.2); }
+        }
+
+        .radar-center {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 20px;
+            height: 20px;
+            background: var(--accent-cyan);
+            border-radius: 50%;
+            box-shadow: 0 0 30px var(--accent-cyan);
+            animation: centerPulse 2s ease-in-out infinite;
+        }
+
+        @keyframes centerPulse {
+            0%, 100% { transform: translate(-50%, -50%) scale(1); }
+            50% { transform: translate(-50%, -50%) scale(1.2); }
+        }
+
+        /* ===== STATS BAR ===== */
+        .stats-bar {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 2rem;
+            padding: 3rem 0;
+            border-top: 1px solid var(--border-subtle);
+            border-bottom: 1px solid var(--border-subtle);
+            margin-bottom: 80px;
+        }
+
+        .stat-item {
+            text-align: center;
+            position: relative;
+        }
+
+        .stat-item:not(:last-child)::after {
+            content: '';
+            position: absolute;
+            right: -1rem;
+            top: 20%;
+            height: 60%;
+            width: 1px;
+            background: var(--border-subtle);
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--accent-cyan), var(--accent-blue));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            line-height: 1;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            font-family: 'JetBrains Mono', monospace;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* ===== TECH STACK ===== */
+        .tech-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1.5rem;
+        }
+
+        .tech-card {
+            background: var(--bg-surface);
+            border: 1px solid var(--border-subtle);
+            border-radius: 12px;
+            padding: 2rem;
+            text-align: center;
+            transition: all 0.3s;
+            cursor: none;
+        }
+
+        .tech-card:hover {
+            border-color: var(--border-glow);
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0, 229, 255, 0.05);
+        }
+
+        .tech-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            display: block;
+        }
+
+        .tech-card h4 {
+            font-size: 1rem;
+            margin-bottom: 0.5rem;
+            color: var(--text-primary);
+        }
+
+        .tech-card p {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+        }
+
+        /* ===== APPROACH ===== */
         .approach-grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
@@ -668,7 +1115,7 @@
 
         .approach-item {
             background: var(--bg-surface);
-            padding: 2rem;
+            padding: 2.5rem;
             border-radius: 16px;
             border: 1px solid var(--border-subtle);
             display: flex;
@@ -680,14 +1127,15 @@
         .approach-item:hover {
             border-color: var(--border-glow);
             transform: translateX(8px);
+            box-shadow: 0 20px 60px rgba(0, 229, 255, 0.05);
         }
 
         .approach-number {
             font-family: 'JetBrains Mono', monospace;
-            font-size: 2rem;
+            font-size: 2.5rem;
             font-weight: 700;
             color: var(--accent-cyan);
-            opacity: 0.5;
+            opacity: 0.4;
             line-height: 1;
             transition: all 0.3s;
         }
@@ -698,18 +1146,18 @@
         }
 
         .approach-content h3 {
-            font-size: 1.2rem;
-            margin-bottom: 0.5rem;
+            font-size: 1.3rem;
+            margin-bottom: 0.75rem;
             color: var(--text-primary);
         }
 
         .approach-content p {
             color: var(--text-secondary);
-            font-size: 0.9rem;
-            line-height: 1.6;
+            font-size: 0.95rem;
+            line-height: 1.7;
         }
 
-        /* Who We Serve */
+        /* ===== WHO WE SERVE ===== */
         .serve-section {
             text-align: center;
             background: linear-gradient(180deg, var(--bg-deep) 0%, var(--bg-surface) 50%, var(--bg-deep) 100%);
@@ -758,7 +1206,7 @@
         .mission-text {
             max-width: 800px;
             margin: 0 auto;
-            font-size: 1.1rem;
+            font-size: 1.15rem;
             color: var(--text-secondary);
             line-height: 1.9;
         }
@@ -768,7 +1216,7 @@
             font-weight: 600;
         }
 
-        /* Footer */
+        /* ===== FOOTER ===== */
         footer {
             background: var(--bg-surface);
             padding: 5rem 0 2rem;
@@ -796,6 +1244,11 @@
 
         .footer-brand .logo-text {
             font-size: 1.5rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--text-primary) 0%, var(--accent-cyan) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
             margin-bottom: 1rem;
             display: inline-block;
         }
@@ -870,14 +1323,14 @@
             box-shadow: 0 0 15px rgba(0, 229, 255, 0.2);
         }
 
-        /* Background Glow Effects */
+        /* Glow Orbs */
         .glow-orb {
             position: fixed;
             border-radius: 50%;
             filter: blur(100px);
             pointer-events: none;
             z-index: 0;
-            opacity: 0.15;
+            opacity: 0.12;
         }
 
         .glow-orb-1 {
@@ -908,15 +1361,21 @@
         @media (max-width: 968px) {
             .hero-grid { grid-template-columns: 1fr; }
             .hero-visual { display: none; }
+            .topic-row { grid-template-columns: 1fr; }
+            .topic-row.reverse { direction: ltr; }
             .approach-grid { grid-template-columns: 1fr; }
+            .stats-bar { grid-template-columns: repeat(2, 1fr); }
+            .tech-grid { grid-template-columns: repeat(2, 1fr); }
             .footer-grid { grid-template-columns: 1fr 1fr; }
             nav ul { gap: 1.5rem; }
             body { cursor: auto; }
             .cursor-glow, .cursor-trail { display: none; }
-            .btn, nav a, .card, .serve-tag, .social-link { cursor: pointer; }
+            .btn, nav a, .card, .serve-tag, .social-link, .tech-card { cursor: pointer; }
         }
 
         @media (max-width: 640px) {
+            .stats-bar { grid-template-columns: 1fr; }
+            .tech-grid { grid-template-columns: 1fr; }
             .footer-grid { grid-template-columns: 1fr; }
             nav ul { display: none; }
         }
@@ -936,14 +1395,10 @@
         <div class="nav-container">
             <a href="#" class="logo">
                 <img src="quant_particle_logo.png" alt="QuantParticle Logo" onerror="this.style.display='none'">
-                <div>
-                    <div class="logo-text">QuantParticle</div>
-                    <div class="logo-sub">Quantitative Systems</div>
-                </div>
             </a>
             <nav>
                 <ul>
-                    <li><a href="#">Home</a></li>
+                    <li><a href="#" class="active-nav">Home</a></li>
                     <li><a href="#about">About</a></li>
                     <li class="dropdown">
                         <a href="#solutions">Solutions</a>
@@ -964,6 +1419,7 @@
     </header>
 
     <main>
+        <!-- HERO -->
         <section class="hero container">
             <div class="hero-grid">
                 <div class="hero-content">
@@ -976,8 +1432,7 @@
                         <div class="line"><span class="accent">Engineered.</span></div>
                     </h1>
                     <p>
-                        <strong style="color: var(--text-primary);">Research-Driven Trading Technology.</strong><br>
-                        QuantParticle develops quantitative trading systems, execution infrastructure, and systematic trading solutions for professional traders, proprietary trading firms, institutions, and fintech businesses.
+                        <strong style="color: var(--text-primary);">Research-Driven Trading Technology.</strong> QuantParticle develops quantitative trading systems, execution infrastructure, and systematic trading solutions for professional traders, proprietary trading firms, institutions, and fintech businesses across global markets.
                     </p>
                     <div class="hero-meta">
                         LFT <span>|</span> MFT <span>|</span> HFT <span>//</span> Multi-Asset <span>//</span> Global Markets
@@ -991,75 +1446,302 @@
                     </div>
                 </div>
                 <div class="hero-visual">
-                    <div class="floating-card">
-                        <div class="label">Portfolio PnL</div>
-                        <div class="value">+24.8%</div>
-                        <div class="sub">YTD Return</div>
-                        <div class="mini-chart">
-                            <div class="mini-bar" style="height: 60%; animation-delay: 0s;"></div>
-                            <div class="mini-bar" style="height: 80%; animation-delay: 0.2s;"></div>
-                            <div class="mini-bar" style="height: 45%; animation-delay: 0.4s;"></div>
-                            <div class="mini-bar" style="height: 90%; animation-delay: 0.6s;"></div>
-                            <div class="mini-bar" style="height: 70%; animation-delay: 0.8s;"></div>
-                            <div class="mini-bar" style="height: 100%; animation-delay: 1s;"></div>
+                    <div class="hft-terminal">
+                        <div class="terminal-header">
+                            <div class="terminal-dots">
+                                <span class="terminal-dot"></span>
+                                <span class="terminal-dot"></span>
+                                <span class="terminal-dot"></span>
+                            </div>
+                            <span class="terminal-title">EXECUTION_ENGINE // LIVE</span>
+                            <div style="width: 40px;"></div>
+                        </div>
+                        <div class="terminal-body" id="terminal-body">
+                            <!-- JS will populate orders -->
+                        </div>
+                        <div class="latency-monitor">
+                            <span class="latency-label">AVG LATENCY</span>
+                            <span class="latency-value" id="latency">8.4 μs</span>
+                            <span class="latency-label">THROUGHPUT</span>
+                            <span class="latency-value">142K TPS</span>
+                        </div>
+                        <div class="throughput-bar"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- STATS BAR -->
+        <section class="container" style="padding-top: 0; padding-bottom: 0;">
+            <div class="stats-bar reveal">
+                <div class="stat-item">
+                    <div class="stat-number">$4.2B+</div>
+                    <div class="stat-label">Notional Traded</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">12 μs</div>
+                    <div class="stat-label">Avg Latency</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">142</div>
+                    <div class="stat-label">Active Strategies</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">99.99%</div>
+                    <div class="stat-label">Uptime SLA</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- WHAT WE DO - ALTERNATING -->
+        <section id="solutions" class="container">
+            <div class="reveal" style="text-align: center; margin-bottom: 80px;">
+                <div class="section-label" style="justify-content: center;">
+                    <span style="width: 30px; height: 1px; background: var(--accent-cyan); box-shadow: 0 0 8px var(--accent-cyan);"></span>
+                    <span>Capabilities</span>
+                    <span style="width: 30px; height: 1px; background: var(--accent-cyan); box-shadow: 0 0 8px var(--accent-cyan);"></span>
+                </div>
+                <h2 class="section-title">What We Do</h2>
+                <p class="section-subtitle" style="margin: 0 auto;">End-to-end quantitative infrastructure from research to live execution across LFT, MFT, and HFT regimes.</p>
+            </div>
+
+            <!-- Topic 1: Left content, Right visual -->
+            <div class="topic-row reveal">
+                <div class="topic-content">
+                    <h3>
+                        <span class="topic-num">01 // STRATEGY</span>
+                        Quantitative Strategy Development
+                    </h3>
+                    <p>We architect systematic trading models grounded in statistical inference, mathematical optimization, and market microstructure theory. Every signal is hypothesis-tested before touching production capital.</p>
+                    <ul class="topic-features">
+                        <li>Statistical arbitrage & factor modeling</li>
+                        <li>Machine learning signal generation</li>
+                        <li>Regime detection & adaptivity</li>
+                        <li>Multi-asset & cross-market systems</li>
+                    </ul>
+                </div>
+                <div class="topic-visual">
+                    <div class="neural-viz" id="neural-viz"></div>
+                </div>
+            </div>
+
+            <!-- Topic 2: Right content, Left visual -->
+            <div class="topic-row reverse reveal">
+                <div class="topic-visual">
+                    <div class="pipeline-viz">
+                        <div class="pipeline-stage">
+                            <div class="pipeline-box active">
+                                Signal Generation
+                                <div class="fill-bar"></div>
+                            </div>
+                            <span class="pipeline-arrow">→</span>
+                            <div class="pipeline-box">
+                                Risk Engine
+                                <div class="fill-bar" style="animation-delay: 0.5s;"></div>
+                            </div>
+                        </div>
+                        <div class="pipeline-stage">
+                            <div class="pipeline-box">
+                                Order Manager
+                                <div class="fill-bar" style="animation-delay: 1s;"></div>
+                            </div>
+                            <span class="pipeline-arrow">→</span>
+                            <div class="pipeline-box">
+                                Exchange Gateway
+                                <div class="fill-bar" style="animation-delay: 1.5s;"></div>
+                            </div>
+                        </div>
+                        <div class="pipeline-stage" style="justify-content: center;">
+                            <span class="pipeline-arrow" style="transform: rotate(90deg); animation: none; font-size: 1.5rem; margin: -0.5rem 0;">↓</span>
+                        </div>
+                        <div class="pipeline-stage">
+                            <div class="pipeline-box active" style="flex: 0 0 60%; margin: 0 auto; text-align: center;">
+                                P&L & Monitoring
+                                <div class="fill-bar" style="animation-delay: 0.3s;"></div>
+                            </div>
                         </div>
                     </div>
-                    <div class="floating-card">
-                        <div class="label">Latency</div>
-                        <div class="value">12 μs</div>
-                        <div class="sub">Execution Round-Trip</div>
+                </div>
+                <div class="topic-content">
+                    <h3>
+                        <span class="topic-num">02 // EXECUTION</span>
+                        Execution Infrastructure
+                    </h3>
+                    <p>Institution-grade execution systems designed for sub-millisecond order routing, intelligent position management, real-time risk controls, and seamless strategy deployment across fragmented liquidity venues.</p>
+                    <ul class="topic-features">
+                        <li>Colocated & cross-region deployment</li>
+                        <li>Smart order routing & slicing</li>
+                        <li>Real-time position & P&L tracking</li>
+                        <li>Multi-venue connectivity</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Topic 3: Left content, Right visual -->
+            <div class="topic-row reveal">
+                <div class="topic-content">
+                    <h3>
+                        <span class="topic-num">03 // RESEARCH</span>
+                        Backtesting & Research
+                    </h3>
+                    <p>Robust simulation frameworks that replicate real market conditions — slippage, latency, partial fills, and fees — so strategies are validated honestly before live capital deployment.</p>
+                    <ul class="topic-features">
+                        <li>Tick-level & bar-based simulation</li>
+                        <li>Transaction cost analysis</li>
+                        <li>Walk-forward & out-of-sample testing</li>
+                        <li>Parameter stability & overfitting detection</li>
+                    </ul>
+                </div>
+                <div class="topic-visual">
+                    <div class="chart-viz">
+                        <div class="chart-grid">
+                            <div class="chart-grid-line"></div>
+                            <div class="chart-grid-line"></div>
+                            <div class="chart-grid-line"></div>
+                            <div class="chart-grid-line"></div>
+                            <div class="chart-grid-line"></div>
+                        </div>
+                        <div class="chart-bars">
+                            <div class="chart-bar" style="height: 40%;"></div>
+                            <div class="chart-bar" style="height: 65%;"></div>
+                            <div class="chart-bar" style="height: 30%;"></div>
+                            <div class="chart-bar" style="height: 80%;"></div>
+                            <div class="chart-bar" style="height: 55%;"></div>
+                            <div class="chart-bar" style="height: 90%;"></div>
+                            <div class="chart-bar" style="height: 45%;"></div>
+                            <div class="chart-bar" style="height: 70%;"></div>
+                            <div class="chart-bar" style="height: 85%;"></div>
+                            <div class="chart-bar" style="height: 60%;"></div>
+                        </div>
+                        <div class="chart-label">CUMULATIVE P&L // BACKTEST SERIES</div>
                     </div>
-                    <div class="floating-card">
-                        <div class="label">Active Strategies</div>
-                        <div class="value">142</div>
-                        <div class="sub">Across 8 Asset Classes</div>
+                </div>
+            </div>
+
+            <!-- Topic 4: Right content, Left visual -->
+            <div class="topic-row reverse reveal">
+                <div class="topic-visual">
+                    <div class="automation-viz">
+                        <div class="gear">⚙</div>
+                        <div class="gear">⚙</div>
+                        <div class="gear">⚙</div>
                     </div>
+                </div>
+                <div class="topic-content">
+                    <h3>
+                        <span class="topic-num">04 // AUTOMATION</span>
+                        Trading Automation
+                    </h3>
+                    <p>Zero-touch automation pipelines integrating market data ingestion, signal generation, execution, and post-trade monitoring. Built for 24/7 reliability with autonomous failover and alerting.</p>
+                    <ul class="topic-features">
+                        <li>Fully automated signal-to-trade lifecycle</li>
+                        <li>Webhook & API bridge integrations</li>
+                        <li>Self-healing & recovery systems</li>
+                        <li>Telegram, Slack, & dashboard alerts</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Topic 5: Left content, Right visual -->
+            <div class="topic-row reveal">
+                <div class="topic-content">
+                    <h3>
+                        <span class="topic-num">05 // MARKET MAKING</span>
+                        Market Making Systems
+                    </h3>
+                    <p>Adaptive liquidity provision frameworks with dynamic spread capture, inventory skew management, and real-time hedging. Engineered for volatile and fragmented microstructures.</p>
+                    <ul class="topic-features">
+                        <li>Two-sided quote management</li>
+                        <li>Inventory risk & skew optimization</li>
+                        <li>Adverse selection detection</li>
+                        <li>Rebate capture & fee optimization</li>
+                    </ul>
+                </div>
+                <div class="topic-visual">
+                    <div class="ob-viz" id="ob-viz">
+                        <div class="ob-header">
+                            <span>SYMBOL: BTC-PERP</span>
+                            <span>DEPTH: L2</span>
+                        </div>
+                        <div id="ob-asks"></div>
+                        <div class="ob-spread">SPREAD: 0.02%</div>
+                        <div id="ob-bids"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Topic 6: Right content, Left visual -->
+            <div class="topic-row reverse reveal">
+                <div class="topic-visual">
+                    <div class="analytics-viz">
+                        <div class="radar-container">
+                            <div class="radar-ring"></div>
+                            <div class="radar-ring"></div>
+                            <div class="radar-ring"></div>
+                            <div class="radar-ring"></div>
+                            <div class="radar-center"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="topic-content">
+                    <h3>
+                        <span class="topic-num">06 // ANALYTICS</span>
+                        Quantitative Analytics
+                    </h3>
+                    <p>Advanced performance diagnostics including factor decomposition, drawdown attribution, Sharpe/Sortmax optimization, and real-time portfolio health dashboards for decision-makers.</p>
+                    <ul class="topic-features">
+                        <li>Factor exposure & attribution models</li>
+                        <li>Drawdown & tail-risk decomposition</li>
+                        <li>Real-time performance dashboards</li>
+                        <li>Correlation & beta monitoring</li>
+                    </ul>
                 </div>
             </div>
         </section>
 
-        <section id="solutions" class="container">
-            <div class="reveal">
-                <div class="section-label">Capabilities</div>
-                <h2 class="section-title">What We Do</h2>
+        <!-- TECHNOLOGY -->
+        <section id="technology" class="container">
+            <div class="reveal" style="text-align: center; margin-bottom: 60px;">
+                <div class="section-label" style="justify-content: center;">
+                    <span style="width: 30px; height: 1px; background: var(--accent-cyan); box-shadow: 0 0 8px var(--accent-cyan);"></span>
+                    <span>Stack</span>
+                    <span style="width: 30px; height: 1px; background: var(--accent-cyan); box-shadow: 0 0 8px var(--accent-cyan);"></span>
+                </div>
+                <h2 class="section-title">Technology We Deploy</h2>
+                <p class="section-subtitle" style="margin: 0 auto;">Modern, performant, and battle-tested infrastructure for mission-critical trading environments.</p>
             </div>
-            <div class="grid-3">
-                <div class="card reveal">
-                    <div class="card-icon">◈</div>
-                    <h3>Quantitative Strategy Development</h3>
-                    <p>Design and development of systematic trading models based on statistical, mathematical, and market microstructure research.</p>
+            <div class="tech-grid reveal">
+                <div class="tech-card">
+                    <span class="tech-icon">◈</span>
+                    <h4>Pine Script / TradingView</h4>
+                    <p>Custom indicator & strategy development with advanced visualizations</p>
                 </div>
-                <div class="card reveal">
-                    <div class="card-icon">⚡</div>
-                    <h3>Execution Infrastructure</h3>
-                    <p>Institution-grade execution systems designed to automate order routing, position management, risk controls, and strategy deployment.</p>
+                <div class="tech-card">
+                    <span class="tech-icon">⚡</span>
+                    <h4>C++ / Rust Engine</h4>
+                    <p>Low-latency execution cores for HFT and market making systems</p>
                 </div>
-                <div class="card reveal">
-                    <div class="card-icon">◎</div>
-                    <h3>Backtesting & Research</h3>
-                    <p>Robust simulation frameworks for validating strategies across multiple market conditions before capital deployment.</p>
+                <div class="tech-card">
+                    <span class="tech-icon">◎</span>
+                    <h4>Python / PyTorch</h4>
+                    <p>ML signal generation, backtesting frameworks & data pipelines</p>
                 </div>
-                <div class="card reveal">
-                    <div class="card-icon">⟳</div>
-                    <h3>Trading Automation</h3>
-                    <p>End-to-end automation solutions integrating data, signals, execution, and monitoring with zero manual intervention.</p>
-                </div>
-                <div class="card reveal">
-                    <div class="card-icon">◇</div>
-                    <h3>Market Making Systems</h3>
-                    <p>Development of liquidity provision, spread capture, inventory management, and adaptive market making frameworks.</p>
-                </div>
-                <div class="card reveal">
-                    <div class="card-icon">⊕</div>
-                    <h3>Quantitative Analytics</h3>
-                    <p>Advanced performance analytics, factor modelling, optimization, and real-time portfolio diagnostics.</p>
+                <div class="tech-card">
+                    <span class="tech-icon">◇</span>
+                    <h4>WebSocket / FIX</h4>
+                    <p>Exchange connectivity, order routing, and real-time market data</p>
                 </div>
             </div>
         </section>
 
+        <!-- APPROACH -->
         <section id="about" class="container">
-            <div class="reveal">
-                <div class="section-label">Methodology</div>
+            <div class="reveal" style="text-align: center; margin-bottom: 60px;">
+                <div class="section-label" style="justify-content: center;">
+                    <span style="width: 30px; height: 1px; background: var(--accent-cyan); box-shadow: 0 0 8px var(--accent-cyan);"></span>
+                    <span>Methodology</span>
+                    <span style="width: 30px; height: 1px; background: var(--accent-cyan); box-shadow: 0 0 8px var(--accent-cyan);"></span>
+                </div>
                 <h2 class="section-title">Our Approach</h2>
             </div>
             <div class="approach-grid">
@@ -1081,7 +1763,7 @@
                     <div class="approach-number">03</div>
                     <div class="approach-content">
                         <h3>Systematic Execution</h3>
-                        <p>Execution quality is treated as a core component of strategy performance, not an afterthought. Every microsecond matters.</p>
+                        <p>Execution quality is treated as a core component of strategy performance, not an afterthought. Every microsecond matters in our design.</p>
                     </div>
                 </div>
                 <div class="approach-item reveal">
@@ -1094,9 +1776,14 @@
             </div>
         </section>
 
+        <!-- WHO WE SERVE -->
         <section class="serve-section container">
             <div class="reveal">
-                <div class="section-label">Clients</div>
+                <div class="section-label" style="justify-content: center;">
+                    <span style="width: 30px; height: 1px; background: var(--accent-cyan); box-shadow: 0 0 8px var(--accent-cyan);"></span>
+                    <span>Clients</span>
+                    <span style="width: 30px; height: 1px; background: var(--accent-cyan); box-shadow: 0 0 8px var(--accent-cyan);"></span>
+                </div>
                 <h2 class="section-title">Who We Serve</h2>
             </div>
             <div class="serve-tags reveal">
@@ -1106,11 +1793,13 @@
                 <div class="serve-tag">Fintech Companies</div>
                 <div class="serve-tag">Professional Traders</div>
                 <div class="serve-tag">Brokerage Technology Platforms</div>
+                <div class="serve-tag">Family Offices</div>
+                <div class="serve-tag">Hedge Funds</div>
             </div>
             <div class="reveal">
-                <h3 style="font-size: 2rem; font-weight: 800; margin-bottom: 1.5rem; letter-spacing: -1px;">Building the Future of Systematic Trading</h3>
+                <h3 style="font-size: 2.2rem; font-weight: 800; margin-bottom: 1.5rem; letter-spacing: -1px;">Building the Future of Systematic Trading</h3>
                 <p class="mission-text">
-                    From idea generation to live deployment, we help transform trading concepts into <strong>scalable, data-driven systems</strong>. Our mission is to bridge quantitative research, execution technology, and automation infrastructure to create intelligent trading systems capable of operating across modern financial markets.
+                    From idea generation to live deployment, we help transform trading concepts into <strong>scalable, data-driven systems</strong>. Our mission is to bridge quantitative research, execution technology, and automation infrastructure to create intelligent trading systems capable of operating across modern financial markets — equities, futures, crypto, FX, and options.
                 </p>
             </div>
         </section>
@@ -1173,18 +1862,15 @@
             cursorY += (mouseY - cursorY) * 0.15;
             trailX += (mouseX - trailX) * 0.08;
             trailY += (mouseY - trailY) * 0.08;
-            
             cursor.style.left = cursorX + 'px';
             cursor.style.top = cursorY + 'px';
             trail.style.left = trailX + 'px';
             trail.style.top = trailY + 'px';
-            
             requestAnimationFrame(animateCursor);
         }
         animateCursor();
 
-        // Hover effect for interactive elements
-        const interactiveElements = document.querySelectorAll('a, button, .card, .serve-tag');
+        const interactiveElements = document.querySelectorAll('a, button, .card, .serve-tag, .tech-card');
         interactiveElements.forEach(el => {
             el.addEventListener('mouseenter', () => cursor.classList.add('hover'));
             el.addEventListener('mouseleave', () => cursor.classList.remove('hover'));
@@ -1208,12 +1894,27 @@
             }
         });
 
-        // Intersection Observer for reveal animations
-        const observerOptions = {
-            threshold: 0.1,
-            rootMargin: '0px 0px -50px 0px'
-        };
+        // Active nav highlighting
+        const sections = document.querySelectorAll('section[id]');
+        const navLinks = document.querySelectorAll('nav a[href^="#"]');
+        window.addEventListener('scroll', () => {
+            let current = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                if (window.scrollY >= sectionTop - 200) {
+                    current = section.getAttribute('id');
+                }
+            });
+            navLinks.forEach(link => {
+                link.classList.remove('active-nav');
+                if (link.getAttribute('href') === '#' + current) {
+                    link.classList.add('active-nav');
+                }
+            });
+        });
 
+        // Intersection Observer
+        const observerOptions = { threshold: 0.1, rootMargin: '0px 0px -50px 0px' };
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
@@ -1221,13 +1922,11 @@
                 }
             });
         }, observerOptions);
-
         document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 
-        // Particle System with Constellation Effect
+        // Particle System
         const canvas = document.getElementById('particle-canvas');
         const ctx = canvas.getContext('2d');
-
         function resizeCanvas() {
             canvas.width = window.innerWidth;
             canvas.height = window.innerHeight;
@@ -1237,12 +1936,10 @@
 
         let particles = [];
         const mouse = { x: null, y: null, radius: 200 };
-
         window.addEventListener('mousemove', (e) => {
             mouse.x = e.x;
             mouse.y = e.y;
         });
-
         window.addEventListener('mouseout', () => {
             mouse.x = null;
             mouse.y = null;
@@ -1260,14 +1957,11 @@
                 this.vy = (Math.random() - 0.5) * 0.5;
                 this.opacity = Math.random() * 0.5 + 0.2;
             }
-
             update() {
-                // Mouse attraction (magnet effect)
                 if (mouse.x != null) {
                     let dx = mouse.x - this.x;
                     let dy = mouse.y - this.y;
                     let distance = Math.sqrt(dx * dx + dy * dy);
-                    
                     if (distance < mouse.radius) {
                         const force = (mouse.radius - distance) / mouse.radius;
                         const dirX = dx / distance;
@@ -1278,24 +1972,17 @@
                         this.opacity = Math.min(1, this.opacity + 0.02);
                     }
                 }
-
-                // Gentle drift
                 this.x += this.vx;
                 this.y += this.vy;
-
-                // Return to base position
                 let homeDx = this.x - this.baseX;
                 let homeDy = this.y - this.baseY;
                 this.x -= homeDx * 0.02;
                 this.y -= homeDy * 0.02;
-
-                // Boundary wrap
                 if (this.x < 0) this.x = canvas.width;
                 if (this.x > canvas.width) this.x = 0;
                 if (this.y < 0) this.y = canvas.height;
                 if (this.y > canvas.height) this.y = 0;
             }
-
             draw() {
                 ctx.beginPath();
                 ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
@@ -1318,7 +2005,6 @@
                     let dx = particles[i].x - particles[j].x;
                     let dy = particles[i].y - particles[j].y;
                     let dist = Math.sqrt(dx * dx + dy * dy);
-
                     if (dist < 100) {
                         let opacity = (1 - dist / 100) * 0.15;
                         ctx.beginPath();
@@ -1329,8 +2015,6 @@
                         ctx.stroke();
                     }
                 }
-
-                // Connect to mouse
                 if (mouse.x != null) {
                     let dx = particles[i].x - mouse.x;
                     let dy = particles[i].y - mouse.y;
@@ -1350,25 +2034,141 @@
 
         function animateParticles() {
             ctx.clearRect(0, 0, canvas.width, canvas.height);
-            
             for (let p of particles) {
                 p.update();
                 p.draw();
             }
             drawConnections();
-            
             requestAnimationFrame(animateParticles);
         }
-
         initParticles();
         animateParticles();
 
-        // Parallax effect on scroll for glow orbs
+        // Parallax orbs
         window.addEventListener('scroll', () => {
             const scrolled = window.scrollY;
             document.querySelector('.glow-orb-1').style.transform = `translateY(${scrolled * 0.3}px)`;
             document.querySelector('.glow-orb-2').style.transform = `translateY(${scrolled * -0.2}px)`;
         });
+
+        // HFT Terminal - Order Simulation
+        const symbols = ['BTC-PERP', 'ETH-PERP', 'SOL-PERP', 'AVAX-PERP', 'AAPL', 'TSLA', 'ES1!', 'NQ1!'];
+        const terminalBody = document.getElementById('terminal-body');
+        const latencyEl = document.getElementById('latency');
+        
+        function createOrderRow() {
+            const symbol = symbols[Math.floor(Math.random() * symbols.length)];
+            const side = Math.random() > 0.5 ? 'buy' : 'sell';
+            const qty = Math.floor(Math.random() * 500) + 10;
+            const price = (Math.random() * 1000 + 100).toFixed(2);
+            const statuses = ['PEND', 'OPEN', 'FILL', 'PART'];
+            const status = Math.random() > 0.7 ? 'FILL' : statuses[Math.floor(Math.random() * 3)];
+            
+            const row = document.createElement('div');
+            row.className = 'order-row';
+            row.innerHTML = `
+                <span class="order-symbol">${symbol}</span>
+                <span class="order-side ${side}">${side.toUpperCase()}</span>
+                <span class="order-qty">${qty}</span>
+                <span class="order-price">${price}</span>
+                <span class="order-status ${status === 'FILL' ? 'fill' : ''}">${status}</span>
+            `;
+            return row;
+        }
+
+        function updateTerminal() {
+            const row = createOrderRow();
+            terminalBody.prepend(row);
+            if (terminalBody.children.length > 8) {
+                terminalBody.lastElementChild.remove();
+            }
+            // Update latency randomly
+            const lat = (Math.random() * 15 + 2).toFixed(1);
+            latencyEl.textContent = lat + ' μs';
+        }
+
+        setInterval(updateTerminal, 800);
+        // Pre-fill
+        for (let i = 0; i < 6; i++) {
+            terminalBody.appendChild(createOrderRow());
+        }
+
+        // Neural Network Visualization
+        const neuralViz = document.getElementById('neural-viz');
+        const nodePositions = [
+            [20, 20], [50, 10], [80, 20],
+            [10, 50], [40, 45], [70, 50], [90, 45],
+            [30, 80], [60, 75], [85, 80],
+            [50, 95]
+        ];
+        
+        nodePositions.forEach((pos, i) => {
+            const node = document.createElement('div');
+            node.className = 'neural-node';
+            node.style.left = pos[0] + '%';
+            node.style.top = pos[1] + '%';
+            node.style.animationDelay = (i * 0.2) + 's';
+            neuralViz.appendChild(node);
+        });
+
+        // Draw lines between nearby nodes
+        for (let i = 0; i < nodePositions.length; i++) {
+            for (let j = i + 1; j < nodePositions.length; j++) {
+                const dx = nodePositions[j][0] - nodePositions[i][0];
+                const dy = nodePositions[j][1] - nodePositions[i][1];
+                const dist = Math.sqrt(dx * dx + dy * dy);
+                if (dist < 40) {
+                    const line = document.createElement('div');
+                    line.className = 'neural-line';
+                    const angle = Math.atan2(dy, dx) * 180 / Math.PI;
+                    const len = dist * 4; // approximate scaling
+                    line.style.width = len + 'px';
+                    line.style.left = nodePositions[i][0] + '%';
+                    line.style.top = nodePositions[i][1] + '%';
+                    line.style.transform = `rotate(${angle}deg)`;
+                    line.style.transformOrigin = '0 50%';
+                    neuralViz.appendChild(line);
+                }
+            }
+        }
+
+        // Order Book Visualization
+        const obAsks = document.getElementById('ob-asks');
+        const obBids = document.getElementById('ob-bids');
+        const basePrice = 67245;
+        
+        function generateOB() {
+            obAsks.innerHTML = '';
+            obBids.innerHTML = '';
+            for (let i = 4; i > 0; i--) {
+                const price = basePrice + i * 12 + Math.random() * 5;
+                const size = Math.floor(Math.random() * 800) + 100;
+                const total = Math.floor(size * (5 - i) * 0.3);
+                const row = document.createElement('div');
+                row.className = 'ob-row ob-ask';
+                row.innerHTML = `
+                    <span class="ob-price">${price.toFixed(1)}</span>
+                    <span class="ob-size">${size}</span>
+                    <span class="ob-total">${total}</span>
+                `;
+                obAsks.appendChild(row);
+            }
+            for (let i = 1; i <= 4; i++) {
+                const price = basePrice - i * 12 + Math.random() * 5;
+                const size = Math.floor(Math.random() * 800) + 100;
+                const total = Math.floor(size * (5 - i) * 0.3);
+                const row = document.createElement('div');
+                row.className = 'ob-row ob-bid';
+                row.innerHTML = `
+                    <span class="ob-price">${price.toFixed(1)}</span>
+                    <span class="ob-size">${size}</span>
+                    <span class="ob-total">${total}</span>
+                `;
+                obBids.appendChild(row);
+            }
+        }
+        generateOB();
+        setInterval(generateOB, 2000);
     </script>
 </body>
 </html>
