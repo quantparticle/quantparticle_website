@@ -1,0 +1,1726 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us | QuantParticle</title>
+    <link rel="icon" href="quant_particle_logo_fevicon.png" type="image/png">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --bg-deep: #070b14;
+            --bg-surface: #0f1525;
+            --bg-elevated: #141d2e;
+            --text-primary: #e8ecf1;
+            --text-secondary: #8b95a8;
+            --accent-cyan: #00e5ff;
+            --accent-blue: #4f46e5;
+            --accent-purple: #7c3aed;
+            --border-subtle: rgba(255, 255, 255, 0.06);
+            --border-glow: rgba(0, 229, 255, 0.15);
+            --glass-bg: rgba(15, 21, 37, 0.6);
+            --glass-border: rgba(255, 255, 255, 0.08);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: var(--bg-deep);
+            color: var(--text-primary);
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            line-height: 1.6;
+            overflow-x: hidden;
+            cursor: none;
+        }
+
+        a, button {
+            cursor: none;
+        }
+
+        .cursor-glow {
+            position: fixed;
+            width: 20px;
+            height: 20px;
+            border: 2px solid var(--accent-cyan);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 99999;
+            transform: translate(-50%, -50%);
+            transition: width 0.2s, height 0.2s, background 0.2s;
+            mix-blend-mode: difference;
+        }
+
+        .cursor-glow.hover {
+            width: 50px;
+            height: 50px;
+            background: rgba(0, 229, 255, 0.1);
+        }
+
+        .cursor-trail {
+            position: fixed;
+            width: 6px;
+            height: 6px;
+            background: var(--accent-cyan);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 99998;
+            transform: translate(-50%, -50%);
+            opacity: 0.5;
+            transition: opacity 0.5s;
+        }
+
+        .noise-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 9999;
+            opacity: 0.03;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+        }
+
+        #particle-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        .scroll-progress {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 2px;
+            background: linear-gradient(90deg, var(--accent-cyan), var(--accent-blue));
+            z-index: 10001;
+            width: 0%;
+            transition: width 0.1s;
+        }
+
+        .glow-orb {
+            position: fixed;
+            border-radius: 50%;
+            filter: blur(100px);
+            pointer-events: none;
+            z-index: 0;
+            opacity: 0.12;
+        }
+
+        .glow-orb-1 {
+            width: 420px;
+            height: 420px;
+            background: var(--accent-blue);
+            top: 8%;
+            left: -10%;
+            animation: orbFloat 20s ease-in-out infinite;
+        }
+
+        .glow-orb-2 {
+            width: 320px;
+            height: 320px;
+            background: var(--accent-cyan);
+            bottom: 12%;
+            right: -5%;
+            animation: orbFloat 24s ease-in-out infinite reverse;
+        }
+
+        @keyframes orbFloat {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            33% { transform: translate(45px, -35px) scale(1.08); }
+            66% { transform: translate(-25px, 25px) scale(0.94); }
+        }
+
+        header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(7, 11, 20, 0.7);
+            backdrop-filter: blur(20px) saturate(1.8);
+            border-bottom: 1px solid var(--border-subtle);
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+
+        header.scrolled {
+            background: rgba(7, 11, 20, 0.9);
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4);
+        }
+
+        .nav-container {
+            max-width: 1300px;
+            margin: 0 auto;
+            padding: 1.25rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            min-height: 92px;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+        }
+
+        .logo img {
+            height: 60px;
+            width: auto;
+            filter: drop-shadow(0 0 15px rgba(0, 229, 255, 0.4));
+            animation: logoPulse 3s ease-in-out infinite;
+        }
+
+        @keyframes logoPulse {
+            0%, 100% { filter: drop-shadow(0 0 15px rgba(0, 229, 255, 0.4)); }
+            50% { filter: drop-shadow(0 0 25px rgba(0, 229, 255, 0.7)); }
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            gap: 2.5rem;
+            align-items: center;
+        }
+
+        nav a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: color 0.3s;
+            position: relative;
+            padding: 0.5rem 0;
+        }
+
+        nav a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, var(--accent-cyan), var(--accent-blue));
+            transition: all 0.3s ease;
+            transform: translateX(-50%);
+            box-shadow: 0 0 10px var(--accent-cyan);
+        }
+
+        nav a:hover {
+            color: var(--text-primary);
+        }
+
+        nav a:hover::after {
+            width: 100%;
+        }
+
+        nav a.active-nav {
+            color: var(--accent-cyan);
+        }
+
+        nav a.active-nav::after {
+            width: 100%;
+            background: var(--accent-cyan);
+        }
+
+        .dropdown {
+            position: relative;
+        }
+
+        .dropdown-menu {
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(10px);
+            position: absolute;
+            top: calc(100% + 15px);
+            left: -20px;
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            min-width: 240px;
+            border: 1px solid var(--glass-border);
+            border-radius: 12px;
+            padding: 0.75rem 0;
+            transition: all 0.3s ease;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+        }
+
+        .dropdown:hover .dropdown-menu {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        .dropdown-menu li {
+            padding: 0;
+        }
+
+        .dropdown-menu a {
+            display: block;
+            padding: 0.75rem 1.5rem;
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            transition: all 0.2s;
+        }
+
+        .dropdown-menu a:hover {
+            color: var(--accent-cyan);
+            background: rgba(0, 229, 255, 0.05);
+        }
+
+        .dropdown > a::before {
+            content: '▼';
+            font-size: 0.5rem;
+            margin-left: 6px;
+            opacity: 0.6;
+            display: inline-block;
+            transition: transform 0.3s;
+            vertical-align: middle;
+        }
+
+        .dropdown:hover > a::before {
+            transform: rotate(180deg);
+        }
+
+        .menu-toggle {
+            display: none;
+            width: 48px;
+            height: 48px;
+            border-radius: 10px;
+            border: 1px solid var(--glass-border);
+            background: rgba(15, 21, 37, 0.72);
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            gap: 5px;
+            transition: all 0.3s ease;
+        }
+
+        .menu-toggle span {
+            width: 20px;
+            height: 2px;
+            border-radius: 2px;
+            background: var(--text-primary);
+            transition: all 0.3s ease;
+        }
+
+        .menu-toggle.active span:nth-child(1) {
+            transform: translateY(7px) rotate(45deg);
+        }
+
+        .menu-toggle.active span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .menu-toggle.active span:nth-child(3) {
+            transform: translateY(-7px) rotate(-45deg);
+        }
+
+        .mobile-menu {
+            position: fixed;
+            top: 92px;
+            left: 0;
+            right: 0;
+            background: rgba(7, 11, 20, 0.96);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border-subtle);
+            padding: 1rem 1.5rem 1.5rem;
+            z-index: 999;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(-15px);
+            transition: all 0.3s ease;
+        }
+
+        .mobile-menu.active {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        .mobile-menu a {
+            display: block;
+            text-decoration: none;
+            color: var(--text-secondary);
+            padding: 0.95rem 0.5rem;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+            font-size: 0.95rem;
+            transition: all 0.25s ease;
+        }
+
+        .mobile-menu a:hover,
+        .mobile-menu a.active-nav {
+            color: var(--accent-cyan);
+            padding-left: 1rem;
+        }
+
+        .container {
+            max-width: 1300px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        main {
+            position: relative;
+            z-index: 1;
+        }
+
+        section {
+            padding: 120px 0;
+            position: relative;
+        }
+
+        .section-label {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.8rem;
+            color: var(--accent-cyan);
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .section-label::before {
+            content: '';
+            width: 30px;
+            height: 1px;
+            background: var(--accent-cyan);
+            box-shadow: 0 0 8px var(--accent-cyan);
+        }
+
+        .section-title {
+            font-size: clamp(2rem, 4vw, 3rem);
+            margin-bottom: 1rem;
+            font-weight: 800;
+            letter-spacing: -1px;
+        }
+
+        .section-subtitle {
+            color: var(--text-secondary);
+            font-size: 1.08rem;
+            max-width: 700px;
+            line-height: 1.8;
+        }
+
+        .reveal {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: all 0.8s cubic-bezier(0.5, 0, 0, 1);
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .hero-about {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            padding-top: 130px;
+            overflow: hidden;
+        }
+
+        .hero-grid {
+            display: grid;
+            grid-template-columns: 1.15fr 0.85fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 0.6rem 1.2rem;
+            background: rgba(0, 229, 255, 0.08);
+            border: 1px solid var(--border-glow);
+            border-radius: 100px;
+            font-size: 0.8rem;
+            font-family: 'JetBrains Mono', monospace;
+            color: var(--accent-cyan);
+            margin-bottom: 2rem;
+            animation: fadeInUp 0.8s ease forwards;
+            animation-delay: 0.2s;
+            opacity: 0;
+        }
+
+        .hero-badge .pulse {
+            width: 8px;
+            height: 8px;
+            background: var(--accent-cyan);
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+            box-shadow: 0 0 10px var(--accent-cyan);
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.3; transform: scale(0.6); }
+        }
+
+        .hero-about h1 {
+            font-size: clamp(3rem, 5vw, 5rem);
+            line-height: 1.03;
+            margin-bottom: 1.5rem;
+            font-weight: 800;
+            letter-spacing: -2px;
+        }
+
+        .hero-about h1 .line {
+            display: block;
+            overflow: hidden;
+        }
+
+        .hero-about h1 .line span {
+            display: block;
+            transform: translateY(100%);
+            animation: revealText 1s cubic-bezier(0.77, 0, 0.175, 1) forwards;
+        }
+
+        .hero-about h1 .line:nth-child(1) span { animation-delay: 0.35s; }
+        .hero-about h1 .line:nth-child(2) span { animation-delay: 0.65s; }
+
+        @keyframes revealText {
+            to { transform: translateY(0); }
+        }
+
+        .hero-shine {
+            background-size: 220% 100%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: revealText 1s cubic-bezier(0.77, 0, 0.175, 1) forwards, shineRTL 5s linear infinite 1.2s;
+        }
+
+        .hero-primary {
+            background-image: linear-gradient(
+                90deg,
+                #cfd7e2 0%,
+                #ffffff 20%,
+                var(--accent-cyan) 50%,
+                #ffffff 72%,
+                #d7dee9 100%
+            );
+        }
+
+        .hero-accent {
+            background-image: linear-gradient(
+                90deg,
+                var(--accent-purple) 0%,
+                var(--accent-blue) 18%,
+                var(--accent-cyan) 42%,
+                #ffffff 56%,
+                var(--accent-cyan) 72%,
+                var(--accent-blue) 88%,
+                var(--accent-purple) 100%
+            );
+        }
+
+        @keyframes shineRTL {
+            0% { background-position: 200% center; }
+            100% { background-position: -200% center; }
+        }
+
+        .hero-about p {
+            font-size: 1.1rem;
+            color: var(--text-secondary);
+            max-width: 660px;
+            line-height: 1.85;
+            margin-bottom: 1.25rem;
+            animation: fadeInUp 0.8s ease forwards;
+            animation-delay: 1s;
+            opacity: 0;
+        }
+
+        .hero-meta {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-top: 2rem;
+            animation: fadeInUp 0.8s ease forwards;
+            animation-delay: 1.25s;
+            opacity: 0;
+        }
+
+        .meta-pill {
+            padding: 0.8rem 1rem;
+            border-radius: 999px;
+            border: 1px solid var(--glass-border);
+            background: rgba(15, 21, 37, 0.7);
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+        }
+
+        .meta-pill span {
+            color: var(--accent-cyan);
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .hero-visual {
+            position: relative;
+            height: 520px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .quant-core {
+            position: relative;
+            width: 360px;
+            height: 360px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .core-ring {
+            position: absolute;
+            border-radius: 50%;
+            border: 1px solid rgba(0, 229, 255, 0.14);
+            animation: slowSpin 18s linear infinite;
+        }
+
+        .core-ring.r1 {
+            width: 340px;
+            height: 340px;
+        }
+
+        .core-ring.r2 {
+            width: 270px;
+            height: 270px;
+            border-color: rgba(79, 70, 229, 0.18);
+            animation-direction: reverse;
+            animation-duration: 14s;
+        }
+
+        .core-ring.r3 {
+            width: 200px;
+            height: 200px;
+            border-color: rgba(124, 58, 237, 0.2);
+            animation-duration: 10s;
+        }
+
+        @keyframes slowSpin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        .core-center {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            background:
+                radial-gradient(circle at 30% 30%, rgba(255,255,255,0.16), transparent 35%),
+                radial-gradient(circle, rgba(0,229,255,0.25), rgba(79,70,229,0.22) 58%, rgba(7,11,20,0.95) 78%);
+            border: 1px solid rgba(0,229,255,0.18);
+            box-shadow: 0 0 50px rgba(0,229,255,0.16);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.9rem;
+            letter-spacing: 1px;
+            color: var(--text-primary);
+            animation: centerPulse 3.2s ease-in-out infinite;
+        }
+
+        @keyframes centerPulse {
+            0%, 100% { transform: scale(1); box-shadow: 0 0 50px rgba(0,229,255,0.16); }
+            50% { transform: scale(1.06); box-shadow: 0 0 75px rgba(0,229,255,0.26); }
+        }
+
+        .orbit-node {
+            position: absolute;
+            width: 14px;
+            height: 14px;
+            border-radius: 50%;
+            background: var(--accent-cyan);
+            box-shadow: 0 0 18px rgba(0,229,255,0.8);
+        }
+
+        .orbit-node.n1 {
+            top: 18px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .orbit-node.n2 {
+            right: 30px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: var(--accent-blue);
+            box-shadow: 0 0 18px rgba(79,70,229,0.7);
+        }
+
+        .orbit-node.n3 {
+            bottom: 34px;
+            left: 30%;
+            background: var(--accent-purple);
+            box-shadow: 0 0 18px rgba(124,58,237,0.8);
+        }
+
+        .orbit-node.n4 {
+            left: 24px;
+            top: 32%;
+        }
+
+        .visual-card {
+            position: absolute;
+            padding: 0.85rem 1rem;
+            border-radius: 14px;
+            background: rgba(15, 21, 37, 0.72);
+            border: 1px solid rgba(0,229,255,0.12);
+            backdrop-filter: blur(16px);
+            box-shadow: 0 12px 35px rgba(0,0,0,0.25);
+            animation: floatCard 5.5s ease-in-out infinite;
+        }
+
+        .visual-card small {
+            display: block;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.68rem;
+            color: var(--accent-cyan);
+            letter-spacing: 1px;
+            margin-bottom: 0.25rem;
+        }
+
+        .visual-card strong {
+            font-size: 0.95rem;
+            color: var(--text-primary);
+            font-weight: 700;
+        }
+
+        .visual-card.c1 {
+            top: 30px;
+            right: 0;
+        }
+
+        .visual-card.c2 {
+            left: 0;
+            bottom: 78px;
+            animation-delay: 1.2s;
+        }
+
+        .visual-card.c3 {
+            right: 18px;
+            bottom: 12px;
+            animation-delay: 2.1s;
+        }
+
+        @keyframes floatCard {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .about-overview-grid {
+            display: grid;
+            grid-template-columns: 1.1fr 0.9fr;
+            gap: 2rem;
+            align-items: stretch;
+        }
+
+        .glass-panel {
+            background: linear-gradient(180deg, rgba(15, 21, 37, 0.8), rgba(12, 18, 30, 0.72));
+            border: 1px solid var(--glass-border);
+            border-radius: 18px;
+            padding: 2rem;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 24px 60px rgba(0,0,0,0.28);
+        }
+
+        .glass-panel::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(120deg, transparent 0%, rgba(255,255,255,0.03) 48%, transparent 100%);
+            transform: translateX(-100%);
+            animation: panelSweep 7s ease-in-out infinite;
+        }
+
+        @keyframes panelSweep {
+            0%, 100% { transform: translateX(-100%); }
+            50% { transform: translateX(100%); }
+        }
+
+        .glass-panel h3 {
+            font-size: 1.4rem;
+            margin-bottom: 1rem;
+            color: var(--text-primary);
+        }
+
+        .glass-panel p {
+            color: var(--text-secondary);
+            font-size: 1rem;
+            line-height: 1.85;
+            margin-bottom: 1rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .belief-list {
+            list-style: none;
+            display: grid;
+            gap: 1rem;
+            margin-top: 1rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .belief-list li {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.85rem;
+            color: var(--text-secondary);
+            font-size: 0.98rem;
+            line-height: 1.7;
+        }
+
+        .belief-list li::before {
+            content: '◦';
+            color: var(--accent-cyan);
+            font-size: 1.4rem;
+            line-height: 1;
+            margin-top: 0.1rem;
+        }
+
+        .span-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1.25rem;
+            margin-top: 3rem;
+        }
+
+        .span-card {
+            background: rgba(15, 21, 37, 0.72);
+            border: 1px solid var(--glass-border);
+            border-radius: 16px;
+            padding: 1.5rem;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.35s ease;
+            min-height: 170px;
+        }
+
+        .span-card::after {
+            content: '';
+            position: absolute;
+            inset: auto -40% 0 auto;
+            width: 140%;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--accent-cyan), transparent);
+            opacity: 0.6;
+            animation: spanFlow 3.5s linear infinite;
+        }
+
+        @keyframes spanFlow {
+            0% { transform: translateX(-60%); }
+            100% { transform: translateX(60%); }
+        }
+
+        .span-card:hover {
+            transform: translateY(-6px);
+            border-color: var(--border-glow);
+            box-shadow: 0 20px 50px rgba(0,229,255,0.08);
+        }
+
+        .span-card .index {
+            font-family: 'JetBrains Mono', monospace;
+            color: var(--accent-cyan);
+            font-size: 0.78rem;
+            letter-spacing: 1px;
+            margin-bottom: 0.85rem;
+            display: inline-block;
+        }
+
+        .span-card h4 {
+            font-size: 1rem;
+            color: var(--text-primary);
+            margin-bottom: 0.7rem;
+            line-height: 1.45;
+        }
+
+        .span-card p {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            line-height: 1.7;
+        }
+
+        .principles-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+            margin-top: 3rem;
+        }
+
+        .principle-card {
+            background: var(--bg-surface);
+            border: 1px solid var(--border-subtle);
+            border-radius: 18px;
+            padding: 2rem;
+            transition: all 0.35s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .principle-card:hover {
+            transform: translateY(-7px);
+            border-color: var(--border-glow);
+            box-shadow: 0 20px 55px rgba(0,229,255,0.06);
+        }
+
+        .principle-number {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 2rem;
+            font-weight: 700;
+            color: rgba(0,229,255,0.32);
+            margin-bottom: 1rem;
+        }
+
+        .principle-card h3 {
+            font-size: 1.2rem;
+            margin-bottom: 0.8rem;
+            color: var(--text-primary);
+        }
+
+        .principle-card p {
+            font-size: 0.97rem;
+            line-height: 1.8;
+            color: var(--text-secondary);
+        }
+
+        .vision-section {
+            padding-top: 80px;
+            padding-bottom: 170px;
+        }
+
+        .vision-panel {
+            text-align: center;
+            padding: 4rem 2rem;
+            border-radius: 22px;
+            background:
+                radial-gradient(circle at top center, rgba(0,229,255,0.12), transparent 40%),
+                linear-gradient(180deg, rgba(15, 21, 37, 0.9), rgba(10, 16, 28, 0.92));
+            border: 1px solid var(--glass-border);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .vision-panel::before {
+            content: '';
+            position: absolute;
+            width: 460px;
+            height: 460px;
+            border-radius: 50%;
+            border: 1px solid rgba(0,229,255,0.08);
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            animation: pulseHalo 6s ease-in-out infinite;
+        }
+
+        .vision-panel::after {
+            content: '';
+            position: absolute;
+            width: 280px;
+            height: 280px;
+            border-radius: 50%;
+            border: 1px solid rgba(79,70,229,0.1);
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            animation: pulseHalo 4.5s ease-in-out infinite reverse;
+        }
+
+        @keyframes pulseHalo {
+            0%, 100% { transform: translate(-50%, -50%) scale(1); opacity: 0.55; }
+            50% { transform: translate(-50%, -50%) scale(1.08); opacity: 0.2; }
+        }
+
+        .vision-panel h2,
+        .vision-panel p,
+        .vision-panel .vision-tag {
+            position: relative;
+            z-index: 1;
+        }
+
+        .vision-tag {
+            display: inline-flex;
+            padding: 0.65rem 1rem;
+            border-radius: 999px;
+            background: rgba(0,229,255,0.08);
+            border: 1px solid rgba(0,229,255,0.14);
+            color: var(--accent-cyan);
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.78rem;
+            letter-spacing: 1px;
+            margin-bottom: 1.4rem;
+        }
+
+        .vision-panel h2 {
+            font-size: clamp(2rem, 4vw, 3.4rem);
+            line-height: 1.1;
+            letter-spacing: -1px;
+            margin-bottom: 1rem;
+        }
+
+        .vision-panel p {
+            max-width: 840px;
+            margin: 0 auto;
+            font-size: 1.08rem;
+            color: var(--text-secondary);
+            line-height: 1.9;
+        }
+
+        footer {
+            background: var(--bg-surface);
+            padding: 5rem 0 2rem;
+            border-top: 1px solid var(--border-subtle);
+            position: relative;
+            z-index: 3;
+        }
+
+        footer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--accent-cyan), transparent);
+            opacity: 0.5;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 3rem;
+            margin-bottom: 4rem;
+        }
+
+        .footer-brand .logo-text {
+            font-size: 1.5rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--text-primary) 0%, var(--accent-cyan) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 1rem;
+            display: inline-block;
+        }
+
+        .footer-brand p {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            line-height: 1.7;
+            max-width: 300px;
+        }
+
+        .footer-links h4 {
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--text-primary);
+            margin-bottom: 1.5rem;
+        }
+
+        .footer-links a {
+            display: block;
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 0.9rem;
+            margin-bottom: 0.75rem;
+            transition: color 0.3s;
+        }
+
+        .footer-links a:hover {
+            color: var(--accent-cyan);
+        }
+
+        .footer-bottom {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-top: 2rem;
+            border-top: 1px solid var(--border-subtle);
+        }
+
+        .footer-bottom p {
+            color: var(--text-secondary);
+            font-size: 0.85rem;
+        }
+
+        .footer-social {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .social-link {
+            width: 36px;
+            height: 36px;
+            border-radius: 8px;
+            background: var(--bg-elevated);
+            border: 1px solid var(--border-subtle);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: all 0.3s;
+        }
+
+        .social-link:hover {
+            border-color: var(--accent-cyan);
+            color: var(--accent-cyan);
+            transform: translateY(-2px);
+            box-shadow: 0 0 15px rgba(0, 229, 255, 0.2);
+        }
+
+        @media (max-width: 1100px) {
+            .span-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .principles-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .about-overview-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 968px) {
+            body {
+                cursor: auto;
+            }
+
+            a, button {
+                cursor: pointer;
+            }
+
+            .cursor-glow,
+            .cursor-trail {
+                display: none;
+            }
+
+            .hero-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .hero-visual {
+                height: 420px;
+            }
+
+            .footer-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            nav {
+                display: none;
+            }
+
+            .menu-toggle {
+                display: inline-flex;
+            }
+
+            .mobile-menu {
+                display: block;
+            }
+        }
+
+        @media (min-width: 969px) {
+            .mobile-menu {
+                display: none !important;
+            }
+        }
+
+        @media (max-width: 640px) {
+            .container {
+                padding: 0 1.2rem;
+            }
+
+            .nav-container {
+                padding: 1rem 1.2rem;
+                min-height: 82px;
+            }
+
+            .logo img {
+                height: 54px;
+            }
+
+            .mobile-menu {
+                top: 82px;
+            }
+
+            .hero-about {
+                padding-top: 110px;
+            }
+
+            .hero-about h1 {
+                font-size: clamp(2.4rem, 10vw, 3.7rem);
+            }
+
+            .hero-about p {
+                font-size: 1rem;
+            }
+
+            .hero-visual {
+                height: 340px;
+            }
+
+            .quant-core {
+                width: 290px;
+                height: 290px;
+            }
+
+            .core-ring.r1 { width: 280px; height: 280px; }
+            .core-ring.r2 { width: 220px; height: 220px; }
+            .core-ring.r3 { width: 160px; height: 160px; }
+
+            .core-center {
+                width: 120px;
+                height: 120px;
+                font-size: 0.78rem;
+            }
+
+            .span-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-bottom {
+                flex-direction: column;
+                gap: 1rem;
+                text-align: center;
+            }
+
+            .vision-section {
+                padding-bottom: 140px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="cursor-glow"></div>
+    <div class="cursor-trail"></div>
+    <div class="noise-overlay"></div>
+    <div class="scroll-progress"></div>
+    <div class="glow-orb glow-orb-1"></div>
+    <div class="glow-orb glow-orb-2"></div>
+
+    <canvas id="particle-canvas"></canvas>
+
+    <header>
+        <div class="nav-container">
+            <a href="index.html" class="logo">
+                <img src="quant_particle_logo.png" alt="QuantParticle Logo" onerror="this.style.display='none'">
+            </a>
+
+            <nav>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="about.html" class="active-nav">About</a></li>
+                    <li class="dropdown">
+                        <a href="index.html#solutions">Solutions</a>
+                        <ul class="dropdown-menu">
+                            <li><a href="index.html#solutions">Strategy Research</a></li>
+                            <li><a href="index.html#solutions">Execution Systems</a></li>
+                            <li><a href="index.html#solutions">Quant Lab</a></li>
+                            <li><a href="index.html#solutions">Prop & Institutional</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="index.html#technology">Technology</a></li>
+                    <li><a href="insights.html">Insights</a></li>
+                    <li><a href="careers.html">Careers</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </nav>
+
+            <button class="menu-toggle" id="menuToggle" aria-label="Open Menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+
+        <div class="mobile-menu" id="mobileMenu">
+            <a href="index.html">Home</a>
+            <a href="about.html" class="active-nav">About</a>
+            <a href="index.html#solutions">Solutions</a>
+            <a href="index.html#technology">Technology</a>
+            <a href="insights.html">Insights</a>
+            <a href="careers.html">Careers</a>
+            <a href="contact.html">Contact</a>
+        </div>
+    </header>
+
+    <main>
+        <section class="hero-about container">
+            <div class="hero-grid">
+                <div class="hero-content">
+                    <div class="hero-badge">
+                        <span class="pulse"></span>
+                        <span>About QuantParticle</span>
+                    </div>
+
+                    <h1>
+                        <div class="line"><span class="hero-shine hero-primary">Quantitative Trading</span></div>
+                        <div class="line"><span class="hero-shine hero-accent">Technology Company</span></div>
+                    </h1>
+
+                    <p>
+                        QuantParticle is a quantitative trading technology company focused on the development of systematic trading systems, execution infrastructure, and advanced research-driven market solutions.
+                    </p>
+
+                    <p>
+                        We combine quantitative research, software engineering, and market expertise to build scalable trading technologies for professional market participants.
+                    </p>
+
+                    <div class="hero-meta">
+                        <div class="meta-pill"><span>Focus:</span> Systematic Trading</div>
+                        <div class="meta-pill"><span>Core:</span> Research + Engineering</div>
+                        <div class="meta-pill"><span>Build:</span> Scalable Market Infrastructure</div>
+                    </div>
+                </div>
+
+                <div class="hero-visual">
+                    <div class="quant-core">
+                        <div class="core-ring r1"></div>
+                        <div class="core-ring r2"></div>
+                        <div class="core-ring r3"></div>
+
+                        <div class="orbit-node n1"></div>
+                        <div class="orbit-node n2"></div>
+                        <div class="orbit-node n3"></div>
+                        <div class="orbit-node n4"></div>
+
+                        <div class="core-center">QUANT<br>CORE</div>
+
+                        <div class="visual-card c1">
+                            <small>RESEARCH</small>
+                            <strong>Signal Design</strong>
+                        </div>
+
+                        <div class="visual-card c2">
+                            <small>ENGINEERING</small>
+                            <strong>Execution Systems</strong>
+                        </div>
+
+                        <div class="visual-card c3">
+                            <small>MARKETS</small>
+                            <strong>Microstructure Edge</strong>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="container">
+            <div class="about-overview-grid">
+                <div class="glass-panel reveal">
+                    <div class="section-label">Company Overview</div>
+                    <h2 class="section-title">Built at the intersection of research and execution</h2>
+                    <p>
+                        QuantParticle is a quantitative trading technology company focused on the development of systematic trading systems, execution infrastructure, and advanced research-driven market solutions.
+                    </p>
+                    <p>
+                        We combine quantitative research, software engineering, and market expertise to build scalable trading technologies for professional market participants.
+                    </p>
+                    <p>
+                        Our work is designed around robust systems, production-grade implementation, and long-term thinking across modern financial markets.
+                    </p>
+                </div>
+
+                <div class="glass-panel reveal">
+                    <div class="section-label">What We Believe</div>
+                    <h3>Performance comes from discipline, not randomness</h3>
+                    <ul class="belief-list">
+                        <li>We believe sustainable trading performance comes from robust research, disciplined execution, and continuous innovation.</li>
+                        <li>We focus on building technologies that are scalable, systematic, and engineered for real-world market complexity.</li>
+                        <li>Our long-term vision is to become a global leader in quantitative trading technology and financial market infrastructure.</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <section class="container">
+            <div class="reveal" style="text-align:center; margin-bottom: 1rem;">
+                <div class="section-label" style="justify-content:center;">
+                    <span style="width: 30px; height: 1px; background: var(--accent-cyan); box-shadow: 0 0 8px var(--accent-cyan);"></span>
+                    <span>Our Work</span>
+                    <span style="width: 30px; height: 1px; background: var(--accent-cyan); box-shadow: 0 0 8px var(--accent-cyan);"></span>
+                </div>
+                <h2 class="section-title">What our work spans</h2>
+                <p class="section-subtitle" style="margin: 0 auto;">
+                    We build across the full lifecycle of quantitative trading technology, from research and signal creation to infrastructure, automation, and analytics.
+                </p>
+            </div>
+
+            <div class="span-grid">
+                <div class="span-card reveal">
+                    <span class="index">01 // RESEARCH</span>
+                    <h4>Quantitative Strategy Research</h4>
+                    <p>Systematic idea generation, hypothesis testing, and model validation across market regimes.</p>
+                </div>
+
+                <div class="span-card reveal">
+                    <span class="index">02 // SYSTEMS</span>
+                    <h4>Algorithmic Trading Systems</h4>
+                    <p>Production-grade trading architecture for signal processing, order handling, and deployment.</p>
+                </div>
+
+                <div class="span-card reveal">
+                    <span class="index">03 // EXECUTION</span>
+                    <h4>Automated Execution Infrastructure</h4>
+                    <p>Low-latency execution frameworks with reliability, control layers, and seamless trade routing.</p>
+                </div>
+
+                <div class="span-card reveal">
+                    <span class="index">04 // ANALYTICS</span>
+                    <h4>Portfolio Analytics</h4>
+                    <p>Performance monitoring, risk decomposition, portfolio diagnostics, and decision support systems.</p>
+                </div>
+
+                <div class="span-card reveal">
+                    <span class="index">05 // MICROSTRUCTURE</span>
+                    <h4>Market Microstructure Research</h4>
+                    <p>Order flow, liquidity behavior, spread dynamics, and venue-level trading intelligence.</p>
+                </div>
+
+                <div class="span-card reveal">
+                    <span class="index">06 // HFT</span>
+                    <h4>High Frequency Trading Technology</h4>
+                    <p>Fast, optimized infrastructure designed for precision, speed, and real-time responsiveness.</p>
+                </div>
+
+                <div class="span-card reveal">
+                    <span class="index">07 // LIQUIDITY</span>
+                    <h4>Market Making Frameworks</h4>
+                    <p>Adaptive quoting, inventory logic, and spread-aware systems for modern electronic markets.</p>
+                </div>
+
+                <div class="span-card reveal">
+                    <span class="index">08 // AUTOMATION</span>
+                    <h4>Trading Automation Platforms</h4>
+                    <p>Integrated platforms that connect research, execution, monitoring, and operational workflows.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="container">
+            <div class="reveal" style="text-align:center;">
+                <div class="section-label" style="justify-content:center;">
+                    <span style="width: 30px; height: 1px; background: var(--accent-cyan); box-shadow: 0 0 8px var(--accent-cyan);"></span>
+                    <span>Foundation</span>
+                    <span style="width: 30px; height: 1px; background: var(--accent-cyan); box-shadow: 0 0 8px var(--accent-cyan);"></span>
+                </div>
+                <h2 class="section-title">How we think about building</h2>
+            </div>
+
+            <div class="principles-grid">
+                <div class="principle-card reveal">
+                    <div class="principle-number">01</div>
+                    <h3>Robust Research</h3>
+                    <p>We start with rigorous quantitative thinking, structured testing, and evidence-led model design before moving to implementation.</p>
+                </div>
+
+                <div class="principle-card reveal">
+                    <div class="principle-number">02</div>
+                    <h3>Disciplined Execution</h3>
+                    <p>We treat infrastructure, latency, automation, and operational reliability as core parts of trading performance.</p>
+                </div>
+
+                <div class="principle-card reveal">
+                    <div class="principle-number">03</div>
+                    <h3>Continuous Innovation</h3>
+                    <p>We improve systems continuously through iteration, market feedback, new research, and stronger engineering standards.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="vision-section container">
+            <div class="vision-panel reveal">
+                <div class="vision-tag">LONG-TERM VISION</div>
+                <h2>To become a global leader in quantitative trading technology and financial market infrastructure</h2>
+                <p>
+                    Our long-term vision is to build world-class quantitative trading systems, institutional-grade execution technologies, and durable financial infrastructure that empower professional market participants across global markets.
+                </p>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand reveal">
+                    <div class="logo-text">QuantParticle</div>
+                    <p>Research-driven trading technology for professional market participants. Building the next generation of systematic trading infrastructure.</p>
+                </div>
+
+                <div class="footer-links reveal">
+                    <h4>Solutions</h4>
+                    <a href="index.html#solutions">Strategy Research</a>
+                    <a href="index.html#solutions">Execution Systems</a>
+                    <a href="index.html#solutions">Quant Lab</a>
+                    <a href="index.html#solutions">Prop & Institutional</a>
+                </div>
+
+                <div class="footer-links reveal">
+                    <h4>Company</h4>
+                    <a href="about.html">About</a>
+                    <a href="careers.html">Careers</a>
+                    <a href="insights.html">Insights</a>
+                    <a href="contact.html">Contact</a>
+                </div>
+
+                <div class="footer-links reveal">
+                    <h4>Legal</h4>
+                    <a href="privacy.html">Privacy Policy</a>
+                    <a href="terms.html">Terms of Service</a>
+                    <a href="risk.html">Risk Disclosure</a>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p>© 2026 QuantParticle. All rights reserved.</p>
+                <div class="footer-social">
+                    <a href="#" class="social-link" aria-label="X">𝕏</a>
+                    <a href="#" class="social-link" aria-label="LinkedIn">in</a>
+                    <a href="#" class="social-link" aria-label="GitHub">Git</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        const cursor = document.querySelector('.cursor-glow');
+        const trail = document.querySelector('.cursor-trail');
+        let mouseX = 0, mouseY = 0;
+        let cursorX = 0, cursorY = 0;
+        let trailX = 0, trailY = 0;
+
+        document.addEventListener('mousemove', (e) => {
+            mouseX = e.clientX;
+            mouseY = e.clientY;
+        });
+
+        function animateCursor() {
+            if (cursor && trail) {
+                cursorX += (mouseX - cursorX) * 0.15;
+                cursorY += (mouseY - cursorY) * 0.15;
+                trailX += (mouseX - trailX) * 0.08;
+                trailY += (mouseY - trailY) * 0.08;
+                cursor.style.left = cursorX + 'px';
+                cursor.style.top = cursorY + 'px';
+                trail.style.left = trailX + 'px';
+                trail.style.top = trailY + 'px';
+            }
+            requestAnimationFrame(animateCursor);
+        }
+        animateCursor();
+
+        const interactiveElements = document.querySelectorAll('a, button');
+        interactiveElements.forEach(el => {
+            el.addEventListener('mouseenter', () => cursor && cursor.classList.add('hover'));
+            el.addEventListener('mouseleave', () => cursor && cursor.classList.remove('hover'));
+        });
+
+        const scrollProgress = document.querySelector('.scroll-progress');
+        window.addEventListener('scroll', () => {
+            const scrolled = window.scrollY;
+            const max = document.documentElement.scrollHeight - window.innerHeight;
+            scrollProgress.style.width = (scrolled / max) * 100 + '%';
+        });
+
+        const header = document.querySelector('header');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+
+        const observerOptions = { threshold: 0.12, rootMargin: '0px 0px -50px 0px' };
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+        const menuToggle = document.getElementById('menuToggle');
+        const mobileMenu = document.getElementById('mobileMenu');
+
+        menuToggle.addEventListener('click', () => {
+            menuToggle.classList.toggle('active');
+            mobileMenu.classList.toggle('active');
+        });
+
+        document.querySelectorAll('.mobile-menu a').forEach(link => {
+            link.addEventListener('click', () => {
+                menuToggle.classList.remove('active');
+                mobileMenu.classList.remove('active');
+            });
+        });
+
+        const canvas = document.getElementById('particle-canvas');
+        const ctx = canvas.getContext('2d');
+
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+
+        resizeCanvas();
+        window.addEventListener('resize', resizeCanvas);
+
+        let particles = [];
+        const mouse = { x: null, y: null, radius: 180 };
+
+        window.addEventListener('mousemove', (e) => {
+            mouse.x = e.x;
+            mouse.y = e.y;
+        });
+
+        window.addEventListener('mouseout', () => {
+            mouse.x = null;
+            mouse.y = null;
+        });
+
+        class Particle {
+            constructor() {
+                this.x = Math.random() * canvas.width;
+                this.y = Math.random() * canvas.height;
+                this.size = Math.random() * 2 + 0.5;
+                this.baseX = this.x;
+                this.baseY = this.y;
+                this.density = Math.random() * 25 + 5;
+                this.vx = (Math.random() - 0.5) * 0.35;
+                this.vy = (Math.random() - 0.5) * 0.35;
+                this.opacity = Math.random() * 0.45 + 0.15;
+            }
+
+            update() {
+                if (mouse.x != null) {
+                    let dx = mouse.x - this.x;
+                    let dy = mouse.y - this.y;
+                    let distance = Math.sqrt(dx * dx + dy * dy);
+
+                    if (distance < mouse.radius) {
+                        const force = (mouse.radius - distance) / mouse.radius;
+                        const dirX = dx / distance;
+                        const dirY = dy / distance;
+                        const push = force * this.density * 0.4;
+                        this.x += dirX * push;
+                        this.y += dirY * push;
+                    }
+                }
+
+                this.x += this.vx;
+                this.y += this.vy;
+
+                let homeDx = this.x - this.baseX;
+                let homeDy = this.y - this.baseY;
+                this.x -= homeDx * 0.01;
+                this.y -= homeDy * 0.01;
+
+                if (this.x < 0) this.x = canvas.width;
+                if (this.x > canvas.width) this.x = 0;
+                if (this.y < 0) this.y = canvas.height;
+                if (this.y > canvas.height) this.y = 0;
+            }
+
+            draw() {
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fillStyle = `rgba(0, 229, 255, ${this.opacity})`;
+                ctx.fill();
+            }
+        }
+
+        function initParticles() {
+            particles = [];
+            const count = Math.min((canvas.width * canvas.height) / 14000, 130);
+            for (let i = 0; i < count; i++) {
+                particles.push(new Particle());
+            }
+        }
+
+        function drawConnections() {
+            for (let i = 0; i < particles.length; i++) {
+                for (let j = i + 1; j < particles.length; j++) {
+                    let dx = particles[i].x - particles[j].x;
+                    let dy = particles[i].y - particles[j].y;
+                    let dist = Math.sqrt(dx * dx + dy * dy);
+
+                    if (dist < 100) {
+                        let opacity = (1 - dist / 100) * 0.12;
+                        ctx.beginPath();
+                        ctx.strokeStyle = `rgba(0, 229, 255, ${opacity})`;
+                        ctx.lineWidth = 0.5;
+                        ctx.moveTo(particles[i].x, particles[i].y);
+                        ctx.lineTo(particles[j].x, particles[j].y);
+                        ctx.stroke();
+                    }
+                }
+            }
+        }
+
+        function animateParticles() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            for (let p of particles) {
+                p.update();
+                p.draw();
+            }
+            drawConnections();
+            requestAnimationFrame(animateParticles);
+        }
+
+        initParticles();
+        animateParticles();
+
+        window.addEventListener('resize', initParticles);
+
+        window.addEventListener('scroll', () => {
+            const scrolled = window.scrollY;
+            const orb1 = document.querySelector('.glow-orb-1');
+            const orb2 = document.querySelector('.glow-orb-2');
+
+            if (orb1) orb1.style.transform = `translateY(${scrolled * 0.25}px)`;
+            if (orb2) orb2.style.transform = `translateY(${scrolled * -0.18}px)`;
+        });
+    </script>
+</body>
+</html>
