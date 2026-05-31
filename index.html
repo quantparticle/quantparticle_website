@@ -42,7 +42,6 @@
             cursor: none;
         }
 
-        /* Custom Cursor */
         .cursor-glow {
             position: fixed;
             width: 20px;
@@ -108,7 +107,6 @@
             transition: width 0.1s;
         }
 
-        /* ===== HEADER ===== */
         header {
             position: fixed;
             top: 0;
@@ -128,10 +126,11 @@
         .nav-container {
             max-width: 1300px;
             margin: 0 auto;
-            padding: 1rem 2rem;
+            padding: 1.25rem 2rem;
             display: flex;
             justify-content: space-between;
             align-items: center;
+            min-height: 92px;
         }
 
         .logo {
@@ -141,7 +140,8 @@
         }
 
         .logo img {
-            height: 44px;
+            height: 60px;
+            width: auto;
             filter: drop-shadow(0 0 15px rgba(0, 229, 255, 0.4));
             animation: logoPulse 3s ease-in-out infinite;
         }
@@ -151,7 +151,6 @@
             50% { filter: drop-shadow(0 0 25px rgba(0, 229, 255, 0.7)); }
         }
 
-        /* Animated nav links */
         nav ul {
             list-style: none;
             display: flex;
@@ -191,7 +190,6 @@
             width: 100%;
         }
 
-        /* Active nav glow */
         nav a.active-nav {
             color: var(--accent-cyan);
         }
@@ -259,11 +257,15 @@
             transform: rotate(180deg);
         }
 
-        /* ===== LAYOUT ===== */
         .container {
             max-width: 1300px;
             margin: 0 auto;
             padding: 0 2rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        main {
             position: relative;
             z-index: 1;
         }
@@ -273,13 +275,12 @@
             position: relative;
         }
 
-        /* ===== HERO ===== */
         .hero {
             min-height: 100vh;
             display: flex;
             flex-direction: column;
             justify-content: center;
-            padding-top: 100px;
+            padding-top: 120px;
             position: relative;
             overflow: hidden;
         }
@@ -338,29 +339,52 @@
         .hero h1 .line span {
             display: block;
             transform: translateY(100%);
-            animation: revealText 1s cubic-bezier(0.77, 0, 0.175, 1) forwards;
+            position: relative;
         }
 
-        .hero h1 .line:nth-child(1) span { animation-delay: 0.4s; }
-        .hero h1 .line:nth-child(2) span { animation-delay: 0.7s; }
+        .hero-shine {
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            background-size: 220% 100%;
+            animation: revealText 1s cubic-bezier(0.77, 0, 0.175, 1) forwards, shineRTL 5s linear infinite 1.4s;
+        }
+
+        .primary-text {
+            background-image: linear-gradient(
+                90deg,
+                #cfd7e2 0%,
+                #ffffff 18%,
+                #eaf9ff 34%,
+                var(--accent-cyan) 50%,
+                #ffffff 66%,
+                #d7dee9 100%
+            );
+        }
+
+        .accent-text {
+            background-image: linear-gradient(
+                90deg,
+                var(--accent-purple) 0%,
+                var(--accent-blue) 20%,
+                var(--accent-cyan) 42%,
+                #ffffff 56%,
+                var(--accent-cyan) 70%,
+                var(--accent-blue) 86%,
+                var(--accent-purple) 100%
+            );
+        }
+
+        .hero h1 .line:nth-child(1) span { animation-delay: 0.4s, 1.7s; }
+        .hero h1 .line:nth-child(2) span { animation-delay: 0.7s, 1.9s; }
 
         @keyframes revealText {
             to { transform: translateY(0); }
         }
 
-        .hero h1 .accent {
-            background: linear-gradient(135deg, var(--accent-cyan) 0%, var(--accent-blue) 50%, var(--accent-purple) 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            background-size: 200% 200%;
-            animation: gradientShift 4s ease infinite;
-        }
-
-        @keyframes gradientShift {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
+        @keyframes shineRTL {
+            0% { background-position: 200% center; }
+            100% { background-position: -200% center; }
         }
 
         .hero p {
@@ -455,7 +479,6 @@
             transform: translateY(-2px);
         }
 
-        /* ===== HFT ANIMATION ===== */
         .hero-visual {
             position: relative;
             height: 500px;
@@ -588,7 +611,6 @@
             100% { width: 0; left: 100%; }
         }
 
-        /* ===== SECTIONS ===== */
         .section-label {
             font-family: 'JetBrains Mono', monospace;
             font-size: 0.8rem;
@@ -635,7 +657,6 @@
             transform: translateY(0);
         }
 
-        /* ===== WHAT WE DO - ALTERNATING ===== */
         .topic-row {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -708,42 +729,124 @@
             justify-content: center;
         }
 
-        /* Strategy Visual - Neural Network */
-        .neural-viz {
+        /* STRATEGY VISUAL */
+        .strategy-viz {
             width: 100%;
             height: 100%;
             position: relative;
+            border-radius: 18px;
+            overflow: hidden;
+            background:
+                radial-gradient(circle at top right, rgba(124, 58, 237, 0.16), transparent 35%),
+                radial-gradient(circle at bottom left, rgba(0, 229, 255, 0.14), transparent 40%),
+                linear-gradient(180deg, rgba(15, 21, 37, 0.95), rgba(10, 16, 28, 0.95));
+            border: 1px solid var(--glass-border);
+            box-shadow: 0 25px 70px rgba(0, 0, 0, 0.4);
         }
 
-        .neural-node {
+        .strategy-viz::before {
+            content: '';
             position: absolute;
-            width: 12px;
-            height: 12px;
-            background: var(--accent-cyan);
+            inset: 0;
+            background-image:
+                linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+            background-size: 38px 38px;
+            opacity: 0.25;
+        }
+
+        .strategy-track {
+            position: absolute;
+            height: 2px;
+            border-radius: 10px;
+            background: linear-gradient(90deg, transparent, rgba(0, 229, 255, 0.45), transparent);
+            overflow: visible;
+        }
+
+        .track-1 { top: 22%; left: 8%; width: 68%; }
+        .track-2 { top: 38%; left: 18%; width: 62%; }
+        .track-3 { top: 56%; left: 10%; width: 75%; }
+        .track-4 { top: 74%; left: 22%; width: 55%; }
+
+        .strategy-pulse {
+            position: absolute;
+            top: 50%;
+            left: -12px;
+            width: 11px;
+            height: 11px;
             border-radius: 50%;
-            box-shadow: 0 0 15px rgba(0, 229, 255, 0.5);
-            animation: nodePulse 3s ease-in-out infinite;
+            transform: translateY(-50%);
+            background: var(--accent-cyan);
+            box-shadow: 0 0 18px rgba(0, 229, 255, 0.9);
+            animation: strategyRun 3.5s linear infinite;
         }
 
-        @keyframes nodePulse {
-            0%, 100% { transform: scale(1); opacity: 0.8; }
-            50% { transform: scale(1.3); opacity: 1; }
+        .track-2 .strategy-pulse { animation-duration: 4.5s; animation-delay: 0.4s; }
+        .track-3 .strategy-pulse { animation-duration: 3.8s; animation-delay: 0.8s; }
+        .track-4 .strategy-pulse { animation-duration: 4.2s; animation-delay: 1.2s; }
+
+        @keyframes strategyRun {
+            0% { left: -12px; opacity: 0; }
+            8% { opacity: 1; }
+            100% { left: calc(100% + 12px); opacity: 1; }
         }
 
-        .neural-line {
+        .strat-card {
             position: absolute;
-            height: 1px;
-            background: linear-gradient(90deg, transparent, var(--accent-cyan), transparent);
-            opacity: 0.3;
-            animation: linePulse 3s ease-in-out infinite;
+            padding: 0.75rem 1rem;
+            background: rgba(15, 21, 37, 0.7);
+            border: 1px solid rgba(0, 229, 255, 0.14);
+            border-radius: 12px;
+            backdrop-filter: blur(12px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.25);
+            animation: stratFloat 5s ease-in-out infinite;
         }
 
-        @keyframes linePulse {
-            0%, 100% { opacity: 0.1; }
-            50% { opacity: 0.4; }
+        .strat-card .small {
+            display: block;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.68rem;
+            color: var(--accent-cyan);
+            letter-spacing: 1px;
+            margin-bottom: 0.25rem;
         }
 
-        /* Execution Visual - Data Pipeline */
+        .strat-card .big {
+            font-size: 1rem;
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+
+        .strat-card-1 { top: 10%; right: 8%; animation-delay: 0s; }
+        .strat-card-2 { bottom: 14%; left: 10%; animation-delay: 1.2s; }
+        .strat-card-3 { bottom: 24%; right: 12%; animation-delay: 2.4s; }
+
+        @keyframes stratFloat {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .strategy-beacon {
+            position: absolute;
+            width: 14px;
+            height: 14px;
+            border-radius: 50%;
+            background: rgba(0, 229, 255, 0.9);
+            box-shadow: 0 0 0 0 rgba(0, 229, 255, 0.4);
+            animation: beaconPulse 2.8s infinite;
+        }
+
+        .beacon-1 { top: 18%; left: 14%; }
+        .beacon-2 { top: 52%; left: 72%; animation-delay: 0.8s; }
+        .beacon-3 { top: 78%; left: 38%; animation-delay: 1.4s; }
+
+        @keyframes beaconPulse {
+            0% { box-shadow: 0 0 0 0 rgba(0, 229, 255, 0.45); transform: scale(1); }
+            70% { box-shadow: 0 0 0 20px rgba(0, 229, 255, 0); transform: scale(1.15); }
+            100% { box-shadow: 0 0 0 0 rgba(0, 229, 255, 0); transform: scale(1); }
+        }
+
+        /* EXECUTION VISUAL */
         .pipeline-viz {
             width: 100%;
             height: 100%;
@@ -803,7 +906,7 @@
             50% { transform: translateX(5px); opacity: 1; }
         }
 
-        /* Backtest Visual - Chart */
+        /* BACKTEST VISUAL */
         .chart-viz {
             width: 100%;
             height: 100%;
@@ -871,53 +974,184 @@
             color: var(--text-secondary);
         }
 
-        /* Automation Visual - Gears */
-        .automation-viz {
+        /* AUTOMATION VISUAL */
+        .automation-flow {
             width: 100%;
             height: 100%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 2rem;
+            position: relative;
+            border-radius: 18px;
+            overflow: hidden;
+            background:
+                radial-gradient(circle at center, rgba(0, 229, 255, 0.08), transparent 45%),
+                linear-gradient(180deg, rgba(15, 21, 37, 0.96), rgba(10, 15, 26, 0.96));
+            border: 1px solid var(--glass-border);
         }
 
-        .gear {
-            width: 80px;
-            height: 80px;
-            border: 3px dashed var(--accent-cyan);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.5rem;
+        .automation-flow::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background-image:
+                linear-gradient(rgba(255,255,255,0.025) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255,255,255,0.025) 1px, transparent 1px);
+            background-size: 36px 36px;
+            opacity: 0.22;
+        }
+
+        .auto-box {
+            position: absolute;
+            min-width: 120px;
+            padding: 0.9rem 1rem;
+            background: rgba(20, 29, 46, 0.75);
+            border: 1px solid rgba(0, 229, 255, 0.14);
+            border-radius: 12px;
+            text-align: center;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.78rem;
+            color: var(--text-primary);
+            backdrop-filter: blur(12px);
+            box-shadow: 0 12px 28px rgba(0,0,0,0.2);
+        }
+
+        .auto-box small {
+            display: block;
             color: var(--accent-cyan);
-            animation: spin 8s linear infinite;
-            box-shadow: 0 0 30px rgba(0, 229, 255, 0.1);
+            font-size: 0.65rem;
+            letter-spacing: 1px;
+            margin-bottom: 0.3rem;
         }
 
-        .gear:nth-child(2) {
-            width: 60px;
-            height: 60px;
-            animation-direction: reverse;
-            animation-duration: 6s;
-            border-color: var(--accent-blue);
-            color: var(--accent-blue);
+        .auto-box-1 { top: 18%; left: 12%; }
+        .auto-box-2 { top: 18%; right: 12%; }
+        .auto-box-3 { bottom: 18%; left: 12%; }
+        .auto-box-4 { bottom: 18%; right: 12%; }
+
+        .auto-link {
+            position: absolute;
+            background: linear-gradient(90deg, rgba(0,229,255,0.15), rgba(0,229,255,0.5), rgba(0,229,255,0.15));
+            border-radius: 10px;
         }
 
-        .gear:nth-child(3) {
-            width: 50px;
-            height: 50px;
-            animation-duration: 5s;
-            border-color: var(--accent-purple);
-            color: var(--accent-purple);
+        .link-top {
+            top: 31%;
+            left: 33%;
+            width: 34%;
+            height: 2px;
         }
 
-        @keyframes spin {
-            from { transform: rotate(0deg); }
-            to { transform: rotate(360deg); }
+        .link-left {
+            top: 31%;
+            left: 25%;
+            width: 2px;
+            height: 38%;
+            background: linear-gradient(180deg, rgba(0,229,255,0.15), rgba(0,229,255,0.5), rgba(0,229,255,0.15));
         }
 
-        /* Market Making Visual - Order Book */
+        .link-right {
+            top: 31%;
+            right: 25%;
+            width: 2px;
+            height: 38%;
+            background: linear-gradient(180deg, rgba(0,229,255,0.15), rgba(0,229,255,0.5), rgba(0,229,255,0.15));
+        }
+
+        .link-bottom {
+            bottom: 31%;
+            left: 33%;
+            width: 34%;
+            height: 2px;
+        }
+
+        .auto-packet {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: var(--accent-cyan);
+            box-shadow: 0 0 16px rgba(0,229,255,0.85);
+        }
+
+        .packet-1 {
+            top: calc(31% - 4px);
+            left: 33%;
+            animation: moveTop 3.2s linear infinite;
+        }
+
+        .packet-2 {
+            top: 31%;
+            left: calc(25% - 4px);
+            animation: moveLeft 3.6s linear infinite 0.5s;
+        }
+
+        .packet-3 {
+            top: 31%;
+            right: calc(25% - 4px);
+            animation: moveRight 3.6s linear infinite 1s;
+        }
+
+        .packet-4 {
+            bottom: calc(31% - 4px);
+            left: 67%;
+            animation: moveBottom 3.2s linear infinite 1.4s;
+        }
+
+        @keyframes moveTop {
+            0% { left: 33%; opacity: 0; }
+            10% { opacity: 1; }
+            100% { left: 67%; opacity: 1; }
+        }
+
+        @keyframes moveLeft {
+            0% { top: 31%; opacity: 0; }
+            10% { opacity: 1; }
+            100% { top: 69%; opacity: 1; }
+        }
+
+        @keyframes moveRight {
+            0% { top: 31%; opacity: 0; }
+            10% { opacity: 1; }
+            100% { top: 69%; opacity: 1; }
+        }
+
+        @keyframes moveBottom {
+            0% { left: 67%; opacity: 0; }
+            10% { opacity: 1; }
+            100% { left: 33%; opacity: 1; }
+        }
+
+        .auto-core {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 78px;
+            height: 78px;
+            transform: translate(-50%, -50%);
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(0,229,255,0.45), rgba(79,70,229,0.25) 55%, transparent 56%);
+            border: 1px solid rgba(0,229,255,0.2);
+            box-shadow: 0 0 35px rgba(0,229,255,0.16);
+            animation: corePulse 2.6s ease-in-out infinite;
+        }
+
+        .auto-core::before {
+            content: 'AUTO';
+            position: absolute;
+            inset: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.85rem;
+            color: var(--text-primary);
+            letter-spacing: 1px;
+        }
+
+        @keyframes corePulse {
+            0%, 100% { transform: translate(-50%, -50%) scale(1); }
+            50% { transform: translate(-50%, -50%) scale(1.08); }
+        }
+
+        /* MARKET MAKING VISUAL */
         .ob-viz {
             width: 100%;
             height: 100%;
@@ -967,64 +1201,173 @@
             margin: 0.25rem 0;
         }
 
-        /* Analytics Visual - Radar */
-        .analytics-viz {
+        /* ANALYTICS VISUAL */
+        .analytics-dashboard {
             width: 100%;
             height: 100%;
+            position: relative;
+            border-radius: 18px;
+            overflow: hidden;
+            background:
+                radial-gradient(circle at top left, rgba(79,70,229,0.18), transparent 35%),
+                radial-gradient(circle at bottom right, rgba(0,229,255,0.14), transparent 40%),
+                linear-gradient(180deg, rgba(15, 21, 37, 0.96), rgba(11, 16, 28, 0.96));
+            border: 1px solid var(--glass-border);
+            padding: 1.25rem;
+        }
+
+        .analytics-top {
+            display: grid;
+            grid-template-columns: 140px 1fr;
+            gap: 1rem;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .analytics-donut {
+            width: 130px;
+            height: 130px;
+            border-radius: 50%;
+            background:
+                conic-gradient(var(--accent-cyan) 0 120deg, var(--accent-blue) 120deg 220deg, var(--accent-purple) 220deg 290deg, rgba(255,255,255,0.08) 290deg 360deg);
+            position: relative;
+            margin: 0 auto;
+            animation: donutSpin 8s linear infinite;
+            box-shadow: 0 0 30px rgba(0,229,255,0.12);
+        }
+
+        .analytics-donut::before {
+            content: '';
+            position: absolute;
+            inset: 20px;
+            border-radius: 50%;
+            background: var(--bg-surface);
+            box-shadow: inset 0 0 20px rgba(0,0,0,0.35);
+        }
+
+        .analytics-donut::after {
+            content: 'Alpha';
+            position: absolute;
+            inset: 0;
             display: flex;
             align-items: center;
             justify-content: center;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.85rem;
+            color: var(--text-primary);
+            letter-spacing: 1px;
+        }
+
+        @keyframes donutSpin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        .analytics-metrics {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 0.75rem;
+        }
+
+        .analytics-metric {
+            padding: 0.8rem;
+            border-radius: 12px;
+            background: rgba(20, 29, 46, 0.65);
+            border: 1px solid rgba(255,255,255,0.06);
+        }
+
+        .analytics-metric .k {
+            display: block;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.68rem;
+            color: var(--accent-cyan);
+            margin-bottom: 0.35rem;
+            letter-spacing: 1px;
+        }
+
+        .analytics-metric .v {
+            font-size: 1rem;
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+
+        .analytics-wave {
             position: relative;
+            height: 90px;
+            border-radius: 12px;
+            background: rgba(12, 18, 31, 0.55);
+            border: 1px solid rgba(255,255,255,0.05);
+            overflow: hidden;
+            margin-bottom: 1rem;
         }
 
-        .radar-container {
-            width: 250px;
-            height: 250px;
-            position: relative;
-        }
-
-        .radar-ring {
+        .analytics-wave::before,
+        .analytics-wave::after {
+            content: '';
             position: absolute;
-            border: 1px solid rgba(0, 229, 255, 0.2);
-            border-radius: 50%;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            animation: radarExpand 3s ease-out infinite;
+            left: -10%;
+            width: 120%;
+            height: 2px;
+            border-radius: 20px;
         }
 
-        .radar-ring:nth-child(1) { width: 50px; height: 50px; animation-delay: 0s; }
-        .radar-ring:nth-child(2) { width: 100px; height: 100px; animation-delay: 0.5s; }
-        .radar-ring:nth-child(3) { width: 150px; height: 150px; animation-delay: 1s; }
-        .radar-ring:nth-child(4) { width: 200px; height: 200px; animation-delay: 1.5s; }
-
-        @keyframes radarExpand {
-            0% { opacity: 1; transform: translate(-50%, -50%) scale(0.8); }
-            100% { opacity: 0; transform: translate(-50%, -50%) scale(1.2); }
+        .analytics-wave::before {
+            top: 40%;
+            background: linear-gradient(90deg, transparent, var(--accent-cyan), transparent);
+            animation: waveMove1 4.5s ease-in-out infinite;
+            box-shadow: 0 0 10px rgba(0,229,255,0.35);
         }
 
-        .radar-center {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 20px;
-            height: 20px;
-            background: var(--accent-cyan);
-            border-radius: 50%;
-            box-shadow: 0 0 30px var(--accent-cyan);
-            animation: centerPulse 2s ease-in-out infinite;
+        .analytics-wave::after {
+            top: 62%;
+            background: linear-gradient(90deg, transparent, var(--accent-purple), transparent);
+            animation: waveMove2 5.5s ease-in-out infinite;
+            box-shadow: 0 0 10px rgba(124,58,237,0.35);
         }
 
-        @keyframes centerPulse {
-            0%, 100% { transform: translate(-50%, -50%) scale(1); }
-            50% { transform: translate(-50%, -50%) scale(1.2); }
+        @keyframes waveMove1 {
+            0%, 100% { transform: translateY(0) scaleX(0.92); }
+            25% { transform: translateY(-18px) scaleX(1); }
+            50% { transform: translateY(8px) scaleX(0.95); }
+            75% { transform: translateY(-10px) scaleX(1.02); }
         }
 
-        /* ===== STATS BAR ===== */
+        @keyframes waveMove2 {
+            0%, 100% { transform: translateY(0) scaleX(0.94); }
+            30% { transform: translateY(-12px) scaleX(1.03); }
+            60% { transform: translateY(10px) scaleX(0.96); }
+            80% { transform: translateY(-7px) scaleX(1.01); }
+        }
+
+        .analytics-bars-wrap {
+            display: flex;
+            align-items: flex-end;
+            gap: 8px;
+            height: 88px;
+        }
+
+        .analytics-bar {
+            flex: 1;
+            min-height: 18px;
+            border-radius: 4px 4px 0 0;
+            background: linear-gradient(to top, var(--accent-blue), var(--accent-cyan));
+            animation: analyticsBar 2.2s ease-in-out infinite alternate;
+            opacity: 0.8;
+        }
+
+        .analytics-bar:nth-child(2n) {
+            background: linear-gradient(to top, var(--accent-purple), var(--accent-blue));
+            animation-delay: 0.25s;
+        }
+
+        @keyframes analyticsBar {
+            from { height: 20%; }
+            to { height: 92%; }
+        }
+
         .stats-bar {
             display: grid;
-            grid-template-columns: repeat(4, 1fr);
+            grid-template-columns: repeat(3, 1fr);
             gap: 2rem;
             padding: 3rem 0;
             border-top: 1px solid var(--border-subtle);
@@ -1066,7 +1409,6 @@
             letter-spacing: 1px;
         }
 
-        /* ===== TECH STACK ===== */
         .tech-grid {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
@@ -1106,7 +1448,6 @@
             color: var(--text-secondary);
         }
 
-        /* ===== APPROACH ===== */
         .approach-grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
@@ -1157,11 +1498,14 @@
             line-height: 1.7;
         }
 
-        /* ===== WHO WE SERVE ===== */
         .serve-section {
             text-align: center;
             background: linear-gradient(180deg, var(--bg-deep) 0%, var(--bg-surface) 50%, var(--bg-deep) 100%);
             position: relative;
+            padding-top: 130px;
+            padding-bottom: 190px;
+            overflow: hidden;
+            z-index: 2;
         }
 
         .serve-section::before {
@@ -1181,7 +1525,7 @@
             flex-wrap: wrap;
             justify-content: center;
             gap: 1rem;
-            margin-bottom: 4rem;
+            margin-bottom: 4.5rem;
         }
 
         .serve-tag {
@@ -1216,12 +1560,12 @@
             font-weight: 600;
         }
 
-        /* ===== FOOTER ===== */
         footer {
             background: var(--bg-surface);
             padding: 5rem 0 2rem;
             border-top: 1px solid var(--border-subtle);
             position: relative;
+            z-index: 3;
         }
 
         footer::before {
@@ -1323,7 +1667,6 @@
             box-shadow: 0 0 15px rgba(0, 229, 255, 0.2);
         }
 
-        /* Glow Orbs */
         .glow-orb {
             position: fixed;
             border-radius: 50%;
@@ -1357,7 +1700,6 @@
             66% { transform: translate(-30px, 30px) scale(0.9); }
         }
 
-        /* Responsive */
         @media (max-width: 968px) {
             .hero-grid { grid-template-columns: 1fr; }
             .hero-visual { display: none; }
@@ -1370,7 +1712,7 @@
             nav ul { gap: 1.5rem; }
             body { cursor: auto; }
             .cursor-glow, .cursor-trail { display: none; }
-            .btn, nav a, .card, .serve-tag, .social-link, .tech-card { cursor: pointer; }
+            .btn, nav a, .serve-tag, .social-link, .tech-card { cursor: pointer; }
         }
 
         @media (max-width: 640px) {
@@ -1378,6 +1720,10 @@
             .tech-grid { grid-template-columns: 1fr; }
             .footer-grid { grid-template-columns: 1fr; }
             nav ul { display: none; }
+            .analytics-top { grid-template-columns: 1fr; }
+            .logo img { height: 54px; }
+            .nav-container { min-height: 82px; }
+            .serve-section { padding-bottom: 160px; }
         }
     </style>
 </head>
@@ -1419,7 +1765,6 @@
     </header>
 
     <main>
-        <!-- HERO -->
         <section class="hero container">
             <div class="hero-grid">
                 <div class="hero-content">
@@ -1428,8 +1773,8 @@
                         <span>Live Systems Active</span>
                     </div>
                     <h1>
-                        <div class="line"><span>Quantitative Trading.</span></div>
-                        <div class="line"><span class="accent">Engineered.</span></div>
+                        <div class="line"><span class="hero-shine primary-text">Quantitative Trading.</span></div>
+                        <div class="line"><span class="hero-shine accent-text">Engineered.</span></div>
                     </h1>
                     <p>
                         <strong style="color: var(--text-primary);">Research-Driven Trading Technology.</strong> QuantParticle develops quantitative trading systems, execution infrastructure, and systematic trading solutions for professional traders, proprietary trading firms, institutions, and fintech businesses across global markets.
@@ -1456,9 +1801,7 @@
                             <span class="terminal-title">EXECUTION_ENGINE // LIVE</span>
                             <div style="width: 40px;"></div>
                         </div>
-                        <div class="terminal-body" id="terminal-body">
-                            <!-- JS will populate orders -->
-                        </div>
+                        <div class="terminal-body" id="terminal-body"></div>
                         <div class="latency-monitor">
                             <span class="latency-label">AVG LATENCY</span>
                             <span class="latency-value" id="latency">8.4 μs</span>
@@ -1471,20 +1814,15 @@
             </div>
         </section>
 
-        <!-- STATS BAR -->
         <section class="container" style="padding-top: 0; padding-bottom: 0;">
             <div class="stats-bar reveal">
-                <div class="stat-item">
-                    <div class="stat-number">$4.2B+</div>
-                    <div class="stat-label">Notional Traded</div>
-                </div>
                 <div class="stat-item">
                     <div class="stat-number">12 μs</div>
                     <div class="stat-label">Avg Latency</div>
                 </div>
                 <div class="stat-item">
-                    <div class="stat-number">142</div>
-                    <div class="stat-label">Active Strategies</div>
+                    <div class="stat-number">1000+</div>
+                    <div class="stat-label">Quant Strategies</div>
                 </div>
                 <div class="stat-item">
                     <div class="stat-number">99.99%</div>
@@ -1493,7 +1831,6 @@
             </div>
         </section>
 
-        <!-- WHAT WE DO - ALTERNATING -->
         <section id="solutions" class="container">
             <div class="reveal" style="text-align: center; margin-bottom: 80px;">
                 <div class="section-label" style="justify-content: center;">
@@ -1505,7 +1842,6 @@
                 <p class="section-subtitle" style="margin: 0 auto;">End-to-end quantitative infrastructure from research to live execution across LFT, MFT, and HFT regimes.</p>
             </div>
 
-            <!-- Topic 1: Left content, Right visual -->
             <div class="topic-row reveal">
                 <div class="topic-content">
                     <h3>
@@ -1521,11 +1857,32 @@
                     </ul>
                 </div>
                 <div class="topic-visual">
-                    <div class="neural-viz" id="neural-viz"></div>
+                    <div class="strategy-viz">
+                        <div class="strategy-track track-1"><span class="strategy-pulse"></span></div>
+                        <div class="strategy-track track-2"><span class="strategy-pulse"></span></div>
+                        <div class="strategy-track track-3"><span class="strategy-pulse"></span></div>
+                        <div class="strategy-track track-4"><span class="strategy-pulse"></span></div>
+
+                        <div class="strat-card strat-card-1">
+                            <span class="small">ALPHA MODEL</span>
+                            <span class="big">Adaptive Signals</span>
+                        </div>
+                        <div class="strat-card strat-card-2">
+                            <span class="small">REGIME</span>
+                            <span class="big">Detected</span>
+                        </div>
+                        <div class="strat-card strat-card-3">
+                            <span class="small">FACTOR SCORE</span>
+                            <span class="big">0.87</span>
+                        </div>
+
+                        <span class="strategy-beacon beacon-1"></span>
+                        <span class="strategy-beacon beacon-2"></span>
+                        <span class="strategy-beacon beacon-3"></span>
+                    </div>
                 </div>
             </div>
 
-            <!-- Topic 2: Right content, Left visual -->
             <div class="topic-row reverse reveal">
                 <div class="topic-visual">
                     <div class="pipeline-viz">
@@ -1577,7 +1934,6 @@
                 </div>
             </div>
 
-            <!-- Topic 3: Left content, Right visual -->
             <div class="topic-row reveal">
                 <div class="topic-content">
                     <h3>
@@ -1618,13 +1974,37 @@
                 </div>
             </div>
 
-            <!-- Topic 4: Right content, Left visual -->
             <div class="topic-row reverse reveal">
                 <div class="topic-visual">
-                    <div class="automation-viz">
-                        <div class="gear">⚙</div>
-                        <div class="gear">⚙</div>
-                        <div class="gear">⚙</div>
+                    <div class="automation-flow">
+                        <div class="auto-box auto-box-1">
+                            <small>INPUT</small>
+                            Market Data
+                        </div>
+                        <div class="auto-box auto-box-2">
+                            <small>LOGIC</small>
+                            Signal Engine
+                        </div>
+                        <div class="auto-box auto-box-3">
+                            <small>ACTION</small>
+                            Execution
+                        </div>
+                        <div class="auto-box auto-box-4">
+                            <small>OBSERVE</small>
+                            Monitoring
+                        </div>
+
+                        <div class="auto-link link-top"></div>
+                        <div class="auto-link link-left"></div>
+                        <div class="auto-link link-right"></div>
+                        <div class="auto-link link-bottom"></div>
+
+                        <span class="auto-packet packet-1"></span>
+                        <span class="auto-packet packet-2"></span>
+                        <span class="auto-packet packet-3"></span>
+                        <span class="auto-packet packet-4"></span>
+
+                        <div class="auto-core"></div>
                     </div>
                 </div>
                 <div class="topic-content">
@@ -1642,7 +2022,6 @@
                 </div>
             </div>
 
-            <!-- Topic 5: Left content, Right visual -->
             <div class="topic-row reveal">
                 <div class="topic-content">
                     <h3>
@@ -1670,16 +2049,42 @@
                 </div>
             </div>
 
-            <!-- Topic 6: Right content, Left visual -->
             <div class="topic-row reverse reveal">
                 <div class="topic-visual">
-                    <div class="analytics-viz">
-                        <div class="radar-container">
-                            <div class="radar-ring"></div>
-                            <div class="radar-ring"></div>
-                            <div class="radar-ring"></div>
-                            <div class="radar-ring"></div>
-                            <div class="radar-center"></div>
+                    <div class="analytics-dashboard">
+                        <div class="analytics-top">
+                            <div class="analytics-donut"></div>
+                            <div class="analytics-metrics">
+                                <div class="analytics-metric">
+                                    <span class="k">SHARPE</span>
+                                    <span class="v">2.41</span>
+                                </div>
+                                <div class="analytics-metric">
+                                    <span class="k">MAX DD</span>
+                                    <span class="v">4.8%</span>
+                                </div>
+                                <div class="analytics-metric">
+                                    <span class="k">WIN RATE</span>
+                                    <span class="v">63%</span>
+                                </div>
+                                <div class="analytics-metric">
+                                    <span class="k">BETA</span>
+                                    <span class="v">0.18</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="analytics-wave"></div>
+
+                        <div class="analytics-bars-wrap">
+                            <div class="analytics-bar" style="height: 42%;"></div>
+                            <div class="analytics-bar" style="height: 58%;"></div>
+                            <div class="analytics-bar" style="height: 34%;"></div>
+                            <div class="analytics-bar" style="height: 74%;"></div>
+                            <div class="analytics-bar" style="height: 48%;"></div>
+                            <div class="analytics-bar" style="height: 86%;"></div>
+                            <div class="analytics-bar" style="height: 61%;"></div>
+                            <div class="analytics-bar" style="height: 79%;"></div>
                         </div>
                     </div>
                 </div>
@@ -1699,7 +2104,6 @@
             </div>
         </section>
 
-        <!-- TECHNOLOGY -->
         <section id="technology" class="container">
             <div class="reveal" style="text-align: center; margin-bottom: 60px;">
                 <div class="section-label" style="justify-content: center;">
@@ -1734,7 +2138,6 @@
             </div>
         </section>
 
-        <!-- APPROACH -->
         <section id="about" class="container">
             <div class="reveal" style="text-align: center; margin-bottom: 60px;">
                 <div class="section-label" style="justify-content: center;">
@@ -1776,7 +2179,6 @@
             </div>
         </section>
 
-        <!-- WHO WE SERVE -->
         <section class="serve-section container">
             <div class="reveal">
                 <div class="section-label" style="justify-content: center;">
@@ -1845,7 +2247,6 @@
     </footer>
 
     <script>
-        // Custom Cursor
         const cursor = document.querySelector('.cursor-glow');
         const trail = document.querySelector('.cursor-trail');
         let mouseX = 0, mouseY = 0;
@@ -1870,13 +2271,12 @@
         }
         animateCursor();
 
-        const interactiveElements = document.querySelectorAll('a, button, .card, .serve-tag, .tech-card');
+        const interactiveElements = document.querySelectorAll('a, button, .serve-tag, .tech-card');
         interactiveElements.forEach(el => {
             el.addEventListener('mouseenter', () => cursor.classList.add('hover'));
             el.addEventListener('mouseleave', () => cursor.classList.remove('hover'));
         });
 
-        // Scroll Progress
         const scrollProgress = document.querySelector('.scroll-progress');
         window.addEventListener('scroll', () => {
             const scrolled = window.scrollY;
@@ -1884,7 +2284,6 @@
             scrollProgress.style.width = (scrolled / max) * 100 + '%';
         });
 
-        // Header scroll effect
         const header = document.querySelector('header');
         window.addEventListener('scroll', () => {
             if (window.scrollY > 50) {
@@ -1894,7 +2293,6 @@
             }
         });
 
-        // Active nav highlighting
         const sections = document.querySelectorAll('section[id]');
         const navLinks = document.querySelectorAll('nav a[href^="#"]');
         window.addEventListener('scroll', () => {
@@ -1913,7 +2311,6 @@
             });
         });
 
-        // Intersection Observer
         const observerOptions = { threshold: 0.1, rootMargin: '0px 0px -50px 0px' };
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
@@ -1924,9 +2321,9 @@
         }, observerOptions);
         document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 
-        // Particle System
         const canvas = document.getElementById('particle-canvas');
         const ctx = canvas.getContext('2d');
+
         function resizeCanvas() {
             canvas.width = window.innerWidth;
             canvas.height = window.innerHeight;
@@ -1936,10 +2333,12 @@
 
         let particles = [];
         const mouse = { x: null, y: null, radius: 200 };
+
         window.addEventListener('mousemove', (e) => {
             mouse.x = e.x;
             mouse.y = e.y;
         });
+
         window.addEventListener('mouseout', () => {
             mouse.x = null;
             mouse.y = null;
@@ -1957,6 +2356,7 @@
                 this.vy = (Math.random() - 0.5) * 0.5;
                 this.opacity = Math.random() * 0.5 + 0.2;
             }
+
             update() {
                 if (mouse.x != null) {
                     let dx = mouse.x - this.x;
@@ -1983,6 +2383,7 @@
                 if (this.y < 0) this.y = canvas.height;
                 if (this.y > canvas.height) this.y = 0;
             }
+
             draw() {
                 ctx.beginPath();
                 ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
@@ -2015,6 +2416,7 @@
                         ctx.stroke();
                     }
                 }
+
                 if (mouse.x != null) {
                     let dx = particles[i].x - mouse.x;
                     let dy = particles[i].y - mouse.y;
@@ -2041,21 +2443,20 @@
             drawConnections();
             requestAnimationFrame(animateParticles);
         }
+
         initParticles();
         animateParticles();
 
-        // Parallax orbs
         window.addEventListener('scroll', () => {
             const scrolled = window.scrollY;
             document.querySelector('.glow-orb-1').style.transform = `translateY(${scrolled * 0.3}px)`;
             document.querySelector('.glow-orb-2').style.transform = `translateY(${scrolled * -0.2}px)`;
         });
 
-        // HFT Terminal - Order Simulation
         const symbols = ['BTC-PERP', 'ETH-PERP', 'SOL-PERP', 'AVAX-PERP', 'AAPL', 'TSLA', 'ES1!', 'NQ1!'];
         const terminalBody = document.getElementById('terminal-body');
         const latencyEl = document.getElementById('latency');
-        
+
         function createOrderRow() {
             const symbol = symbols[Math.floor(Math.random() * symbols.length)];
             const side = Math.random() > 0.5 ? 'buy' : 'sell';
@@ -2063,7 +2464,7 @@
             const price = (Math.random() * 1000 + 100).toFixed(2);
             const statuses = ['PEND', 'OPEN', 'FILL', 'PART'];
             const status = Math.random() > 0.7 ? 'FILL' : statuses[Math.floor(Math.random() * 3)];
-            
+
             const row = document.createElement('div');
             row.className = 'order-row';
             row.innerHTML = `
@@ -2082,64 +2483,23 @@
             if (terminalBody.children.length > 8) {
                 terminalBody.lastElementChild.remove();
             }
-            // Update latency randomly
             const lat = (Math.random() * 15 + 2).toFixed(1);
             latencyEl.textContent = lat + ' μs';
         }
 
         setInterval(updateTerminal, 800);
-        // Pre-fill
         for (let i = 0; i < 6; i++) {
             terminalBody.appendChild(createOrderRow());
         }
 
-        // Neural Network Visualization
-        const neuralViz = document.getElementById('neural-viz');
-        const nodePositions = [
-            [20, 20], [50, 10], [80, 20],
-            [10, 50], [40, 45], [70, 50], [90, 45],
-            [30, 80], [60, 75], [85, 80],
-            [50, 95]
-        ];
-        
-        nodePositions.forEach((pos, i) => {
-            const node = document.createElement('div');
-            node.className = 'neural-node';
-            node.style.left = pos[0] + '%';
-            node.style.top = pos[1] + '%';
-            node.style.animationDelay = (i * 0.2) + 's';
-            neuralViz.appendChild(node);
-        });
-
-        // Draw lines between nearby nodes
-        for (let i = 0; i < nodePositions.length; i++) {
-            for (let j = i + 1; j < nodePositions.length; j++) {
-                const dx = nodePositions[j][0] - nodePositions[i][0];
-                const dy = nodePositions[j][1] - nodePositions[i][1];
-                const dist = Math.sqrt(dx * dx + dy * dy);
-                if (dist < 40) {
-                    const line = document.createElement('div');
-                    line.className = 'neural-line';
-                    const angle = Math.atan2(dy, dx) * 180 / Math.PI;
-                    const len = dist * 4; // approximate scaling
-                    line.style.width = len + 'px';
-                    line.style.left = nodePositions[i][0] + '%';
-                    line.style.top = nodePositions[i][1] + '%';
-                    line.style.transform = `rotate(${angle}deg)`;
-                    line.style.transformOrigin = '0 50%';
-                    neuralViz.appendChild(line);
-                }
-            }
-        }
-
-        // Order Book Visualization
         const obAsks = document.getElementById('ob-asks');
         const obBids = document.getElementById('ob-bids');
         const basePrice = 67245;
-        
+
         function generateOB() {
             obAsks.innerHTML = '';
             obBids.innerHTML = '';
+
             for (let i = 4; i > 0; i--) {
                 const price = basePrice + i * 12 + Math.random() * 5;
                 const size = Math.floor(Math.random() * 800) + 100;
@@ -2153,6 +2513,7 @@
                 `;
                 obAsks.appendChild(row);
             }
+
             for (let i = 1; i <= 4; i++) {
                 const price = basePrice - i * 12 + Math.random() * 5;
                 const size = Math.floor(Math.random() * 800) + 100;
@@ -2167,6 +2528,7 @@
                 obBids.appendChild(row);
             }
         }
+
         generateOB();
         setInterval(generateOB, 2000);
     </script>
