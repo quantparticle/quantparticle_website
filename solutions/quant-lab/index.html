@@ -1,0 +1,2924 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Quant Lab | QuantParticle</title>
+    <meta name="description" content="Quant Lab by QuantParticle - research and innovation division focused on quantitative models, market microstructure, AI-powered research, trading infrastructure, and next-generation financial technology solutions." />
+    <link rel="icon" href="/quant_particle_logo_fevicon.png" type="image/png" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet" />
+
+    <style>
+        :root {
+            --bg-deep: #070b14;
+            --bg-surface: #0f1525;
+            --bg-elevated: #141d2e;
+            --text-primary: #e8ecf1;
+            --text-secondary: #8b95a8;
+            --accent-cyan: #00e5ff;
+            --accent-blue: #4f46e5;
+            --accent-purple: #7c3aed;
+            --border-subtle: rgba(255, 255, 255, 0.06);
+            --border-glow: rgba(0, 229, 255, 0.15);
+            --glass-bg: rgba(15, 21, 37, 0.6);
+            --glass-border: rgba(255, 255, 255, 0.08);
+            --success: #27ca40;
+            --danger: #ff5f56;
+            --warning: #ffbd2e;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            min-width: 0;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            width: 100%;
+            max-width: 100%;
+            overflow-x: hidden;
+        }
+
+        body {
+            width: 100%;
+            max-width: 100%;
+            overflow-x: hidden;
+            background-color: var(--bg-deep);
+            color: var(--text-primary);
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            line-height: 1.6;
+            cursor: none;
+            position: relative;
+        }
+
+        img,
+        svg,
+        canvas,
+        video {
+            max-width: 100%;
+            display: block;
+        }
+
+        a,
+        button {
+            cursor: none;
+        }
+
+        .cursor-glow {
+            position: fixed;
+            width: 20px;
+            height: 20px;
+            border: 2px solid var(--accent-cyan);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 99999;
+            transform: translate(-50%, -50%);
+            transition: width 0.2s, height 0.2s, background 0.2s;
+            mix-blend-mode: difference;
+        }
+
+        .cursor-glow.hover {
+            width: 50px;
+            height: 50px;
+            background: rgba(0, 229, 255, 0.1);
+        }
+
+        .cursor-trail {
+            position: fixed;
+            width: 6px;
+            height: 6px;
+            background: var(--accent-cyan);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 99998;
+            transform: translate(-50%, -50%);
+            opacity: 0.5;
+            transition: opacity 0.5s;
+        }
+
+        .noise-overlay {
+            position: fixed;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 9999;
+            opacity: 0.03;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+        }
+
+        #particle-canvas {
+            position: fixed;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        .scroll-progress {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 2px;
+            background: linear-gradient(90deg, var(--accent-cyan), var(--accent-blue));
+            z-index: 10001;
+            width: 0%;
+            transition: width 0.1s;
+        }
+
+        .glow-orb {
+            position: fixed;
+            border-radius: 50%;
+            filter: blur(100px);
+            pointer-events: none;
+            z-index: 0;
+            opacity: 0.12;
+            max-width: none;
+        }
+
+        .glow-orb-1 {
+            width: 400px;
+            height: 400px;
+            background: var(--accent-blue);
+            top: 10%;
+            left: -10%;
+            animation: orbFloat 20s ease-in-out infinite;
+        }
+
+        .glow-orb-2 {
+            width: 300px;
+            height: 300px;
+            background: var(--accent-cyan);
+            bottom: 20%;
+            right: -5%;
+            animation: orbFloat 25s ease-in-out infinite reverse;
+        }
+
+        @keyframes orbFloat {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            33% { transform: translate(50px, -50px) scale(1.1); }
+            66% { transform: translate(-30px, 30px) scale(0.9); }
+        }
+
+        header,
+        main,
+        footer,
+        section,
+        .container,
+        .nav-container,
+        .hero-grid,
+        .topic-row,
+        .stats-bar,
+        .innovation-grid,
+        .project-grid,
+        .distinction-grid,
+        .footer-grid,
+        .serve-tags,
+        .mobile-menu,
+        .hero-content,
+        .hero-visual,
+        .topic-content,
+        .topic-visual {
+            width: 100%;
+            max-width: 100%;
+        }
+
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background: rgba(7, 11, 20, 0.72);
+            backdrop-filter: blur(20px) saturate(1.8);
+            border-bottom: 1px solid var(--border-subtle);
+            z-index: 1000;
+            transition: all 0.3s ease;
+            overflow: visible;
+        }
+
+        header.scrolled {
+            background: rgba(7, 11, 20, 0.92);
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4);
+        }
+
+        .nav-container {
+            max-width: 1300px;
+            margin: 0 auto;
+            padding: 1.15rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            min-height: 88px;
+            gap: 1rem;
+            position: relative;
+            overflow: visible;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+            min-width: 0;
+            flex: 0 1 auto;
+            position: relative;
+            isolation: isolate;
+        }
+
+        .logo::before {
+            content: '';
+            position: absolute;
+            left: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 90px;
+            height: 90px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(0, 229, 255, 0.28) 0%, rgba(79, 70, 229, 0.18) 38%, rgba(124, 58, 237, 0.08) 60%, transparent 75%);
+            filter: blur(18px);
+            opacity: 0.95;
+            pointer-events: none;
+            z-index: -1;
+            animation: logoGlowPulse 3.6s ease-in-out infinite;
+        }
+
+        .logo img {
+            height: 64px;
+            width: auto;
+            position: relative;
+            z-index: 2;
+            filter: drop-shadow(0 0 18px rgba(0, 229, 255, 0.55));
+            animation: logoPulse 3s ease-in-out infinite;
+        }
+
+        @keyframes logoPulse {
+            0%, 100% { filter: drop-shadow(0 0 15px rgba(0, 229, 255, 0.4)); }
+            50% { filter: drop-shadow(0 0 25px rgba(0, 229, 255, 0.75)); }
+        }
+
+        @keyframes logoGlowPulse {
+            0%, 100% { opacity: 0.85; transform: translateY(-50%) scale(1); }
+            50% { opacity: 1; transform: translateY(-50%) scale(1.08); }
+        }
+
+        nav {
+            flex: 1 1 auto;
+            min-width: 0;
+            overflow: visible;
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            gap: 2.35rem;
+            align-items: center;
+            justify-content: flex-end;
+            min-width: 0;
+            overflow: visible;
+        }
+
+        nav a,
+        .nav-label {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 0.95rem;
+            font-weight: 500;
+            transition: color 0.3s;
+            position: relative;
+            padding: 0.5rem 0;
+            display: inline-flex;
+            align-items: center;
+            line-height: 1;
+            white-space: nowrap;
+        }
+
+        nav a::after,
+        .nav-label::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, var(--accent-cyan), var(--accent-blue));
+            transition: all 0.3s ease;
+            transform: translateX(-50%);
+            box-shadow: 0 0 10px var(--accent-cyan);
+        }
+
+        nav a:hover,
+        .dropdown:hover .nav-label {
+            color: var(--text-primary);
+        }
+
+        nav a:hover::after,
+        nav a.active-nav::after,
+        .dropdown:hover .nav-label::after {
+            width: 100%;
+        }
+
+        nav a.active-nav {
+            color: var(--accent-cyan);
+        }
+
+        .dropdown {
+            position: relative;
+        }
+
+        .dropdown-menu {
+            display: block;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(10px);
+            position: absolute;
+            top: calc(100% + 15px);
+            left: -20px;
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            min-width: 260px;
+            border: 1px solid var(--glass-border);
+            border-radius: 12px;
+            padding: 0.75rem 0;
+            transition: all 0.3s ease;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+            z-index: 1001;
+        }
+
+        .dropdown:hover .dropdown-menu {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        .dropdown-menu li {
+            padding: 0;
+        }
+
+        .dropdown-menu a {
+            display: block;
+            padding: 0.8rem 1.5rem;
+            font-size: 0.86rem;
+            color: var(--text-secondary);
+        }
+
+        .dropdown-menu a:hover {
+            color: var(--accent-cyan);
+            background: rgba(0, 229, 255, 0.05);
+        }
+
+        .nav-label::before {
+            content: '▼';
+            font-size: 0.5rem;
+            margin-right: 6px;
+            opacity: 0.6;
+            display: inline-block;
+            transition: transform 0.3s;
+            vertical-align: middle;
+        }
+
+        .dropdown:hover .nav-label::before {
+            transform: rotate(180deg);
+        }
+
+        .menu-toggle {
+            display: none;
+            width: 48px;
+            height: 48px;
+            min-width: 48px;
+            flex: 0 0 48px;
+            border-radius: 12px;
+            border: 1px solid rgba(0, 229, 255, 0.18);
+            background: rgba(15, 21, 37, 0.88);
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            gap: 5px;
+            transition: all 0.3s ease;
+            box-shadow: 0 0 0 1px rgba(255,255,255,0.03), 0 8px 24px rgba(0,0,0,0.35);
+            position: relative;
+            z-index: 1102;
+            appearance: none;
+            -webkit-appearance: none;
+            margin-left: auto;
+        }
+
+        .menu-toggle:hover {
+            border-color: rgba(0, 229, 255, 0.4);
+            box-shadow: 0 0 18px rgba(0, 229, 255, 0.15);
+        }
+
+        .menu-toggle span {
+            width: 20px;
+            height: 2px;
+            border-radius: 2px;
+            background: var(--text-primary);
+            transition: all 0.3s ease;
+            display: block;
+        }
+
+        .menu-toggle.active span:nth-child(1) {
+            transform: translateY(7px) rotate(45deg);
+        }
+
+        .menu-toggle.active span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .menu-toggle.active span:nth-child(3) {
+            transform: translateY(-7px) rotate(-45deg);
+        }
+
+        .mobile-menu {
+            position: fixed;
+            top: 88px;
+            left: 0;
+            right: 0;
+            width: 100%;
+            max-width: 100vw;
+            background: rgba(7, 11, 20, 0.98);
+            backdrop-filter: blur(22px);
+            border-bottom: 1px solid var(--border-subtle);
+            padding: 1rem 1.25rem 1.4rem;
+            z-index: 1100;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(-15px);
+            transition: all 0.3s ease;
+            overflow-x: hidden;
+        }
+
+        .mobile-menu.active {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        .mobile-menu a {
+            display: block;
+            text-decoration: none;
+            color: var(--text-secondary);
+            padding: 0.95rem 0.5rem;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+            font-size: 0.95rem;
+            transition: all 0.25s ease;
+            word-break: break-word;
+        }
+
+        .mobile-menu a:hover,
+        .mobile-menu a.active-nav {
+            color: var(--accent-cyan);
+            padding-left: 1rem;
+        }
+
+        .mobile-menu-group {
+            margin-top: 0.2rem;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+            padding-bottom: 0.35rem;
+        }
+
+        .mobile-menu-group-title {
+            color: var(--text-primary);
+            padding: 0.95rem 0.5rem 0.5rem;
+            font-size: 0.95rem;
+            font-weight: 600;
+        }
+
+        .mobile-sub-link {
+            padding-left: 1.15rem !important;
+            font-size: 0.9rem !important;
+        }
+
+        .mobile-sub-link:hover {
+            padding-left: 1.45rem !important;
+        }
+
+        .container {
+            max-width: 1300px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        main {
+            position: relative;
+            z-index: 1;
+            overflow-x: hidden;
+        }
+
+        section {
+            padding: 100px 0;
+            position: relative;
+        }
+
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding-top: 118px;
+            padding-bottom: 70px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-grid {
+            display: grid;
+            grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .hero-content,
+        .hero-visual,
+        .topic-content,
+        .topic-visual,
+        .innovation-grid > *,
+        .project-grid > *,
+        .distinction-grid > * {
+            min-width: 0;
+        }
+
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 0.6rem 1.2rem;
+            background: rgba(0, 229, 255, 0.08);
+            border: 1px solid var(--border-glow);
+            border-radius: 100px;
+            font-size: 0.8rem;
+            font-family: 'JetBrains Mono', monospace;
+            color: var(--accent-cyan);
+            margin-bottom: 2rem;
+            animation: fadeInUp 0.8s ease forwards;
+            animation-delay: 0.2s;
+            opacity: 0;
+            max-width: 100%;
+        }
+
+        .hero-badge .pulse {
+            width: 8px;
+            height: 8px;
+            background: var(--accent-cyan);
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+            box-shadow: 0 0 10px var(--accent-cyan);
+            flex: 0 0 auto;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.3; transform: scale(0.6); }
+        }
+
+        .hero h1 {
+            font-size: clamp(2.8rem, 5vw, 4.8rem);
+            line-height: 1.05;
+            margin-bottom: 1.5rem;
+            font-weight: 800;
+            letter-spacing: -2px;
+        }
+
+        .hero h1 .line {
+            display: block;
+            overflow: hidden;
+        }
+
+        .hero h1 .line span {
+            display: block;
+            transform: translateY(100%);
+            position: relative;
+            word-break: break-word;
+        }
+
+        .hero-shine {
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            background-size: 220% 100%;
+            animation: revealText 1s cubic-bezier(0.77, 0, 0.175, 1) forwards, shineRTL 5s linear infinite 1.4s;
+        }
+
+        .primary-text {
+            background-image: linear-gradient(
+                90deg,
+                #cfd7e2 0%,
+                #ffffff 18%,
+                #eaf9ff 34%,
+                var(--accent-cyan) 50%,
+                #ffffff 66%,
+                #d7dee9 100%
+            );
+        }
+
+        .accent-text {
+            background-image: linear-gradient(
+                90deg,
+                var(--accent-purple) 0%,
+                var(--accent-blue) 20%,
+                var(--accent-cyan) 42%,
+                #ffffff 56%,
+                var(--accent-cyan) 70%,
+                var(--accent-blue) 86%,
+                var(--accent-purple) 100%
+            );
+        }
+
+        .hero h1 .line:nth-child(1) span { animation-delay: 0.4s, 1.7s; }
+        .hero h1 .line:nth-child(2) span { animation-delay: 0.7s, 1.9s; }
+
+        @keyframes revealText {
+            to { transform: translateY(0); }
+        }
+
+        @keyframes shineRTL {
+            0% { background-position: 200% center; }
+            100% { background-position: -200% center; }
+        }
+
+        .hero p {
+            font-size: 1.12rem;
+            color: var(--text-secondary);
+            max-width: 620px;
+            margin-bottom: 1.35rem;
+            line-height: 1.8;
+            animation: fadeInUp 0.8s ease forwards;
+            animation-delay: 1s;
+            opacity: 0;
+        }
+
+        .hero strong {
+            color: var(--text-primary);
+        }
+
+        .hero .hero-meta {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            margin-bottom: 2.5rem;
+            animation: fadeInUp 0.8s ease forwards;
+            animation-delay: 1.2s;
+            opacity: 0;
+            max-width: 100%;
+        }
+
+        .hero .hero-meta span {
+            color: var(--accent-cyan);
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            animation: fadeInUp 0.8s ease forwards;
+            animation-delay: 1.4s;
+            opacity: 0;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: 1rem 2rem;
+            font-size: 0.95rem;
+            font-weight: 600;
+            text-decoration: none;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            max-width: 100%;
+            text-align: center;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--accent-cyan), var(--accent-blue));
+            color: var(--bg-deep);
+            border: none;
+            box-shadow: 0 0 30px rgba(0, 229, 255, 0.2);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 0 50px rgba(0, 229, 255, 0.4);
+        }
+
+        .btn-primary::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+            transition: left 0.5s;
+        }
+
+        .btn-primary:hover::before {
+            left: 100%;
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--text-primary);
+            border: 1px solid var(--border-subtle);
+        }
+
+        .btn-secondary:hover {
+            border-color: var(--accent-cyan);
+            background: rgba(0, 229, 255, 0.05);
+            transform: translateY(-2px);
+        }
+
+        .hero-visual {
+            position: relative;
+            height: 500px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            perspective: 1000px;
+            overflow: hidden;
+        }
+
+        .lab-terminal {
+            width: min(100%, 540px);
+            max-width: 100%;
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 25px 80px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(0, 229, 255, 0.1);
+            animation: terminalFloat 8s ease-in-out infinite;
+            transform-style: preserve-3d;
+            margin: 0 auto;
+        }
+
+        @keyframes terminalFloat {
+            0%, 100% { transform: translateY(0) rotateX(5deg) rotateY(-5deg); }
+            50% { transform: translateY(-15px) rotateX(5deg) rotateY(-5deg); }
+        }
+
+        .terminal-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 1rem 1.5rem;
+            background: rgba(0, 0, 0, 0.3);
+            border-bottom: 1px solid var(--border-subtle);
+            gap: 0.6rem;
+        }
+
+        .terminal-dots {
+            display: flex;
+            gap: 8px;
+            flex: 0 0 auto;
+        }
+
+        .terminal-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+        }
+
+        .terminal-dot:nth-child(1) { background: #ff5f56; }
+        .terminal-dot:nth-child(2) { background: #ffbd2e; }
+        .terminal-dot:nth-child(3) { background: #27ca40; }
+
+        .terminal-title {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.75rem;
+            color: var(--text-secondary);
+            letter-spacing: 1px;
+            text-align: center;
+            flex: 1 1 auto;
+            min-width: 0;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .terminal-body {
+            padding: 1.4rem;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.78rem;
+            line-height: 1.7;
+            height: 350px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .lab-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 0.45rem;
+            padding: 0.48rem 0;
+            border-bottom: 1px solid rgba(255,255,255,0.03);
+            animation: slideIn 0.4s ease forwards;
+            opacity: 0;
+            min-width: 0;
+        }
+
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateX(30px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+
+        .lab-col,
+        .lab-status,
+        .lab-tag {
+            min-width: 0;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .lab-col {
+            color: var(--text-primary);
+        }
+
+        .lab-tag {
+            font-size: 0.7rem;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-weight: 500;
+            background: rgba(0, 229, 255, 0.12);
+            color: var(--accent-cyan);
+        }
+
+        .lab-status {
+            color: var(--text-secondary);
+            text-align: right;
+        }
+
+        .lab-status.live {
+            color: #27ca40;
+            animation: flash 0.5s;
+        }
+
+        .lab-status.build {
+            color: #ffbd2e;
+        }
+
+        @keyframes flash {
+            0% { color: #fff; text-shadow: 0 0 10px #27ca40; }
+            100% { color: #27ca40; }
+        }
+
+        .latency-monitor {
+            position: absolute;
+            bottom: 1rem;
+            left: 1.4rem;
+            right: 1.4rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 0.75rem;
+            padding-top: 0.75rem;
+            border-top: 1px solid var(--border-subtle);
+            flex-wrap: wrap;
+        }
+
+        .latency-label {
+            color: var(--text-secondary);
+            font-size: 0.75rem;
+        }
+
+        .latency-value {
+            color: var(--accent-cyan);
+            font-weight: 600;
+            animation: latencyPulse 1s infinite;
+        }
+
+        @keyframes latencyPulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+
+        .throughput-bar {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            height: 2px;
+            background: linear-gradient(90deg, var(--accent-cyan), var(--accent-blue));
+            animation: throughput 2s linear infinite;
+        }
+
+        @keyframes throughput {
+            0% { width: 0; left: 0; }
+            50% { width: 100%; left: 0; }
+            100% { width: 0; left: 100%; }
+        }
+
+        .section-label {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.8rem;
+            color: var(--accent-cyan);
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .section-label::before {
+            content: '';
+            width: 30px;
+            height: 1px;
+            background: var(--accent-cyan);
+            box-shadow: 0 0 8px var(--accent-cyan);
+            flex: 0 0 auto;
+        }
+
+        .section-title {
+            font-size: clamp(2rem, 4vw, 3rem);
+            margin-bottom: 1rem;
+            font-weight: 800;
+            letter-spacing: -1px;
+        }
+
+        .section-subtitle {
+            color: var(--text-secondary);
+            font-size: 1.08rem;
+            max-width: 760px;
+            margin-bottom: 3rem;
+            line-height: 1.7;
+        }
+
+        .reveal {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: all 0.8s cubic-bezier(0.5, 0, 0, 1);
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .stats-bar {
+            display: grid;
+            grid-template-columns: repeat(4, minmax(0, 1fr));
+            gap: 2rem;
+            padding: 2.5rem 0;
+            border-top: 1px solid var(--border-subtle);
+            border-bottom: 1px solid var(--border-subtle);
+            margin-bottom: 55px;
+        }
+
+        .stat-item {
+            text-align: center;
+            position: relative;
+            min-width: 0;
+        }
+
+        .stat-item:not(:last-child)::after {
+            content: '';
+            position: absolute;
+            right: -1rem;
+            top: 20%;
+            height: 60%;
+            width: 1px;
+            background: var(--border-subtle);
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--accent-cyan), var(--accent-blue));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            line-height: 1;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            font-family: 'JetBrains Mono', monospace;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .innovation-grid {
+            display: grid;
+            grid-template-columns: repeat(4, minmax(0, 1fr));
+            gap: 1.5rem;
+            margin-top: 1.5rem;
+        }
+
+        .innovation-card {
+            background: var(--bg-surface);
+            border: 1px solid var(--border-subtle);
+            border-radius: 18px;
+            padding: 1.85rem;
+            transition: all 0.35s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .innovation-card:hover {
+            border-color: var(--border-glow);
+            transform: translateY(-5px);
+            box-shadow: 0 16px 45px rgba(0, 229, 255, 0.06);
+        }
+
+        .innovation-card::before {
+            content: '';
+            position: absolute;
+            inset: auto 0 0 0;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--accent-cyan), transparent);
+        }
+
+        .innovation-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 14px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1rem;
+            background: rgba(0, 229, 255, 0.08);
+            border: 1px solid rgba(0, 229, 255, 0.12);
+            color: var(--accent-cyan);
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.78rem;
+        }
+
+        .innovation-card h3 {
+            font-size: 1.08rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .innovation-card p {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            line-height: 1.75;
+        }
+
+        .topic-row {
+            display: grid;
+            grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+            gap: 4rem;
+            align-items: center;
+            margin-bottom: 90px;
+        }
+
+        .topic-row:last-child {
+            margin-bottom: 0;
+        }
+
+        .topic-row.reverse {
+            direction: rtl;
+        }
+
+        .topic-row.reverse > * {
+            direction: ltr;
+        }
+
+        .topic-content h3 {
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            color: var(--text-primary);
+            word-break: break-word;
+        }
+
+        .topic-content h3 .topic-num {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.9rem;
+            color: var(--accent-cyan);
+            display: block;
+            margin-bottom: 0.5rem;
+            letter-spacing: 2px;
+        }
+
+        .topic-content p {
+            color: var(--text-secondary);
+            font-size: 1.05rem;
+            line-height: 1.8;
+            margin-bottom: 1.5rem;
+        }
+
+        .topic-features {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+            max-width: 100%;
+        }
+
+        .topic-features li {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            word-break: break-word;
+        }
+
+        .topic-features li::before {
+            content: '→';
+            color: var(--accent-cyan);
+            font-weight: 700;
+            flex: 0 0 auto;
+        }
+
+        .topic-visual {
+            position: relative;
+            height: 350px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .model-viz,
+        .infra-viz,
+        .micro-viz,
+        .ai-viz {
+            width: 100%;
+            height: 100%;
+            max-width: 100%;
+            overflow: hidden;
+        }
+
+        .model-viz {
+            position: relative;
+            border-radius: 18px;
+            background:
+                radial-gradient(circle at top right, rgba(124, 58, 237, 0.16), transparent 35%),
+                radial-gradient(circle at bottom left, rgba(0, 229, 255, 0.14), transparent 40%),
+                linear-gradient(180deg, rgba(15, 21, 37, 0.95), rgba(10, 16, 28, 0.95));
+            border: 1px solid var(--glass-border);
+            box-shadow: 0 25px 70px rgba(0, 0, 0, 0.4);
+        }
+
+        .model-viz::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background-image:
+                linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+            background-size: 38px 38px;
+            opacity: 0.25;
+        }
+
+        .model-track {
+            position: absolute;
+            height: 2px;
+            border-radius: 10px;
+            background: linear-gradient(90deg, transparent, rgba(0, 229, 255, 0.45), transparent);
+            overflow: visible;
+        }
+
+        .track-1 { top: 22%; left: 8%; width: 68%; }
+        .track-2 { top: 38%; left: 18%; width: 62%; }
+        .track-3 { top: 56%; left: 10%; width: 75%; }
+        .track-4 { top: 74%; left: 22%; width: 55%; }
+
+        .model-pulse {
+            position: absolute;
+            top: 50%;
+            left: -12px;
+            width: 11px;
+            height: 11px;
+            border-radius: 50%;
+            transform: translateY(-50%);
+            background: var(--accent-cyan);
+            box-shadow: 0 0 18px rgba(0, 229, 255, 0.9);
+            animation: strategyRun 3.5s linear infinite;
+        }
+
+        .track-2 .model-pulse { animation-duration: 4.5s; animation-delay: 0.4s; }
+        .track-3 .model-pulse { animation-duration: 3.8s; animation-delay: 0.8s; }
+        .track-4 .model-pulse { animation-duration: 4.2s; animation-delay: 1.2s; }
+
+        @keyframes strategyRun {
+            0% { left: -12px; opacity: 0; }
+            8% { opacity: 1; }
+            100% { left: calc(100% + 12px); opacity: 1; }
+        }
+
+        .model-card {
+            position: absolute;
+            padding: 0.75rem 1rem;
+            background: rgba(15, 21, 37, 0.7);
+            border: 1px solid rgba(0, 229, 255, 0.14);
+            border-radius: 12px;
+            backdrop-filter: blur(12px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.25);
+            animation: stratFloat 5s ease-in-out infinite;
+            max-width: 42%;
+        }
+
+        .model-card .small {
+            display: block;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.68rem;
+            color: var(--accent-cyan);
+            letter-spacing: 1px;
+            margin-bottom: 0.25rem;
+        }
+
+        .model-card .big {
+            font-size: 1rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            word-break: break-word;
+        }
+
+        .model-card-1 { top: 10%; right: 8%; animation-delay: 0s; }
+        .model-card-2 { bottom: 14%; left: 10%; animation-delay: 1.2s; }
+        .model-card-3 { bottom: 24%; right: 12%; animation-delay: 2.4s; }
+
+        @keyframes stratFloat {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .model-beacon {
+            position: absolute;
+            width: 14px;
+            height: 14px;
+            border-radius: 50%;
+            background: rgba(0, 229, 255, 0.9);
+            box-shadow: 0 0 0 0 rgba(0, 229, 255, 0.4);
+            animation: beaconPulse 2.8s infinite;
+        }
+
+        .beacon-1 { top: 18%; left: 14%; }
+        .beacon-2 { top: 52%; left: 72%; animation-delay: 0.8s; }
+        .beacon-3 { top: 78%; left: 38%; animation-delay: 1.4s; }
+
+        @keyframes beaconPulse {
+            0% { box-shadow: 0 0 0 0 rgba(0, 229, 255, 0.45); transform: scale(1); }
+            70% { box-shadow: 0 0 0 20px rgba(0, 229, 255, 0); transform: scale(1.15); }
+            100% { box-shadow: 0 0 0 0 rgba(0, 229, 255, 0); transform: scale(1); }
+        }
+
+        .infra-viz {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            gap: 1.5rem;
+            max-width: 100%;
+        }
+
+        .pipeline-stage {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            max-width: 100%;
+        }
+
+        .pipeline-box {
+            flex: 1 1 0;
+            padding: 1rem;
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: 10px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+            position: relative;
+            overflow: hidden;
+            min-width: 0;
+            text-align: center;
+            word-break: break-word;
+        }
+
+        .pipeline-box.active {
+            border-color: var(--accent-cyan);
+            box-shadow: 0 0 20px rgba(0, 229, 255, 0.1);
+        }
+
+        .pipeline-box .fill-bar {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            height: 2px;
+            background: var(--accent-cyan);
+            animation: fillBar 2s ease-in-out infinite;
+        }
+
+        @keyframes fillBar {
+            0% { width: 0; }
+            50% { width: 100%; }
+            100% { width: 0; left: auto; right: 0; }
+        }
+
+        .pipeline-arrow {
+            color: var(--accent-cyan);
+            font-size: 1.2rem;
+            animation: arrowMove 1.5s ease-in-out infinite;
+            flex: 0 0 auto;
+        }
+
+        @keyframes arrowMove {
+            0%, 100% { transform: translateX(0); opacity: 0.5; }
+            50% { transform: translateX(5px); opacity: 1; }
+        }
+
+        .micro-viz {
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: 16px;
+            padding: 1.5rem;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.75rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .ob-header {
+            display: flex;
+            justify-content: space-between;
+            color: var(--text-secondary);
+            font-size: 0.7rem;
+            margin-bottom: 0.5rem;
+            border-bottom: 1px solid var(--border-subtle);
+            padding-bottom: 0.5rem;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+        }
+
+        .ob-row {
+            display: flex;
+            justify-content: space-between;
+            gap: 0.5rem;
+            padding: 0.25rem 0;
+            min-width: 0;
+            animation: obFlash 0.35s ease;
+        }
+
+        @keyframes obFlash {
+            0% { opacity: 0; transform: translateY(8px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+
+        .ob-price,
+        .ob-size,
+        .ob-total {
+            min-width: 0;
+            white-space: nowrap;
+        }
+
+        .ob-price { min-width: 60px; }
+        .ob-size { min-width: 60px; text-align: center; }
+        .ob-total { min-width: 60px; text-align: right; }
+
+        .ob-bid .ob-price { color: #27ca40; }
+        .ob-bid .ob-size { color: rgba(39, 202, 64, 0.7); }
+        .ob-ask .ob-price { color: #ff5f56; }
+        .ob-ask .ob-size { color: rgba(255, 95, 86, 0.7); }
+
+        .ob-spread {
+            text-align: center;
+            padding: 0.5rem;
+            color: var(--accent-cyan);
+            font-size: 0.8rem;
+            border-top: 1px solid var(--border-subtle);
+            border-bottom: 1px solid var(--border-subtle);
+            margin: 0.25rem 0;
+        }
+
+        .ai-viz {
+            position: relative;
+            border-radius: 18px;
+            background:
+                radial-gradient(circle at center, rgba(0, 229, 255, 0.08), transparent 45%),
+                linear-gradient(180deg, rgba(15, 21, 37, 0.96), rgba(10, 15, 26, 0.96));
+            border: 1px solid var(--glass-border);
+        }
+
+        .ai-viz::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background-image:
+                linear-gradient(rgba(255,255,255,0.025) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255,255,255,0.025) 1px, transparent 1px);
+            background-size: 36px 36px;
+            opacity: 0.22;
+        }
+
+        .ai-node {
+            position: absolute;
+            min-width: 120px;
+            max-width: 34%;
+            padding: 0.9rem 1rem;
+            background: rgba(20, 29, 46, 0.75);
+            border: 1px solid rgba(0, 229, 255, 0.14);
+            border-radius: 12px;
+            text-align: center;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.78rem;
+            color: var(--text-primary);
+            backdrop-filter: blur(12px);
+            box-shadow: 0 12px 28px rgba(0,0,0,0.2);
+        }
+
+        .ai-node small {
+            display: block;
+            color: var(--accent-cyan);
+            font-size: 0.65rem;
+            letter-spacing: 1px;
+            margin-bottom: 0.3rem;
+        }
+
+        .ai-node-1 { top: 18%; left: 12%; }
+        .ai-node-2 { top: 18%; right: 12%; }
+        .ai-node-3 { bottom: 18%; left: 12%; }
+        .ai-node-4 { bottom: 18%; right: 12%; }
+
+        .ai-link {
+            position: absolute;
+            background: linear-gradient(90deg, rgba(0,229,255,0.15), rgba(0,229,255,0.5), rgba(0,229,255,0.15));
+            border-radius: 10px;
+        }
+
+        .link-top { top: 31%; left: 33%; width: 34%; height: 2px; }
+        .link-left { top: 31%; left: 25%; width: 2px; height: 38%; background: linear-gradient(180deg, rgba(0,229,255,0.15), rgba(0,229,255,0.5), rgba(0,229,255,0.15)); }
+        .link-right { top: 31%; right: 25%; width: 2px; height: 38%; background: linear-gradient(180deg, rgba(0,229,255,0.15), rgba(0,229,255,0.5), rgba(0,229,255,0.15)); }
+        .link-bottom { bottom: 31%; left: 33%; width: 34%; height: 2px; }
+
+        .ai-packet {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: var(--accent-cyan);
+            box-shadow: 0 0 16px rgba(0,229,255,0.85);
+        }
+
+        .packet-1 { top: calc(31% - 4px); left: 33%; animation: moveTop 3.2s linear infinite; }
+        .packet-2 { top: 31%; left: calc(25% - 4px); animation: moveLeft 3.6s linear infinite 0.5s; }
+        .packet-3 { top: 31%; right: calc(25% - 4px); animation: moveRight 3.6s linear infinite 1s; }
+        .packet-4 { bottom: calc(31% - 4px); left: 67%; animation: moveBottom 3.2s linear infinite 1.4s; }
+
+        @keyframes moveTop {
+            0% { left: 33%; opacity: 0; }
+            10% { opacity: 1; }
+            100% { left: 67%; opacity: 1; }
+        }
+
+        @keyframes moveLeft {
+            0% { top: 31%; opacity: 0; }
+            10% { opacity: 1; }
+            100% { top: 69%; opacity: 1; }
+        }
+
+        @keyframes moveRight {
+            0% { top: 31%; opacity: 0; }
+            10% { opacity: 1; }
+            100% { top: 69%; opacity: 1; }
+        }
+
+        @keyframes moveBottom {
+            0% { left: 67%; opacity: 0; }
+            10% { opacity: 1; }
+            100% { left: 33%; opacity: 1; }
+        }
+
+        .ai-core {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 78px;
+            height: 78px;
+            transform: translate(-50%, -50%);
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(0,229,255,0.45), rgba(79,70,229,0.25) 55%, transparent 56%);
+            border: 1px solid rgba(0,229,255,0.2);
+            box-shadow: 0 0 35px rgba(0,229,255,0.16);
+            animation: corePulse 2.6s ease-in-out infinite;
+        }
+
+        .ai-core::before {
+            content: 'AI';
+            position: absolute;
+            inset: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.85rem;
+            color: var(--text-primary);
+            letter-spacing: 1px;
+        }
+
+        @keyframes corePulse {
+            0%, 100% { transform: translate(-50%, -50%) scale(1); }
+            50% { transform: translate(-50%, -50%) scale(1.08); }
+        }
+
+        .project-grid {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 1.5rem;
+            margin-top: 1rem;
+        }
+
+        .project-card {
+            background: var(--bg-surface);
+            border: 1px solid var(--border-subtle);
+            border-radius: 16px;
+            padding: 1.8rem;
+            transition: all 0.35s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .project-card:hover {
+            border-color: var(--border-glow);
+            transform: translateY(-5px);
+            box-shadow: 0 16px 45px rgba(0, 229, 255, 0.06);
+        }
+
+        .project-card::after {
+            content: '';
+            position: absolute;
+            inset: auto 0 0 0;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--accent-cyan), transparent);
+        }
+
+        .project-top {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 0.75rem;
+            margin-bottom: 1rem;
+        }
+
+        .project-code {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.72rem;
+            color: var(--accent-cyan);
+            letter-spacing: 1px;
+        }
+
+        .project-state {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.68rem;
+            color: var(--text-primary);
+            padding: 0.3rem 0.55rem;
+            border-radius: 999px;
+            background: rgba(0, 229, 255, 0.08);
+            border: 1px solid rgba(0, 229, 255, 0.12);
+        }
+
+        .project-card h3 {
+            font-size: 1.08rem;
+            margin-bottom: 0.7rem;
+        }
+
+        .project-card p {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            line-height: 1.75;
+        }
+
+        .distinction-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 1.5rem;
+            margin-top: 1rem;
+        }
+
+        .distinction-card {
+            background: var(--bg-surface);
+            padding: 2.2rem;
+            border-radius: 16px;
+            border: 1px solid var(--border-subtle);
+            display: flex;
+            gap: 1.4rem;
+            align-items: flex-start;
+            transition: all 0.4s;
+            overflow: hidden;
+        }
+
+        .distinction-card:hover {
+            border-color: var(--border-glow);
+            transform: translateX(8px);
+            box-shadow: 0 20px 60px rgba(0, 229, 255, 0.05);
+        }
+
+        .distinction-number {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 2.4rem;
+            font-weight: 700;
+            color: var(--accent-cyan);
+            opacity: 0.4;
+            line-height: 1;
+            transition: all 0.3s;
+            flex: 0 0 auto;
+        }
+
+        .distinction-card:hover .distinction-number {
+            opacity: 1;
+            text-shadow: 0 0 20px rgba(0, 229, 255, 0.5);
+        }
+
+        .distinction-content h3 {
+            font-size: 1.24rem;
+            margin-bottom: 0.75rem;
+            color: var(--text-primary);
+            word-break: break-word;
+        }
+
+        .distinction-content p {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            line-height: 1.8;
+        }
+
+        .serve-section {
+            text-align: center;
+            background: linear-gradient(180deg, var(--bg-deep) 0%, var(--bg-surface) 50%, var(--bg-deep) 100%);
+            position: relative;
+            padding-top: 65px;
+            padding-bottom: 95px;
+            margin-top: 0;
+            overflow: hidden;
+        }
+
+        .serve-section::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(0, 229, 255, 0.05) 0%, transparent 70%);
+            pointer-events: none;
+        }
+
+        .serve-tags {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 1rem;
+            margin-bottom: 3rem;
+        }
+
+        .serve-tag {
+            padding: 0.75rem 1.5rem;
+            background: var(--bg-elevated);
+            border: 1px solid var(--border-subtle);
+            border-radius: 100px;
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            transition: all 0.3s;
+            max-width: 100%;
+            word-break: break-word;
+        }
+
+        .serve-tag:hover {
+            border-color: var(--accent-cyan);
+            color: var(--text-primary);
+            background: rgba(0, 229, 255, 0.05);
+            transform: translateY(-2px);
+            box-shadow: 0 0 20px rgba(0, 229, 255, 0.1);
+        }
+
+        .mission-text {
+            max-width: 820px;
+            margin: 0 auto;
+            font-size: 1.12rem;
+            color: var(--text-secondary);
+            line-height: 1.9;
+        }
+
+        .mission-text strong {
+            color: var(--text-primary);
+            font-weight: 600;
+        }
+
+        footer {
+            background: var(--bg-surface);
+            padding: 5rem 0 2rem;
+            border-top: 1px solid var(--border-subtle);
+            position: relative;
+            z-index: 3;
+            overflow-x: hidden;
+        }
+
+        footer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--accent-cyan), transparent);
+            opacity: 0.5;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 3rem;
+            margin-bottom: 4rem;
+        }
+
+        .footer-brand .logo-text {
+            font-size: 1.5rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--text-primary) 0%, var(--accent-cyan) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 1rem;
+            display: inline-block;
+        }
+
+        .footer-brand p {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            line-height: 1.7;
+            max-width: 320px;
+        }
+
+        .footer-links h4 {
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--text-primary);
+            margin-bottom: 1.5rem;
+        }
+
+        .footer-links a {
+            display: block;
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 0.95rem;
+            margin-bottom: 0.8rem;
+            transition: color 0.3s;
+            word-break: break-word;
+        }
+
+        .footer-links a:hover {
+            color: var(--accent-cyan);
+        }
+
+        .footer-bottom {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 1rem;
+            padding-top: 2rem;
+            border-top: 1px solid var(--border-subtle);
+        }
+
+        .footer-bottom p {
+            color: var(--text-secondary);
+            font-size: 0.85rem;
+        }
+
+        .footer-social {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .social-link {
+            width: 36px;
+            height: 36px;
+            border-radius: 8px;
+            background: var(--bg-elevated);
+            border: 1px solid var(--border-subtle);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: all 0.3s;
+            flex: 0 0 auto;
+        }
+
+        .social-link:hover {
+            border-color: var(--accent-cyan);
+            color: var(--accent-cyan);
+            transform: translateY(-2px);
+            box-shadow: 0 0 15px rgba(0, 229, 255, 0.2);
+        }
+
+        @media (max-width: 1100px) {
+            .innovation-grid {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+
+            .project-grid,
+            .distinction-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 968px) {
+            body {
+                cursor: auto;
+            }
+
+            a,
+            button {
+                cursor: pointer;
+            }
+
+            .cursor-glow,
+            .cursor-trail {
+                display: none;
+            }
+
+            nav {
+                display: none;
+            }
+
+            .menu-toggle {
+                display: inline-flex !important;
+            }
+
+            .mobile-menu {
+                display: block;
+            }
+
+            .hero-grid,
+            .topic-row {
+                grid-template-columns: 1fr;
+                gap: 2.5rem;
+            }
+
+            .topic-row.reverse {
+                direction: ltr;
+            }
+
+            .hero {
+                min-height: auto;
+                padding-bottom: 55px;
+            }
+
+            .hero-content {
+                order: 1;
+            }
+
+            .hero-visual {
+                order: 2;
+                display: flex !important;
+                height: 360px;
+                margin-top: 1rem;
+            }
+
+            .lab-terminal {
+                max-width: 100%;
+            }
+
+            .terminal-body {
+                height: 270px;
+            }
+
+            .stats-bar {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+
+            .footer-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .topic-visual {
+                height: 310px;
+            }
+
+            .serve-section {
+                padding-top: 50px;
+                padding-bottom: 80px;
+            }
+
+            .distinction-card:hover {
+                transform: none;
+            }
+        }
+
+        @media (min-width: 969px) {
+            .mobile-menu {
+                display: none !important;
+            }
+        }
+
+        @media (max-width: 640px) {
+            html,
+            body {
+                overflow-x: hidden;
+            }
+
+            .container {
+                padding: 0 1rem;
+            }
+
+            .nav-container {
+                padding: 0.95rem 1rem;
+                min-height: 82px;
+                gap: 0.75rem;
+            }
+
+            .mobile-menu {
+                top: 82px;
+                padding-left: 1rem;
+                padding-right: 1rem;
+            }
+
+            .logo {
+                flex: 1 1 auto;
+                min-width: 0;
+            }
+
+            .logo::before {
+                width: 76px;
+                height: 76px;
+                left: 8px;
+            }
+
+            .logo img {
+                height: 56px;
+                max-width: 100%;
+            }
+
+            .menu-toggle {
+                width: 46px;
+                height: 46px;
+                min-width: 46px;
+                flex: 0 0 46px;
+            }
+
+            .hero {
+                padding-top: 108px;
+                padding-bottom: 45px;
+            }
+
+            .hero h1 {
+                font-size: clamp(2.2rem, 10vw, 3.2rem);
+                letter-spacing: -1.4px;
+            }
+
+            .hero p {
+                font-size: 1rem;
+            }
+
+            .hero-buttons {
+                flex-direction: column;
+            }
+
+            .btn {
+                width: 100%;
+            }
+
+            .hero-visual {
+                height: 300px;
+                margin-top: 0.75rem;
+            }
+
+            .lab-terminal {
+                border-radius: 14px;
+            }
+
+            .terminal-header {
+                padding: 0.85rem 1rem;
+            }
+
+            .terminal-body {
+                padding: 1rem;
+                height: 210px;
+                font-size: 0.68rem;
+            }
+
+            .latency-monitor {
+                left: 1rem;
+                right: 1rem;
+                bottom: 0.8rem;
+                gap: 0.4rem;
+                justify-content: space-between;
+            }
+
+            .stats-bar,
+            .innovation-grid,
+            .project-grid,
+            .footer-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .stat-item:not(:last-child)::after {
+                display: none;
+            }
+
+            .topic-row {
+                gap: 2.25rem;
+                margin-bottom: 70px;
+            }
+
+            .topic-visual {
+                height: 260px;
+            }
+
+            .model-card {
+                max-width: 46%;
+                padding: 0.55rem 0.7rem;
+            }
+
+            .model-card .small {
+                font-size: 0.56rem;
+            }
+
+            .model-card .big {
+                font-size: 0.76rem;
+            }
+
+            .ai-node {
+                min-width: 92px;
+                max-width: 38%;
+                padding: 0.55rem 0.55rem;
+                font-size: 0.62rem;
+            }
+
+            .ai-node small {
+                font-size: 0.5rem;
+                margin-bottom: 0.18rem;
+            }
+
+            .ai-core {
+                width: 62px;
+                height: 62px;
+            }
+
+            .ai-core::before {
+                font-size: 0.7rem;
+            }
+
+            .pipeline-stage {
+                gap: 0.45rem;
+            }
+
+            .pipeline-box {
+                padding: 0.7rem 0.5rem;
+                font-size: 0.64rem;
+            }
+
+            .pipeline-arrow {
+                font-size: 0.9rem;
+            }
+
+            .micro-viz {
+                padding: 1rem;
+            }
+
+            .serve-tags {
+                gap: 0.75rem;
+                margin-bottom: 2.25rem;
+            }
+
+            .serve-tag {
+                width: 100%;
+                text-align: center;
+            }
+
+            .footer-bottom {
+                flex-direction: column;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="cursor-glow"></div>
+    <div class="cursor-trail"></div>
+    <div class="noise-overlay"></div>
+    <div class="scroll-progress"></div>
+    <div class="glow-orb glow-orb-1"></div>
+    <div class="glow-orb glow-orb-2"></div>
+
+    <canvas id="particle-canvas"></canvas>
+
+    <header>
+        <div class="nav-container">
+            <a href="/" class="logo" aria-label="QuantParticle Home">
+                <img src="/quant_particle_logo.png" alt="QuantParticle Logo" />
+            </a>
+
+            <nav>
+                <ul>
+                    <li><a href="/">Home</a></li>
+                    <li><a href="/about/">About</a></li>
+                    <li class="dropdown">
+                        <span class="nav-label">Solutions</span>
+                        <ul class="dropdown-menu">
+                            <li><a href="/solutions/strategy-research/">Strategy Research</a></li>
+                            <li><a href="/solutions/execution-systems/">Execution Systems</a></li>
+                            <li><a href="/solutions/quant-lab/" class="active-nav">Quant Lab</a></li>
+                            <li><a href="/solutions/prop-institutional/">Prop & Institutional</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="/technology/">Technology</a></li>
+                    <li><a href="/insights/">Insights</a></li>
+                    <li><a href="/careers/">Careers</a></li>
+                    <li><a href="/contact/">Contact</a></li>
+                </ul>
+            </nav>
+
+            <button class="menu-toggle" id="menuToggle" aria-label="Open Menu" type="button">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+
+        <div class="mobile-menu" id="mobileMenu">
+            <a href="/">Home</a>
+            <a href="/about/">About</a>
+
+            <div class="mobile-menu-group">
+                <div class="mobile-menu-group-title">Solutions</div>
+                <a href="/solutions/strategy-research/" class="mobile-sub-link">Strategy Research</a>
+                <a href="/solutions/execution-systems/" class="mobile-sub-link">Execution Systems</a>
+                <a href="/solutions/quant-lab/" class="mobile-sub-link active-nav">Quant Lab</a>
+                <a href="/solutions/prop-institutional/" class="mobile-sub-link">Prop & Institutional</a>
+            </div>
+
+            <a href="/technology/">Technology</a>
+            <a href="/insights/">Insights</a>
+            <a href="/careers/">Careers</a>
+            <a href="/contact/">Contact</a>
+        </div>
+    </header>
+
+    <main>
+        <section class="hero container">
+            <div class="hero-grid">
+                <div class="hero-content">
+                    <div class="hero-badge">
+                        <span class="pulse"></span>
+                        <span>Innovation Division Active</span>
+                    </div>
+
+                    <h1>
+                        <div class="line"><span class="hero-shine primary-text">Where Research Becomes</span></div>
+                        <div class="line"><span class="hero-shine accent-text">Trading Technology.</span></div>
+                    </h1>
+
+                    <p>
+                        <strong>Quant Lab is the innovation division of QuantParticle</strong> focused on developing next-generation quantitative models, trading infrastructure, and financial technology solutions.
+                    </p>
+
+                    <p>
+                        Our team explores new ideas in market microstructure, automation, execution optimization, artificial intelligence, and quantitative research to build the future of systematic trading.
+                    </p>
+
+                    <div class="hero-meta">
+                        <span>Quant Models</span> • <span>AI Research</span> • <span>Market Microstructure</span> • <span>Infrastructure R&D</span>
+                    </div>
+
+                    <div class="hero-buttons">
+                        <a href="#innovation" class="btn btn-primary">Explore Quant Lab <span style="font-size: 1.2rem;">→</span></a>
+                        <a href="/contact/" class="btn btn-secondary">Discuss Innovation</a>
+                    </div>
+                </div>
+
+                <div class="hero-visual">
+                    <div class="lab-terminal">
+                        <div class="terminal-header">
+                            <div class="terminal-dots">
+                                <span class="terminal-dot"></span>
+                                <span class="terminal-dot"></span>
+                                <span class="terminal-dot"></span>
+                            </div>
+                            <span class="terminal-title">QUANT_LAB // RESEARCH_PIPELINE</span>
+                            <div style="width: 40px; flex: 0 0 auto;"></div>
+                        </div>
+
+                        <div class="terminal-body" id="lab-terminal-body"></div>
+
+                        <div class="latency-monitor">
+                            <span class="latency-label">ACTIVE STREAMS</span>
+                            <span class="latency-value" id="lab-metric">24</span>
+                            <span class="latency-label">LAB STATE</span>
+                            <span class="latency-value">EXPLORING</span>
+                        </div>
+
+                        <div class="throughput-bar"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="container" style="padding-top: 0; padding-bottom: 0;">
+            <div class="stats-bar reveal">
+                <div class="stat-item">
+                    <div class="stat-number">R&D</div>
+                    <div class="stat-label">Innovation Core</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">AI</div>
+                    <div class="stat-label">Research Automation</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">MM</div>
+                    <div class="stat-label">Market Microstructure</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">FT</div>
+                    <div class="stat-label">Future Technology</div>
+                </div>
+            </div>
+        </section>
+
+        <section id="innovation" class="container">
+            <div class="reveal" style="text-align:center; margin-bottom: 60px;">
+                <div class="section-label" style="justify-content:center;">
+                    <span style="width:30px;height:1px;background:var(--accent-cyan);box-shadow:0 0 8px var(--accent-cyan);"></span>
+                    <span>Areas of Innovation</span>
+                    <span style="width:30px;height:1px;background:var(--accent-cyan);box-shadow:0 0 8px var(--accent-cyan);"></span>
+                </div>
+                <h2 class="section-title">What Quant Lab Explores</h2>
+                <p class="section-subtitle" style="margin: 0 auto;">
+                    Quant Lab is built as the research and experimentation engine behind future QuantParticle products, capabilities, and systematic trading technologies.
+                </p>
+            </div>
+
+            <div class="innovation-grid reveal">
+                <div class="innovation-card">
+                    <div class="innovation-icon">QMOD</div>
+                    <h3>Advanced Quantitative Models</h3>
+                    <p>Researching new approaches for alpha generation, statistical modelling, and systematic decision-making across financial markets.</p>
+                </div>
+
+                <div class="innovation-card">
+                    <div class="innovation-icon">INFRA</div>
+                    <h3>Trading Infrastructure</h3>
+                    <p>Designing scalable systems that power automated execution, monitoring, risk management, and portfolio operations.</p>
+                </div>
+
+                <div class="innovation-card">
+                    <div class="innovation-icon">MICRO</div>
+                    <h3>Market Microstructure</h3>
+                    <p>Analyzing order flow, liquidity dynamics, spread behavior, and execution efficiency to improve trading performance.</p>
+                </div>
+
+                <div class="innovation-card">
+                    <div class="innovation-icon">AI/ML</div>
+                    <h3>AI & Machine Learning</h3>
+                    <p>Exploring machine learning applications for research automation, pattern recognition, and market intelligence.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="container">
+            <div class="topic-row reveal">
+                <div class="topic-content">
+                    <h3><span class="topic-num">01 // MODELS</span>Advanced Quantitative Models</h3>
+                    <p>
+                        Quant Lab investigates model architectures for alpha generation, signal stability, and systematic decision-making. The objective is not only to discover predictive structure, but also to make it implementable in real trading environments.
+                    </p>
+                    <ul class="topic-features">
+                        <li>Alpha generation research and hypothesis testing</li>
+                        <li>Statistical modelling across market regimes</li>
+                        <li>Signal design for systematic deployment</li>
+                        <li>Robust decision frameworks for live adaptation</li>
+                    </ul>
+                </div>
+
+                <div class="topic-visual">
+                    <div class="model-viz">
+                        <div class="model-track track-1"><span class="model-pulse"></span></div>
+                        <div class="model-track track-2"><span class="model-pulse"></span></div>
+                        <div class="model-track track-3"><span class="model-pulse"></span></div>
+                        <div class="model-track track-4"><span class="model-pulse"></span></div>
+
+                        <div class="model-beacon beacon-1"></div>
+                        <div class="model-beacon beacon-2"></div>
+                        <div class="model-beacon beacon-3"></div>
+
+                        <div class="model-card model-card-1">
+                            <span class="small">ALPHA</span>
+                            <span class="big">Signal Discovery</span>
+                        </div>
+                        <div class="model-card model-card-2">
+                            <span class="small">MODEL</span>
+                            <span class="big">Statistical Edge</span>
+                        </div>
+                        <div class="model-card model-card-3">
+                            <span class="small">DECISION</span>
+                            <span class="big">Adaptive Logic</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="topic-row reverse reveal">
+                <div class="topic-visual">
+                    <div class="infra-viz">
+                        <div class="pipeline-stage">
+                            <div class="pipeline-box active">Research<div class="fill-bar"></div></div>
+                            <span class="pipeline-arrow">→</span>
+                            <div class="pipeline-box">Framework<div class="fill-bar" style="animation-delay: 0.5s;"></div></div>
+                        </div>
+                        <div class="pipeline-stage">
+                            <div class="pipeline-box">Execution<div class="fill-bar" style="animation-delay: 1s;"></div></div>
+                            <span class="pipeline-arrow">→</span>
+                            <div class="pipeline-box">Monitoring<div class="fill-bar" style="animation-delay: 1.5s;"></div></div>
+                        </div>
+                        <div class="pipeline-stage" style="justify-content: center;">
+                            <span class="pipeline-arrow" style="transform: rotate(90deg); animation: none; font-size: 1.5rem; margin: -0.5rem 0;">↓</span>
+                        </div>
+                        <div class="pipeline-stage">
+                            <div class="pipeline-box active" style="flex: 0 0 60%; margin: 0 auto; text-align: center;">Risk / Portfolio / Ops<div class="fill-bar" style="animation-delay: 0.3s;"></div></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="topic-content">
+                    <h3><span class="topic-num">02 // INFRASTRUCTURE</span>Trading Infrastructure</h3>
+                    <p>
+                        Innovation in trading is not only about models. Quant Lab also researches infrastructure patterns that support automation, execution, control, monitoring, and portfolio operations at production scale.
+                    </p>
+                    <ul class="topic-features">
+                        <li>Scalable execution and orchestration design</li>
+                        <li>Monitoring and operational visibility systems</li>
+                        <li>Risk-aware architecture for live deployment</li>
+                        <li>Portfolio workflow and state-management tooling</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="topic-row reveal">
+                <div class="topic-content">
+                    <h3><span class="topic-num">03 // MICROSTRUCTURE</span>Market Microstructure</h3>
+                    <p>
+                        Understanding how markets behave at the order-flow level is central to better execution and better models. We analyze liquidity, spread movement, queue behavior, and venue dynamics to improve systematic performance.
+                    </p>
+                    <ul class="topic-features">
+                        <li>Order-flow and liquidity analysis</li>
+                        <li>Spread dynamics and execution efficiency</li>
+                        <li>Microstructure-aware trading logic</li>
+                        <li>Improved market interaction and fill quality</li>
+                    </ul>
+                </div>
+
+                <div class="topic-visual">
+                    <div class="micro-viz">
+                        <div class="ob-header">
+                            <span>SYMBOL MIDCAP-X</span>
+                            <span>DEPTH L2</span>
+                        </div>
+                        <div id="ob-asks"></div>
+                        <div class="ob-spread">SPREAD 0.03</div>
+                        <div id="ob-bids"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="topic-row reverse reveal">
+                <div class="topic-visual">
+                    <div class="ai-viz">
+                        <div class="ai-node ai-node-1"><small>INGESTION</small>Research Data</div>
+                        <div class="ai-node ai-node-2"><small>MODELS</small>Pattern Engine</div>
+                        <div class="ai-node ai-node-3"><small>AUTOMATION</small>Workflow Logic</div>
+                        <div class="ai-node ai-node-4"><small>INSIGHT</small>Decision Assist</div>
+
+                        <div class="ai-link link-top"></div>
+                        <div class="ai-link link-left"></div>
+                        <div class="ai-link link-right"></div>
+                        <div class="ai-link link-bottom"></div>
+
+                        <div class="ai-packet packet-1"></div>
+                        <div class="ai-packet packet-2"></div>
+                        <div class="ai-packet packet-3"></div>
+                        <div class="ai-packet packet-4"></div>
+
+                        <div class="ai-core"></div>
+                    </div>
+                </div>
+
+                <div class="topic-content">
+                    <h3><span class="topic-num">04 // AI & ML</span>AI & Machine Learning</h3>
+                    <p>
+                        Quant Lab explores where machine learning can add real value across research and trading systems. This includes automation, intelligent filtering, pattern recognition, and assistance layers that improve research speed and market intelligence.
+                    </p>
+                    <ul class="topic-features">
+                        <li>AI-assisted research workflows</li>
+                        <li>Pattern recognition and signal discovery</li>
+                        <li>Machine learning for market intelligence</li>
+                        <li>Automation tools that accelerate iteration</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <section class="container">
+            <div class="reveal" style="text-align:center; margin-bottom: 42px;">
+                <div class="section-label" style="justify-content:center;">
+                    <span style="width:30px;height:1px;background:var(--accent-cyan);box-shadow:0 0 8px var(--accent-cyan);"></span>
+                    <span>Current Projects</span>
+                    <span style="width:30px;height:1px;background:var(--accent-cyan);box-shadow:0 0 8px var(--accent-cyan);"></span>
+                </div>
+                <h2 class="section-title">What We Are Building</h2>
+            </div>
+
+            <div class="project-grid">
+                <div class="project-card reveal">
+                    <div class="project-top">
+                        <span class="project-code">QL-01</span>
+                        <span class="project-state">IN LAB</span>
+                    </div>
+                    <h3>QuantParticle Terminal</h3>
+                    <p>A unified environment for research visibility, execution context, analytics, and trading workflow supervision.</p>
+                </div>
+
+                <div class="project-card reveal">
+                    <div class="project-top">
+                        <span class="project-code">QL-02</span>
+                        <span class="project-state">ACTIVE</span>
+                    </div>
+                    <h3>Execution Intelligence Engine</h3>
+                    <p>Researching smarter execution behavior through venue insight, routing logic, and efficiency-focused decision systems.</p>
+                </div>
+
+                <div class="project-card reveal">
+                    <div class="project-top">
+                        <span class="project-code">QL-03</span>
+                        <span class="project-state">BUILDING</span>
+                    </div>
+                    <h3>Research Automation Framework</h3>
+                    <p>A framework for accelerating idea generation, testing, data workflows, and research iteration across quantitative pipelines.</p>
+                </div>
+
+                <div class="project-card reveal">
+                    <div class="project-top">
+                        <span class="project-code">QL-04</span>
+                        <span class="project-state">IN LAB</span>
+                    </div>
+                    <h3>Market Making Infrastructure</h3>
+                    <p>Infrastructure research for spread capture, inventory management, quoting logic, and real-time market interaction.</p>
+                </div>
+
+                <div class="project-card reveal">
+                    <div class="project-top">
+                        <span class="project-code">QL-05</span>
+                        <span class="project-state">ACTIVE</span>
+                    </div>
+                    <h3>Portfolio Analytics Platform</h3>
+                    <p>Analytics systems for monitoring portfolio health, exposures, attribution, and strategy behavior across active books.</p>
+                </div>
+
+                <div class="project-card reveal">
+                    <div class="project-top">
+                        <span class="project-code">QL-06</span>
+                        <span class="project-state">R&D</span>
+                    </div>
+                    <h3>AI Research Assistant</h3>
+                    <p>An intelligent assistant layer designed to support research discovery, summarization, workflow speed, and analyst productivity.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="container">
+            <div class="reveal" style="text-align:center; margin-bottom: 42px;">
+                <div class="section-label" style="justify-content:center;">
+                    <span style="width:30px;height:1px;background:var(--accent-cyan);box-shadow:0 0 8px var(--accent-cyan);"></span>
+                    <span>Positioning</span>
+                    <span style="width:30px;height:1px;background:var(--accent-cyan);box-shadow:0 0 8px var(--accent-cyan);"></span>
+                </div>
+                <h2 class="section-title">How Quant Lab Stays Distinct</h2>
+            </div>
+
+            <div class="distinction-grid">
+                <div class="distinction-card reveal">
+                    <div class="distinction-number">01</div>
+                    <div class="distinction-content">
+                        <h3>Not Client Strategy Development</h3>
+                        <p>Strategy Research focuses on client-facing strategy development, while Quant Lab is centered on internal innovation, future capabilities, and exploratory quantitative R&D.</p>
+                    </div>
+                </div>
+
+                <div class="distinction-card reveal">
+                    <div class="distinction-number">02</div>
+                    <div class="distinction-content">
+                        <h3>Not Execution Delivery</h3>
+                        <p>Execution Systems is about client automation and execution architecture, while Quant Lab investigates the next generation of technology that may power future systems.</p>
+                    </div>
+                </div>
+
+                <div class="distinction-card reveal">
+                    <div class="distinction-number">03</div>
+                    <div class="distinction-content">
+                        <h3>Not Institutional Services</h3>
+                        <p>Prop & Institutional is designed for institutional relationships and trading services, while Quant Lab is the innovation engine behind new internal products and ideas.</p>
+                    </div>
+                </div>
+
+                <div class="distinction-card reveal">
+                    <div class="distinction-number">04</div>
+                    <div class="distinction-content">
+                        <h3>Internal R&D and Future Products</h3>
+                        <p>Quant Lab exists to explore, prototype, test, and evolve the technologies and research directions that shape QuantParticle’s future product roadmap.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="serve-section container">
+            <div class="reveal">
+                <div class="section-label" style="justify-content:center;">
+                    <span style="width:30px;height:1px;background:var(--accent-cyan);box-shadow:0 0 8px var(--accent-cyan);"></span>
+                    <span>Vision</span>
+                    <span style="width:30px;height:1px;background:var(--accent-cyan);box-shadow:0 0 8px var(--accent-cyan);"></span>
+                </div>
+                <h2 class="section-title">Research Engine for the Future</h2>
+            </div>
+
+            <div class="serve-tags reveal">
+                <div class="serve-tag">Quantitative Research</div>
+                <div class="serve-tag">AI-Powered Research</div>
+                <div class="serve-tag">Market Microstructure</div>
+                <div class="serve-tag">Execution Optimization</div>
+                <div class="serve-tag">Trading Infrastructure</div>
+                <div class="serve-tag">Future Financial Technology</div>
+                <div class="serve-tag">Internal Innovation</div>
+                <div class="serve-tag">Product R&D</div>
+            </div>
+
+            <div class="reveal">
+                <h3 style="font-size: 2.2rem; font-weight: 800; margin-bottom: 1.5rem; letter-spacing: -1px;">Vision Behind Quant Lab</h3>
+                <p class="mission-text">
+                    Quant Lab serves as the <strong>research and innovation engine behind QuantParticle’s future products, technologies, and trading solutions</strong>. It is where new ideas are explored, tested, and transformed into practical systems that can shape the next generation of systematic trading.
+                </p>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand reveal">
+                    <div class="logo-text">QuantParticle</div>
+                    <p>Research-driven trading technology for professional market participants. Building the next generation of systematic trading infrastructure.</p>
+                </div>
+
+                <div class="footer-links reveal">
+                    <h4>Solutions</h4>
+                    <a href="/solutions/strategy-research/">Strategy Research</a>
+                    <a href="/solutions/execution-systems/">Execution Systems</a>
+                    <a href="/solutions/quant-lab/">Quant Lab</a>
+                    <a href="/solutions/prop-institutional/">Prop & Institutional</a>
+                </div>
+
+                <div class="footer-links reveal">
+                    <h4>Company</h4>
+                    <a href="/about/">About</a>
+                    <a href="/technology/">Technology</a>
+                    <a href="/insights/">Insights</a>
+                    <a href="/careers/">Careers</a>
+                    <a href="/contact/">Contact</a>
+                </div>
+
+                <div class="footer-links reveal">
+                    <h4>Legal</h4>
+                    <a href="/privacy/">Privacy Policy</a>
+                    <a href="/terms/">Terms of Service</a>
+                    <a href="/risk/">Risk Disclosure</a>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p>© 2026 QuantParticle. All rights reserved.</p>
+                <div class="footer-social">
+                    <a href="#" class="social-link" aria-label="X">𝕏</a>
+                    <a href="#" class="social-link" aria-label="LinkedIn">in</a>
+                    <a href="#" class="social-link" aria-label="GitHub">Git</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        const cursor = document.querySelector('.cursor-glow');
+        const trail = document.querySelector('.cursor-trail');
+        let mouseX = 0, mouseY = 0;
+        let cursorX = 0, cursorY = 0;
+        let trailX = 0, trailY = 0;
+
+        document.addEventListener('mousemove', (e) => {
+            mouseX = e.clientX;
+            mouseY = e.clientY;
+        });
+
+        function animateCursor() {
+            if (cursor && trail && window.innerWidth > 968) {
+                cursorX += (mouseX - cursorX) * 0.15;
+                cursorY += (mouseY - cursorY) * 0.15;
+                trailX += (mouseX - trailX) * 0.08;
+                trailY += (mouseY - trailY) * 0.08;
+                cursor.style.left = cursorX + 'px';
+                cursor.style.top = cursorY + 'px';
+                trail.style.left = trailX + 'px';
+                trail.style.top = trailY + 'px';
+            }
+            requestAnimationFrame(animateCursor);
+        }
+        animateCursor();
+
+        const interactiveElements = document.querySelectorAll('a, button, .innovation-card, .project-card, .serve-tag, .distinction-card');
+        interactiveElements.forEach(el => {
+            el.addEventListener('mouseenter', () => {
+                if (cursor) cursor.classList.add('hover');
+            });
+            el.addEventListener('mouseleave', () => {
+                if (cursor) cursor.classList.remove('hover');
+            });
+        });
+
+        const scrollProgress = document.querySelector('.scroll-progress');
+        window.addEventListener('scroll', () => {
+            const scrolled = window.scrollY;
+            const max = document.documentElement.scrollHeight - window.innerHeight;
+            scrollProgress.style.width = max > 0 ? (scrolled / max) * 100 + '%' : '0%';
+        });
+
+        const header = document.querySelector('header');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+
+        const observerOptions = { threshold: 0.1, rootMargin: '0px 0px -50px 0px' };
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+        const menuToggle = document.getElementById('menuToggle');
+        const mobileMenu = document.getElementById('mobileMenu');
+
+        if (menuToggle && mobileMenu) {
+            menuToggle.addEventListener('click', () => {
+                menuToggle.classList.toggle('active');
+                mobileMenu.classList.toggle('active');
+                document.body.style.overflow = mobileMenu.classList.contains('active') ? 'hidden' : '';
+            });
+
+            document.querySelectorAll('.mobile-menu a').forEach(link => {
+                link.addEventListener('click', () => {
+                    menuToggle.classList.remove('active');
+                    mobileMenu.classList.remove('active');
+                    document.body.style.overflow = '';
+                });
+            });
+
+            window.addEventListener('resize', () => {
+                if (window.innerWidth > 968) {
+                    menuToggle.classList.remove('active');
+                    mobileMenu.classList.remove('active');
+                    document.body.style.overflow = '';
+                }
+            });
+        }
+
+        const labRows = [
+            ['QuantParticle Terminal', 'SYSTEM', 'ACTIVE'],
+            ['Execution Intelligence Engine', 'ENGINE', 'BUILD'],
+            ['Research Automation Framework', 'R&D', 'ACTIVE'],
+            ['Market Making Infrastructure', 'MICRO', 'BUILD'],
+            ['Portfolio Analytics Platform', 'ANALYTICS', 'ACTIVE'],
+            ['AI Research Assistant', 'AI', 'BUILD']
+        ];
+
+        const labTerminalBody = document.getElementById('lab-terminal-body');
+        const labMetric = document.getElementById('lab-metric');
+
+        function createLabRow() {
+            const item = labRows[Math.floor(Math.random() * labRows.length)];
+            const row = document.createElement('div');
+            const statusClass = item[2] === 'ACTIVE' ? 'live' : 'build';
+            row.className = 'lab-row';
+            row.innerHTML = `
+                <span class="lab-col">${item[0]}</span>
+                <span class="lab-tag">${item[1]}</span>
+                <span class="lab-status ${statusClass}">${item[2]}</span>
+            `;
+            return row;
+        }
+
+        function updateLabTerminal() {
+            if (!labTerminalBody) return;
+
+            const row = createLabRow();
+            labTerminalBody.prepend(row);
+
+            if (labTerminalBody.children.length > 8) {
+                labTerminalBody.lastElementChild.remove();
+            }
+
+            if (labMetric) {
+                labMetric.textContent = String(Math.floor(Math.random() * 18 + 18));
+            }
+        }
+
+        if (labTerminalBody) {
+            labTerminalBody.innerHTML = '';
+            for (let i = 0; i < 6; i++) {
+                labTerminalBody.appendChild(createLabRow());
+            }
+            setInterval(updateLabTerminal, 1000);
+        }
+
+        const obAsks = document.getElementById('ob-asks');
+        const obBids = document.getElementById('ob-bids');
+        const basePrice = 248.6;
+
+        function generateOB() {
+            if (!obAsks || !obBids) return;
+
+            obAsks.innerHTML = '';
+            obBids.innerHTML = '';
+
+            for (let i = 4; i > 0; i--) {
+                const price = basePrice + i * 0.12 + Math.random() * 0.04;
+                const size = Math.floor(Math.random() * 800 + 100);
+                const total = Math.floor(size * (5 - i * 0.3));
+                const row = document.createElement('div');
+                row.className = 'ob-row ob-ask';
+                row.innerHTML = `
+                    <span class="ob-price">${price.toFixed(2)}</span>
+                    <span class="ob-size">${size}</span>
+                    <span class="ob-total">${total}</span>
+                `;
+                obAsks.appendChild(row);
+            }
+
+            for (let i = 1; i <= 4; i++) {
+                const price = basePrice - i * 0.12 - Math.random() * 0.04;
+                const size = Math.floor(Math.random() * 800 + 100);
+                const total = Math.floor(size * (5 - i * 0.3));
+                const row = document.createElement('div');
+                row.className = 'ob-row ob-bid';
+                row.innerHTML = `
+                    <span class="ob-price">${price.toFixed(2)}</span>
+                    <span class="ob-size">${size}</span>
+                    <span class="ob-total">${total}</span>
+                `;
+                obBids.appendChild(row);
+            }
+        }
+
+        generateOB();
+        setInterval(generateOB, 2000);
+
+        const canvas = document.getElementById('particle-canvas');
+        const ctx = canvas.getContext('2d');
+
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+
+        resizeCanvas();
+        window.addEventListener('resize', resizeCanvas);
+
+        let particles = [];
+        const mouse = { x: null, y: null, radius: 200 };
+
+        window.addEventListener('mousemove', (e) => {
+            mouse.x = e.x;
+            mouse.y = e.y;
+        });
+
+        window.addEventListener('mouseout', () => {
+            mouse.x = null;
+            mouse.y = null;
+        });
+
+        class Particle {
+            constructor() {
+                this.x = Math.random() * canvas.width;
+                this.y = Math.random() * canvas.height;
+                this.size = Math.random() * 2 + 0.5;
+                this.baseX = this.x;
+                this.baseY = this.y;
+                this.density = Math.random() * 25 + 5;
+                this.vx = (Math.random() - 0.5) * 0.5;
+                this.vy = (Math.random() - 0.5) * 0.5;
+                this.opacity = Math.random() * 0.5 + 0.2;
+            }
+
+            update() {
+                if (mouse.x !== null) {
+                    let dx = mouse.x - this.x;
+                    let dy = mouse.y - this.y;
+                    let distance = Math.sqrt(dx * dx + dy * dy);
+
+                    if (distance < mouse.radius && distance > 0) {
+                        const force = (mouse.radius - distance) / mouse.radius;
+                        const dirX = dx / distance;
+                        const dirY = dy / distance;
+                        const push = force * this.density * 0.8;
+                        this.x -= dirX * push;
+                        this.y -= dirY * push;
+                    }
+                }
+
+                this.x += this.vx;
+                this.y += this.vy;
+
+                let homeDx = this.x - this.baseX;
+                let homeDy = this.y - this.baseY;
+                this.x -= homeDx * 0.02;
+                this.y -= homeDy * 0.02;
+
+                if (this.x < 0) this.x = canvas.width;
+                if (this.x > canvas.width) this.x = 0;
+                if (this.y < 0) this.y = canvas.height;
+                if (this.y > canvas.height) this.y = 0;
+            }
+
+            draw() {
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fillStyle = `rgba(0, 229, 255, ${this.opacity})`;
+                ctx.fill();
+            }
+        }
+
+        function initParticles() {
+            particles = [];
+            const count = Math.min((canvas.width * canvas.height) / 12000, 150);
+            for (let i = 0; i < count; i++) {
+                particles.push(new Particle());
+            }
+        }
+
+        function drawConnections() {
+            for (let i = 0; i < particles.length; i++) {
+                for (let j = i + 1; j < particles.length; j++) {
+                    let dx = particles[i].x - particles[j].x;
+                    let dy = particles[i].y - particles[j].y;
+                    let dist = Math.sqrt(dx * dx + dy * dy);
+
+                    if (dist < 100) {
+                        let opacity = (1 - dist / 100) * 0.15;
+                        ctx.beginPath();
+                        ctx.strokeStyle = `rgba(0, 229, 255, ${opacity})`;
+                        ctx.lineWidth = 0.5;
+                        ctx.moveTo(particles[i].x, particles[i].y);
+                        ctx.lineTo(particles[j].x, particles[j].y);
+                        ctx.stroke();
+                    }
+                }
+            }
+        }
+
+        function animateParticles() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            for (let p of particles) {
+                p.update();
+                p.draw();
+            }
+            drawConnections();
+            requestAnimationFrame(animateParticles);
+        }
+
+        initParticles();
+        animateParticles();
+
+        window.addEventListener('resize', () => {
+            resizeCanvas();
+            initParticles();
+        });
+    </script>
+</body>
+</html>
