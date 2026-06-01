@@ -312,7 +312,11 @@
             position: relative;
         }
 
+        /* ------------------------------------------- */
+        /* FIX: Dropdown display changed to block      */
+        /* ------------------------------------------- */
         .dropdown-menu {
+            display: block; 
             opacity: 0;
             visibility: hidden;
             transform: translateY(10px);
@@ -327,6 +331,7 @@
             padding: 0.75rem 0;
             transition: all 0.3s ease;
             box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+            z-index: 1001;
         }
 
         .dropdown:hover .dropdown-menu {
@@ -1048,11 +1053,14 @@
             flex: 0 0 auto;
         }
 
+        /* ------------------------------------------- */
+        /* FIX: Increased Gap & Margin for Spacing     */
+        /* ------------------------------------------- */
         .span-grid {
             display: grid;
             grid-template-columns: repeat(4, minmax(0, 1fr));
-            gap: 1.25rem;
-            margin-top: 3rem;
+            gap: 2rem; /* Increased gap */
+            margin-top: 3.5rem;
         }
 
         .span-card {
@@ -1713,7 +1721,7 @@
             </div>
         </section>
 
-        <section class="container">
+        <section class="container" style="padding-top: 60px;">
             <div class="reveal" style="text-align:center; margin-bottom: 1rem;">
                 <div class="section-label" style="justify-content:center;">
                     <span style="width: 30px; height: 1px; background: var(--accent-cyan); box-shadow: 0 0 8px var(--accent-cyan);"></span>
@@ -1832,7 +1840,7 @@
                     <a href="/solutions/strategy-research/">Strategy Research</a>
                     <a href="/solutions/execution-systems/">Execution Systems</a>
                     <a href="/solutions/quant-lab/">Quant Lab</a>
-                    <a href="/solutions/prop-institutional/">Prop &amp; Institutional</a>
+                    <a href="/solutions/prop-institutional/">Prop & Institutional</a>
                 </div>
 
                 <div class="footer-links reveal">
