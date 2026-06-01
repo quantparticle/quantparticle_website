@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>QuantParticle | Quantitative Trading. Engineered.</title>
-    <link rel="icon" href="/quant_particle_logo_fevicon.png" type="image/png">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="icon" href="/quant_particle_logo_fevicon.png" type="image/png" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
 
     <style>
         :root {
@@ -80,10 +80,7 @@
 
         .noise-overlay {
             position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
+            inset: 0;
             pointer-events: none;
             z-index: 9999;
             opacity: 0.03;
@@ -92,8 +89,7 @@
 
         #particle-canvas {
             position: fixed;
-            top: 0;
-            left: 0;
+            inset: 0;
             width: 100vw;
             height: 100vh;
             z-index: 0;
@@ -163,11 +159,12 @@
         .nav-container {
             max-width: 1300px;
             margin: 0 auto;
-            padding: 1.25rem 2rem;
+            padding: 1.15rem 2rem;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            min-height: 92px;
+            min-height: 88px;
+            position: relative;
         }
 
         .logo {
@@ -219,7 +216,7 @@
         nav ul {
             list-style: none;
             display: flex;
-            gap: 2.5rem;
+            gap: 2.35rem;
             align-items: center;
         }
 
@@ -327,14 +324,24 @@
             display: none;
             width: 48px;
             height: 48px;
-            border-radius: 10px;
-            border: 1px solid var(--glass-border);
-            background: rgba(15, 21, 37, 0.72);
+            border-radius: 12px;
+            border: 1px solid rgba(0, 229, 255, 0.18);
+            background: rgba(15, 21, 37, 0.88);
             align-items: center;
             justify-content: center;
             flex-direction: column;
             gap: 5px;
             transition: all 0.3s ease;
+            box-shadow: 0 0 0 1px rgba(255,255,255,0.03), 0 8px 24px rgba(0,0,0,0.35);
+            position: relative;
+            z-index: 1102;
+            appearance: none;
+            -webkit-appearance: none;
+        }
+
+        .menu-toggle:hover {
+            border-color: rgba(0, 229, 255, 0.4);
+            box-shadow: 0 0 18px rgba(0, 229, 255, 0.15);
         }
 
         .menu-toggle span {
@@ -343,6 +350,7 @@
             border-radius: 2px;
             background: var(--text-primary);
             transition: all 0.3s ease;
+            display: block;
         }
 
         .menu-toggle.active span:nth-child(1) {
@@ -359,14 +367,14 @@
 
         .mobile-menu {
             position: fixed;
-            top: 92px;
+            top: 88px;
             left: 0;
             right: 0;
-            background: rgba(7, 11, 20, 0.97);
-            backdrop-filter: blur(20px);
+            background: rgba(7, 11, 20, 0.98);
+            backdrop-filter: blur(22px);
             border-bottom: 1px solid var(--border-subtle);
-            padding: 1rem 1.5rem 1.5rem;
-            z-index: 999;
+            padding: 1rem 1.25rem 1.4rem;
+            z-index: 1100;
             opacity: 0;
             visibility: hidden;
             transform: translateY(-15px);
@@ -396,9 +404,9 @@
         }
 
         .mobile-menu-group {
-            margin-top: 0.25rem;
+            margin-top: 0.2rem;
             border-bottom: 1px solid rgba(255,255,255,0.05);
-            padding-bottom: 0.4rem;
+            padding-bottom: 0.35rem;
         }
 
         .mobile-menu-group-title {
@@ -411,12 +419,10 @@
         .mobile-sub-link {
             padding-left: 1.15rem !important;
             font-size: 0.9rem !important;
-            color: var(--text-secondary) !important;
         }
 
         .mobile-sub-link:hover {
-            padding-left: 1.5rem !important;
-            color: var(--accent-cyan) !important;
+            padding-left: 1.45rem !important;
         }
 
         .container {
@@ -433,7 +439,7 @@
         }
 
         section {
-            padding: 120px 0;
+            padding: 100px 0;
             position: relative;
         }
 
@@ -442,7 +448,8 @@
             display: flex;
             flex-direction: column;
             justify-content: center;
-            padding-top: 120px;
+            padding-top: 118px;
+            padding-bottom: 70px;
             position: relative;
             overflow: hidden;
         }
@@ -809,9 +816,9 @@
 
         .section-subtitle {
             color: var(--text-secondary);
-            font-size: 1.1rem;
+            font-size: 1.08rem;
             max-width: 700px;
-            margin-bottom: 4rem;
+            margin-bottom: 3rem;
             line-height: 1.7;
         }
 
@@ -830,10 +837,10 @@
             display: grid;
             grid-template-columns: repeat(4, 1fr);
             gap: 2rem;
-            padding: 3rem 0;
+            padding: 2.5rem 0;
             border-top: 1px solid var(--border-subtle);
             border-bottom: 1px solid var(--border-subtle);
-            margin-bottom: 80px;
+            margin-bottom: 55px;
         }
 
         .stat-item {
@@ -875,7 +882,7 @@
             grid-template-columns: 1fr 1fr;
             gap: 4rem;
             align-items: center;
-            margin-bottom: 100px;
+            margin-bottom: 90px;
         }
 
         .topic-row:last-child {
@@ -1494,14 +1501,14 @@
             display: grid;
             grid-template-columns: repeat(4, 1fr);
             gap: 1.5rem;
-            margin-top: 2rem;
+            margin-top: 1.5rem;
         }
 
         .tech-card {
             background: var(--bg-surface);
             border: 1px solid var(--border-subtle);
             border-radius: 16px;
-            padding: 2.2rem 1.6rem;
+            padding: 2.1rem 1.6rem;
             text-align: center;
             transition: all 0.3s;
             min-height: 250px;
@@ -1535,24 +1542,25 @@
         }
 
         #technology-preview {
-            padding-top: 150px;
-            padding-bottom: 180px;
+            padding-top: 95px;
+            padding-bottom: 70px;
         }
 
         #methodology-preview {
-            padding-top: 170px;
+            padding-top: 60px;
+            padding-bottom: 60px;
         }
 
         .approach-grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
             gap: 1.5rem;
-            margin-top: 2rem;
+            margin-top: 1rem;
         }
 
         .approach-item {
             background: var(--bg-surface);
-            padding: 2.5rem;
+            padding: 2.35rem;
             border-radius: 16px;
             border: 1px solid var(--border-subtle);
             display: flex;
@@ -1598,6 +1606,9 @@
             text-align: center;
             background: linear-gradient(180deg, var(--bg-deep) 0%, var(--bg-surface) 50%, var(--bg-deep) 100%);
             position: relative;
+            padding-top: 65px;
+            padding-bottom: 95px;
+            margin-top: 0;
         }
 
         .serve-section::before {
@@ -1617,7 +1628,7 @@
             flex-wrap: wrap;
             justify-content: center;
             gap: 1rem;
-            margin-bottom: 4rem;
+            margin-bottom: 3rem;
         }
 
         .serve-tag {
@@ -1641,7 +1652,7 @@
         .mission-text {
             max-width: 800px;
             margin: 0 auto;
-            font-size: 1.15rem;
+            font-size: 1.12rem;
             color: var(--text-secondary);
             line-height: 1.9;
         }
@@ -1785,7 +1796,7 @@
             }
 
             .menu-toggle {
-                display: inline-flex;
+                display: inline-flex !important;
             }
 
             .mobile-menu {
@@ -1801,8 +1812,28 @@
                 direction: ltr;
             }
 
+            .hero {
+                min-height: auto;
+                padding-bottom: 55px;
+            }
+
+            .hero-content {
+                order: 1;
+            }
+
             .hero-visual {
-                display: none;
+                order: 2;
+                display: flex !important;
+                height: 360px;
+                margin-top: 1rem;
+            }
+
+            .hft-terminal {
+                max-width: 100%;
+            }
+
+            .terminal-body {
+                height: 270px;
             }
 
             .stats-bar {
@@ -1811,6 +1842,25 @@
 
             .footer-grid {
                 grid-template-columns: 1fr 1fr;
+            }
+
+            .topic-visual {
+                height: 310px;
+            }
+
+            #technology-preview {
+                padding-top: 80px;
+                padding-bottom: 55px;
+            }
+
+            #methodology-preview {
+                padding-top: 45px;
+                padding-bottom: 50px;
+            }
+
+            .serve-section {
+                padding-top: 50px;
+                padding-bottom: 80px;
             }
         }
 
@@ -1822,11 +1872,11 @@
 
         @media (max-width: 640px) {
             .container {
-                padding: 0 1.2rem;
+                padding: 0 1.15rem;
             }
 
             .nav-container {
-                padding: 1rem 1.2rem;
+                padding: 0.95rem 1.15rem;
                 min-height: 82px;
             }
 
@@ -1845,17 +1895,77 @@
             }
 
             .hero {
-                padding-top: 110px;
+                padding-top: 108px;
+                padding-bottom: 45px;
+            }
+
+            .hero h1 {
+                font-size: clamp(2.2rem, 10vw, 3.2rem);
+                letter-spacing: -1.4px;
+            }
+
+            .hero p {
+                font-size: 1rem;
             }
 
             .hero-buttons {
                 flex-direction: column;
             }
 
+            .hero-visual {
+                height: 300px;
+                margin-top: 0.75rem;
+            }
+
+            .hft-terminal {
+                border-radius: 14px;
+            }
+
+            .terminal-header {
+                padding: 0.85rem 1rem;
+            }
+
+            .terminal-body {
+                padding: 1rem;
+                height: 210px;
+                font-size: 0.68rem;
+            }
+
+            .latency-monitor {
+                left: 1rem;
+                right: 1rem;
+                bottom: 0.8rem;
+                gap: 0.4rem;
+                flex-wrap: wrap;
+                justify-content: space-between;
+            }
+
             .stats-bar,
             .tech-grid,
             .footer-grid {
                 grid-template-columns: 1fr;
+            }
+
+            .stat-item:not(:last-child)::after {
+                display: none;
+            }
+
+            .topic-row {
+                gap: 2.25rem;
+                margin-bottom: 70px;
+            }
+
+            .topic-visual {
+                height: 260px;
+            }
+
+            .approach-item {
+                padding: 1.8rem 1.3rem;
+            }
+
+            .serve-tags {
+                gap: 0.75rem;
+                margin-bottom: 2.25rem;
             }
 
             .footer-bottom {
@@ -1865,11 +1975,18 @@
             }
 
             #technology-preview {
-                padding-bottom: 150px;
+                padding-top: 65px;
+                padding-bottom: 42px;
             }
 
             #methodology-preview {
-                padding-top: 150px;
+                padding-top: 32px;
+                padding-bottom: 40px;
+            }
+
+            .serve-section {
+                padding-top: 38px;
+                padding-bottom: 65px;
             }
         }
     </style>
@@ -1887,7 +2004,7 @@
     <header>
         <div class="nav-container">
             <a href="/" class="logo" aria-label="QuantParticle Home">
-                <img src="/quant_particle_logo.png" alt="QuantParticle Logo">
+                <img src="/quant_particle_logo.png" alt="QuantParticle Logo" />
             </a>
 
             <nav>
@@ -1910,7 +2027,7 @@
                 </ul>
             </nav>
 
-            <button class="menu-toggle" id="menuToggle" aria-label="Open Menu">
+            <button class="menu-toggle" id="menuToggle" aria-label="Open Menu" type="button">
                 <span></span>
                 <span></span>
                 <span></span>
@@ -2014,7 +2131,7 @@
         </section>
 
         <section class="container">
-            <div class="reveal" style="text-align: center; margin-bottom: 80px;">
+            <div class="reveal" style="text-align: center; margin-bottom: 70px;">
                 <div class="section-label" style="justify-content: center;">
                     <span style="width:30px;height:1px;background:var(--accent-cyan);box-shadow:0 0 8px var(--accent-cyan);"></span>
                     <span>Capabilities</span>
@@ -2239,7 +2356,7 @@
         </section>
 
         <section id="technology-preview" class="container">
-            <div class="reveal" style="text-align:center; margin-bottom: 60px;">
+            <div class="reveal" style="text-align:center; margin-bottom: 45px;">
                 <div class="section-label" style="justify-content:center;">
                     <span style="width:30px;height:1px;background:var(--accent-cyan);box-shadow:0 0 8px var(--accent-cyan);"></span>
                     <span>Stack</span>
@@ -2279,7 +2396,7 @@
         </section>
 
         <section id="methodology-preview" class="container">
-            <div class="reveal" style="text-align:center; margin-bottom: 60px;">
+            <div class="reveal" style="text-align:center; margin-bottom: 42px;">
                 <div class="section-label" style="justify-content:center;">
                     <span style="width:30px;height:1px;background:var(--accent-cyan);box-shadow:0 0 8px var(--accent-cyan);"></span>
                     <span>Methodology</span>
@@ -2460,17 +2577,29 @@
         const menuToggle = document.getElementById('menuToggle');
         const mobileMenu = document.getElementById('mobileMenu');
 
-        menuToggle.addEventListener('click', () => {
-            menuToggle.classList.toggle('active');
-            mobileMenu.classList.toggle('active');
-        });
-
-        document.querySelectorAll('.mobile-menu a').forEach(link => {
-            link.addEventListener('click', () => {
-                menuToggle.classList.remove('active');
-                mobileMenu.classList.remove('active');
+        if (menuToggle && mobileMenu) {
+            menuToggle.addEventListener('click', () => {
+                menuToggle.classList.toggle('active');
+                mobileMenu.classList.toggle('active');
+                document.body.style.overflow = mobileMenu.classList.contains('active') ? 'hidden' : '';
             });
-        });
+
+            document.querySelectorAll('.mobile-menu a').forEach(link => {
+                link.addEventListener('click', () => {
+                    menuToggle.classList.remove('active');
+                    mobileMenu.classList.remove('active');
+                    document.body.style.overflow = '';
+                });
+            });
+
+            window.addEventListener('resize', () => {
+                if (window.innerWidth > 968) {
+                    menuToggle.classList.remove('active');
+                    mobileMenu.classList.remove('active');
+                    document.body.style.overflow = '';
+                }
+            });
+        }
 
         const terminalBody = document.getElementById('terminal-body');
         const orders = [
