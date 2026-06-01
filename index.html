@@ -4,9 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>QuantParticle | Quantitative Trading. Engineered.</title>
-    <link rel="icon" href="quant_particle_logo_fevicon.png" type="image/png">
+    <link rel="icon" href="/quant_particle_logo_fevicon.png" type="image/png">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
-    
+
     <style>
         :root {
             --bg-deep: #070b14;
@@ -39,6 +39,10 @@
             font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
             line-height: 1.6;
             overflow-x: hidden;
+            cursor: none;
+        }
+
+        a, button {
             cursor: none;
         }
 
@@ -107,6 +111,39 @@
             transition: width 0.1s;
         }
 
+        .glow-orb {
+            position: fixed;
+            border-radius: 50%;
+            filter: blur(100px);
+            pointer-events: none;
+            z-index: 0;
+            opacity: 0.12;
+        }
+
+        .glow-orb-1 {
+            width: 400px;
+            height: 400px;
+            background: var(--accent-blue);
+            top: 10%;
+            left: -10%;
+            animation: orbFloat 20s ease-in-out infinite;
+        }
+
+        .glow-orb-2 {
+            width: 300px;
+            height: 300px;
+            background: var(--accent-cyan);
+            bottom: 20%;
+            right: -5%;
+            animation: orbFloat 25s ease-in-out infinite reverse;
+        }
+
+        @keyframes orbFloat {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            33% { transform: translate(50px, -50px) scale(1.1); }
+            66% { transform: translate(-30px, 30px) scale(0.9); }
+        }
+
         header {
             position: fixed;
             top: 0;
@@ -119,7 +156,7 @@
         }
 
         header.scrolled {
-            background: rgba(7, 11, 20, 0.9);
+            background: rgba(7, 11, 20, 0.92);
             box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4);
         }
 
@@ -137,12 +174,14 @@
             display: flex;
             align-items: center;
             text-decoration: none;
+            min-width: 170px;
         }
 
         .logo img {
-            height: 60px;
+            height: 64px;
             width: auto;
-            filter: drop-shadow(0 0 15px rgba(0, 229, 255, 0.4));
+            display: block;
+            filter: drop-shadow(0 0 18px rgba(0, 229, 255, 0.55));
             animation: logoPulse 3s ease-in-out infinite;
         }
 
@@ -161,11 +200,10 @@
         nav a {
             color: var(--text-secondary);
             text-decoration: none;
-            font-size: 0.9rem;
+            font-size: 0.95rem;
             font-weight: 500;
             transition: color 0.3s;
             position: relative;
-            cursor: none;
             padding: 0.5rem 0;
         }
 
@@ -186,17 +224,13 @@
             color: var(--text-primary);
         }
 
-        nav a:hover::after {
+        nav a:hover::after,
+        nav a.active-nav::after {
             width: 100%;
         }
 
         nav a.active-nav {
             color: var(--accent-cyan);
-        }
-
-        nav a.active-nav::after {
-            width: 100%;
-            background: var(--accent-cyan);
         }
 
         .dropdown {
@@ -235,7 +269,6 @@
             padding: 0.75rem 1.5rem;
             font-size: 0.85rem;
             color: var(--text-secondary);
-            transition: all 0.2s;
         }
 
         .dropdown-menu a:hover {
@@ -255,6 +288,78 @@
 
         .dropdown:hover > a::before {
             transform: rotate(180deg);
+        }
+
+        .menu-toggle {
+            display: none;
+            width: 48px;
+            height: 48px;
+            border-radius: 10px;
+            border: 1px solid var(--glass-border);
+            background: rgba(15, 21, 37, 0.72);
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            gap: 5px;
+            transition: all 0.3s ease;
+        }
+
+        .menu-toggle span {
+            width: 20px;
+            height: 2px;
+            border-radius: 2px;
+            background: var(--text-primary);
+            transition: all 0.3s ease;
+        }
+
+        .menu-toggle.active span:nth-child(1) {
+            transform: translateY(7px) rotate(45deg);
+        }
+
+        .menu-toggle.active span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .menu-toggle.active span:nth-child(3) {
+            transform: translateY(-7px) rotate(-45deg);
+        }
+
+        .mobile-menu {
+            position: fixed;
+            top: 92px;
+            left: 0;
+            right: 0;
+            background: rgba(7, 11, 20, 0.96);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border-subtle);
+            padding: 1rem 1.5rem 1.5rem;
+            z-index: 999;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(-15px);
+            transition: all 0.3s ease;
+        }
+
+        .mobile-menu.active {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        .mobile-menu a {
+            display: block;
+            text-decoration: none;
+            color: var(--text-secondary);
+            padding: 0.95rem 0.5rem;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+            font-size: 0.95rem;
+            transition: all 0.25s ease;
+        }
+
+        .mobile-menu a:hover,
+        .mobile-menu a.active-nav {
+            color: var(--accent-cyan);
+            padding-left: 1rem;
         }
 
         .container {
@@ -435,7 +540,6 @@
             text-decoration: none;
             border-radius: 8px;
             transition: all 0.3s ease;
-            cursor: none;
             position: relative;
             overflow: hidden;
         }
@@ -588,8 +692,16 @@
             border-top: 1px solid var(--border-subtle);
         }
 
-        .latency-label { color: var(--text-secondary); font-size: 0.75rem; }
-        .latency-value { color: var(--accent-cyan); font-weight: 600; animation: latencyPulse 1s infinite; }
+        .latency-label {
+            color: var(--text-secondary);
+            font-size: 0.75rem;
+        }
+
+        .latency-value {
+            color: var(--accent-cyan);
+            font-weight: 600;
+            animation: latencyPulse 1s infinite;
+        }
 
         @keyframes latencyPulse {
             0%, 100% { opacity: 1; }
@@ -641,7 +753,7 @@
         .section-subtitle {
             color: var(--text-secondary);
             font-size: 1.1rem;
-            max-width: 600px;
+            max-width: 700px;
             margin-bottom: 4rem;
             line-height: 1.7;
         }
@@ -655,6 +767,50 @@
         .reveal.active {
             opacity: 1;
             transform: translateY(0);
+        }
+
+        .stats-bar {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 2rem;
+            padding: 3rem 0;
+            border-top: 1px solid var(--border-subtle);
+            border-bottom: 1px solid var(--border-subtle);
+            margin-bottom: 80px;
+        }
+
+        .stat-item {
+            text-align: center;
+            position: relative;
+        }
+
+        .stat-item:not(:last-child)::after {
+            content: '';
+            position: absolute;
+            right: -1rem;
+            top: 20%;
+            height: 60%;
+            width: 1px;
+            background: var(--border-subtle);
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--accent-cyan), var(--accent-blue));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            line-height: 1;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            font-family: 'JetBrains Mono', monospace;
+            text-transform: uppercase;
+            letter-spacing: 1px;
         }
 
         .topic-row {
@@ -729,10 +885,16 @@
             justify-content: center;
         }
 
-        /* STRATEGY VISUAL */
-        .strategy-viz {
+        .strategy-viz,
+        .automation-flow,
+        .analytics-dashboard,
+        .chart-viz,
+        .ob-viz {
             width: 100%;
             height: 100%;
+        }
+
+        .strategy-viz {
             position: relative;
             border-radius: 18px;
             overflow: hidden;
@@ -846,7 +1008,6 @@
             100% { box-shadow: 0 0 0 0 rgba(0, 229, 255, 0); transform: scale(1); }
         }
 
-        /* EXECUTION VISUAL */
         .pipeline-viz {
             width: 100%;
             height: 100%;
@@ -906,10 +1067,7 @@
             50% { transform: translateX(5px); opacity: 1; }
         }
 
-        /* BACKTEST VISUAL */
         .chart-viz {
-            width: 100%;
-            height: 100%;
             position: relative;
             background: var(--glass-bg);
             border: 1px solid var(--glass-border);
@@ -974,10 +1132,7 @@
             color: var(--text-secondary);
         }
 
-        /* AUTOMATION VISUAL */
         .automation-flow {
-            width: 100%;
-            height: 100%;
             position: relative;
             border-radius: 18px;
             overflow: hidden;
@@ -1032,35 +1187,10 @@
             border-radius: 10px;
         }
 
-        .link-top {
-            top: 31%;
-            left: 33%;
-            width: 34%;
-            height: 2px;
-        }
-
-        .link-left {
-            top: 31%;
-            left: 25%;
-            width: 2px;
-            height: 38%;
-            background: linear-gradient(180deg, rgba(0,229,255,0.15), rgba(0,229,255,0.5), rgba(0,229,255,0.15));
-        }
-
-        .link-right {
-            top: 31%;
-            right: 25%;
-            width: 2px;
-            height: 38%;
-            background: linear-gradient(180deg, rgba(0,229,255,0.15), rgba(0,229,255,0.5), rgba(0,229,255,0.15));
-        }
-
-        .link-bottom {
-            bottom: 31%;
-            left: 33%;
-            width: 34%;
-            height: 2px;
-        }
+        .link-top { top: 31%; left: 33%; width: 34%; height: 2px; }
+        .link-left { top: 31%; left: 25%; width: 2px; height: 38%; background: linear-gradient(180deg, rgba(0,229,255,0.15), rgba(0,229,255,0.5), rgba(0,229,255,0.15)); }
+        .link-right { top: 31%; right: 25%; width: 2px; height: 38%; background: linear-gradient(180deg, rgba(0,229,255,0.15), rgba(0,229,255,0.5), rgba(0,229,255,0.15)); }
+        .link-bottom { bottom: 31%; left: 33%; width: 34%; height: 2px; }
 
         .auto-packet {
             position: absolute;
@@ -1071,29 +1201,10 @@
             box-shadow: 0 0 16px rgba(0,229,255,0.85);
         }
 
-        .packet-1 {
-            top: calc(31% - 4px);
-            left: 33%;
-            animation: moveTop 3.2s linear infinite;
-        }
-
-        .packet-2 {
-            top: 31%;
-            left: calc(25% - 4px);
-            animation: moveLeft 3.6s linear infinite 0.5s;
-        }
-
-        .packet-3 {
-            top: 31%;
-            right: calc(25% - 4px);
-            animation: moveRight 3.6s linear infinite 1s;
-        }
-
-        .packet-4 {
-            bottom: calc(31% - 4px);
-            left: 67%;
-            animation: moveBottom 3.2s linear infinite 1.4s;
-        }
+        .packet-1 { top: calc(31% - 4px); left: 33%; animation: moveTop 3.2s linear infinite; }
+        .packet-2 { top: 31%; left: calc(25% - 4px); animation: moveLeft 3.6s linear infinite 0.5s; }
+        .packet-3 { top: 31%; right: calc(25% - 4px); animation: moveRight 3.6s linear infinite 1s; }
+        .packet-4 { bottom: calc(31% - 4px); left: 67%; animation: moveBottom 3.2s linear infinite 1.4s; }
 
         @keyframes moveTop {
             0% { left: 33%; opacity: 0; }
@@ -1151,10 +1262,7 @@
             50% { transform: translate(-50%, -50%) scale(1.08); }
         }
 
-        /* MARKET MAKING VISUAL */
         .ob-viz {
-            width: 100%;
-            height: 100%;
             background: var(--glass-bg);
             border: 1px solid var(--glass-border);
             border-radius: 16px;
@@ -1201,10 +1309,7 @@
             margin: 0.25rem 0;
         }
 
-        /* ANALYTICS VISUAL */
         .analytics-dashboard {
-            width: 100%;
-            height: 100%;
             position: relative;
             border-radius: 18px;
             overflow: hidden;
@@ -1308,121 +1413,44 @@
             left: -10%;
             width: 120%;
             height: 2px;
-            border-radius: 20px;
+            border-radius: 10px;
         }
 
         .analytics-wave::before {
-            top: 40%;
+            top: 38%;
             background: linear-gradient(90deg, transparent, var(--accent-cyan), transparent);
-            animation: waveMove1 4.5s ease-in-out infinite;
-            box-shadow: 0 0 10px rgba(0,229,255,0.35);
+            animation: waveMove 3.6s linear infinite;
         }
 
         .analytics-wave::after {
             top: 62%;
             background: linear-gradient(90deg, transparent, var(--accent-purple), transparent);
-            animation: waveMove2 5.5s ease-in-out infinite;
-            box-shadow: 0 0 10px rgba(124,58,237,0.35);
+            animation: waveMove 4.4s linear infinite reverse;
         }
 
-        @keyframes waveMove1 {
-            0%, 100% { transform: translateY(0) scaleX(0.92); }
-            25% { transform: translateY(-18px) scaleX(1); }
-            50% { transform: translateY(8px) scaleX(0.95); }
-            75% { transform: translateY(-10px) scaleX(1.02); }
-        }
-
-        @keyframes waveMove2 {
-            0%, 100% { transform: translateY(0) scaleX(0.94); }
-            30% { transform: translateY(-12px) scaleX(1.03); }
-            60% { transform: translateY(10px) scaleX(0.96); }
-            80% { transform: translateY(-7px) scaleX(1.01); }
-        }
-
-        .analytics-bars-wrap {
-            display: flex;
-            align-items: flex-end;
-            gap: 8px;
-            height: 88px;
-        }
-
-        .analytics-bar {
-            flex: 1;
-            min-height: 18px;
-            border-radius: 4px 4px 0 0;
-            background: linear-gradient(to top, var(--accent-blue), var(--accent-cyan));
-            animation: analyticsBar 2.2s ease-in-out infinite alternate;
-            opacity: 0.8;
-        }
-
-        .analytics-bar:nth-child(2n) {
-            background: linear-gradient(to top, var(--accent-purple), var(--accent-blue));
-            animation-delay: 0.25s;
-        }
-
-        @keyframes analyticsBar {
-            from { height: 20%; }
-            to { height: 92%; }
-        }
-
-        .stats-bar {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 2rem;
-            padding: 3rem 0;
-            border-top: 1px solid var(--border-subtle);
-            border-bottom: 1px solid var(--border-subtle);
-            margin-bottom: 80px;
-        }
-
-        .stat-item {
-            text-align: center;
-            position: relative;
-        }
-
-        .stat-item:not(:last-child)::after {
-            content: '';
-            position: absolute;
-            right: -1rem;
-            top: 20%;
-            height: 60%;
-            width: 1px;
-            background: var(--border-subtle);
-        }
-
-        .stat-number {
-            font-size: 2.5rem;
-            font-weight: 800;
-            background: linear-gradient(135deg, var(--accent-cyan), var(--accent-blue));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            line-height: 1;
-            margin-bottom: 0.5rem;
-        }
-
-        .stat-label {
-            font-size: 0.85rem;
-            color: var(--text-secondary);
-            font-family: 'JetBrains Mono', monospace;
-            text-transform: uppercase;
-            letter-spacing: 1px;
+        @keyframes waveMove {
+            0% { transform: translateX(-8%); }
+            100% { transform: translateX(8%); }
         }
 
         .tech-grid {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
             gap: 1.5rem;
+            margin-top: 2rem;
         }
 
         .tech-card {
             background: var(--bg-surface);
             border: 1px solid var(--border-subtle);
-            border-radius: 12px;
-            padding: 2rem;
+            border-radius: 16px;
+            padding: 2.2rem 1.6rem;
             text-align: center;
             transition: all 0.3s;
-            cursor: none;
+            min-height: 250px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
         }
 
         .tech-card:hover {
@@ -1439,19 +1467,30 @@
 
         .tech-card h4 {
             font-size: 1rem;
-            margin-bottom: 0.5rem;
+            margin-bottom: 0.75rem;
             color: var(--text-primary);
         }
 
         .tech-card p {
-            font-size: 0.85rem;
+            font-size: 0.95rem;
             color: var(--text-secondary);
+            line-height: 1.7;
+        }
+
+        #technology {
+            padding-top: 150px;
+            padding-bottom: 180px;
+        }
+
+        #about {
+            padding-top: 170px;
         }
 
         .approach-grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
             gap: 1.5rem;
+            margin-top: 2rem;
         }
 
         .approach-item {
@@ -1495,17 +1534,13 @@
         .approach-content p {
             color: var(--text-secondary);
             font-size: 0.95rem;
-            line-height: 1.7;
+            line-height: 1.8;
         }
 
         .serve-section {
             text-align: center;
             background: linear-gradient(180deg, var(--bg-deep) 0%, var(--bg-surface) 50%, var(--bg-deep) 100%);
             position: relative;
-            padding-top: 130px;
-            padding-bottom: 190px;
-            overflow: hidden;
-            z-index: 2;
         }
 
         .serve-section::before {
@@ -1525,7 +1560,7 @@
             flex-wrap: wrap;
             justify-content: center;
             gap: 1rem;
-            margin-bottom: 4.5rem;
+            margin-bottom: 4rem;
         }
 
         .serve-tag {
@@ -1536,7 +1571,6 @@
             font-size: 0.9rem;
             color: var(--text-secondary);
             transition: all 0.3s;
-            cursor: none;
         }
 
         .serve-tag:hover {
@@ -1599,9 +1633,9 @@
 
         .footer-brand p {
             color: var(--text-secondary);
-            font-size: 0.9rem;
+            font-size: 0.95rem;
             line-height: 1.7;
-            max-width: 300px;
+            max-width: 320px;
         }
 
         .footer-links h4 {
@@ -1616,10 +1650,9 @@
             display: block;
             color: var(--text-secondary);
             text-decoration: none;
-            font-size: 0.9rem;
-            margin-bottom: 0.75rem;
+            font-size: 0.95rem;
+            margin-bottom: 0.8rem;
             transition: color 0.3s;
-            cursor: none;
         }
 
         .footer-links a:hover {
@@ -1657,7 +1690,6 @@
             text-decoration: none;
             font-size: 0.9rem;
             transition: all 0.3s;
-            cursor: none;
         }
 
         .social-link:hover {
@@ -1667,63 +1699,115 @@
             box-shadow: 0 0 15px rgba(0, 229, 255, 0.2);
         }
 
-        .glow-orb {
-            position: fixed;
-            border-radius: 50%;
-            filter: blur(100px);
-            pointer-events: none;
-            z-index: 0;
-            opacity: 0.12;
-        }
+        @media (max-width: 1100px) {
+            .tech-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
 
-        .glow-orb-1 {
-            width: 400px;
-            height: 400px;
-            background: var(--accent-blue);
-            top: 10%;
-            left: -10%;
-            animation: orbFloat 20s ease-in-out infinite;
-        }
-
-        .glow-orb-2 {
-            width: 300px;
-            height: 300px;
-            background: var(--accent-cyan);
-            bottom: 20%;
-            right: -5%;
-            animation: orbFloat 25s ease-in-out infinite reverse;
-        }
-
-        @keyframes orbFloat {
-            0%, 100% { transform: translate(0, 0) scale(1); }
-            33% { transform: translate(50px, -50px) scale(1.1); }
-            66% { transform: translate(-30px, 30px) scale(0.9); }
+            .approach-grid {
+                grid-template-columns: 1fr;
+            }
         }
 
         @media (max-width: 968px) {
-            .hero-grid { grid-template-columns: 1fr; }
-            .hero-visual { display: none; }
-            .topic-row { grid-template-columns: 1fr; }
-            .topic-row.reverse { direction: ltr; }
-            .approach-grid { grid-template-columns: 1fr; }
-            .stats-bar { grid-template-columns: repeat(2, 1fr); }
-            .tech-grid { grid-template-columns: repeat(2, 1fr); }
-            .footer-grid { grid-template-columns: 1fr 1fr; }
-            nav ul { gap: 1.5rem; }
-            body { cursor: auto; }
-            .cursor-glow, .cursor-trail { display: none; }
-            .btn, nav a, .serve-tag, .social-link, .tech-card { cursor: pointer; }
+            body {
+                cursor: auto;
+            }
+
+            a, button {
+                cursor: pointer;
+            }
+
+            .cursor-glow,
+            .cursor-trail {
+                display: none;
+            }
+
+            nav {
+                display: none;
+            }
+
+            .menu-toggle {
+                display: inline-flex;
+            }
+
+            .mobile-menu {
+                display: block;
+            }
+
+            .hero-grid,
+            .topic-row {
+                grid-template-columns: 1fr;
+            }
+
+            .topic-row.reverse {
+                direction: ltr;
+            }
+
+            .hero-visual {
+                display: none;
+            }
+
+            .stats-bar {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .footer-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        @media (min-width: 969px) {
+            .mobile-menu {
+                display: none !important;
+            }
         }
 
         @media (max-width: 640px) {
-            .stats-bar { grid-template-columns: 1fr; }
-            .tech-grid { grid-template-columns: 1fr; }
-            .footer-grid { grid-template-columns: 1fr; }
-            nav ul { display: none; }
-            .analytics-top { grid-template-columns: 1fr; }
-            .logo img { height: 54px; }
-            .nav-container { min-height: 82px; }
-            .serve-section { padding-bottom: 160px; }
+            .container {
+                padding: 0 1.2rem;
+            }
+
+            .nav-container {
+                padding: 1rem 1.2rem;
+                min-height: 82px;
+            }
+
+            .mobile-menu {
+                top: 82px;
+            }
+
+            .logo img {
+                height: 56px;
+            }
+
+            .hero {
+                padding-top: 110px;
+            }
+
+            .hero-buttons {
+                flex-direction: column;
+            }
+
+            .stats-bar,
+            .tech-grid,
+            .footer-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-bottom {
+                flex-direction: column;
+                gap: 1rem;
+                text-align: center;
+            }
+
+            #technology {
+                padding-bottom: 150px;
+            }
+
+            #about {
+                padding-top: 150px;
+            }
         }
     </style>
 </head>
@@ -1739,28 +1823,45 @@
 
     <header>
         <div class="nav-container">
-            <a href="#" class="logo">
-                <img src="quant_particle_logo.png" alt="QuantParticle Logo" onerror="this.style.display='none'">
+            <a href="/" class="logo">
+                <img src="/quant_particle_logo.png" alt="QuantParticle Logo">
             </a>
+
             <nav>
                 <ul>
-                    <li><a href="#" class="active-nav">Home</a></li>
-                    <li><a href="#about">About</a></li>
+                    <li><a href="/" class="active-nav">Home</a></li>
+                    <li><a href="/about/">About</a></li>
                     <li class="dropdown">
-                        <a href="#solutions">Solutions</a>
+                        <a href="/#solutions">Solutions</a>
                         <ul class="dropdown-menu">
-                            <li><a href="#strategy">Strategy Research</a></li>
-                            <li><a href="#execution">Execution Systems</a></li>
-                            <li><a href="#lab">Quant Lab</a></li>
-                            <li><a href="#prop">Prop & Institutional</a></li>
+                            <li><a href="/#solutions">Strategy Research</a></li>
+                            <li><a href="/#solutions">Execution Systems</a></li>
+                            <li><a href="/#solutions">Quant Lab</a></li>
+                            <li><a href="/#solutions">Prop & Institutional</a></li>
                         </ul>
                     </li>
-                    <li><a href="#technology">Technology</a></li>
-                    <li><a href="#insights">Insights</a></li>
-                    <li><a href="#careers">Careers</a></li>
-                    <li><a href="#contact">Contact</a></li>
+                    <li><a href="/#technology">Technology</a></li>
+                    <li><a href="/insights/">Insights</a></li>
+                    <li><a href="/careers/">Careers</a></li>
+                    <li><a href="/contact/">Contact</a></li>
                 </ul>
             </nav>
+
+            <button class="menu-toggle" id="menuToggle" aria-label="Open Menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+
+        <div class="mobile-menu" id="mobileMenu">
+            <a href="/" class="active-nav">Home</a>
+            <a href="/about/">About</a>
+            <a href="/#solutions">Solutions</a>
+            <a href="/#technology">Technology</a>
+            <a href="/insights/">Insights</a>
+            <a href="/careers/">Careers</a>
+            <a href="/contact/">Contact</a>
         </div>
     </header>
 
@@ -1772,24 +1873,27 @@
                         <span class="pulse"></span>
                         <span>Live Systems Active</span>
                     </div>
+
                     <h1>
                         <div class="line"><span class="hero-shine primary-text">Quantitative Trading.</span></div>
                         <div class="line"><span class="hero-shine accent-text">Engineered.</span></div>
                     </h1>
+
                     <p>
-                        <strong style="color: var(--text-primary);">Research-Driven Trading Technology.</strong> QuantParticle develops quantitative trading systems, execution infrastructure, and systematic trading solutions for professional traders, proprietary trading firms, institutions, and fintech businesses across global markets.
+                        <strong style="color: var(--text-primary);">Research-Driven Trading Technology.</strong>
+                        QuantParticle develops quantitative trading systems, execution infrastructure, and systematic trading solutions for professional traders, proprietary trading firms, institutions, and fintech businesses across global markets.
                     </p>
+
                     <div class="hero-meta">
-                        LFT <span>|</span> MFT <span>|</span> HFT <span>//</span> Multi-Asset <span>//</span> Global Markets
+                        <span>LFT</span> • <span>MFT</span> • <span>HFT</span> • <span>Multi-Asset</span> • <span>Global Markets</span>
                     </div>
+
                     <div class="hero-buttons">
-                        <a href="#solutions" class="btn btn-primary">
-                            Explore Solutions
-                            <span style="font-size: 1.2rem;">→</span>
-                        </a>
-                        <a href="#contact" class="btn btn-secondary">Contact Research Team</a>
+                        <a href="/#solutions" class="btn btn-primary">Explore Solutions <span style="font-size: 1.2rem;">→</span></a>
+                        <a href="/contact/" class="btn btn-secondary">Contact Research Team</a>
                     </div>
                 </div>
+
                 <div class="hero-visual">
                     <div class="hft-terminal">
                         <div class="terminal-header">
@@ -1801,13 +1905,16 @@
                             <span class="terminal-title">EXECUTION_ENGINE // LIVE</span>
                             <div style="width: 40px;"></div>
                         </div>
+
                         <div class="terminal-body" id="terminal-body"></div>
+
                         <div class="latency-monitor">
                             <span class="latency-label">AVG LATENCY</span>
-                            <span class="latency-value" id="latency">8.4 μs</span>
+                            <span class="latency-value" id="latency">8.4µs</span>
                             <span class="latency-label">THROUGHPUT</span>
                             <span class="latency-value">142K TPS</span>
                         </div>
+
                         <div class="throughput-bar"></div>
                     </div>
                 </div>
@@ -1817,15 +1924,19 @@
         <section class="container" style="padding-top: 0; padding-bottom: 0;">
             <div class="stats-bar reveal">
                 <div class="stat-item">
-                    <div class="stat-number">12 μs</div>
+                    <div class="stat-number">4.2B</div>
+                    <div class="stat-label">Notional Traded</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">12µs</div>
                     <div class="stat-label">Avg Latency</div>
                 </div>
                 <div class="stat-item">
-                    <div class="stat-number">1000+</div>
-                    <div class="stat-label">Quant Strategies</div>
+                    <div class="stat-number">142</div>
+                    <div class="stat-label">Active Strategies</div>
                 </div>
                 <div class="stat-item">
-                    <div class="stat-number">99.99%</div>
+                    <div class="stat-number">99.99</div>
                     <div class="stat-label">Uptime SLA</div>
                 </div>
             </div>
@@ -1834,28 +1945,28 @@
         <section id="solutions" class="container">
             <div class="reveal" style="text-align: center; margin-bottom: 80px;">
                 <div class="section-label" style="justify-content: center;">
-                    <span style="width: 30px; height: 1px; background: var(--accent-cyan); box-shadow: 0 0 8px var(--accent-cyan);"></span>
+                    <span style="width:30px;height:1px;background:var(--accent-cyan);box-shadow:0 0 8px var(--accent-cyan);"></span>
                     <span>Capabilities</span>
-                    <span style="width: 30px; height: 1px; background: var(--accent-cyan); box-shadow: 0 0 8px var(--accent-cyan);"></span>
+                    <span style="width:30px;height:1px;background:var(--accent-cyan);box-shadow:0 0 8px var(--accent-cyan);"></span>
                 </div>
                 <h2 class="section-title">What We Do</h2>
-                <p class="section-subtitle" style="margin: 0 auto;">End-to-end quantitative infrastructure from research to live execution across LFT, MFT, and HFT regimes.</p>
+                <p class="section-subtitle" style="margin: 0 auto;">
+                    End-to-end quantitative infrastructure from research to live execution across LFT, MFT, and HFT regimes.
+                </p>
             </div>
 
             <div class="topic-row reveal">
                 <div class="topic-content">
-                    <h3>
-                        <span class="topic-num">01 // STRATEGY</span>
-                        Quantitative Strategy Development
-                    </h3>
+                    <h3><span class="topic-num">01 // STRATEGY</span>Quantitative Strategy Development</h3>
                     <p>We architect systematic trading models grounded in statistical inference, mathematical optimization, and market microstructure theory. Every signal is hypothesis-tested before touching production capital.</p>
                     <ul class="topic-features">
-                        <li>Statistical arbitrage & factor modeling</li>
+                        <li>Statistical arbitrage factor modeling</li>
                         <li>Machine learning signal generation</li>
-                        <li>Regime detection & adaptivity</li>
-                        <li>Multi-asset & cross-market systems</li>
+                        <li>Regime detection and adaptivity</li>
+                        <li>Multi-asset cross-market systems</li>
                     </ul>
                 </div>
+
                 <div class="topic-visual">
                     <div class="strategy-viz">
                         <div class="strategy-track track-1"><span class="strategy-pulse"></span></div>
@@ -1863,22 +1974,24 @@
                         <div class="strategy-track track-3"><span class="strategy-pulse"></span></div>
                         <div class="strategy-track track-4"><span class="strategy-pulse"></span></div>
 
+                        <div class="strategy-beacon beacon-1"></div>
+                        <div class="strategy-beacon beacon-2"></div>
+                        <div class="strategy-beacon beacon-3"></div>
+
                         <div class="strat-card strat-card-1">
-                            <span class="small">ALPHA MODEL</span>
-                            <span class="big">Adaptive Signals</span>
-                        </div>
-                        <div class="strat-card strat-card-2">
-                            <span class="small">REGIME</span>
-                            <span class="big">Detected</span>
-                        </div>
-                        <div class="strat-card strat-card-3">
-                            <span class="small">FACTOR SCORE</span>
-                            <span class="big">0.87</span>
+                            <span class="small">SIGNAL</span>
+                            <span class="big">Momentum Cluster</span>
                         </div>
 
-                        <span class="strategy-beacon beacon-1"></span>
-                        <span class="strategy-beacon beacon-2"></span>
-                        <span class="strategy-beacon beacon-3"></span>
+                        <div class="strat-card strat-card-2">
+                            <span class="small">MODEL</span>
+                            <span class="big">Regime Switch</span>
+                        </div>
+
+                        <div class="strat-card strat-card-3">
+                            <span class="small">RISK</span>
+                            <span class="big">Adaptive Sizing</span>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -1887,48 +2000,31 @@
                 <div class="topic-visual">
                     <div class="pipeline-viz">
                         <div class="pipeline-stage">
-                            <div class="pipeline-box active">
-                                Signal Generation
-                                <div class="fill-bar"></div>
-                            </div>
+                            <div class="pipeline-box active">Signal Generation<div class="fill-bar"></div></div>
                             <span class="pipeline-arrow">→</span>
-                            <div class="pipeline-box">
-                                Risk Engine
-                                <div class="fill-bar" style="animation-delay: 0.5s;"></div>
-                            </div>
+                            <div class="pipeline-box">Risk Engine<div class="fill-bar" style="animation-delay: 0.5s;"></div></div>
                         </div>
                         <div class="pipeline-stage">
-                            <div class="pipeline-box">
-                                Order Manager
-                                <div class="fill-bar" style="animation-delay: 1s;"></div>
-                            </div>
+                            <div class="pipeline-box">Order Manager<div class="fill-bar" style="animation-delay: 1s;"></div></div>
                             <span class="pipeline-arrow">→</span>
-                            <div class="pipeline-box">
-                                Exchange Gateway
-                                <div class="fill-bar" style="animation-delay: 1.5s;"></div>
-                            </div>
+                            <div class="pipeline-box">Exchange Gateway<div class="fill-bar" style="animation-delay: 1.5s;"></div></div>
                         </div>
                         <div class="pipeline-stage" style="justify-content: center;">
                             <span class="pipeline-arrow" style="transform: rotate(90deg); animation: none; font-size: 1.5rem; margin: -0.5rem 0;">↓</span>
                         </div>
                         <div class="pipeline-stage">
-                            <div class="pipeline-box active" style="flex: 0 0 60%; margin: 0 auto; text-align: center;">
-                                P&L & Monitoring
-                                <div class="fill-bar" style="animation-delay: 0.3s;"></div>
-                            </div>
+                            <div class="pipeline-box active" style="flex: 0 0 60%; margin: 0 auto; text-align: center;">P&L Monitoring<div class="fill-bar" style="animation-delay: 0.3s;"></div></div>
                         </div>
                     </div>
                 </div>
+
                 <div class="topic-content">
-                    <h3>
-                        <span class="topic-num">02 // EXECUTION</span>
-                        Execution Infrastructure
-                    </h3>
+                    <h3><span class="topic-num">02 // EXECUTION</span>Execution Infrastructure</h3>
                     <p>Institution-grade execution systems designed for sub-millisecond order routing, intelligent position management, real-time risk controls, and seamless strategy deployment across fragmented liquidity venues.</p>
                     <ul class="topic-features">
-                        <li>Colocated & cross-region deployment</li>
-                        <li>Smart order routing & slicing</li>
-                        <li>Real-time position & P&L tracking</li>
+                        <li>Colocated cross-region deployment</li>
+                        <li>Smart order routing and slicing</li>
+                        <li>Real-time position and P&L tracking</li>
                         <li>Multi-venue connectivity</li>
                     </ul>
                 </div>
@@ -1936,18 +2032,16 @@
 
             <div class="topic-row reveal">
                 <div class="topic-content">
-                    <h3>
-                        <span class="topic-num">03 // RESEARCH</span>
-                        Backtesting & Research
-                    </h3>
-                    <p>Robust simulation frameworks that replicate real market conditions — slippage, latency, partial fills, and fees — so strategies are validated honestly before live capital deployment.</p>
+                    <h3><span class="topic-num">03 // RESEARCH</span>Backtesting & Research</h3>
+                    <p>Robust simulation frameworks that replicate real market conditions, slippage, latency, partial fills, and fees so strategies are validated honestly before live capital deployment.</p>
                     <ul class="topic-features">
-                        <li>Tick-level & bar-based simulation</li>
+                        <li>Tick-level and bar-based simulation</li>
                         <li>Transaction cost analysis</li>
-                        <li>Walk-forward & out-of-sample testing</li>
-                        <li>Parameter stability & overfitting detection</li>
+                        <li>Walk-forward and out-of-sample testing</li>
+                        <li>Parameter stability and overfitting detection</li>
                     </ul>
                 </div>
+
                 <div class="topic-visual">
                     <div class="chart-viz">
                         <div class="chart-grid">
@@ -1977,74 +2071,65 @@
             <div class="topic-row reverse reveal">
                 <div class="topic-visual">
                     <div class="automation-flow">
-                        <div class="auto-box auto-box-1">
-                            <small>INPUT</small>
-                            Market Data
-                        </div>
-                        <div class="auto-box auto-box-2">
-                            <small>LOGIC</small>
-                            Signal Engine
-                        </div>
-                        <div class="auto-box auto-box-3">
-                            <small>ACTION</small>
-                            Execution
-                        </div>
-                        <div class="auto-box auto-box-4">
-                            <small>OBSERVE</small>
-                            Monitoring
-                        </div>
+                        <div class="auto-box auto-box-1"><small>INGESTION</small>Market Data</div>
+                        <div class="auto-box auto-box-2"><small>EXECUTION</small>Trade Engine</div>
+                        <div class="auto-box auto-box-3"><small>MONITORING</small>Alerts & Logs</div>
+                        <div class="auto-box auto-box-4"><small>RECOVERY</small>Failover</div>
 
                         <div class="auto-link link-top"></div>
                         <div class="auto-link link-left"></div>
                         <div class="auto-link link-right"></div>
                         <div class="auto-link link-bottom"></div>
 
-                        <span class="auto-packet packet-1"></span>
-                        <span class="auto-packet packet-2"></span>
-                        <span class="auto-packet packet-3"></span>
-                        <span class="auto-packet packet-4"></span>
+                        <div class="auto-packet packet-1"></div>
+                        <div class="auto-packet packet-2"></div>
+                        <div class="auto-packet packet-3"></div>
+                        <div class="auto-packet packet-4"></div>
 
                         <div class="auto-core"></div>
                     </div>
                 </div>
+
                 <div class="topic-content">
-                    <h3>
-                        <span class="topic-num">04 // AUTOMATION</span>
-                        Trading Automation
-                    </h3>
+                    <h3><span class="topic-num">04 // AUTOMATION</span>Trading Automation</h3>
                     <p>Zero-touch automation pipelines integrating market data ingestion, signal generation, execution, and post-trade monitoring. Built for 24/7 reliability with autonomous failover and alerting.</p>
                     <ul class="topic-features">
                         <li>Fully automated signal-to-trade lifecycle</li>
-                        <li>Webhook & API bridge integrations</li>
-                        <li>Self-healing & recovery systems</li>
-                        <li>Telegram, Slack, & dashboard alerts</li>
+                        <li>Webhook and API bridge integrations</li>
+                        <li>Self-healing recovery systems</li>
+                        <li>Telegram, Slack, and dashboard alerts</li>
                     </ul>
                 </div>
             </div>
 
             <div class="topic-row reveal">
                 <div class="topic-content">
-                    <h3>
-                        <span class="topic-num">05 // MARKET MAKING</span>
-                        Market Making Systems
-                    </h3>
+                    <h3><span class="topic-num">05 // MARKET MAKING</span>Market Making Systems</h3>
                     <p>Adaptive liquidity provision frameworks with dynamic spread capture, inventory skew management, and real-time hedging. Engineered for volatile and fragmented microstructures.</p>
                     <ul class="topic-features">
                         <li>Two-sided quote management</li>
-                        <li>Inventory risk & skew optimization</li>
+                        <li>Inventory risk skew optimization</li>
                         <li>Adverse selection detection</li>
-                        <li>Rebate capture & fee optimization</li>
+                        <li>Rebate capture and fee optimization</li>
                     </ul>
                 </div>
+
                 <div class="topic-visual">
-                    <div class="ob-viz" id="ob-viz">
+                    <div class="ob-viz">
                         <div class="ob-header">
-                            <span>SYMBOL: BTC-PERP</span>
-                            <span>DEPTH: L2</span>
+                            <span>SYMBOL BTC-PERP</span>
+                            <span>DEPTH L2</span>
                         </div>
-                        <div id="ob-asks"></div>
-                        <div class="ob-spread">SPREAD: 0.02%</div>
-                        <div id="ob-bids"></div>
+
+                        <div class="ob-row ob-ask"><span class="ob-price">67245.5</span><span class="ob-size">1.20</span><span class="ob-total">18.44</span></div>
+                        <div class="ob-row ob-ask"><span class="ob-price">67245.1</span><span class="ob-size">0.85</span><span class="ob-total">17.24</span></div>
+                        <div class="ob-row ob-ask"><span class="ob-price">67244.9</span><span class="ob-size">0.65</span><span class="ob-total">16.39</span></div>
+
+                        <div class="ob-spread">SPREAD 0.02</div>
+
+                        <div class="ob-row ob-bid"><span class="ob-price">67244.7</span><span class="ob-size">0.72</span><span class="ob-total">15.74</span></div>
+                        <div class="ob-row ob-bid"><span class="ob-price">67244.5</span><span class="ob-size">1.10</span><span class="ob-total">15.02</span></div>
+                        <div class="ob-row ob-bid"><span class="ob-price">67244.1</span><span class="ob-size">1.46</span><span class="ob-total">13.92</span></div>
                     </div>
                 </div>
             </div>
@@ -2055,98 +2140,83 @@
                         <div class="analytics-top">
                             <div class="analytics-donut"></div>
                             <div class="analytics-metrics">
-                                <div class="analytics-metric">
-                                    <span class="k">SHARPE</span>
-                                    <span class="v">2.41</span>
-                                </div>
-                                <div class="analytics-metric">
-                                    <span class="k">MAX DD</span>
-                                    <span class="v">4.8%</span>
-                                </div>
-                                <div class="analytics-metric">
-                                    <span class="k">WIN RATE</span>
-                                    <span class="v">63%</span>
-                                </div>
-                                <div class="analytics-metric">
-                                    <span class="k">BETA</span>
-                                    <span class="v">0.18</span>
-                                </div>
+                                <div class="analytics-metric"><span class="k">SHARPE</span><span class="v">2.41</span></div>
+                                <div class="analytics-metric"><span class="k">MAX DD</span><span class="v">4.8%</span></div>
+                                <div class="analytics-metric"><span class="k">WIN RATE</span><span class="v">63%</span></div>
+                                <div class="analytics-metric"><span class="k">BETA</span><span class="v">0.18</span></div>
                             </div>
                         </div>
-
                         <div class="analytics-wave"></div>
-
-                        <div class="analytics-bars-wrap">
-                            <div class="analytics-bar" style="height: 42%;"></div>
-                            <div class="analytics-bar" style="height: 58%;"></div>
-                            <div class="analytics-bar" style="height: 34%;"></div>
-                            <div class="analytics-bar" style="height: 74%;"></div>
-                            <div class="analytics-bar" style="height: 48%;"></div>
-                            <div class="analytics-bar" style="height: 86%;"></div>
-                            <div class="analytics-bar" style="height: 61%;"></div>
-                            <div class="analytics-bar" style="height: 79%;"></div>
+                        <div class="analytics-metrics">
+                            <div class="analytics-metric"><span class="k">VOL</span><span class="v">8.3%</span></div>
+                            <div class="analytics-metric"><span class="k">TURNOVER</span><span class="v">1.9x</span></div>
                         </div>
                     </div>
                 </div>
+
                 <div class="topic-content">
-                    <h3>
-                        <span class="topic-num">06 // ANALYTICS</span>
-                        Quantitative Analytics
-                    </h3>
-                    <p>Advanced performance diagnostics including factor decomposition, drawdown attribution, Sharpe/Sortmax optimization, and real-time portfolio health dashboards for decision-makers.</p>
+                    <h3><span class="topic-num">06 // ANALYTICS</span>Quantitative Analytics</h3>
+                    <p>Advanced performance diagnostics including factor decomposition, drawdown attribution, optimization, and real-time portfolio health dashboards for decision-makers.</p>
                     <ul class="topic-features">
-                        <li>Factor exposure & attribution models</li>
-                        <li>Drawdown & tail-risk decomposition</li>
+                        <li>Factor exposure and attribution models</li>
+                        <li>Drawdown and tail-risk decomposition</li>
                         <li>Real-time performance dashboards</li>
-                        <li>Correlation & beta monitoring</li>
+                        <li>Correlation and beta monitoring</li>
                     </ul>
                 </div>
             </div>
         </section>
 
         <section id="technology" class="container">
-            <div class="reveal" style="text-align: center; margin-bottom: 60px;">
-                <div class="section-label" style="justify-content: center;">
-                    <span style="width: 30px; height: 1px; background: var(--accent-cyan); box-shadow: 0 0 8px var(--accent-cyan);"></span>
+            <div class="reveal" style="text-align:center; margin-bottom: 60px;">
+                <div class="section-label" style="justify-content:center;">
+                    <span style="width:30px;height:1px;background:var(--accent-cyan);box-shadow:0 0 8px var(--accent-cyan);"></span>
                     <span>Stack</span>
-                    <span style="width: 30px; height: 1px; background: var(--accent-cyan); box-shadow: 0 0 8px var(--accent-cyan);"></span>
+                    <span style="width:30px;height:1px;background:var(--accent-cyan);box-shadow:0 0 8px var(--accent-cyan);"></span>
                 </div>
                 <h2 class="section-title">Technology We Deploy</h2>
-                <p class="section-subtitle" style="margin: 0 auto;">Modern, performant, and battle-tested infrastructure for mission-critical trading environments.</p>
+                <p class="section-subtitle" style="margin: 0 auto;">
+                    Modern, performant, and battle-tested infrastructure for mission-critical trading environments.
+                </p>
             </div>
+
             <div class="tech-grid reveal">
                 <div class="tech-card">
                     <span class="tech-icon">◈</span>
                     <h4>Pine Script / TradingView</h4>
-                    <p>Custom indicator & strategy development with advanced visualizations</p>
+                    <p>Custom indicator & strategy development with advanced visualizations.</p>
                 </div>
+
                 <div class="tech-card">
                     <span class="tech-icon">⚡</span>
                     <h4>C++ / Rust Engine</h4>
-                    <p>Low-latency execution cores for HFT and market making systems</p>
+                    <p>Low-latency execution cores for HFT and market making systems.</p>
                 </div>
+
                 <div class="tech-card">
                     <span class="tech-icon">◎</span>
                     <h4>Python / PyTorch</h4>
-                    <p>ML signal generation, backtesting frameworks & data pipelines</p>
+                    <p>ML signal generation, backtesting frameworks, and data pipelines.</p>
                 </div>
+
                 <div class="tech-card">
                     <span class="tech-icon">◇</span>
                     <h4>WebSocket / FIX</h4>
-                    <p>Exchange connectivity, order routing, and real-time market data</p>
+                    <p>Exchange connectivity, order routing, and real-time market data.</p>
                 </div>
             </div>
         </section>
 
         <section id="about" class="container">
-            <div class="reveal" style="text-align: center; margin-bottom: 60px;">
-                <div class="section-label" style="justify-content: center;">
-                    <span style="width: 30px; height: 1px; background: var(--accent-cyan); box-shadow: 0 0 8px var(--accent-cyan);"></span>
+            <div class="reveal" style="text-align:center; margin-bottom: 60px;">
+                <div class="section-label" style="justify-content:center;">
+                    <span style="width:30px;height:1px;background:var(--accent-cyan);box-shadow:0 0 8px var(--accent-cyan);"></span>
                     <span>Methodology</span>
-                    <span style="width: 30px; height: 1px; background: var(--accent-cyan); box-shadow: 0 0 8px var(--accent-cyan);"></span>
+                    <span style="width:30px;height:1px;background:var(--accent-cyan);box-shadow:0 0 8px var(--accent-cyan);"></span>
                 </div>
                 <h2 class="section-title">Our Approach</h2>
             </div>
+
             <div class="approach-grid">
                 <div class="approach-item reveal">
                     <div class="approach-number">01</div>
@@ -2155,25 +2225,28 @@
                         <p>Every strategy begins with rigorous research, not assumptions. We validate hypotheses through statistical testing before writing a single line of production code.</p>
                     </div>
                 </div>
+
                 <div class="approach-item reveal">
                     <div class="approach-number">02</div>
                     <div class="approach-content">
                         <h3>Data Driven</h3>
-                        <p>Models are built on measurable market behaviour rather than opinions. We ingest terabytes of tick data to identify persistent, exploitable patterns.</p>
+                        <p>Models are built on measurable market behaviour rather than opinions. We ingest large volumes of market data to identify persistent, exploitable patterns.</p>
                     </div>
                 </div>
+
                 <div class="approach-item reveal">
                     <div class="approach-number">03</div>
                     <div class="approach-content">
                         <h3>Systematic Execution</h3>
-                        <p>Execution quality is treated as a core component of strategy performance, not an afterthought. Every microsecond matters in our design.</p>
+                        <p>Execution quality is treated as a core component of strategy performance, not an afterthought. Every microsecond matters in our design philosophy.</p>
                     </div>
                 </div>
+
                 <div class="approach-item reveal">
                     <div class="approach-number">04</div>
                     <div class="approach-content">
                         <h3>Continuous Improvement</h3>
-                        <p>Models evolve through relentless testing, validation, monitoring, and refinement. Markets change — so do we.</p>
+                        <p>Models evolve through relentless testing, validation, monitoring, and refinement. Markets change, so the infrastructure must evolve with them.</p>
                     </div>
                 </div>
             </div>
@@ -2181,13 +2254,14 @@
 
         <section class="serve-section container">
             <div class="reveal">
-                <div class="section-label" style="justify-content: center;">
-                    <span style="width: 30px; height: 1px; background: var(--accent-cyan); box-shadow: 0 0 8px var(--accent-cyan);"></span>
+                <div class="section-label" style="justify-content:center;">
+                    <span style="width:30px;height:1px;background:var(--accent-cyan);box-shadow:0 0 8px var(--accent-cyan);"></span>
                     <span>Clients</span>
-                    <span style="width: 30px; height: 1px; background: var(--accent-cyan); box-shadow: 0 0 8px var(--accent-cyan);"></span>
+                    <span style="width:30px;height:1px;background:var(--accent-cyan);box-shadow:0 0 8px var(--accent-cyan);"></span>
                 </div>
                 <h2 class="section-title">Who We Serve</h2>
             </div>
+
             <div class="serve-tags reveal">
                 <div class="serve-tag">Proprietary Trading Firms</div>
                 <div class="serve-tag">Institutional Trading Teams</div>
@@ -2198,10 +2272,11 @@
                 <div class="serve-tag">Family Offices</div>
                 <div class="serve-tag">Hedge Funds</div>
             </div>
+
             <div class="reveal">
                 <h3 style="font-size: 2.2rem; font-weight: 800; margin-bottom: 1.5rem; letter-spacing: -1px;">Building the Future of Systematic Trading</h3>
                 <p class="mission-text">
-                    From idea generation to live deployment, we help transform trading concepts into <strong>scalable, data-driven systems</strong>. Our mission is to bridge quantitative research, execution technology, and automation infrastructure to create intelligent trading systems capable of operating across modern financial markets — equities, futures, crypto, FX, and options.
+                    From idea generation to live deployment, we help transform trading concepts into <strong>scalable, data-driven systems</strong>. Our mission is to bridge quantitative research, execution technology, and automation infrastructure to create intelligent trading systems capable of operating across modern financial markets including equities, futures, crypto, FX, and options.
                 </p>
             </div>
         </section>
@@ -2214,33 +2289,37 @@
                     <div class="logo-text">QuantParticle</div>
                     <p>Research-driven trading technology for professional market participants. Building the next generation of systematic trading infrastructure.</p>
                 </div>
+
                 <div class="footer-links reveal">
                     <h4>Solutions</h4>
-                    <a href="#">Strategy Research</a>
-                    <a href="#">Execution Systems</a>
-                    <a href="#">Quant Lab</a>
-                    <a href="#">Prop & Institutional</a>
+                    <a href="/#solutions">Strategy Research</a>
+                    <a href="/#solutions">Execution Systems</a>
+                    <a href="/#solutions">Quant Lab</a>
+                    <a href="/#solutions">Prop & Institutional</a>
                 </div>
+
                 <div class="footer-links reveal">
                     <h4>Company</h4>
-                    <a href="#">About</a>
-                    <a href="#">Careers</a>
-                    <a href="#">Insights</a>
-                    <a href="#">Contact</a>
+                    <a href="/about/">About</a>
+                    <a href="/careers/">Careers</a>
+                    <a href="/insights/">Insights</a>
+                    <a href="/contact/">Contact</a>
                 </div>
+
                 <div class="footer-links reveal">
                     <h4>Legal</h4>
-                    <a href="#">Privacy Policy</a>
-                    <a href="#">Terms of Service</a>
-                    <a href="#">Risk Disclosure</a>
+                    <a href="/privacy/">Privacy Policy</a>
+                    <a href="/terms/">Terms of Service</a>
+                    <a href="/risk/">Risk Disclosure</a>
                 </div>
             </div>
+
             <div class="footer-bottom">
                 <p>© 2026 QuantParticle. All rights reserved.</p>
                 <div class="footer-social">
-                    <a href="#" class="social-link">𝕏</a>
-                    <a href="#" class="social-link">in</a>
-                    <a href="#" class="social-link">Git</a>
+                    <a href="#" class="social-link" aria-label="X">𝕏</a>
+                    <a href="#" class="social-link" aria-label="LinkedIn">in</a>
+                    <a href="#" class="social-link" aria-label="GitHub">Git</a>
                 </div>
             </div>
         </div>
@@ -2259,22 +2338,24 @@
         });
 
         function animateCursor() {
-            cursorX += (mouseX - cursorX) * 0.15;
-            cursorY += (mouseY - cursorY) * 0.15;
-            trailX += (mouseX - trailX) * 0.08;
-            trailY += (mouseY - trailY) * 0.08;
-            cursor.style.left = cursorX + 'px';
-            cursor.style.top = cursorY + 'px';
-            trail.style.left = trailX + 'px';
-            trail.style.top = trailY + 'px';
+            if (cursor && trail) {
+                cursorX += (mouseX - cursorX) * 0.15;
+                cursorY += (mouseY - cursorY) * 0.15;
+                trailX += (mouseX - trailX) * 0.08;
+                trailY += (mouseY - trailY) * 0.08;
+                cursor.style.left = cursorX + 'px';
+                cursor.style.top = cursorY + 'px';
+                trail.style.left = trailX + 'px';
+                trail.style.top = trailY + 'px';
+            }
             requestAnimationFrame(animateCursor);
         }
         animateCursor();
 
-        const interactiveElements = document.querySelectorAll('a, button, .serve-tag, .tech-card');
+        const interactiveElements = document.querySelectorAll('a, button, .tech-card, .serve-tag');
         interactiveElements.forEach(el => {
-            el.addEventListener('mouseenter', () => cursor.classList.add('hover'));
-            el.addEventListener('mouseleave', () => cursor.classList.remove('hover'));
+            el.addEventListener('mouseenter', () => cursor && cursor.classList.add('hover'));
+            el.addEventListener('mouseleave', () => cursor && cursor.classList.remove('hover'));
         });
 
         const scrollProgress = document.querySelector('.scroll-progress');
@@ -2293,24 +2374,6 @@
             }
         });
 
-        const sections = document.querySelectorAll('section[id]');
-        const navLinks = document.querySelectorAll('nav a[href^="#"]');
-        window.addEventListener('scroll', () => {
-            let current = '';
-            sections.forEach(section => {
-                const sectionTop = section.offsetTop;
-                if (window.scrollY >= sectionTop - 200) {
-                    current = section.getAttribute('id');
-                }
-            });
-            navLinks.forEach(link => {
-                link.classList.remove('active-nav');
-                if (link.getAttribute('href') === '#' + current) {
-                    link.classList.add('active-nav');
-                }
-            });
-        });
-
         const observerOptions = { threshold: 0.1, rootMargin: '0px 0px -50px 0px' };
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
@@ -2319,7 +2382,102 @@
                 }
             });
         }, observerOptions);
+
         document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+        const menuToggle = document.getElementById('menuToggle');
+        const mobileMenu = document.getElementById('mobileMenu');
+
+        menuToggle.addEventListener('click', () => {
+            menuToggle.classList.toggle('active');
+            mobileMenu.classList.toggle('active');
+        });
+
+        document.querySelectorAll('.mobile-menu a').forEach(link => {
+            link.addEventListener('click', () => {
+                menuToggle.classList.remove('active');
+                mobileMenu.classList.remove('active');
+            });
+        });
+
+        const sections = document.querySelectorAll('section[id]');
+        const navLinks = document.querySelectorAll('nav a');
+        const mobileLinks = document.querySelectorAll('.mobile-menu a');
+
+        function clearActiveLinks() {
+            navLinks.forEach(link => link.classList.remove('active-nav'));
+            mobileLinks.forEach(link => link.classList.remove('active-nav'));
+        }
+
+        function setActiveLink(selector) {
+            const desktop = document.querySelector(`nav a[href="${selector}"]`);
+            const mobile = document.querySelector(`.mobile-menu a[href="${selector}"]`);
+            if (desktop) desktop.classList.add('active-nav');
+            if (mobile) mobile.classList.add('active-nav');
+        }
+
+        function updateActiveNav() {
+            const path = window.location.pathname;
+
+            if (path !== '/' && path !== '/index.html') {
+                clearActiveLinks();
+                setActiveLink(path);
+                return;
+            }
+
+            let current = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                if (window.scrollY >= sectionTop - 220) {
+                    current = section.getAttribute('id');
+                }
+            });
+
+            clearActiveLinks();
+
+            if (window.scrollY < 180) {
+                setActiveLink('/');
+            } else if (current === 'solutions') {
+                setActiveLink('/#solutions');
+            } else if (current === 'technology') {
+                setActiveLink('/#technology');
+            } else if (current === 'about') {
+                setActiveLink('/about/');
+            } else {
+                setActiveLink('/');
+            }
+        }
+
+        window.addEventListener('scroll', updateActiveNav);
+        window.addEventListener('load', updateActiveNav);
+
+        const terminalBody = document.getElementById('terminal-body');
+        const orders = [
+            ['BTC-PERP', 'BUY', '1.25', '67245.1', 'FILL'],
+            ['ETH-PERP', 'SELL', '6.40', '3845.3', 'LIVE'],
+            ['NQ-FUT', 'BUY', '2.00', '18944.5', 'FILL'],
+            ['EURUSD', 'SELL', '3.10', '1.0842', 'LIVE'],
+            ['SOL-PERP', 'BUY', '22.00', '184.6', 'FILL'],
+            ['GC-FUT', 'SELL', '1.00', '2388.4', 'LIVE'],
+            ['AAPL', 'BUY', '120', '212.4', 'FILL'],
+            ['BANKNIFTY', 'SELL', '15', '52342', 'LIVE']
+        ];
+
+        if (terminalBody) {
+            orders.forEach((o, i) => {
+                const row = document.createElement('div');
+                row.className = 'order-row';
+                row.style.animationDelay = `${i * 0.12}s`;
+                row.innerHTML = `
+                    <span class="order-symbol">${o[0]}</span>
+                    <span class="order-side ${o[1].toLowerCase()}">${o[1]}</span>
+                    <span class="order-qty">${o[2]}</span>
+                    <span class="order-price">${o[3]}</span>
+                    <span class="order-status ${o[4].toLowerCase() === 'fill' ? 'fill' : ''}">${o[4]}</span>
+                `;
+                terminalBody.appendChild(row);
+            });
+        }
 
         const canvas = document.getElementById('particle-canvas');
         const ctx = canvas.getContext('2d');
@@ -2328,6 +2486,7 @@
             canvas.width = window.innerWidth;
             canvas.height = window.innerHeight;
         }
+
         resizeCanvas();
         window.addEventListener('resize', resizeCanvas);
 
@@ -2362,22 +2521,25 @@
                     let dx = mouse.x - this.x;
                     let dy = mouse.y - this.y;
                     let distance = Math.sqrt(dx * dx + dy * dy);
-                    if (distance < mouse.radius) {
+
+                    if (distance < mouse.radius && distance > 0) {
                         const force = (mouse.radius - distance) / mouse.radius;
                         const dirX = dx / distance;
                         const dirY = dy / distance;
                         const push = force * this.density * 0.8;
                         this.x += dirX * push;
                         this.y += dirY * push;
-                        this.opacity = Math.min(1, this.opacity + 0.02);
                     }
                 }
+
                 this.x += this.vx;
                 this.y += this.vy;
+
                 let homeDx = this.x - this.baseX;
                 let homeDy = this.y - this.baseY;
                 this.x -= homeDx * 0.02;
                 this.y -= homeDy * 0.02;
+
                 if (this.x < 0) this.x = canvas.width;
                 if (this.x > canvas.width) this.x = 0;
                 if (this.y < 0) this.y = canvas.height;
@@ -2406,6 +2568,7 @@
                     let dx = particles[i].x - particles[j].x;
                     let dy = particles[i].y - particles[j].y;
                     let dist = Math.sqrt(dx * dx + dy * dy);
+
                     if (dist < 100) {
                         let opacity = (1 - dist / 100) * 0.15;
                         ctx.beginPath();
@@ -2413,21 +2576,6 @@
                         ctx.lineWidth = 0.5;
                         ctx.moveTo(particles[i].x, particles[i].y);
                         ctx.lineTo(particles[j].x, particles[j].y);
-                        ctx.stroke();
-                    }
-                }
-
-                if (mouse.x != null) {
-                    let dx = particles[i].x - mouse.x;
-                    let dy = particles[i].y - mouse.y;
-                    let dist = Math.sqrt(dx * dx + dy * dy);
-                    if (dist < 150) {
-                        let opacity = (1 - dist / 150) * 0.3;
-                        ctx.beginPath();
-                        ctx.strokeStyle = `rgba(0, 229, 255, ${opacity})`;
-                        ctx.lineWidth = 0.8;
-                        ctx.moveTo(particles[i].x, particles[i].y);
-                        ctx.lineTo(mouse.x, mouse.y);
                         ctx.stroke();
                     }
                 }
@@ -2447,90 +2595,7 @@
         initParticles();
         animateParticles();
 
-        window.addEventListener('scroll', () => {
-            const scrolled = window.scrollY;
-            document.querySelector('.glow-orb-1').style.transform = `translateY(${scrolled * 0.3}px)`;
-            document.querySelector('.glow-orb-2').style.transform = `translateY(${scrolled * -0.2}px)`;
-        });
-
-        const symbols = ['BTC-PERP', 'ETH-PERP', 'SOL-PERP', 'AVAX-PERP', 'AAPL', 'TSLA', 'ES1!', 'NQ1!'];
-        const terminalBody = document.getElementById('terminal-body');
-        const latencyEl = document.getElementById('latency');
-
-        function createOrderRow() {
-            const symbol = symbols[Math.floor(Math.random() * symbols.length)];
-            const side = Math.random() > 0.5 ? 'buy' : 'sell';
-            const qty = Math.floor(Math.random() * 500) + 10;
-            const price = (Math.random() * 1000 + 100).toFixed(2);
-            const statuses = ['PEND', 'OPEN', 'FILL', 'PART'];
-            const status = Math.random() > 0.7 ? 'FILL' : statuses[Math.floor(Math.random() * 3)];
-
-            const row = document.createElement('div');
-            row.className = 'order-row';
-            row.innerHTML = `
-                <span class="order-symbol">${symbol}</span>
-                <span class="order-side ${side}">${side.toUpperCase()}</span>
-                <span class="order-qty">${qty}</span>
-                <span class="order-price">${price}</span>
-                <span class="order-status ${status === 'FILL' ? 'fill' : ''}">${status}</span>
-            `;
-            return row;
-        }
-
-        function updateTerminal() {
-            const row = createOrderRow();
-            terminalBody.prepend(row);
-            if (terminalBody.children.length > 8) {
-                terminalBody.lastElementChild.remove();
-            }
-            const lat = (Math.random() * 15 + 2).toFixed(1);
-            latencyEl.textContent = lat + ' μs';
-        }
-
-        setInterval(updateTerminal, 800);
-        for (let i = 0; i < 6; i++) {
-            terminalBody.appendChild(createOrderRow());
-        }
-
-        const obAsks = document.getElementById('ob-asks');
-        const obBids = document.getElementById('ob-bids');
-        const basePrice = 67245;
-
-        function generateOB() {
-            obAsks.innerHTML = '';
-            obBids.innerHTML = '';
-
-            for (let i = 4; i > 0; i--) {
-                const price = basePrice + i * 12 + Math.random() * 5;
-                const size = Math.floor(Math.random() * 800) + 100;
-                const total = Math.floor(size * (5 - i) * 0.3);
-                const row = document.createElement('div');
-                row.className = 'ob-row ob-ask';
-                row.innerHTML = `
-                    <span class="ob-price">${price.toFixed(1)}</span>
-                    <span class="ob-size">${size}</span>
-                    <span class="ob-total">${total}</span>
-                `;
-                obAsks.appendChild(row);
-            }
-
-            for (let i = 1; i <= 4; i++) {
-                const price = basePrice - i * 12 + Math.random() * 5;
-                const size = Math.floor(Math.random() * 800) + 100;
-                const total = Math.floor(size * (5 - i) * 0.3);
-                const row = document.createElement('div');
-                row.className = 'ob-row ob-bid';
-                row.innerHTML = `
-                    <span class="ob-price">${price.toFixed(1)}</span>
-                    <span class="ob-size">${size}</span>
-                    <span class="ob-total">${total}</span>
-                `;
-                obBids.appendChild(row);
-            }
-        }
-
-        generateOB();
-        setInterval(generateOB, 2000);
+        window.addEventListener('resize', initParticles);
     </script>
 </body>
 </html>
