@@ -1,1 +1,2517 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Strategy Research | QuantParticle</title>
+    <meta name="description" content="QuantParticle Strategy Research - alpha discovery, statistical arbitrage, momentum, mean reversion, volatility, multi-factor models, portfolio construction, calculus, and linear algebra." />
+    <link rel="icon" href="/quant_particle_logo_fevicon.png" type="image/png" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet" />
 
+    <style>
+        :root {
+            --bg-deep: #070b14;
+            --bg-surface: #0f1525;
+            --bg-elevated: #141d2e;
+            --bg-panel: rgba(15, 21, 37, 0.72);
+            --text-primary: #e8ecf1;
+            --text-secondary: #8b95a8;
+            --accent-cyan: #00e5ff;
+            --accent-blue: #4f46e5;
+            --accent-purple: #7c3aed;
+            --border-subtle: rgba(255, 255, 255, 0.06);
+            --border-glow: rgba(0, 229, 255, 0.16);
+            --glass-bg: rgba(15, 21, 37, 0.64);
+            --glass-border: rgba(255, 255, 255, 0.08);
+            --success: #27ca40;
+            --danger: #ff5f56;
+            --warning: #ffbd2e;
+            --shadow-soft: 0 20px 60px rgba(0, 0, 0, 0.28);
+            --shadow-strong: 0 25px 80px rgba(0, 0, 0, 0.45);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            min-width: 0;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            width: 100%;
+            max-width: 100%;
+            overflow-x: hidden;
+        }
+
+        body {
+            width: 100%;
+            max-width: 100%;
+            overflow-x: hidden;
+            background-color: var(--bg-deep);
+            color: var(--text-primary);
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            line-height: 1.6;
+            cursor: none;
+            position: relative;
+        }
+
+        img,
+        svg,
+        canvas,
+        video {
+            max-width: 100%;
+            display: block;
+        }
+
+        a,
+        button,
+        input,
+        textarea,
+        select {
+            cursor: none;
+        }
+
+        .cursor-glow {
+            position: fixed;
+            width: 20px;
+            height: 20px;
+            border: 2px solid var(--accent-cyan);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 99999;
+            transform: translate(-50%, -50%);
+            transition: width 0.2s, height 0.2s, background 0.2s, border-color 0.2s;
+            mix-blend-mode: difference;
+        }
+
+        .cursor-glow.hover {
+            width: 52px;
+            height: 52px;
+            background: rgba(0, 229, 255, 0.1);
+        }
+
+        .cursor-trail {
+            position: fixed;
+            width: 6px;
+            height: 6px;
+            background: var(--accent-cyan);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 99998;
+            transform: translate(-50%, -50%);
+            opacity: 0.5;
+            transition: opacity 0.5s;
+        }
+
+        .noise-overlay {
+            position: fixed;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 2;
+            opacity: 0.03;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+        }
+
+        .scroll-progress {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 2px;
+            width: 0%;
+            background: linear-gradient(90deg, var(--accent-cyan), var(--accent-blue));
+            z-index: 10001;
+            transition: width 0.08s linear;
+        }
+
+        #particle-canvas {
+            position: fixed;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        .glow-orb {
+            position: fixed;
+            border-radius: 50%;
+            filter: blur(110px);
+            pointer-events: none;
+            z-index: 0;
+            opacity: 0.14;
+            max-width: none;
+        }
+
+        .glow-orb-1 {
+            width: 420px;
+            height: 420px;
+            background: var(--accent-blue);
+            top: 8%;
+            left: -10%;
+            animation: orbFloat 20s ease-in-out infinite;
+        }
+
+        .glow-orb-2 {
+            width: 320px;
+            height: 320px;
+            background: var(--accent-cyan);
+            bottom: 16%;
+            right: -6%;
+            animation: orbFloat 24s ease-in-out infinite reverse;
+        }
+
+        @keyframes orbFloat {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            33% { transform: translate(50px, -50px) scale(1.08); }
+            66% { transform: translate(-30px, 30px) scale(0.94); }
+        }
+
+        header,
+        main,
+        footer,
+        section,
+        .container,
+        .nav-container,
+        .hero-grid,
+        .footer-grid,
+        .stats-grid,
+        .feature-grid,
+        .research-grid,
+        .method-grid,
+        .contact-grid,
+        .mobile-menu {
+            width: 100%;
+            max-width: 100%;
+        }
+
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background: rgba(7, 11, 20, 0.72);
+            backdrop-filter: blur(20px) saturate(1.8);
+            border-bottom: 1px solid var(--border-subtle);
+            z-index: 1000;
+            transition: all 0.3s ease;
+            overflow: visible;
+        }
+
+        header.scrolled {
+            background: rgba(7, 11, 20, 0.92);
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4);
+        }
+
+        .nav-container {
+            max-width: 1300px;
+            margin: 0 auto;
+            padding: 1.15rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            min-height: 88px;
+            gap: 1rem;
+            position: relative;
+            overflow: visible;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+            min-width: 0;
+            flex: 0 1 auto;
+            position: relative;
+            isolation: isolate;
+        }
+
+        .logo::before {
+            content: '';
+            position: absolute;
+            left: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 90px;
+            height: 90px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(0, 229, 255, 0.28) 0%, rgba(79, 70, 229, 0.18) 38%, rgba(124, 58, 237, 0.08) 60%, transparent 75%);
+            filter: blur(18px);
+            opacity: 0.95;
+            pointer-events: none;
+            z-index: -1;
+            animation: logoGlowPulse 3.6s ease-in-out infinite;
+        }
+
+        .logo img {
+            height: 64px;
+            width: auto;
+            position: relative;
+            z-index: 2;
+            filter: drop-shadow(0 0 18px rgba(0, 229, 255, 0.55));
+            animation: logoPulse 3s ease-in-out infinite;
+        }
+
+        @keyframes logoPulse {
+            0%, 100% { filter: drop-shadow(0 0 15px rgba(0, 229, 255, 0.4)); }
+            50% { filter: drop-shadow(0 0 25px rgba(0, 229, 255, 0.75)); }
+        }
+
+        @keyframes logoGlowPulse {
+            0%, 100% { opacity: 0.85; transform: translateY(-50%) scale(1); }
+            50% { opacity: 1; transform: translateY(-50%) scale(1.08); }
+        }
+
+        nav {
+            flex: 1 1 auto;
+            min-width: 0;
+            overflow: visible;
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            gap: 2.35rem;
+            align-items: center;
+            justify-content: flex-end;
+            min-width: 0;
+            overflow: visible;
+        }
+
+        nav a,
+        .nav-label {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 0.95rem;
+            font-weight: 500;
+            transition: color 0.3s;
+            position: relative;
+            padding: 0.5rem 0;
+            display: inline-flex;
+            align-items: center;
+            line-height: 1;
+            white-space: nowrap;
+        }
+
+        nav a::after,
+        .nav-label::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, var(--accent-cyan), var(--accent-blue));
+            transition: all 0.3s ease;
+            transform: translateX(-50%);
+            box-shadow: 0 0 10px var(--accent-cyan);
+        }
+
+        nav a:hover,
+        .dropdown:hover .nav-label {
+            color: var(--text-primary);
+        }
+
+        nav a:hover::after,
+        nav a.active-nav::after,
+        .dropdown:hover .nav-label::after {
+            width: 100%;
+        }
+
+        nav a.active-nav {
+            color: var(--accent-cyan);
+        }
+
+        .dropdown {
+            position: relative;
+        }
+
+        .dropdown-menu {
+            display: block;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(10px);
+            position: absolute;
+            top: calc(100% + 15px);
+            left: -20px;
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            min-width: 260px;
+            border: 1px solid var(--glass-border);
+            border-radius: 12px;
+            padding: 0.75rem 0;
+            transition: all 0.3s ease;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+            z-index: 1001;
+        }
+
+        .dropdown:hover .dropdown-menu {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        .dropdown-menu li {
+            padding: 0;
+        }
+
+        .dropdown-menu a {
+            display: block;
+            padding: 0.8rem 1.5rem;
+            font-size: 0.86rem;
+            color: var(--text-secondary);
+        }
+
+        .dropdown-menu a:hover {
+            color: var(--accent-cyan);
+            background: rgba(0, 229, 255, 0.05);
+        }
+
+        .nav-label::before {
+            content: '▼';
+            font-size: 0.5rem;
+            margin-right: 6px;
+            opacity: 0.6;
+            display: inline-block;
+            transition: transform 0.3s;
+            vertical-align: middle;
+        }
+
+        .dropdown:hover .nav-label::before {
+            transform: rotate(180deg);
+        }
+
+        .menu-toggle {
+            display: none;
+            width: 48px;
+            height: 48px;
+            min-width: 48px;
+            flex: 0 0 48px;
+            border-radius: 12px;
+            border: 1px solid rgba(0, 229, 255, 0.18);
+            background: rgba(15, 21, 37, 0.88);
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            gap: 5px;
+            transition: all 0.3s ease;
+            box-shadow: 0 0 0 1px rgba(255,255,255,0.03), 0 8px 24px rgba(0,0,0,0.35);
+            position: relative;
+            z-index: 1102;
+            appearance: none;
+            -webkit-appearance: none;
+            margin-left: auto;
+        }
+
+        .menu-toggle:hover {
+            border-color: rgba(0, 229, 255, 0.4);
+            box-shadow: 0 0 18px rgba(0, 229, 255, 0.15);
+        }
+
+        .menu-toggle span {
+            width: 20px;
+            height: 2px;
+            border-radius: 2px;
+            background: var(--text-primary);
+            transition: all 0.3s ease;
+            display: block;
+        }
+
+        .menu-toggle.active span:nth-child(1) {
+            transform: translateY(7px) rotate(45deg);
+        }
+
+        .menu-toggle.active span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .menu-toggle.active span:nth-child(3) {
+            transform: translateY(-7px) rotate(-45deg);
+        }
+
+        .mobile-menu {
+            position: fixed;
+            top: 88px;
+            left: 0;
+            right: 0;
+            width: 100%;
+            max-width: 100vw;
+            background: rgba(7, 11, 20, 0.98);
+            backdrop-filter: blur(22px);
+            border-bottom: 1px solid var(--border-subtle);
+            padding: 1rem 1.25rem 1.4rem;
+            z-index: 1100;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(-15px);
+            transition: all 0.3s ease;
+            overflow-x: hidden;
+        }
+
+        .mobile-menu.active {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        .mobile-menu a {
+            display: block;
+            text-decoration: none;
+            color: var(--text-secondary);
+            padding: 0.95rem 0.5rem;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+            font-size: 0.95rem;
+            transition: all 0.25s ease;
+            word-break: break-word;
+        }
+
+        .mobile-menu a:hover,
+        .mobile-menu a.active-nav {
+            color: var(--accent-cyan);
+            padding-left: 1rem;
+        }
+
+        .mobile-menu-group {
+            margin-top: 0.2rem;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+            padding-bottom: 0.35rem;
+        }
+
+        .mobile-menu-group-title {
+            color: var(--text-primary);
+            padding: 0.95rem 0.5rem 0.5rem;
+            font-size: 0.95rem;
+            font-weight: 600;
+        }
+
+        .mobile-sub-link {
+            padding-left: 1.15rem !important;
+            font-size: 0.9rem !important;
+        }
+
+        .mobile-sub-link:hover {
+            padding-left: 1.45rem !important;
+        }
+
+        .container {
+            max-width: 1300px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            position: relative;
+            z-index: 3;
+        }
+
+        main {
+            position: relative;
+            z-index: 3;
+            overflow-x: hidden;
+        }
+
+        section {
+            padding: 100px 0;
+            position: relative;
+        }
+
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding-top: 130px;
+            padding-bottom: 70px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-grid {
+            display: grid;
+            grid-template-columns: minmax(0, 1.08fr) minmax(0, 0.92fr);
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .hero-content,
+        .hero-visual,
+        .feature-card,
+        .research-card,
+        .method-card,
+        .contact-card,
+        .stats-card,
+        .stack-card {
+            min-width: 0;
+        }
+
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 0.6rem 1.2rem;
+            background: rgba(0, 229, 255, 0.08);
+            border: 1px solid var(--border-glow);
+            border-radius: 100px;
+            font-size: 0.8rem;
+            font-family: 'JetBrains Mono', monospace;
+            color: var(--accent-cyan);
+            margin-bottom: 2rem;
+            animation: fadeInUp 0.8s ease forwards;
+            animation-delay: 0.2s;
+            opacity: 0;
+            max-width: 100%;
+        }
+
+        .hero-badge .pulse {
+            width: 8px;
+            height: 8px;
+            background: var(--accent-cyan);
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+            box-shadow: 0 0 10px var(--accent-cyan);
+            flex: 0 0 auto;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.3; transform: scale(0.6); }
+        }
+
+        .hero h1 {
+            font-size: clamp(2.7rem, 5vw, 4.8rem);
+            line-height: 1.03;
+            margin-bottom: 1.4rem;
+            font-weight: 800;
+            letter-spacing: -2px;
+        }
+
+        .hero h1 .line {
+            display: block;
+            overflow: hidden;
+        }
+
+        .hero h1 .line span {
+            display: block;
+            transform: translateY(100%);
+            position: relative;
+            word-break: break-word;
+        }
+
+        .hero-shine {
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            background-size: 220% 100%;
+            animation: revealText 1s cubic-bezier(0.77, 0, 0.175, 1) forwards, shineRTL 5s linear infinite 1.4s;
+        }
+
+        .primary-text {
+            background-image: linear-gradient(
+                90deg,
+                #cfd7e2 0%,
+                #ffffff 18%,
+                #eaf9ff 34%,
+                var(--accent-cyan) 50%,
+                #ffffff 66%,
+                #d7dee9 100%
+            );
+        }
+
+        .accent-text {
+            background-image: linear-gradient(
+                90deg,
+                var(--accent-purple) 0%,
+                var(--accent-blue) 20%,
+                var(--accent-cyan) 42%,
+                #ffffff 56%,
+                var(--accent-cyan) 70%,
+                var(--accent-blue) 86%,
+                var(--accent-purple) 100%
+            );
+        }
+
+        .hero h1 .line:nth-child(1) span { animation-delay: 0.35s, 1.6s; }
+        .hero h1 .line:nth-child(2) span { animation-delay: 0.7s, 1.85s; }
+
+        @keyframes revealText {
+            to { transform: translateY(0); }
+        }
+
+        @keyframes shineRTL {
+            0% { background-position: 200% center; }
+            100% { background-position: -200% center; }
+        }
+
+        .hero p {
+            font-size: 1.08rem;
+            color: var(--text-secondary);
+            max-width: 640px;
+            margin-bottom: 1.25rem;
+            line-height: 1.85;
+            animation: fadeInUp 0.8s ease forwards;
+            animation-delay: 1s;
+            opacity: 0;
+        }
+
+        .hero strong {
+            color: var(--text-primary);
+            font-weight: 700;
+        }
+
+        .hero-meta {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.84rem;
+            color: var(--text-secondary);
+            margin-bottom: 2.25rem;
+            animation: fadeInUp 0.8s ease forwards;
+            animation-delay: 1.2s;
+            opacity: 0;
+        }
+
+        .hero-meta span {
+            color: var(--accent-cyan);
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            animation: fadeInUp 0.8s ease forwards;
+            animation-delay: 1.4s;
+            opacity: 0;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: 1rem 1.7rem;
+            font-size: 0.95rem;
+            font-weight: 600;
+            text-decoration: none;
+            border-radius: 10px;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            max-width: 100%;
+            text-align: center;
+            border: 1px solid transparent;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--accent-cyan), var(--accent-blue));
+            color: var(--bg-deep);
+            box-shadow: 0 0 30px rgba(0, 229, 255, 0.18);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 0 50px rgba(0, 229, 255, 0.32);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--text-primary);
+            border-color: var(--border-subtle);
+        }
+
+        .btn-secondary:hover {
+            border-color: var(--accent-cyan);
+            background: rgba(0, 229, 255, 0.05);
+            transform: translateY(-2px);
+        }
+
+        .hero-visual {
+            position: relative;
+            height: 520px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            perspective: 1000px;
+        }
+
+        .research-terminal {
+            width: min(100%, 540px);
+            max-width: 100%;
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            border-radius: 18px;
+            overflow: hidden;
+            box-shadow: var(--shadow-strong), 0 0 0 1px rgba(0, 229, 255, 0.08);
+            animation: terminalFloat 8s ease-in-out infinite;
+            transform-style: preserve-3d;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        @keyframes terminalFloat {
+            0%, 100% { transform: translateY(0) rotateX(4deg) rotateY(-5deg); }
+            50% { transform: translateY(-15px) rotateX(4deg) rotateY(-5deg); }
+        }
+
+        .terminal-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 1rem 1.35rem;
+            background: rgba(0, 0, 0, 0.28);
+            border-bottom: 1px solid var(--border-subtle);
+            gap: 0.65rem;
+        }
+
+        .terminal-dots {
+            display: flex;
+            gap: 8px;
+            flex: 0 0 auto;
+        }
+
+        .terminal-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+        }
+
+        .terminal-dot:nth-child(1) { background: var(--danger); }
+        .terminal-dot:nth-child(2) { background: var(--warning); }
+        .terminal-dot:nth-child(3) { background: var(--success); }
+
+        .terminal-title {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.74rem;
+            color: var(--text-secondary);
+            letter-spacing: 1px;
+            text-align: center;
+            flex: 1 1 auto;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .terminal-body {
+            padding: 1.35rem;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.78rem;
+            line-height: 1.8;
+            min-height: 360px;
+            position: relative;
+        }
+
+        .terminal-line {
+            display: flex;
+            justify-content: space-between;
+            gap: 0.7rem;
+            padding: 0.45rem 0;
+            border-bottom: 1px solid rgba(255,255,255,0.03);
+            color: var(--text-secondary);
+            opacity: 0;
+            animation: slideIn 0.45s ease forwards;
+        }
+
+        .terminal-line strong {
+            color: var(--accent-cyan);
+            font-weight: 500;
+        }
+
+        .terminal-line .ok {
+            color: var(--success);
+        }
+
+        .terminal-line .warn {
+            color: var(--warning);
+        }
+
+        .terminal-line .tag {
+            color: var(--text-primary);
+        }
+
+        .terminal-line span {
+            min-width: 0;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateX(24px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+
+        .terminal-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 0.7rem;
+            margin-top: 1rem;
+            padding-top: 0.8rem;
+            border-top: 1px solid var(--border-subtle);
+            flex-wrap: wrap;
+        }
+
+        .terminal-chip {
+            padding: 0.5rem 0.75rem;
+            border: 1px solid rgba(0, 229, 255, 0.12);
+            border-radius: 999px;
+            background: rgba(0, 229, 255, 0.05);
+            color: var(--accent-cyan);
+            font-size: 0.7rem;
+        }
+
+        .terminal-status {
+            color: var(--text-secondary);
+            font-size: 0.76rem;
+        }
+
+        .section-label {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.8rem;
+            color: var(--accent-cyan);
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .section-label::before {
+            content: '';
+            width: 30px;
+            height: 1px;
+            background: var(--accent-cyan);
+            box-shadow: 0 0 8px var(--accent-cyan);
+            flex: 0 0 auto;
+        }
+
+        .section-title {
+            font-size: clamp(2rem, 4vw, 3rem);
+            margin-bottom: 1rem;
+            font-weight: 800;
+            letter-spacing: -1px;
+        }
+
+        .section-subtitle {
+            color: var(--text-secondary);
+            font-size: 1.06rem;
+            max-width: 760px;
+            margin-bottom: 3rem;
+            line-height: 1.8;
+        }
+
+        .reveal {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: all 0.8s cubic-bezier(0.5, 0, 0, 1);
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .stats-band {
+            padding-top: 0;
+            padding-bottom: 0;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(4, minmax(0, 1fr));
+            gap: 1.25rem;
+            padding: 2.4rem 0;
+            border-top: 1px solid var(--border-subtle);
+            border-bottom: 1px solid var(--border-subtle);
+        }
+
+        .stats-card {
+            background: linear-gradient(180deg, rgba(15, 21, 37, 0.6), rgba(15, 21, 37, 0.32));
+            border: 1px solid var(--border-subtle);
+            border-radius: 18px;
+            padding: 1.5rem 1.2rem;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .stats-card:hover {
+            border-color: var(--border-glow);
+            transform: translateY(-4px);
+            box-shadow: 0 16px 40px rgba(0, 229, 255, 0.05);
+        }
+
+        .stats-value {
+            font-size: 2.35rem;
+            font-weight: 800;
+            line-height: 1;
+            margin-bottom: 0.55rem;
+            background: linear-gradient(135deg, var(--accent-cyan), var(--accent-blue));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .stats-label {
+            font-size: 0.82rem;
+            color: var(--text-secondary);
+            font-family: 'JetBrains Mono', monospace;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 1.5rem;
+        }
+
+        .feature-card {
+            background: var(--bg-surface);
+            border: 1px solid var(--border-subtle);
+            border-radius: 18px;
+            padding: 1.8rem;
+            transition: all 0.35s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .feature-card:hover {
+            border-color: var(--border-glow);
+            transform: translateY(-6px);
+            box-shadow: 0 20px 50px rgba(0, 229, 255, 0.05);
+        }
+
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            inset: auto 0 0 0;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--accent-cyan), transparent);
+            opacity: 0.65;
+        }
+
+        .feature-id {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            min-width: 42px;
+            height: 42px;
+            padding: 0 0.75rem;
+            border-radius: 999px;
+            background: rgba(0, 229, 255, 0.08);
+            border: 1px solid rgba(0, 229, 255, 0.12);
+            color: var(--accent-cyan);
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.8rem;
+            margin-bottom: 1rem;
+        }
+
+        .feature-card h3 {
+            font-size: 1.1rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .feature-card p {
+            color: var(--text-secondary);
+            font-size: 0.96rem;
+            line-height: 1.75;
+        }
+
+        .research-section {
+            padding-top: 80px;
+        }
+
+        .research-grid {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 1.5rem;
+        }
+
+        .research-card {
+            position: relative;
+            background:
+                radial-gradient(circle at top right, rgba(0, 229, 255, 0.08), transparent 35%),
+                linear-gradient(180deg, rgba(15, 21, 37, 0.96), rgba(10, 16, 28, 0.96));
+            border: 1px solid var(--glass-border);
+            border-radius: 18px;
+            padding: 1.65rem;
+            overflow: hidden;
+            transition: all 0.35s ease;
+            box-shadow: var(--shadow-soft);
+        }
+
+        .research-card:hover {
+            border-color: var(--border-glow);
+            transform: translateY(-5px);
+        }
+
+        .research-card::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background-image:
+                linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+            background-size: 32px 32px;
+            opacity: 0.18;
+            pointer-events: none;
+        }
+
+        .research-card > * {
+            position: relative;
+            z-index: 1;
+        }
+
+        .research-card .mini-label {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.72rem;
+            letter-spacing: 1px;
+            color: var(--accent-cyan);
+            margin-bottom: 0.8rem;
+            text-transform: uppercase;
+        }
+
+        .research-card h3 {
+            font-size: 1.2rem;
+            margin-bottom: 0.7rem;
+        }
+
+        .research-card p {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            line-height: 1.75;
+            margin-bottom: 1.1rem;
+        }
+
+        .research-card ul {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 0.7rem;
+        }
+
+        .research-card li {
+            color: var(--text-secondary);
+            font-size: 0.92rem;
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+        }
+
+        .research-card li::before {
+            content: '→';
+            color: var(--accent-cyan);
+            font-weight: 700;
+            flex: 0 0 auto;
+        }
+
+        .dual-panel {
+            display: grid;
+            grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
+            gap: 1.5rem;
+            margin-top: 1.5rem;
+        }
+
+        .glass-panel {
+            background: var(--glass-bg);
+            backdrop-filter: blur(16px);
+            border: 1px solid var(--glass-border);
+            border-radius: 18px;
+            padding: 1.7rem;
+            box-shadow: var(--shadow-soft);
+        }
+
+        .glass-panel h3 {
+            font-size: 1.2rem;
+            margin-bottom: 0.8rem;
+        }
+
+        .glass-panel p {
+            color: var(--text-secondary);
+            line-height: 1.8;
+            margin-bottom: 1rem;
+        }
+
+        .bullet-list {
+            list-style: none;
+            display: grid;
+            gap: 0.8rem;
+        }
+
+        .bullet-list li {
+            color: var(--text-secondary);
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+        }
+
+        .bullet-list li::before {
+            content: '•';
+            color: var(--accent-cyan);
+            font-size: 1.1rem;
+            line-height: 1;
+            margin-top: 0.1rem;
+            flex: 0 0 auto;
+        }
+
+        .stack-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 0.9rem;
+        }
+
+        .stack-card {
+            border: 1px solid var(--border-subtle);
+            background: rgba(20, 29, 46, 0.56);
+            border-radius: 14px;
+            padding: 1rem;
+        }
+
+        .stack-card .k {
+            display: block;
+            font-family: 'JetBrains Mono', monospace;
+            color: var(--accent-cyan);
+            font-size: 0.7rem;
+            letter-spacing: 1px;
+            margin-bottom: 0.35rem;
+        }
+
+        .stack-card .v {
+            color: var(--text-primary);
+            font-weight: 600;
+            font-size: 0.96rem;
+        }
+
+        .method-grid {
+            display: grid;
+            grid-template-columns: repeat(4, minmax(0, 1fr));
+            gap: 1.2rem;
+        }
+
+        .method-card {
+            background: var(--bg-surface);
+            border: 1px solid var(--border-subtle);
+            border-radius: 18px;
+            padding: 1.6rem;
+            transition: all 0.35s ease;
+        }
+
+        .method-card:hover {
+            border-color: var(--border-glow);
+            transform: translateY(-5px);
+            box-shadow: 0 14px 40px rgba(0, 229, 255, 0.05);
+        }
+
+        .method-no {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 1.9rem;
+            font-weight: 700;
+            line-height: 1;
+            color: var(--accent-cyan);
+            opacity: 0.45;
+            margin-bottom: 1rem;
+        }
+
+        .method-card h3 {
+            font-size: 1.05rem;
+            margin-bottom: 0.7rem;
+        }
+
+        .method-card p {
+            color: var(--text-secondary);
+            font-size: 0.94rem;
+            line-height: 1.75;
+        }
+
+        .contact-section {
+            padding-top: 75px;
+        }
+
+        .contact-grid {
+            display: grid;
+            grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+            gap: 1.5rem;
+            align-items: start;
+        }
+
+        .contact-card {
+            background:
+                radial-gradient(circle at top right, rgba(79, 70, 229, 0.14), transparent 38%),
+                linear-gradient(180deg, rgba(15, 21, 37, 0.96), rgba(11, 16, 28, 0.96));
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            padding: 1.75rem;
+            box-shadow: var(--shadow-soft);
+        }
+
+        .contact-card h3 {
+            font-size: 1.25rem;
+            margin-bottom: 0.8rem;
+        }
+
+        .contact-card p {
+            color: var(--text-secondary);
+            line-height: 1.8;
+            margin-bottom: 1rem;
+        }
+
+        .contact-points {
+            list-style: none;
+            display: grid;
+            gap: 0.8rem;
+            margin-top: 1.2rem;
+        }
+
+        .contact-points li {
+            padding: 0.95rem 1rem;
+            border-radius: 14px;
+            border: 1px solid rgba(255,255,255,0.06);
+            background: rgba(20, 29, 46, 0.56);
+            color: var(--text-secondary);
+        }
+
+        .contact-points strong {
+            color: var(--text-primary);
+            display: block;
+            margin-bottom: 0.15rem;
+        }
+
+        .contact-form {
+            display: grid;
+            gap: 1rem;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 1rem;
+        }
+
+        .input-group {
+            display: grid;
+            gap: 0.45rem;
+        }
+
+        .input-group label {
+            color: var(--text-primary);
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+
+        .input-group input,
+        .input-group textarea,
+        .input-group select {
+            width: 100%;
+            border: 1px solid rgba(255,255,255,0.08);
+            background: rgba(7, 11, 20, 0.7);
+            color: var(--text-primary);
+            border-radius: 12px;
+            padding: 0.95rem 1rem;
+            font: inherit;
+            outline: none;
+            transition: all 0.25s ease;
+        }
+
+        .input-group input:focus,
+        .input-group textarea:focus,
+        .input-group select:focus {
+            border-color: rgba(0, 229, 255, 0.45);
+            box-shadow: 0 0 0 3px rgba(0, 229, 255, 0.08);
+        }
+
+        .input-group textarea {
+            min-height: 150px;
+            resize: vertical;
+        }
+
+        .form-note {
+            font-size: 0.86rem;
+            color: var(--text-secondary);
+            line-height: 1.7;
+        }
+
+        .inline-note {
+            margin-top: 0.9rem;
+            padding: 0.9rem 1rem;
+            border-radius: 12px;
+            border: 1px solid rgba(0,229,255,0.12);
+            background: rgba(0,229,255,0.05);
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+
+        .serve-section {
+            text-align: center;
+            background: linear-gradient(180deg, var(--bg-deep) 0%, var(--bg-surface) 50%, var(--bg-deep) 100%);
+            position: relative;
+            padding-top: 65px;
+            padding-bottom: 95px;
+            margin-top: 0;
+            overflow: hidden;
+        }
+
+        .serve-section::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 620px;
+            height: 620px;
+            background: radial-gradient(circle, rgba(0, 229, 255, 0.05) 0%, transparent 70%);
+            pointer-events: none;
+        }
+
+        .serve-tags {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 1rem;
+            margin-bottom: 3rem;
+        }
+
+        .serve-tag {
+            padding: 0.75rem 1.3rem;
+            background: var(--bg-elevated);
+            border: 1px solid var(--border-subtle);
+            border-radius: 999px;
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            transition: all 0.3s ease;
+            max-width: 100%;
+            word-break: break-word;
+        }
+
+        .serve-tag:hover {
+            border-color: var(--accent-cyan);
+            color: var(--text-primary);
+            background: rgba(0, 229, 255, 0.05);
+            transform: translateY(-2px);
+            box-shadow: 0 0 20px rgba(0, 229, 255, 0.1);
+        }
+
+        .mission-text {
+            max-width: 860px;
+            margin: 0 auto;
+            font-size: 1.08rem;
+            color: var(--text-secondary);
+            line-height: 1.9;
+        }
+
+        .mission-text strong {
+            color: var(--text-primary);
+            font-weight: 600;
+        }
+
+        footer {
+            background: var(--bg-surface);
+            padding: 5rem 0 2rem;
+            border-top: 1px solid var(--border-subtle);
+            position: relative;
+            z-index: 4;
+            overflow-x: hidden;
+        }
+
+        footer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--accent-cyan), transparent);
+            opacity: 0.5;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 3rem;
+            margin-bottom: 4rem;
+        }
+
+        .footer-brand .logo-text {
+            font-size: 1.5rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--text-primary) 0%, var(--accent-cyan) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 1rem;
+            display: inline-block;
+        }
+
+        .footer-brand p {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            line-height: 1.7;
+            max-width: 320px;
+        }
+
+        .footer-links h4 {
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--text-primary);
+            margin-bottom: 1.5rem;
+        }
+
+        .footer-links a {
+            display: block;
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 0.95rem;
+            margin-bottom: 0.8rem;
+            transition: color 0.3s;
+            word-break: break-word;
+        }
+
+        .footer-links a:hover {
+            color: var(--accent-cyan);
+        }
+
+        .footer-bottom {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 1rem;
+            padding-top: 2rem;
+            border-top: 1px solid var(--border-subtle);
+        }
+
+        .footer-bottom p {
+            color: var(--text-secondary);
+            font-size: 0.85rem;
+        }
+
+        .footer-social {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .social-link {
+            width: 36px;
+            height: 36px;
+            border-radius: 8px;
+            background: var(--bg-elevated);
+            border: 1px solid var(--border-subtle);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: all 0.3s;
+            flex: 0 0 auto;
+        }
+
+        .social-link:hover {
+            border-color: var(--accent-cyan);
+            color: var(--accent-cyan);
+            transform: translateY(-2px);
+            box-shadow: 0 0 15px rgba(0, 229, 255, 0.2);
+        }
+
+        @media (max-width: 1150px) {
+            .feature-grid,
+            .research-grid {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+
+            .method-grid {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+
+            .contact-grid,
+            .dual-panel,
+            .hero-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .hero-visual {
+                height: auto;
+            }
+        }
+
+        @media (max-width: 968px) {
+            body {
+                cursor: auto;
+            }
+
+            a,
+            button,
+            input,
+            textarea,
+            select {
+                cursor: pointer;
+            }
+
+            .cursor-glow,
+            .cursor-trail {
+                display: none;
+            }
+
+            nav {
+                display: none;
+            }
+
+            .menu-toggle {
+                display: inline-flex !important;
+            }
+
+            .mobile-menu {
+                display: block;
+            }
+
+            .hero {
+                min-height: auto;
+                padding-bottom: 55px;
+            }
+
+            .stats-grid {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+
+            .footer-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        @media (min-width: 969px) {
+            .mobile-menu {
+                display: none !important;
+            }
+        }
+
+        @media (max-width: 640px) {
+            html,
+            body {
+                overflow-x: hidden;
+            }
+
+            .container {
+                padding: 0 1rem;
+            }
+
+            .nav-container {
+                padding: 0.95rem 1rem;
+                min-height: 82px;
+                gap: 0.75rem;
+            }
+
+            .mobile-menu {
+                top: 82px;
+                padding-left: 1rem;
+                padding-right: 1rem;
+            }
+
+            .logo {
+                flex: 1 1 auto;
+                min-width: 0;
+            }
+
+            .logo::before {
+                width: 76px;
+                height: 76px;
+                left: 8px;
+            }
+
+            .logo img {
+                height: 56px;
+                max-width: 100%;
+            }
+
+            .menu-toggle {
+                width: 46px;
+                height: 46px;
+                min-width: 46px;
+                flex: 0 0 46px;
+            }
+
+            .hero {
+                padding-top: 108px;
+                padding-bottom: 45px;
+            }
+
+            .hero h1 {
+                font-size: clamp(2.2rem, 10vw, 3.2rem);
+                letter-spacing: -1.3px;
+            }
+
+            .hero p {
+                font-size: 1rem;
+            }
+
+            .hero-buttons {
+                flex-direction: column;
+            }
+
+            .btn {
+                width: 100%;
+            }
+
+            .terminal-body {
+                min-height: 320px;
+                padding: 1rem;
+                font-size: 0.68rem;
+            }
+
+            .stats-grid,
+            .feature-grid,
+            .research-grid,
+            .method-grid,
+            .stack-grid,
+            .footer-grid,
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+
+            .serve-tag {
+                width: 100%;
+                text-align: center;
+            }
+
+            .footer-bottom {
+                flex-direction: column;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="cursor-glow"></div>
+    <div class="cursor-trail"></div>
+    <div class="noise-overlay"></div>
+    <div class="scroll-progress"></div>
+    <div class="glow-orb glow-orb-1"></div>
+    <div class="glow-orb glow-orb-2"></div>
+
+    <canvas id="particle-canvas"></canvas>
+
+    <header>
+        <div class="nav-container">
+            <a href="/" class="logo" aria-label="QuantParticle Home">
+                <img src="/quant_particle_logo.png" alt="QuantParticle Logo" />
+            </a>
+
+            <nav>
+                <ul>
+                    <li><a href="/">Home</a></li>
+                    <li><a href="/about/">About</a></li>
+                    <li class="dropdown">
+                        <span class="nav-label">Solutions</span>
+                        <ul class="dropdown-menu">
+                            <li><a href="/solutions/strategy-research/" class="active-nav">Strategy Research</a></li>
+                            <li><a href="/solutions/execution-systems/">Execution Systems</a></li>
+                            <li><a href="/solutions/quant-lab/">Quant Lab</a></li>
+                            <li><a href="/solutions/prop-institutional/">Prop & Institutional</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="/technology/">Technology</a></li>
+                    <li><a href="/insights/">Insights</a></li>
+                    <li><a href="/careers/">Careers</a></li>
+                    <li><a href="/contact/">Contact</a></li>
+                </ul>
+            </nav>
+
+            <button class="menu-toggle" id="menuToggle" aria-label="Open Menu" type="button">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+
+        <div class="mobile-menu" id="mobileMenu">
+            <a href="/">Home</a>
+            <a href="/about/">About</a>
+
+            <div class="mobile-menu-group">
+                <div class="mobile-menu-group-title">Solutions</div>
+                <a href="/solutions/strategy-research/" class="mobile-sub-link active-nav">Strategy Research</a>
+                <a href="/solutions/execution-systems/" class="mobile-sub-link">Execution Systems</a>
+                <a href="/solutions/quant-lab/" class="mobile-sub-link">Quant Lab</a>
+                <a href="/solutions/prop-institutional/" class="mobile-sub-link">Prop & Institutional</a>
+            </div>
+
+            <a href="/technology/">Technology</a>
+            <a href="/insights/">Insights</a>
+            <a href="/careers/">Careers</a>
+            <a href="/contact/">Contact</a>
+        </div>
+    </header>
+
+    <main>
+        <section class="hero container">
+            <div class="hero-grid">
+                <div class="hero-content">
+                    <div class="hero-badge">
+                        <span class="pulse"></span>
+                        <span>Strategy Research Active</span>
+                    </div>
+
+                    <h1>
+                        <div class="line"><span class="hero-shine primary-text">Strategy Research.</span></div>
+                        <div class="line"><span class="hero-shine accent-text">Alpha Discovery.</span></div>
+                    </h1>
+
+                    <p>
+                        <strong>Research-first quantitative model design.</strong>
+                        We build, test, refine, and expand systematic trading ideas across multiple market structures using mathematical rigor, statistical validation, and execution-aware research workflows.
+                    </p>
+
+                    <p>
+                        We have developed <strong>1020+</strong> strategies so far and continue researching, validating, and evolving new models across asset classes, regimes, and time horizons.
+                    </p>
+
+                    <div class="hero-meta">
+                        <span>Alpha Discovery</span> • <span>Stat Arb</span> • <span>Momentum</span> • <span>Volatility</span> • <span>Portfolio Construction</span>
+                    </div>
+
+                    <div class="hero-buttons">
+                        <a href="#contact" class="btn btn-primary">Request Strategy Consultation <span style="font-size: 1.2rem;">→</span></a>
+                        <a href="#research-areas" class="btn btn-secondary">Explore Research Areas</a>
+                    </div>
+                </div>
+
+                <div class="hero-visual">
+                    <div class="research-terminal">
+                        <div class="terminal-header">
+                            <div class="terminal-dots">
+                                <span class="terminal-dot"></span>
+                                <span class="terminal-dot"></span>
+                                <span class="terminal-dot"></span>
+                            </div>
+                            <span class="terminal-title">STRATEGY_RESEARCH // LIVE_PIPELINE</span>
+                            <div style="width: 40px; flex: 0 0 auto;"></div>
+                        </div>
+
+                        <div class="terminal-body" id="researchTerminal">
+                            <div class="terminal-line"><span class="tag">[RESEARCH]</span><span><strong>Alpha Discovery</strong> initialized</span></div>
+                            <div class="terminal-line"><span class="tag">[MODEL]</span><span>Cross-sectional momentum cluster <span class="ok">READY</span></span></div>
+                            <div class="terminal-line"><span class="tag">[STAT]</span><span>Mean reversion regime filter recalibrated</span></div>
+                            <div class="terminal-line"><span class="tag">[RISK]</span><span>Portfolio constraints updated <span class="ok">PASS</span></span></div>
+                            <div class="terminal-line"><span class="tag">[VOL]</span><span>Volatility state classifier retrained</span></div>
+                            <div class="terminal-line"><span class="tag">[MATH]</span><span>Linear algebra factor decomposition complete</span></div>
+                            <div class="terminal-line"><span class="tag">[CALC]</span><span>Gradient optimization sweep <span class="warn">RUNNING</span></span></div>
+
+                            <div class="terminal-footer">
+                                <span class="terminal-chip">1020+ strategies researched</span>
+                                <span class="terminal-chip">Continuous R&amp;D</span>
+                                <span class="terminal-status">Current state: hypothesis generation, validation, optimization</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="stats-band container">
+            <div class="stats-grid reveal">
+                <div class="stats-card">
+                    <div class="stats-value">1020+</div>
+                    <div class="stats-label">Strategies Developed</div>
+                </div>
+                <div class="stats-card">
+                    <div class="stats-value">9</div>
+                    <div class="stats-label">Research Domains</div>
+                </div>
+                <div class="stats-card">
+                    <div class="stats-value">24/7</div>
+                    <div class="stats-label">Ongoing Research</div>
+                </div>
+                <div class="stats-card">
+                    <div class="stats-value">R&amp;D</div>
+                    <div class="stats-label">Continuous Validation</div>
+                </div>
+            </div>
+        </section>
+
+        <section class="container">
+            <div class="reveal" style="text-align:center; margin-bottom: 48px;">
+                <div class="section-label" style="justify-content:center;">
+                    <span style="width:30px;height:1px;background:var(--accent-cyan);box-shadow:0 0 8px var(--accent-cyan);"></span>
+                    <span>Overview</span>
+                    <span style="width:30px;height:1px;background:var(--accent-cyan);box-shadow:0 0 8px var(--accent-cyan);"></span>
+                </div>
+                <h2 class="section-title">What Strategy Research Includes</h2>
+                <p class="section-subtitle" style="margin: 0 auto;">
+                    Our research pipeline covers idea generation, signal design, factor evaluation, optimization, risk integration, portfolio construction, and mathematical foundations required to build systematic strategies that can scale.
+                </p>
+            </div>
+
+            <div class="feature-grid">
+                <div class="feature-card reveal">
+                    <div class="feature-id">01</div>
+                    <h3>Hypothesis to Model</h3>
+                    <p>We convert market observations into testable research hypotheses, then build structured models with measurable assumptions, robust constraints, and realistic validation logic.</p>
+                </div>
+
+                <div class="feature-card reveal">
+                    <div class="feature-id">02</div>
+                    <h3>Execution-Aware Research</h3>
+                    <p>Strategy quality is assessed with practical deployment considerations such as turnover, slippage sensitivity, risk concentration, regime shifts, and operational feasibility.</p>
+                </div>
+
+                <div class="feature-card reveal">
+                    <div class="feature-id">03</div>
+                    <h3>Continuous Iteration</h3>
+                    <p>Research does not stop after one backtest. We keep improving signals, filters, weighting logic, portfolio rules, and robustness checks to expand long-term edge.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="research-areas" class="research-section container">
+            <div class="reveal" style="text-align:center; margin-bottom: 50px;">
+                <div class="section-label" style="justify-content:center;">
+                    <span style="width:30px;height:1px;background:var(--accent-cyan);box-shadow:0 0 8px var(--accent-cyan);"></span>
+                    <span>Research Areas</span>
+                    <span style="width:30px;height:1px;background:var(--accent-cyan);box-shadow:0 0 8px var(--accent-cyan);"></span>
+                </div>
+                <h2 class="section-title">Domains We Research</h2>
+                <p class="section-subtitle" style="margin: 0 auto;">
+                    These are the core areas currently covered inside our Strategy Research offering.
+                </p>
+            </div>
+
+            <div class="research-grid">
+                <div class="research-card reveal">
+                    <div class="mini-label">01 // ALPHA</div>
+                    <h3>Alpha Discovery</h3>
+                    <p>Signal ideation driven by market structure, behavioral inefficiencies, factor persistence, and cross-market observations.</p>
+                    <ul>
+                        <li>Idea generation and signal framing</li>
+                        <li>Feature design and signal ranking</li>
+                        <li>Research prioritization workflows</li>
+                    </ul>
+                </div>
+
+                <div class="research-card reveal">
+                    <div class="mini-label">02 // STAT ARB</div>
+                    <h3>Statistical Arbitrage</h3>
+                    <p>Mean-reverting relationships, relative value dislocations, spread construction, and cointegration-inspired workflows.</p>
+                    <ul>
+                        <li>Pair and basket relationships</li>
+                        <li>Residual spread analysis</li>
+                        <li>Reversion speed and stability tests</li>
+                    </ul>
+                </div>
+
+                <div class="research-card reveal">
+                    <div class="mini-label">03 // MOMENTUM</div>
+                    <h3>Momentum Models</h3>
+                    <p>Trend persistence, relative strength ranking, breakout structures, and adaptive continuation models.</p>
+                    <ul>
+                        <li>Time-series momentum</li>
+                        <li>Cross-sectional momentum</li>
+                        <li>Regime-conditioned filters</li>
+                    </ul>
+                </div>
+
+                <div class="research-card reveal">
+                    <div class="mini-label">04 // MEAN REVERSION</div>
+                    <h3>Mean Reversion Models</h3>
+                    <p>Short-horizon rebalancing, overextension capture, reversion entry timing, and normalized deviation logic.</p>
+                    <ul>
+                        <li>Z-score and range reversion</li>
+                        <li>Microstructure pullback models</li>
+                        <li>Adaptive thresholds</li>
+                    </ul>
+                </div>
+
+                <div class="research-card reveal">
+                    <div class="mini-label">05 // VOLATILITY</div>
+                    <h3>Volatility Strategies</h3>
+                    <p>Strategies designed around realized and implied volatility behavior, clustering, and volatility state transitions.</p>
+                    <ul>
+                        <li>Volatility regime modeling</li>
+                        <li>Expansion and compression logic</li>
+                        <li>Risk-scaling frameworks</li>
+                    </ul>
+                </div>
+
+                <div class="research-card reveal">
+                    <div class="mini-label">06 // FACTORS</div>
+                    <h3>Multi-Factor Models</h3>
+                    <p>Composite alpha construction using multiple orthogonal signals, weighting logic, and factor interaction studies.</p>
+                    <ul>
+                        <li>Factor blending and scoring</li>
+                        <li>Exposure balancing</li>
+                        <li>Factor decay monitoring</li>
+                    </ul>
+                </div>
+
+                <div class="research-card reveal">
+                    <div class="mini-label">07 // PORTFOLIO</div>
+                    <h3>Portfolio Construction</h3>
+                    <p>Capital allocation, correlation-aware diversification, constraint design, and portfolio-level risk engineering.</p>
+                    <ul>
+                        <li>Position sizing architecture</li>
+                        <li>Constraint-based allocation</li>
+                        <li>Portfolio rebalancing logic</li>
+                    </ul>
+                </div>
+
+                <div class="research-card reveal">
+                    <div class="mini-label">08 // CALCULUS</div>
+                    <h3>Calculus</h3>
+                    <p>Optimization, sensitivity analysis, gradient-based methods, and continuous-time intuition used in model refinement.</p>
+                    <ul>
+                        <li>Objective function optimization</li>
+                        <li>Gradient and sensitivity concepts</li>
+                        <li>Continuous model behavior analysis</li>
+                    </ul>
+                </div>
+
+                <div class="research-card reveal">
+                    <div class="mini-label">09 // LINEAR ALGEBRA</div>
+                    <h3>Linear Algebra</h3>
+                    <p>Matrix factorization, covariance structure analysis, dimensionality handling, and multi-factor representation.</p>
+                    <ul>
+                        <li>Matrix-based modeling</li>
+                        <li>Factor decomposition workflows</li>
+                        <li>Correlation and covariance structures</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="dual-panel">
+                <div class="glass-panel reveal">
+                    <h3>Research Output</h3>
+                    <p>
+                        Our work is not limited to isolated ideas. We build structured research pipelines that move from exploratory analysis to validated signal families, portfolio-aware model combinations, and strategy deployment readiness.
+                    </p>
+                    <ul class="bullet-list">
+                        <li>Signal discovery and idea screening</li>
+                        <li>Backtest architecture with robustness checks</li>
+                        <li>Factor evaluation and portfolio integration</li>
+                        <li>Parameter stability and degradation analysis</li>
+                        <li>Continuous refinement of live and pre-live research</li>
+                    </ul>
+                </div>
+
+                <div class="glass-panel reveal">
+                    <h3>Math Foundation</h3>
+                    <p>
+                        Calculus and linear algebra are included because strong quantitative research depends on mathematical thinking, not just chart patterns or surface-level indicators.
+                    </p>
+                    <div class="stack-grid">
+                        <div class="stack-card">
+                            <span class="k">CALCULUS</span>
+                            <span class="v">Optimization, rates of change, sensitivity</span>
+                        </div>
+                        <div class="stack-card">
+                            <span class="k">LINEAR ALGEBRA</span>
+                            <span class="v">Matrices, factors, covariance, structure</span>
+                        </div>
+                        <div class="stack-card">
+                            <span class="k">STATISTICS</span>
+                            <span class="v">Inference, testing, probability, confidence</span>
+                        </div>
+                        <div class="stack-card">
+                            <span class="k">RESEARCH ENGINEERING</span>
+                            <span class="v">Validation, iteration, implementation logic</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="container">
+            <div class="reveal" style="text-align:center; margin-bottom: 45px;">
+                <div class="section-label" style="justify-content:center;">
+                    <span style="width:30px;height:1px;background:var(--accent-cyan);box-shadow:0 0 8px var(--accent-cyan);"></span>
+                    <span>Process</span>
+                    <span style="width:30px;height:1px;background:var(--accent-cyan);box-shadow:0 0 8px var(--accent-cyan);"></span>
+                </div>
+                <h2 class="section-title">How We Approach Research</h2>
+                <p class="section-subtitle" style="margin:0 auto;">
+                    A structured process keeps research measurable, repeatable, and useful for actual trading systems.
+                </p>
+            </div>
+
+            <div class="method-grid">
+                <div class="method-card reveal">
+                    <div class="method-no">01</div>
+                    <h3>Frame the Hypothesis</h3>
+                    <p>Define the market behavior, source of edge, expected persistence, and measurable research objective before model construction starts.</p>
+                </div>
+
+                <div class="method-card reveal">
+                    <div class="method-no">02</div>
+                    <h3>Build the Signal</h3>
+                    <p>Create the signal architecture with clear variables, ranking logic, transformation rules, and portfolio relevance.</p>
+                </div>
+
+                <div class="method-card reveal">
+                    <div class="method-no">03</div>
+                    <h3>Validate Robustly</h3>
+                    <p>Stress test the idea through data segmentation, stability checks, sensitivity analysis, and risk-adjusted evaluation.</p>
+                </div>
+
+                <div class="method-card reveal">
+                    <div class="method-no">04</div>
+                    <h3>Refine Continuously</h3>
+                    <p>Improve edge quality with ongoing research, new data, model upgrades, and broader integration into larger strategy stacks.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="serve-section container">
+            <div class="reveal">
+                <div class="section-label" style="justify-content:center;">
+                    <span style="width:30px;height:1px;background:var(--accent-cyan);box-shadow:0 0 8px var(--accent-cyan);"></span>
+                    <span>Use Cases</span>
+                    <span style="width:30px;height:1px;background:var(--accent-cyan);box-shadow:0 0 8px var(--accent-cyan);"></span>
+                </div>
+                <h2 class="section-title">Who This Research Is For</h2>
+            </div>
+
+            <div class="serve-tags reveal">
+                <div class="serve-tag">Proprietary Trading Firms</div>
+                <div class="serve-tag">Institutional Research Teams</div>
+                <div class="serve-tag">Quantitative Traders</div>
+                <div class="serve-tag">Portfolio Managers</div>
+                <div class="serve-tag">Execution Teams</div>
+                <div class="serve-tag">Fintech Product Builders</div>
+                <div class="serve-tag">Systematic Crypto Desks</div>
+                <div class="serve-tag">Multi-Asset Research Groups</div>
+            </div>
+
+            <div class="reveal">
+                <h3 style="font-size: 2.1rem; font-weight: 800; margin-bottom: 1.4rem; letter-spacing: -1px;">Research That Keeps Evolving</h3>
+                <p class="mission-text">
+                    We have already developed <strong>1020+ strategies</strong>, and the research pipeline continues to expand. The goal is not just to produce more models, but to build stronger, more adaptive, and more robust systematic trading frameworks over time.
+                </p>
+            </div>
+        </section>
+
+        <section id="contact" class="contact-section container">
+            <div class="reveal" style="text-align:center; margin-bottom: 45px;">
+                <div class="section-label" style="justify-content:center;">
+                    <span style="width:30px;height:1px;background:var(--accent-cyan);box-shadow:0 0 8px var(--accent-cyan);"></span>
+                    <span>Contact</span>
+                    <span style="width:30px;height:1px;background:var(--accent-cyan);box-shadow:0 0 8px var(--accent-cyan);"></span>
+                </div>
+                <h2 class="section-title">Start a Strategy Research Discussion</h2>
+                <p class="section-subtitle" style="margin:0 auto;">
+                    Share your research goals, markets, strategy focus, or infrastructure needs. The same page form is ready now and can be connected later to Google Sheets using Apps Script, webhook, or backend processing.
+                </p>
+            </div>
+
+            <div class="contact-grid">
+                <div class="contact-card reveal">
+                    <h3>What to share</h3>
+                    <p>
+                        Use this form to tell us what type of strategy research you want, whether you need new models, portfolio research, factor studies, or math-heavy quant support.
+                    </p>
+
+                    <ul class="contact-points">
+                        <li>
+                            <strong>Research type</strong>
+                            Alpha discovery, stat arb, momentum, mean reversion, volatility, factor modeling, or portfolio construction.
+                        </li>
+                        <li>
+                            <strong>Market scope</strong>
+                            Equities, futures, crypto, FX, options, or multi-asset research.
+                        </li>
+                        <li>
+                            <strong>Expected outcome</strong>
+                            Signal design, validation, optimization, risk framework, or full research pipeline.
+                        </li>
+                    </ul>
+
+                    <div class="inline-note">
+                        Future integration note: connect this form to Google Sheets by replacing the form `action` with your Apps Script web app URL or by handling submission with JavaScript and `fetch()`.
+                    </div>
+                </div>
+
+                <div class="contact-card reveal">
+                    <form class="contact-form" action="#" method="post">
+                        <div class="form-row">
+                            <div class="input-group">
+                                <label for="name">Full Name</label>
+                                <input type="text" id="name" name="name" placeholder="Your name" required />
+                            </div>
+                            <div class="input-group">
+                                <label for="email">Email Address</label>
+                                <input type="email" id="email" name="email" placeholder="you@example.com" required />
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="input-group">
+                                <label for="company">Company / Fund / Desk</label>
+                                <input type="text" id="company" name="company" placeholder="Your company" />
+                            </div>
+                            <div class="input-group">
+                                <label for="market">Primary Market</label>
+                                <select id="market" name="market">
+                                    <option value="">Select market</option>
+                                    <option>Equities</option>
+                                    <option>Futures</option>
+                                    <option>Crypto</option>
+                                    <option>FX</option>
+                                    <option>Options</option>
+                                    <option>Multi-Asset</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="input-group">
+                                <label for="research_type">Research Focus</label>
+                                <select id="research_type" name="research_type">
+                                    <option value="">Select focus</option>
+                                    <option>Alpha Discovery</option>
+                                    <option>Statistical Arbitrage</option>
+                                    <option>Momentum Models</option>
+                                    <option>Mean Reversion Models</option>
+                                    <option>Volatility Strategies</option>
+                                    <option>Multi-Factor Models</option>
+                                    <option>Portfolio Construction</option>
+                                    <option>Calculus / Optimization</option>
+                                    <option>Linear Algebra / Factor Structure</option>
+                                </select>
+                            </div>
+                            <div class="input-group">
+                                <label for="timeline">Expected Timeline</label>
+                                <select id="timeline" name="timeline">
+                                    <option value="">Select timeline</option>
+                                    <option>Immediate</option>
+                                    <option>Within 2 Weeks</option>
+                                    <option>Within 1 Month</option>
+                                    <option>Exploratory Discussion</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="input-group">
+                            <label for="message">Project Details</label>
+                            <textarea id="message" name="message" placeholder="Describe your strategy research requirement, current system, objectives, and what kind of support you need..." required></textarea>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary">Send Research Request</button>
+
+                        <p class="form-note">
+                            This form is currently front-end ready. For Google Sheets later, connect it through Google Apps Script, SheetDB, Zapier, Make, or a custom backend endpoint.
+                        </p>
+                    </form>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand reveal">
+                    <div class="logo-text">QuantParticle</div>
+                    <p>Research-driven trading technology for professional market participants. Building the next generation of systematic trading infrastructure.</p>
+                </div>
+
+                <div class="footer-links reveal">
+                    <h4>Solutions</h4>
+                    <a href="/solutions/strategy-research/">Strategy Research</a>
+                    <a href="/solutions/execution-systems/">Execution Systems</a>
+                    <a href="/solutions/quant-lab/">Quant Lab</a>
+                    <a href="/solutions/prop-institutional/">Prop & Institutional</a>
+                </div>
+
+                <div class="footer-links reveal">
+                    <h4>Company</h4>
+                    <a href="/about/">About</a>
+                    <a href="/technology/">Technology</a>
+                    <a href="/insights/">Insights</a>
+                    <a href="/careers/">Careers</a>
+                    <a href="/contact/">Contact</a>
+                </div>
+
+                <div class="footer-links reveal">
+                    <h4>Legal</h4>
+                    <a href="/privacy/">Privacy Policy</a>
+                    <a href="/terms/">Terms of Service</a>
+                    <a href="/risk/">Risk Disclosure</a>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p>© 2026 QuantParticle. All rights reserved.</p>
+                <div class="footer-social">
+                    <a href="#" class="social-link" aria-label="X">𝕏</a>
+                    <a href="#" class="social-link" aria-label="LinkedIn">in</a>
+                    <a href="#" class="social-link" aria-label="GitHub">Git</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        const cursor = document.querySelector('.cursor-glow');
+        const trail = document.querySelector('.cursor-trail');
+
+        let mouseX = 0, mouseY = 0;
+        let cursorX = 0, cursorY = 0;
+        let trailX = 0, trailY = 0;
+
+        document.addEventListener('mousemove', (e) => {
+            mouseX = e.clientX;
+            mouseY = e.clientY;
+        });
+
+        function animateCursor() {
+            if (cursor && trail && window.innerWidth > 968) {
+                cursorX += (mouseX - cursorX) * 0.15;
+                cursorY += (mouseY - cursorY) * 0.15;
+                trailX += (mouseX - trailX) * 0.08;
+                trailY += (mouseY - trailY) * 0.08;
+
+                cursor.style.left = cursorX + 'px';
+                cursor.style.top = cursorY + 'px';
+                trail.style.left = trailX + 'px';
+                trail.style.top = trailY + 'px';
+            }
+
+            requestAnimationFrame(animateCursor);
+        }
+        animateCursor();
+
+        const interactiveElements = document.querySelectorAll('a, button, input, textarea, select, .feature-card, .research-card, .method-card, .serve-tag');
+        interactiveElements.forEach((el) => {
+            el.addEventListener('mouseenter', () => {
+                if (cursor) cursor.classList.add('hover');
+            });
+
+            el.addEventListener('mouseleave', () => {
+                if (cursor) cursor.classList.remove('hover');
+            });
+        });
+
+        const scrollProgress = document.querySelector('.scroll-progress');
+        window.addEventListener('scroll', () => {
+            const scrolled = window.scrollY;
+            const max = document.documentElement.scrollHeight - window.innerHeight;
+            scrollProgress.style.width = max > 0 ? (scrolled / max) * 100 + '%' : '0%';
+        });
+
+        const header = document.querySelector('header');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach((entry) => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.reveal').forEach((el) => observer.observe(el));
+
+        const menuToggle = document.getElementById('menuToggle');
+        const mobileMenu = document.getElementById('mobileMenu');
+
+        if (menuToggle && mobileMenu) {
+            menuToggle.addEventListener('click', () => {
+                menuToggle.classList.toggle('active');
+                mobileMenu.classList.toggle('active');
+                document.body.style.overflow = mobileMenu.classList.contains('active') ? 'hidden' : '';
+            });
+
+            document.querySelectorAll('.mobile-menu a').forEach((link) => {
+                link.addEventListener('click', () => {
+                    menuToggle.classList.remove('active');
+                    mobileMenu.classList.remove('active');
+                    document.body.style.overflow = '';
+                });
+            });
+
+            window.addEventListener('resize', () => {
+                if (window.innerWidth > 968) {
+                    menuToggle.classList.remove('active');
+                    mobileMenu.classList.remove('active');
+                    document.body.style.overflow = '';
+                }
+            });
+        }
+
+        const terminal = document.getElementById('researchTerminal');
+        const liveLines = [
+            ['[RESEARCH]', 'Alpha discovery sweep running'],
+            ['[STAT]', 'Stat arb basket normalized'],
+            ['[MOMO]', 'Momentum ranking updated'],
+            ['[MEAN]', 'Reversion thresholds recalibrated'],
+            ['[VOL]', 'Volatility filter state switched'],
+            ['[FACTOR]', 'Factor contribution recomputed'],
+            ['[PORT]', 'Portfolio weights rebalanced'],
+            ['[CALC]', 'Gradient optimization progressing'],
+            ['[LINALG]', 'Matrix decomposition completed']
+        ];
+
+        function addTerminalLine() {
+            if (!terminal) return;
+
+            const footer = terminal.querySelector('.terminal-footer');
+            const random = liveLines[Math.floor(Math.random() * liveLines.length)];
+
+            const line = document.createElement('div');
+            line.className = 'terminal-line';
+
+            const statuses = ['', '<span class="ok">PASS</span>', '<span class="warn">RUNNING</span>'];
+            const status = statuses[Math.floor(Math.random() * statuses.length)];
+
+            line.innerHTML = `
+                <span class="tag">${random[0]}</span>
+                <span>${random[1]} ${status}</span>
+            `;
+
+            terminal.insertBefore(line, footer);
+
+            const lines = terminal.querySelectorAll('.terminal-line');
+            if (lines.length > 9) {
+                lines[0].remove();
+            }
+        }
+
+        setInterval(addTerminalLine, 1800);
+
+        const canvas = document.getElementById('particle-canvas');
+        const ctx = canvas.getContext('2d');
+
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+
+        resizeCanvas();
+        window.addEventListener('resize', resizeCanvas);
+
+        let particles = [];
+        const mouse = {
+            x: null,
+            y: null,
+            radius: 180
+        };
+
+        window.addEventListener('mousemove', (e) => {
+            mouse.x = e.x;
+            mouse.y = e.y;
+        });
+
+        window.addEventListener('mouseout', () => {
+            mouse.x = null;
+            mouse.y = null;
+        });
+
+        class Particle {
+            constructor() {
+                this.x = Math.random() * canvas.width;
+                this.y = Math.random() * canvas.height;
+                this.vx = (Math.random() - 0.5) * 0.6;
+                this.vy = (Math.random() - 0.5) * 0.6;
+                this.size = Math.random() * 2 + 1;
+            }
+
+            update() {
+                this.x += this.vx;
+                this.y += this.vy;
+
+                if (this.x < 0 || this.x > canvas.width) this.vx *= -1;
+                if (this.y < 0 || this.y > canvas.height) this.vy *= -1;
+
+                if (mouse.x && mouse.y) {
+                    const dx = mouse.x - this.x;
+                    const dy = mouse.y - this.y;
+                    const distance = Math.sqrt(dx * dx + dy * dy);
+
+                    if (distance < mouse.radius) {
+                        const force = (mouse.radius - distance) / mouse.radius;
+                        this.x -= (dx / distance) * force * 1.5;
+                        this.y -= (dy / distance) * force * 1.5;
+                    }
+                }
+            }
+
+            draw() {
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fillStyle = 'rgba(0, 229, 255, 0.55)';
+                ctx.fill();
+            }
+        }
+
+        function initParticles() {
+            particles = [];
+            const count = Math.min(80, Math.floor((canvas.width * canvas.height) / 18000));
+            for (let i = 0; i < count; i++) {
+                particles.push(new Particle());
+            }
+        }
+
+        function connectParticles() {
+            for (let a = 0; a < particles.length; a++) {
+                for (let b = a + 1; b < particles.length; b++) {
+                    const dx = particles[a].x - particles[b].x;
+                    const dy = particles[a].y - particles[b].y;
+                    const distance = Math.sqrt(dx * dx + dy * dy);
+
+                    if (distance < 120) {
+                        ctx.strokeStyle = `rgba(0, 229, 255, ${0.12 - distance / 1000})`;
+                        ctx.lineWidth = 1;
+                        ctx.beginPath();
+                        ctx.moveTo(particles[a].x, particles[a].y);
+                        ctx.lineTo(particles[b].x, particles[b].y);
+                        ctx.stroke();
+                    }
+                }
+            }
+        }
+
+        function animateParticles() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            particles.forEach((particle) => {
+                particle.update();
+                particle.draw();
+            });
+
+            connectParticles();
+            requestAnimationFrame(animateParticles);
+        }
+
+        initParticles();
+        animateParticles();
+
+        window.addEventListener('resize', () => {
+            resizeCanvas();
+            initParticles();
+        });
+
+        const contactForm = document.querySelector('.contact-form');
+        if (contactForm) {
+            contactForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+                alert('Form is ready. Next step: connect this submit action to Google Sheets or your backend.');
+            });
+        }
+    </script>
+</body>
+</html>
