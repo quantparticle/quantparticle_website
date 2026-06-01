@@ -1481,6 +1481,12 @@
             gap: 0.5rem;
             padding: 0.25rem 0;
             min-width: 0;
+            animation: obFlash 0.35s ease;
+        }
+
+        @keyframes obFlash {
+            0% { opacity: 0; transform: translateY(8px); }
+            100% { opacity: 1; transform: translateY(0); }
         }
 
         .ob-price,
@@ -2478,7 +2484,7 @@
                             <span class="pipeline-arrow" style="transform: rotate(90deg); animation: none; font-size: 1.5rem; margin: -0.5rem 0;">↓</span>
                         </div>
                         <div class="pipeline-stage">
-                            <div class="pipeline-box active" style="flex: 0 0 60%; margin: 0 auto; text-align: center;">P&L Monitoring<div class="fill-bar" style="animation-delay: 0.3s;"></div></div>
+                            <div class="pipeline-box active" style="flex: 0 0 60%; margin: 0 auto; text-align: center;">P&amp;L Monitoring<div class="fill-bar" style="animation-delay: 0.3s;"></div></div>
                         </div>
                     </div>
                 </div>
@@ -2497,7 +2503,7 @@
 
             <div class="topic-row reveal">
                 <div class="topic-content">
-                    <h3><span class="topic-num">03 // RESEARCH</span>Backtesting & Research</h3>
+                    <h3><span class="topic-num">03 // RESEARCH</span>Backtesting &amp; Research</h3>
                     <p>Robust simulation frameworks that replicate real market conditions, slippage, latency, partial fills, and fees so strategies are validated honestly before live capital deployment.</p>
                     <ul class="topic-features">
                         <li>Tick-level and bar-based simulation</li>
@@ -2538,7 +2544,7 @@
                     <div class="automation-flow">
                         <div class="auto-box auto-box-1"><small>INGESTION</small>Market Data</div>
                         <div class="auto-box auto-box-2"><small>EXECUTION</small>Trade Engine</div>
-                        <div class="auto-box auto-box-3"><small>MONITORING</small>Alerts & Logs</div>
+                        <div class="auto-box auto-box-3"><small>MONITORING</small>Alerts &amp; Logs</div>
                         <div class="auto-box auto-box-4"><small>RECOVERY</small>Failover</div>
 
                         <div class="auto-link link-top"></div>
@@ -2580,21 +2586,14 @@
                 </div>
 
                 <div class="topic-visual">
-                    <div class="ob-viz">
+                    <div class="ob-viz" id="ob-viz">
                         <div class="ob-header">
                             <span>SYMBOL BTC-PERP</span>
                             <span>DEPTH L2</span>
                         </div>
-
-                        <div class="ob-row ob-ask"><span class="ob-price">67245.5</span><span class="ob-size">1.20</span><span class="ob-total">18.44</span></div>
-                        <div class="ob-row ob-ask"><span class="ob-price">67245.1</span><span class="ob-size">0.85</span><span class="ob-total">17.24</span></div>
-                        <div class="ob-row ob-ask"><span class="ob-price">67244.9</span><span class="ob-size">0.65</span><span class="ob-total">16.39</span></div>
-
+                        <div id="ob-asks"></div>
                         <div class="ob-spread">SPREAD 0.02</div>
-
-                        <div class="ob-row ob-bid"><span class="ob-price">67244.7</span><span class="ob-size">0.72</span><span class="ob-total">15.74</span></div>
-                        <div class="ob-row ob-bid"><span class="ob-price">67244.5</span><span class="ob-size">1.10</span><span class="ob-total">15.02</span></div>
-                        <div class="ob-row ob-bid"><span class="ob-price">67244.1</span><span class="ob-size">1.46</span><span class="ob-total">13.92</span></div>
+                        <div id="ob-bids"></div>
                     </div>
                 </div>
             </div>
@@ -2649,7 +2648,7 @@
                 <div class="tech-card">
                     <span class="tech-icon">◈</span>
                     <h4>Pine Script / TradingView</h4>
-                    <p>Custom indicator & strategy development with advanced visualizations.</p>
+                    <p>Custom indicator &amp; strategy development with advanced visualizations.</p>
                 </div>
 
                 <div class="tech-card">
@@ -2760,7 +2759,7 @@
                     <a href="/solutions/strategy-research/">Strategy Research</a>
                     <a href="/solutions/execution-systems/">Execution Systems</a>
                     <a href="/solutions/quant-lab/">Quant Lab</a>
-                    <a href="/solutions/prop-institutional/">Prop & Institutional</a>
+                    <a href="/solutions/prop-institutional/">Prop &amp; Institutional</a>
                 </div>
 
                 <div class="footer-links reveal">
@@ -2882,33 +2881,97 @@
             });
         }
 
+        const symbols = ['BTC-PERP', 'ETH-PERP', 'SOL-PERP', 'AVAX-PERP', 'AAPL', 'TSLA', 'ES1!', 'NQ1!'];
         const terminalBody = document.getElementById('terminal-body');
-        const orders = [
-            ['BTC-PERP', 'BUY', '1.25', '67245.1', 'FILL'],
-            ['ETH-PERP', 'SELL', '6.40', '3845.3', 'LIVE'],
-            ['NQ-FUT', 'BUY', '2.00', '18944.5', 'FILL'],
-            ['EURUSD', 'SELL', '3.10', '1.0842', 'LIVE'],
-            ['SOL-PERP', 'BUY', '22.00', '184.6', 'FILL'],
-            ['GC-FUT', 'SELL', '1.00', '2388.4', 'LIVE'],
-            ['AAPL', 'BUY', '120', '212.4', 'FILL'],
-            ['BANKNIFTY', 'SELL', '15', '52342', 'LIVE']
-        ];
+        const latencyEl = document.getElementById('latency');
+
+        function createOrderRow() {
+            const symbol = symbols[Math.floor(Math.random() * symbols.length)];
+            const side = Math.random() > 0.5 ? 'buy' : 'sell';
+            const qty = Math.floor(Math.random() * 500 + 10);
+            const price = (Math.random() * 1000 + 100).toFixed(2);
+            const statuses = ['PEND', 'OPEN', 'FILL', 'PART'];
+            const status = Math.random() > 0.7 ? 'FILL' : statuses[Math.floor(Math.random() * 3)];
+
+            const row = document.createElement('div');
+            row.className = 'order-row';
+            row.innerHTML = `
+                <span class="order-symbol">${symbol}</span>
+                <span class="order-side ${side}">${side.toUpperCase()}</span>
+                <span class="order-qty">${qty}</span>
+                <span class="order-price">${price}</span>
+                <span class="order-status ${status === 'FILL' ? 'fill' : ''}">${status}</span>
+            `;
+            return row;
+        }
+
+        function updateTerminal() {
+            if (!terminalBody) return;
+
+            const row = createOrderRow();
+            terminalBody.prepend(row);
+
+            if (terminalBody.children.length > 8) {
+                terminalBody.lastElementChild.remove();
+            }
+
+            if (latencyEl) {
+                const lat = (Math.random() * 15 + 2).toFixed(1);
+                latencyEl.textContent = `${lat}µs`;
+            }
+        }
 
         if (terminalBody) {
-            orders.forEach((o, i) => {
-                const row = document.createElement('div');
-                row.className = 'order-row';
-                row.style.animationDelay = `${i * 0.12}s`;
-                row.innerHTML = `
-                    <span class="order-symbol">${o[0]}</span>
-                    <span class="order-side ${o[1].toLowerCase()}">${o[1]}</span>
-                    <span class="order-qty">${o[2]}</span>
-                    <span class="order-price">${o[3]}</span>
-                    <span class="order-status ${o[4].toLowerCase() === 'fill' ? 'fill' : ''}">${o[4]}</span>
-                `;
-                terminalBody.appendChild(row);
-            });
+            terminalBody.innerHTML = '';
+            for (let i = 0; i < 6; i++) {
+                terminalBody.appendChild(createOrderRow());
+            }
+            setInterval(updateTerminal, 800);
         }
+
+        const obAsks = document.getElementById('ob-asks');
+        const obBids = document.getElementById('ob-bids');
+        const basePrice = 67245;
+
+        function generateOB() {
+            if (!obAsks || !obBids) return;
+
+            obAsks.innerHTML = '';
+            obBids.innerHTML = '';
+
+            for (let i = 4; i > 0; i--) {
+                const price = basePrice + i * 1.2 + Math.random() * 0.5;
+                const size = Math.floor(Math.random() * 800 + 100);
+                const total = Math.floor(size * (5 - i * 0.3));
+
+                const row = document.createElement('div');
+                row.className = 'ob-row ob-ask';
+                row.innerHTML = `
+                    <span class="ob-price">${price.toFixed(1)}</span>
+                    <span class="ob-size">${size}</span>
+                    <span class="ob-total">${total}</span>
+                `;
+                obAsks.appendChild(row);
+            }
+
+            for (let i = 1; i <= 4; i++) {
+                const price = basePrice - i * 1.2 - Math.random() * 0.5;
+                const size = Math.floor(Math.random() * 800 + 100);
+                const total = Math.floor(size * (5 - i * 0.3));
+
+                const row = document.createElement('div');
+                row.className = 'ob-row ob-bid';
+                row.innerHTML = `
+                    <span class="ob-price">${price.toFixed(1)}</span>
+                    <span class="ob-size">${size}</span>
+                    <span class="ob-total">${total}</span>
+                `;
+                obBids.appendChild(row);
+            }
+        }
+
+        generateOB();
+        setInterval(generateOB, 2000);
 
         const canvas = document.getElementById('particle-canvas');
         const ctx = canvas.getContext('2d');
