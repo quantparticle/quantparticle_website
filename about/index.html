@@ -201,7 +201,7 @@
             min-height: 88px;
             gap: 1rem;
             position: relative;
-            overflow: hidden;
+            /* FIX: Removed overflow: hidden; from here */
         }
 
         .logo {
@@ -312,9 +312,6 @@
             position: relative;
         }
 
-        /* ------------------------------------------- */
-        /* FIX: Dropdown display changed to block      */
-        /* ------------------------------------------- */
         .dropdown-menu {
             display: block; 
             opacity: 0;
@@ -1053,13 +1050,10 @@
             flex: 0 0 auto;
         }
 
-        /* ------------------------------------------- */
-        /* FIX: Increased Gap & Margin for Spacing     */
-        /* ------------------------------------------- */
         .span-grid {
             display: grid;
             grid-template-columns: repeat(4, minmax(0, 1fr));
-            gap: 2rem; /* Increased gap */
+            gap: 2rem;
             margin-top: 3.5rem;
         }
 
