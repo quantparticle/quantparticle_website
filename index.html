@@ -207,7 +207,6 @@
             min-height: 88px;
             gap: 1rem;
             position: relative;
-            overflow: hidden;
         }
 
         .logo {
@@ -333,6 +332,7 @@
             padding: 0.75rem 0;
             transition: all 0.3s ease;
             box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+            z-index: 1001;
         }
 
         .dropdown:hover .dropdown-menu {
@@ -358,7 +358,7 @@
         }
 
         .nav-label::before {
-            content: 'â–¼';
+            content: '▼';
             font-size: 0.5rem;
             margin-right: 6px;
             opacity: 0.6;
@@ -1045,7 +1045,7 @@
         }
 
         .topic-features li::before {
-            content: 'â†’';
+            content: '→';
             color: var(--accent-cyan);
             font-weight: 700;
             flex: 0 0 auto;
@@ -2356,11 +2356,11 @@
                     </p>
 
                     <div class="hero-meta">
-                        <span>LFT</span> â€¢ <span>MFT</span> â€¢ <span>HFT</span> â€¢ <span>Multi-Asset</span> â€¢ <span>Global Markets</span>
+                        <span>LFT</span> • <span>MFT</span> • <span>HFT</span> • <span>Multi-Asset</span> • <span>Global Markets</span>
                     </div>
 
                     <div class="hero-buttons">
-                        <a href="/solutions/strategy-research/" class="btn btn-primary">Explore Solutions <span style="font-size: 1.2rem;">â†’</span></a>
+                        <a href="/solutions/strategy-research/" class="btn btn-primary">Explore Solutions <span style="font-size: 1.2rem;">→</span></a>
                         <a href="/contact/" class="btn btn-secondary">Contact Research Team</a>
                     </div>
                 </div>
@@ -2381,7 +2381,7 @@
 
                         <div class="latency-monitor">
                             <span class="latency-label">AVG LATENCY</span>
-                            <span class="latency-value" id="latency">8.4Âµs</span>
+                            <span class="latency-value" id="latency">8.4µs</span>
                             <span class="latency-label">THROUGHPUT</span>
                             <span class="latency-value">142K TPS</span>
                         </div>
@@ -2399,7 +2399,7 @@
                     <div class="stat-label">Notional Traded</div>
                 </div>
                 <div class="stat-item">
-                    <div class="stat-number">12Âµs</div>
+                    <div class="stat-number">12µs</div>
                     <div class="stat-label">Avg Latency</div>
                 </div>
                 <div class="stat-item">
@@ -2472,19 +2472,19 @@
                     <div class="pipeline-viz">
                         <div class="pipeline-stage">
                             <div class="pipeline-box active">Signal Generation<div class="fill-bar"></div></div>
-                            <span class="pipeline-arrow">â†’</span>
+                            <span class="pipeline-arrow">→</span>
                             <div class="pipeline-box">Risk Engine<div class="fill-bar" style="animation-delay: 0.5s;"></div></div>
                         </div>
                         <div class="pipeline-stage">
                             <div class="pipeline-box">Order Manager<div class="fill-bar" style="animation-delay: 1s;"></div></div>
-                            <span class="pipeline-arrow">â†’</span>
+                            <span class="pipeline-arrow">→</span>
                             <div class="pipeline-box">Exchange Gateway<div class="fill-bar" style="animation-delay: 1.5s;"></div></div>
                         </div>
                         <div class="pipeline-stage" style="justify-content: center;">
-                            <span class="pipeline-arrow" style="transform: rotate(90deg); animation: none; font-size: 1.5rem; margin: -0.5rem 0;">â†“</span>
+                            <span class="pipeline-arrow" style="transform: rotate(90deg); animation: none; font-size: 1.5rem; margin: -0.5rem 0;">↓</span>
                         </div>
                         <div class="pipeline-stage">
-                            <div class="pipeline-box active" style="flex: 0 0 60%; margin: 0 auto; text-align: center;">P&amp;L Monitoring<div class="fill-bar" style="animation-delay: 0.3s;"></div></div>
+                            <div class="pipeline-box active" style="flex: 0 0 60%; margin: 0 auto; text-align: center;">P&L Monitoring<div class="fill-bar" style="animation-delay: 0.3s;"></div></div>
                         </div>
                     </div>
                 </div>
@@ -2495,7 +2495,7 @@
                     <ul class="topic-features">
                         <li>Colocated cross-region deployment</li>
                         <li>Smart order routing and slicing</li>
-                        <li>Real-time position and P&amp;L tracking</li>
+                        <li>Real-time position and P&L tracking</li>
                         <li>Multi-venue connectivity</li>
                     </ul>
                 </div>
@@ -2503,7 +2503,7 @@
 
             <div class="topic-row reveal">
                 <div class="topic-content">
-                    <h3><span class="topic-num">03 // RESEARCH</span>Backtesting &amp; Research</h3>
+                    <h3><span class="topic-num">03 // RESEARCH</span>Backtesting & Research</h3>
                     <p>Robust simulation frameworks that replicate real market conditions, slippage, latency, partial fills, and fees so strategies are validated honestly before live capital deployment.</p>
                     <ul class="topic-features">
                         <li>Tick-level and bar-based simulation</li>
@@ -2534,7 +2534,7 @@
                             <div class="chart-bar" style="height: 85%;"></div>
                             <div class="chart-bar" style="height: 60%;"></div>
                         </div>
-                        <div class="chart-label">CUMULATIVE P&amp;L // BACKTEST SERIES</div>
+                        <div class="chart-label">CUMULATIVE P&L // BACKTEST SERIES</div>
                     </div>
                 </div>
             </div>
@@ -2544,7 +2544,7 @@
                     <div class="automation-flow">
                         <div class="auto-box auto-box-1"><small>INGESTION</small>Market Data</div>
                         <div class="auto-box auto-box-2"><small>EXECUTION</small>Trade Engine</div>
-                        <div class="auto-box auto-box-3"><small>MONITORING</small>Alerts &amp; Logs</div>
+                        <div class="auto-box auto-box-3"><small>MONITORING</small>Alerts & Logs</div>
                         <div class="auto-box auto-box-4"><small>RECOVERY</small>Failover</div>
 
                         <div class="auto-link link-top"></div>
@@ -2646,25 +2646,25 @@
 
             <div class="tech-grid reveal">
                 <div class="tech-card">
-                    <span class="tech-icon">â—ˆ</span>
+                    <span class="tech-icon">◈</span>
                     <h4>Pine Script / TradingView</h4>
-                    <p>Custom indicator &amp; strategy development with advanced visualizations.</p>
+                    <p>Custom indicator & strategy development with advanced visualizations.</p>
                 </div>
 
                 <div class="tech-card">
-                    <span class="tech-icon">âš¡</span>
+                    <span class="tech-icon">⚡</span>
                     <h4>C++ / Rust Engine</h4>
                     <p>Low-latency execution cores for HFT and market making systems.</p>
                 </div>
 
                 <div class="tech-card">
-                    <span class="tech-icon">â—Ž</span>
+                    <span class="tech-icon">◎</span>
                     <h4>Python / PyTorch</h4>
                     <p>ML signal generation, backtesting frameworks, and data pipelines.</p>
                 </div>
 
                 <div class="tech-card">
-                    <span class="tech-icon">â—‡</span>
+                    <span class="tech-icon">◇</span>
                     <h4>WebSocket / FIX</h4>
                     <p>Exchange connectivity, order routing, and real-time market data.</p>
                 </div>
@@ -2759,7 +2759,7 @@
                     <a href="/solutions/strategy-research/">Strategy Research</a>
                     <a href="/solutions/execution-systems/">Execution Systems</a>
                     <a href="/solutions/quant-lab/">Quant Lab</a>
-                    <a href="/solutions/prop-institutional/">Prop &amp; Institutional</a>
+                    <a href="/solutions/prop-institutional/">Prop & Institutional</a>
                 </div>
 
                 <div class="footer-links reveal">
@@ -2780,9 +2780,9 @@
             </div>
 
             <div class="footer-bottom">
-                <p>Â© 2026 QuantParticle. All rights reserved.</p>
+                <p>© 2026 QuantParticle. All rights reserved.</p>
                 <div class="footer-social">
-                    <a href="#" class="social-link" aria-label="X">ð•</a>
+                    <a href="#" class="social-link" aria-label="X">𝕏</a>
                     <a href="#" class="social-link" aria-label="LinkedIn">in</a>
                     <a href="#" class="social-link" aria-label="GitHub">Git</a>
                 </div>
@@ -2917,7 +2917,7 @@
 
             if (latencyEl) {
                 const lat = (Math.random() * 15 + 2).toFixed(1);
-                latencyEl.textContent = `${lat}Âµs`;
+                latencyEl.textContent = `${lat}µs`;
             }
         }
 
