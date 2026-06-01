@@ -148,7 +148,7 @@
             position: fixed;
             top: 0;
             width: 100%;
-            background: rgba(7, 11, 20, 0.7);
+            background: rgba(7, 11, 20, 0.72);
             backdrop-filter: blur(20px) saturate(1.8);
             border-bottom: 1px solid var(--border-subtle);
             z-index: 1000;
@@ -175,19 +175,45 @@
             align-items: center;
             text-decoration: none;
             min-width: 170px;
+            position: relative;
+            isolation: isolate;
+        }
+
+        .logo::before {
+            content: '';
+            position: absolute;
+            left: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 90px;
+            height: 90px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(0, 229, 255, 0.28) 0%, rgba(79, 70, 229, 0.18) 38%, rgba(124, 58, 237, 0.08) 60%, transparent 75%);
+            filter: blur(18px);
+            opacity: 0.95;
+            pointer-events: none;
+            z-index: -1;
+            animation: logoGlowPulse 3.6s ease-in-out infinite;
         }
 
         .logo img {
             height: 64px;
             width: auto;
             display: block;
+            position: relative;
+            z-index: 2;
             filter: drop-shadow(0 0 18px rgba(0, 229, 255, 0.55));
             animation: logoPulse 3s ease-in-out infinite;
         }
 
         @keyframes logoPulse {
             0%, 100% { filter: drop-shadow(0 0 15px rgba(0, 229, 255, 0.4)); }
-            50% { filter: drop-shadow(0 0 25px rgba(0, 229, 255, 0.7)); }
+            50% { filter: drop-shadow(0 0 25px rgba(0, 229, 255, 0.75)); }
+        }
+
+        @keyframes logoGlowPulse {
+            0%, 100% { opacity: 0.85; transform: translateY(-50%) scale(1); }
+            50% { opacity: 1; transform: translateY(-50%) scale(1.08); }
         }
 
         nav ul {
@@ -197,7 +223,8 @@
             align-items: center;
         }
 
-        nav a {
+        nav a,
+        .nav-label {
             color: var(--text-secondary);
             text-decoration: none;
             font-size: 0.95rem;
@@ -205,9 +232,13 @@
             transition: color 0.3s;
             position: relative;
             padding: 0.5rem 0;
+            display: inline-flex;
+            align-items: center;
+            line-height: 1;
         }
 
-        nav a::after {
+        nav a::after,
+        .nav-label::after {
             content: '';
             position: absolute;
             bottom: 0;
@@ -220,12 +251,14 @@
             box-shadow: 0 0 10px var(--accent-cyan);
         }
 
-        nav a:hover {
+        nav a:hover,
+        .dropdown:hover .nav-label {
             color: var(--text-primary);
         }
 
         nav a:hover::after,
-        nav a.active-nav::after {
+        nav a.active-nav::after,
+        .dropdown:hover .nav-label::after {
             width: 100%;
         }
 
@@ -246,7 +279,7 @@
             left: -20px;
             background: var(--glass-bg);
             backdrop-filter: blur(20px);
-            min-width: 240px;
+            min-width: 260px;
             border: 1px solid var(--glass-border);
             border-radius: 12px;
             padding: 0.75rem 0;
@@ -266,8 +299,8 @@
 
         .dropdown-menu a {
             display: block;
-            padding: 0.75rem 1.5rem;
-            font-size: 0.85rem;
+            padding: 0.8rem 1.5rem;
+            font-size: 0.86rem;
             color: var(--text-secondary);
         }
 
@@ -276,17 +309,17 @@
             background: rgba(0, 229, 255, 0.05);
         }
 
-        .dropdown > a::before {
+        .nav-label::before {
             content: '▼';
             font-size: 0.5rem;
-            margin-left: 6px;
+            margin-right: 6px;
             opacity: 0.6;
             display: inline-block;
             transition: transform 0.3s;
             vertical-align: middle;
         }
 
-        .dropdown:hover > a::before {
+        .dropdown:hover .nav-label::before {
             transform: rotate(180deg);
         }
 
@@ -329,7 +362,7 @@
             top: 92px;
             left: 0;
             right: 0;
-            background: rgba(7, 11, 20, 0.96);
+            background: rgba(7, 11, 20, 0.97);
             backdrop-filter: blur(20px);
             border-bottom: 1px solid var(--border-subtle);
             padding: 1rem 1.5rem 1.5rem;
@@ -360,6 +393,30 @@
         .mobile-menu a.active-nav {
             color: var(--accent-cyan);
             padding-left: 1rem;
+        }
+
+        .mobile-menu-group {
+            margin-top: 0.25rem;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+            padding-bottom: 0.4rem;
+        }
+
+        .mobile-menu-group-title {
+            color: var(--text-primary);
+            padding: 0.95rem 0.5rem 0.5rem;
+            font-size: 0.95rem;
+            font-weight: 600;
+        }
+
+        .mobile-sub-link {
+            padding-left: 1.15rem !important;
+            font-size: 0.9rem !important;
+            color: var(--text-secondary) !important;
+        }
+
+        .mobile-sub-link:hover {
+            padding-left: 1.5rem !important;
+            color: var(--accent-cyan) !important;
         }
 
         .container {
@@ -1477,12 +1534,12 @@
             line-height: 1.7;
         }
 
-        #technology {
+        #technology-preview {
             padding-top: 150px;
             padding-bottom: 180px;
         }
 
-        #about {
+        #methodology-preview {
             padding-top: 170px;
         }
 
@@ -1777,6 +1834,12 @@
                 top: 82px;
             }
 
+            .logo::before {
+                width: 76px;
+                height: 76px;
+                left: 8px;
+            }
+
             .logo img {
                 height: 56px;
             }
@@ -1801,11 +1864,11 @@
                 text-align: center;
             }
 
-            #technology {
+            #technology-preview {
                 padding-bottom: 150px;
             }
 
-            #about {
+            #methodology-preview {
                 padding-top: 150px;
             }
         }
@@ -1823,7 +1886,7 @@
 
     <header>
         <div class="nav-container">
-            <a href="/" class="logo">
+            <a href="/" class="logo" aria-label="QuantParticle Home">
                 <img src="/quant_particle_logo.png" alt="QuantParticle Logo">
             </a>
 
@@ -1832,15 +1895,15 @@
                     <li><a href="/" class="active-nav">Home</a></li>
                     <li><a href="/about/">About</a></li>
                     <li class="dropdown">
-                        <a href="/#solutions">Solutions</a>
+                        <span class="nav-label">Solutions</span>
                         <ul class="dropdown-menu">
-                            <li><a href="/#solutions">Strategy Research</a></li>
-                            <li><a href="/#solutions">Execution Systems</a></li>
-                            <li><a href="/#solutions">Quant Lab</a></li>
-                            <li><a href="/#solutions">Prop & Institutional</a></li>
+                            <li><a href="/solutions/strategy-research/">Strategy Research</a></li>
+                            <li><a href="/solutions/execution-systems/">Execution Systems</a></li>
+                            <li><a href="/solutions/quant-lab/">Quant Lab</a></li>
+                            <li><a href="/solutions/prop-institutional/">Prop & Institutional</a></li>
                         </ul>
                     </li>
-                    <li><a href="/#technology">Technology</a></li>
+                    <li><a href="/technology/">Technology</a></li>
                     <li><a href="/insights/">Insights</a></li>
                     <li><a href="/careers/">Careers</a></li>
                     <li><a href="/contact/">Contact</a></li>
@@ -1857,8 +1920,16 @@
         <div class="mobile-menu" id="mobileMenu">
             <a href="/" class="active-nav">Home</a>
             <a href="/about/">About</a>
-            <a href="/#solutions">Solutions</a>
-            <a href="/#technology">Technology</a>
+
+            <div class="mobile-menu-group">
+                <div class="mobile-menu-group-title">Solutions</div>
+                <a href="/solutions/strategy-research/" class="mobile-sub-link">Strategy Research</a>
+                <a href="/solutions/execution-systems/" class="mobile-sub-link">Execution Systems</a>
+                <a href="/solutions/quant-lab/" class="mobile-sub-link">Quant Lab</a>
+                <a href="/solutions/prop-institutional/" class="mobile-sub-link">Prop & Institutional</a>
+            </div>
+
+            <a href="/technology/">Technology</a>
             <a href="/insights/">Insights</a>
             <a href="/careers/">Careers</a>
             <a href="/contact/">Contact</a>
@@ -1889,7 +1960,7 @@
                     </div>
 
                     <div class="hero-buttons">
-                        <a href="/#solutions" class="btn btn-primary">Explore Solutions <span style="font-size: 1.2rem;">→</span></a>
+                        <a href="/solutions/strategy-research/" class="btn btn-primary">Explore Solutions <span style="font-size: 1.2rem;">→</span></a>
                         <a href="/contact/" class="btn btn-secondary">Contact Research Team</a>
                     </div>
                 </div>
@@ -1942,7 +2013,7 @@
             </div>
         </section>
 
-        <section id="solutions" class="container">
+        <section class="container">
             <div class="reveal" style="text-align: center; margin-bottom: 80px;">
                 <div class="section-label" style="justify-content: center;">
                     <span style="width:30px;height:1px;background:var(--accent-cyan);box-shadow:0 0 8px var(--accent-cyan);"></span>
@@ -2167,7 +2238,7 @@
             </div>
         </section>
 
-        <section id="technology" class="container">
+        <section id="technology-preview" class="container">
             <div class="reveal" style="text-align:center; margin-bottom: 60px;">
                 <div class="section-label" style="justify-content:center;">
                     <span style="width:30px;height:1px;background:var(--accent-cyan);box-shadow:0 0 8px var(--accent-cyan);"></span>
@@ -2207,7 +2278,7 @@
             </div>
         </section>
 
-        <section id="about" class="container">
+        <section id="methodology-preview" class="container">
             <div class="reveal" style="text-align:center; margin-bottom: 60px;">
                 <div class="section-label" style="justify-content:center;">
                     <span style="width:30px;height:1px;background:var(--accent-cyan);box-shadow:0 0 8px var(--accent-cyan);"></span>
@@ -2292,17 +2363,18 @@
 
                 <div class="footer-links reveal">
                     <h4>Solutions</h4>
-                    <a href="/#solutions">Strategy Research</a>
-                    <a href="/#solutions">Execution Systems</a>
-                    <a href="/#solutions">Quant Lab</a>
-                    <a href="/#solutions">Prop & Institutional</a>
+                    <a href="/solutions/strategy-research/">Strategy Research</a>
+                    <a href="/solutions/execution-systems/">Execution Systems</a>
+                    <a href="/solutions/quant-lab/">Quant Lab</a>
+                    <a href="/solutions/prop-institutional/">Prop & Institutional</a>
                 </div>
 
                 <div class="footer-links reveal">
                     <h4>Company</h4>
                     <a href="/about/">About</a>
-                    <a href="/careers/">Careers</a>
+                    <a href="/technology/">Technology</a>
                     <a href="/insights/">Insights</a>
+                    <a href="/careers/">Careers</a>
                     <a href="/contact/">Contact</a>
                 </div>
 
@@ -2399,57 +2471,6 @@
                 mobileMenu.classList.remove('active');
             });
         });
-
-        const sections = document.querySelectorAll('section[id]');
-        const navLinks = document.querySelectorAll('nav a');
-        const mobileLinks = document.querySelectorAll('.mobile-menu a');
-
-        function clearActiveLinks() {
-            navLinks.forEach(link => link.classList.remove('active-nav'));
-            mobileLinks.forEach(link => link.classList.remove('active-nav'));
-        }
-
-        function setActiveLink(selector) {
-            const desktop = document.querySelector(`nav a[href="${selector}"]`);
-            const mobile = document.querySelector(`.mobile-menu a[href="${selector}"]`);
-            if (desktop) desktop.classList.add('active-nav');
-            if (mobile) mobile.classList.add('active-nav');
-        }
-
-        function updateActiveNav() {
-            const path = window.location.pathname;
-
-            if (path !== '/' && path !== '/index.html') {
-                clearActiveLinks();
-                setActiveLink(path);
-                return;
-            }
-
-            let current = '';
-            sections.forEach(section => {
-                const sectionTop = section.offsetTop;
-                if (window.scrollY >= sectionTop - 220) {
-                    current = section.getAttribute('id');
-                }
-            });
-
-            clearActiveLinks();
-
-            if (window.scrollY < 180) {
-                setActiveLink('/');
-            } else if (current === 'solutions') {
-                setActiveLink('/#solutions');
-            } else if (current === 'technology') {
-                setActiveLink('/#technology');
-            } else if (current === 'about') {
-                setActiveLink('/about/');
-            } else {
-                setActiveLink('/');
-            }
-        }
-
-        window.addEventListener('scroll', updateActiveNav);
-        window.addEventListener('load', updateActiveNav);
 
         const terminalBody = document.getElementById('terminal-body');
         const orders = [
