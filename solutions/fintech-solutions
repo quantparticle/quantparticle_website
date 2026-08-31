@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Fintech Solutions | QuantParticle</title>
+    <link rel="icon" href="/quant_particle_logo_fevicon.png" type="image/png" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+
+    <!-- Paste your exact <style> block from the homepage here. 
+         (Truncated here for brevity, but use your full 1000+ line CSS) -->
+    <style>
+        /* ... ALL YOUR EXISTING CSS STYLES GO HERE ... */
+    </style>
+</head>
+<body>
+    <div class="cursor-glow"></div>
+    <div class="cursor-trail"></div>
+    <div class="noise-overlay"></div>
+    <div class="scroll-progress"></div>
+    <div class="glow-orb glow-orb-1"></div>
+    <div class="glow-orb glow-orb-2"></div>
+
+    <canvas id="particle-canvas"></canvas>
+
+    <header>
+        <div class="nav-container">
+            <a href="/" class="logo" aria-label="QuantParticle Home">
+                <img src="/quant_particle_logo.png" alt="QuantParticle Logo" />
+            </a>
+
+            <nav>
+                <ul>
+                    <li><a href="/">Home</a></li>
+                    <li><a href="/about/">About</a></li>
+                    <li class="dropdown">
+                        <span class="nav-label" style="color: var(--accent-cyan);">Solutions</span>
+                        <ul class="dropdown-menu">
+                            <li><a href="/solutions/strategy-research/">Strategy Research</a></li>
+                            <li><a href="/solutions/execution-systems/">Execution Systems</a></li>
+                            <li><a href="/solutions/fintech-solutions/" class="active-nav" style="color: var(--accent-cyan);">Fintech Solutions</a></li>
+                            <li><a href="/solutions/prop-institutional/">Prop & Institutional</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="/insights/">Insights</a></li>
+                    <li><a href="/contact/">Contact</a></li>
+                </ul>
+            </nav>
+
+            <button class="menu-toggle" id="menuToggle" aria-label="Open Menu" type="button">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+
+        <div class="mobile-menu" id="mobileMenu">
+            <a href="/">Home</a>
+            <a href="/about/">About</a>
+
+            <div class="mobile-menu-group">
+                <div class="mobile-menu-group-title">Solutions</div>
+                <a href="/solutions/strategy-research/" class="mobile-sub-link">Strategy Research</a>
+                <a href="/solutions/execution-systems/" class="mobile-sub-link">Execution Systems</a>
+                <a href="/solutions/fintech-solutions/" class="mobile-sub-link active-nav">Fintech Solutions</a>
+                <a href="/solutions/prop-institutional/" class="mobile-sub-link">Prop & Institutional</a>
+            </div>
+
+            <a href="/insights/">Insights</a>
+            <a href="/contact/">Contact</a>
+        </div>
+    </header>
+
+    <main>
+        <!-- Subpage Hero Section -->
+        <section class="hero container" style="min-height: 60vh; padding-bottom: 20px;">
+            <div class="hero-content" style="max-width: 800px; margin: 0 auto; text-align: center;">
+                <div class="hero-badge" style="margin: 0 auto 2rem;">
+                    <span class="pulse"></span>
+                    <span>B2B Infrastructure</span>
+                </div>
+
+                <h1 style="font-size: clamp(2.5rem, 4vw, 4rem);">
+                    <div class="line"><span class="hero-shine primary-text">Enterprise-Grade</span></div>
+                    <div class="line"><span class="hero-shine accent-text">Fintech Solutions.</span></div>
+                </h1>
+
+                <p style="margin: 0 auto 1.5rem; max-width: 650px;">
+                    <strong style="color: var(--text-primary);">Powering the Next Generation of Brokers & Trading Platforms.</strong>
+                    We engineer robust backend systems, advanced charting modules, and high-throughput execution APIs tailored for financial technology companies.
+                </p>
+            </div>
+        </section>
+
+        <!-- Main Content Section -->
+        <section class="container">
+            <!-- Topic 1 -->
+            <div class="topic-row reveal">
+                <div class="topic-content">
+                    <h3><span class="topic-num">01 // INTEGRATION</span>API & Webhook Architecture</h3>
+                    <p>Seamlessly connect disjointed financial systems. We build secure, high-concurrency API-to-webhook converters and translation layers that allow your proprietary platforms to communicate with external brokerages, data providers, and charting software like TradingView without latency bottlenecks.</p>
+                    <ul class="topic-features">
+                        <li>TradingView Webhook to REST API bridges</li>
+                        <li>Multi-demat account trade routing architectures</li>
+                        <li>FIX protocol protocol integration & parsing</li>
+                        <li>Real-time socket data pipelines</li>
+                    </ul>
+                </div>
+                <div class="topic-visual">
+                    <div class="pipeline-viz">
+                        <div class="pipeline-stage">
+                            <div class="pipeline-box active">TradingView Webhook<div class="fill-bar"></div></div>
+                            <span class="pipeline-arrow">→</span>
+                            <div class="pipeline-box">Translation Engine<div class="fill-bar" style="animation-delay: 0.5s;"></div></div>
+                        </div>
+                        <div class="pipeline-stage" style="justify-content: center;">
+                            <span class="pipeline-arrow" style="transform: rotate(90deg); animation: none; font-size: 1.5rem; margin: -0.5rem 0;">↓</span>
+                        </div>
+                        <div class="pipeline-stage">
+                            <div class="pipeline-box active" style="flex: 0 0 60%; margin: 0 auto; text-align: center;">Multi-Account Execution API<div class="fill-bar" style="animation-delay: 0.3s;"></div></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Topic 2 -->
+            <div class="topic-row reverse reveal">
+                <div class="topic-visual">
+                    <div class="tech-grid" style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-top: 0;">
+                        <div class="tech-card" style="min-height: 180px; padding: 1.5rem;">
+                            <span class="tech-icon" style="font-size: 1.8rem;">📊</span>
+                            <h4 style="font-size: 0.9rem;">Custom Indicators</h4>
+                        </div>
+                        <div class="tech-card" style="min-height: 180px; padding: 1.5rem;">
+                            <span class="tech-icon" style="font-size: 1.8rem;">⚡</span>
+                            <h4 style="font-size: 0.9rem;">Order Flow Viz</h4>
+                        </div>
+                        <div class="tech-card" style="min-height: 180px; padding: 1.5rem;">
+                            <span class="tech-icon" style="font-size: 1.8rem;">🔄</span>
+                            <h4 style="font-size: 0.9rem;">Algo Dashboards</h4>
+                        </div>
+                        <div class="tech-card" style="min-height: 180px; padding: 1.5rem;">
+                            <span class="tech-icon" style="font-size: 1.8rem;">📱</span>
+                            <h4 style="font-size: 0.9rem;">Web Terminals</h4>
+                        </div>
+                    </div>
+                </div>
+                <div class="topic-content">
+                    <h3><span class="topic-num">02 // PLATFORMS</span>Custom Trading Terminals</h3>
+                    <p>Stand out in a crowded market with bespoke trading interfaces. We design and develop proprietary web-based trading terminals, advanced charting platforms supporting 3D visualizations, and customized indicator suites built specifically for your user base.</p>
+                    <ul class="topic-features">
+                        <li>White-label charting and analytics dashboards</li>
+                        <li>Custom Pine Script, MT5 (MQL5), and Indie V5 development</li>
+                        <li>User-facing algorithmic strategy builders</li>
+                        <li>Cloud-hosted execution interfaces</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- CTA Section -->
+        <section class="cta-section container">
+            <div class="cta-box reveal">
+                <div class="section-label" style="justify-content:center;">
+                    <span style="width:30px;height:1px;background:var(--accent-cyan);box-shadow:0 0 8px var(--accent-cyan);"></span>
+                    <span>Partner With Us</span>
+                    <span style="width:30px;height:1px;background:var(--accent-cyan);box-shadow:0 0 8px var(--accent-cyan);"></span>
+                </div>
+                <h2>Upgrade Your Tech Stack</h2>
+                <p>Looking to build a custom API converter, launch a new trading terminal, or require ongoing technical support for your brokerage? Let's discuss your architecture.</p>
+                <div class="hero-buttons">
+                    <a href="/contact/" class="btn btn-primary">Schedule a Consultation <span style="font-size: 1.2rem;">→</span></a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand reveal">
+                    <div class="logo-text">QuantParticle</div>
+                    <p>Research-driven trading technology for professional market participants. Building the next generation of systematic trading infrastructure.</p>
+                </div>
+
+                <div class="footer-links reveal">
+                    <h4>Solutions</h4>
+                    <a href="/solutions/strategy-research/">Strategy Research</a>
+                    <a href="/solutions/execution-systems/">Execution Systems</a>
+                    <a href="/solutions/fintech-solutions/">Fintech Solutions</a>
+                    <a href="/solutions/prop-institutional/">Prop & Institutional</a>
+                </div>
+
+                <div class="footer-links reveal">
+                    <h4>Company</h4>
+                    <a href="/about/">About</a>
+                    <a href="/insights/">Insights</a>
+                    <a href="/contact/">Contact</a>
+                </div>
+
+                <div class="footer-links reveal">
+                    <h4>Legal</h4>
+                    <a href="/privacy/">Privacy Policy</a>
+                    <a href="/terms/">Terms of Service</a>
+                    <a href="/risk/">Risk Disclosure</a>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p>© 2026 QuantParticle. All rights reserved.</p>
+                <div class="footer-social">
+                    <a href="#" class="social-link" aria-label="X">𝕏</a>
+                    <a href="#" class="social-link" aria-label="LinkedIn">in</a>
+                    <a href="#" class="social-link" aria-label="GitHub">Git</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Paste your exact <script> block from the homepage here. 
+         (Truncated here for brevity, but use your full Javascript) -->
+    <script>
+        /* ... ALL YOUR EXISTING JS GOES HERE ... */
+        /* Note: Because some canvas IDs (like bt-canvas) aren't used on this page, 
+           the existing null checks in your script (e.g. `if (!btCanvas) return;`) 
+           will prevent any errors and keep the particle background running smoothly. */
+    </script>
+</body>
+</html>
