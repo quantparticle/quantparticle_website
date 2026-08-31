@@ -159,16 +159,13 @@
         section,
         .container,
         .nav-container,
-        .hero-grid,
-        .topic-row,
         .stats-bar,
-        .tech-grid,
+        .services-grid,
         .approach-grid,
         .footer-grid,
         .serve-tags,
         .mobile-menu,
-        .hero-content,
-        .hero-visual,
+        .topic-row,
         .topic-content,
         .topic-visual {
             width: 100%;
@@ -348,7 +345,8 @@
             color: var(--text-secondary);
         }
 
-        .dropdown-menu a:hover {
+        .dropdown-menu a:hover,
+        .dropdown-menu a.active-nav {
             color: var(--accent-cyan);
             background: rgba(0, 229, 255, 0.05);
         }
@@ -499,32 +497,17 @@
             position: relative;
         }
 
-        .hero {
-            min-height: 100vh;
+        .page-hero {
+            min-height: 72vh;
             display: flex;
             flex-direction: column;
             justify-content: center;
-            padding-top: 118px;
+            align-items: center;
+            text-align: center;
+            padding-top: 150px;
             padding-bottom: 70px;
             position: relative;
             overflow: hidden;
-        }
-
-        .hero-grid {
-            display: grid;
-            grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
-            gap: 4rem;
-            align-items: center;
-        }
-
-        .hero-content,
-        .hero-visual,
-        .topic-content,
-        .topic-visual,
-        .analytics-top > *,
-        .analytics-metrics > *,
-        .pipeline-stage > * {
-            min-width: 0;
         }
 
         .hero-badge {
@@ -560,20 +543,20 @@
             50% { opacity: 0.3; transform: scale(0.6); }
         }
 
-        .hero h1 {
-            font-size: clamp(2.8rem, 5vw, 4.8rem);
+        .page-hero h1 {
+            font-size: clamp(2.6rem, 5vw, 4.4rem);
             line-height: 1.05;
             margin-bottom: 1.5rem;
             font-weight: 800;
             letter-spacing: -2px;
         }
 
-        .hero h1 .line {
+        .page-hero h1 .line {
             display: block;
             overflow: hidden;
         }
 
-        .hero h1 .line span {
+        .page-hero h1 .line span {
             display: block;
             transform: translateY(100%);
             position: relative;
@@ -613,8 +596,8 @@
             );
         }
 
-        .hero h1 .line:nth-child(1) span { animation-delay: 0.4s, 1.7s; }
-        .hero h1 .line:nth-child(2) span { animation-delay: 0.7s, 1.9s; }
+        .page-hero h1 .line:nth-child(1) span { animation-delay: 0.4s, 1.7s; }
+        .page-hero h1 .line:nth-child(2) span { animation-delay: 0.7s, 1.9s; }
 
         @keyframes revealText {
             to { transform: translateY(0); }
@@ -625,18 +608,18 @@
             100% { background-position: -200% center; }
         }
 
-        .hero p {
+        .page-hero p {
             font-size: 1.15rem;
             color: var(--text-secondary);
-            max-width: 560px;
-            margin-bottom: 1.5rem;
+            max-width: 720px;
+            margin: 0 auto 1.5rem;
             line-height: 1.8;
             animation: fadeInUp 0.8s ease forwards;
             animation-delay: 1s;
             opacity: 0;
         }
 
-        .hero .hero-meta {
+        .page-hero .hero-meta {
             font-family: 'JetBrains Mono', monospace;
             font-size: 0.85rem;
             color: var(--text-secondary);
@@ -647,7 +630,7 @@
             max-width: 100%;
         }
 
-        .hero .hero-meta span {
+        .page-hero .hero-meta span {
             color: var(--accent-cyan);
         }
 
@@ -660,6 +643,7 @@
             display: flex;
             gap: 1rem;
             flex-wrap: wrap;
+            justify-content: center;
             animation: fadeInUp 0.8s ease forwards;
             animation-delay: 1.4s;
             opacity: 0;
@@ -722,171 +706,6 @@
             transform: translateY(-2px);
         }
 
-        .hero-visual {
-            position: relative;
-            height: 500px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            perspective: 1000px;
-            overflow: hidden;
-        }
-
-        .hft-terminal {
-            width: min(100%, 500px);
-            max-width: 100%;
-            background: var(--glass-bg);
-            backdrop-filter: blur(20px);
-            border: 1px solid var(--glass-border);
-            border-radius: 16px;
-            overflow: hidden;
-            box-shadow: 0 25px 80px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(0, 229, 255, 0.1);
-            animation: terminalFloat 8s ease-in-out infinite;
-            transform-style: preserve-3d;
-            margin: 0 auto;
-        }
-
-        @keyframes terminalFloat {
-            0%, 100% { transform: translateY(0) rotateX(5deg) rotateY(-5deg); }
-            50% { transform: translateY(-15px) rotateX(5deg) rotateY(-5deg); }
-        }
-
-        .terminal-header {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 1rem 1.5rem;
-            background: rgba(0, 0, 0, 0.3);
-            border-bottom: 1px solid var(--border-subtle);
-            gap: 0.6rem;
-        }
-
-        .terminal-dots {
-            display: flex;
-            gap: 8px;
-            flex: 0 0 auto;
-        }
-
-        .terminal-dot {
-            width: 10px;
-            height: 10px;
-            border-radius: 50%;
-        }
-
-        .terminal-dot:nth-child(1) { background: #ff5f56; }
-        .terminal-dot:nth-child(2) { background: #ffbd2e; }
-        .terminal-dot:nth-child(3) { background: #27ca40; }
-
-        .terminal-title {
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 0.75rem;
-            color: var(--text-secondary);
-            letter-spacing: 1px;
-            text-align: center;
-            flex: 1 1 auto;
-            min-width: 0;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            white-space: nowrap;
-        }
-
-        .terminal-body {
-            padding: 1.5rem;
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 0.8rem;
-            line-height: 1.8;
-            height: 350px;
-            overflow: hidden;
-            position: relative;
-        }
-
-        .order-row {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            gap: 0.45rem;
-            padding: 0.5rem 0;
-            border-bottom: 1px solid rgba(255,255,255,0.03);
-            animation: slideIn 0.4s ease forwards;
-            opacity: 0;
-            min-width: 0;
-        }
-
-        @keyframes slideIn {
-            from { opacity: 0; transform: translateX(30px); }
-            to { opacity: 1; transform: translateX(0); }
-        }
-
-        .order-symbol,
-        .order-side,
-        .order-qty,
-        .order-price,
-        .order-status {
-            min-width: 0;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            white-space: nowrap;
-        }
-
-        .order-symbol { color: var(--text-primary); min-width: 58px; }
-        .order-side { font-size: 0.7rem; padding: 2px 8px; border-radius: 4px; font-weight: 500; }
-        .order-side.buy { background: rgba(39, 202, 64, 0.15); color: #27ca40; }
-        .order-side.sell { background: rgba(255, 95, 86, 0.15); color: #ff5f56; }
-        .order-qty { color: var(--text-secondary); }
-        .order-price { color: var(--accent-cyan); min-width: 62px; text-align: right; }
-        .order-status { font-size: 0.7rem; color: var(--text-secondary); min-width: 42px; text-align: right; }
-        .order-status.fill { color: #27ca40; animation: flash 0.5s; }
-
-        @keyframes flash {
-            0% { color: #fff; text-shadow: 0 0 10px #27ca40; }
-            100% { color: #27ca40; }
-        }
-
-        .latency-monitor {
-            position: absolute;
-            bottom: 1rem;
-            left: 1.5rem;
-            right: 1.5rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            gap: 0.75rem;
-            padding-top: 0.75rem;
-            border-top: 1px solid var(--border-subtle);
-            flex-wrap: wrap;
-        }
-
-        .latency-label {
-            color: var(--text-secondary);
-            font-size: 0.75rem;
-        }
-
-        .latency-value {
-            color: var(--accent-cyan);
-            font-weight: 600;
-            animation: latencyPulse 1s infinite;
-        }
-
-        @keyframes latencyPulse {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.5; }
-        }
-
-        .throughput-bar {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            height: 2px;
-            background: linear-gradient(90deg, var(--accent-cyan), var(--accent-blue));
-            animation: throughput 2s linear infinite;
-        }
-
-        @keyframes throughput {
-            0% { width: 0; left: 0; }
-            50% { width: 100%; left: 0; }
-            100% { width: 0; left: 100%; }
-        }
-
         .section-label {
             font-family: 'JetBrains Mono', monospace;
             font-size: 0.8rem;
@@ -943,7 +762,6 @@
             padding: 2.5rem 0;
             border-top: 1px solid var(--border-subtle);
             border-bottom: 1px solid var(--border-subtle);
-            margin-bottom: 55px;
         }
 
         .stat-item {
@@ -981,16 +799,96 @@
             letter-spacing: 1px;
         }
 
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 1.5rem;
+            margin-top: 1.5rem;
+        }
+
+        .service-card {
+            background: var(--bg-surface);
+            border: 1px solid var(--border-subtle);
+            border-radius: 16px;
+            padding: 2.1rem 1.8rem;
+            transition: all 0.3s;
+            overflow: hidden;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .service-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--accent-cyan), transparent);
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .service-card:hover {
+            border-color: var(--border-glow);
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0, 229, 255, 0.06);
+        }
+
+        .service-card:hover::before {
+            opacity: 1;
+        }
+
+        .service-icon {
+            font-size: 2.2rem;
+            margin-bottom: 1.1rem;
+            display: block;
+        }
+
+        .service-card h4 {
+            font-size: 1.15rem;
+            margin-bottom: 0.75rem;
+            color: var(--text-primary);
+            word-break: break-word;
+        }
+
+        .service-card > p {
+            font-size: 0.95rem;
+            color: var(--text-secondary);
+            line-height: 1.7;
+            margin-bottom: 1.1rem;
+        }
+
+        .service-features {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 0.55rem;
+            margin-top: auto;
+        }
+
+        .service-features li {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: var(--text-secondary);
+            font-size: 0.88rem;
+            word-break: break-word;
+        }
+
+        .service-features li::before {
+            content: '→';
+            color: var(--accent-cyan);
+            font-weight: 700;
+            flex: 0 0 auto;
+        }
+
         .topic-row {
             display: grid;
             grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
             gap: 4rem;
             align-items: center;
-            margin-bottom: 90px;
-        }
-
-        .topic-row:last-child {
-            margin-bottom: 0;
         }
 
         .topic-row.reverse {
@@ -999,6 +897,12 @@
 
         .topic-row.reverse > * {
             direction: ltr;
+        }
+
+        .topic-content,
+        .topic-visual,
+        .pipeline-stage > * {
+            min-width: 0;
         }
 
         .topic-content h3 {
@@ -1056,274 +960,6 @@
             align-items: center;
             justify-content: center;
             overflow: hidden;
-        }
-
-        .code-viz,
-        .bt-viz,
-        .strategy-viz,
-        .automation-flow,
-        .analytics-dashboard,
-        .chart-viz,
-        .ob-viz {
-            width: 100%;
-            height: 100%;
-            max-width: 100%;
-            overflow: hidden;
-        }
-
-        .code-viz {
-            display: flex;
-            flex-direction: column;
-            background: var(--glass-bg);
-            backdrop-filter: blur(20px);
-            border: 1px solid var(--glass-border);
-            border-radius: 16px;
-            box-shadow: 0 25px 70px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(0, 229, 255, 0.08);
-        }
-
-        .code-body {
-            flex: 1 1 auto;
-            padding: 1.25rem 1.4rem;
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 0.76rem;
-            line-height: 1.7;
-            color: #a5f3fc;
-            white-space: pre-wrap;
-            word-break: break-word;
-            overflow: hidden;
-            min-height: 0;
-        }
-
-        .code-caret {
-            display: inline-block;
-            width: 8px;
-            height: 14px;
-            background: var(--accent-cyan);
-            vertical-align: middle;
-            margin-left: 2px;
-            box-shadow: 0 0 8px var(--accent-cyan);
-            animation: caretBlink 0.9s steps(1) infinite;
-        }
-
-        @keyframes caretBlink {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0; }
-        }
-
-        .code-langs {
-            display: flex;
-            gap: 0.5rem;
-            padding: 0.7rem 1rem;
-            border-top: 1px solid var(--border-subtle);
-            flex-wrap: wrap;
-            background: rgba(0, 0, 0, 0.25);
-        }
-
-        .code-lang {
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 0.64rem;
-            padding: 0.3rem 0.7rem;
-            border-radius: 100px;
-            border: 1px solid var(--border-subtle);
-            color: var(--text-secondary);
-            letter-spacing: 0.5px;
-            transition: all 0.3s;
-        }
-
-        .code-lang.active {
-            color: var(--accent-cyan);
-            border-color: var(--accent-cyan);
-            background: rgba(0, 229, 255, 0.08);
-            box-shadow: 0 0 12px rgba(0, 229, 255, 0.18);
-        }
-
-        .bt-viz {
-            position: relative;
-            display: flex;
-            flex-direction: column;
-            background: var(--glass-bg);
-            backdrop-filter: blur(20px);
-            border: 1px solid var(--glass-border);
-            border-radius: 16px;
-            padding: 1.25rem;
-            box-shadow: 0 25px 70px rgba(0, 0, 0, 0.4);
-        }
-
-        .bt-chart-wrap {
-            position: relative;
-            flex: 1 1 auto;
-            min-height: 0;
-            border-radius: 12px;
-            background: rgba(12, 18, 31, 0.55);
-            border: 1px solid rgba(255,255,255,0.05);
-            overflow: hidden;
-        }
-
-        #bt-canvas {
-            position: absolute;
-            inset: 0;
-            width: 100%;
-            height: 100%;
-        }
-
-        .bt-results {
-            display: grid;
-            grid-template-columns: repeat(4, minmax(0, 1fr));
-            gap: 0.6rem;
-            margin-top: 0.9rem;
-        }
-
-        .bt-metric {
-            background: rgba(20, 29, 46, 0.65);
-            border: 1px solid rgba(255,255,255,0.06);
-            border-radius: 10px;
-            padding: 0.55rem 0.4rem;
-            text-align: center;
-            min-width: 0;
-        }
-
-        .bt-metric .k {
-            display: block;
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 0.58rem;
-            color: var(--accent-cyan);
-            letter-spacing: 1px;
-            margin-bottom: 0.25rem;
-        }
-
-        .bt-metric .v {
-            font-size: 0.92rem;
-            font-weight: 700;
-            color: var(--text-primary);
-            font-family: 'JetBrains Mono', monospace;
-            word-break: break-word;
-        }
-
-        .bt-label {
-            margin-top: 0.7rem;
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 0.68rem;
-            color: var(--text-secondary);
-            text-align: center;
-            letter-spacing: 1px;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            white-space: nowrap;
-        }
-
-        .strategy-viz {
-            position: relative;
-            border-radius: 18px;
-            background:
-                radial-gradient(circle at top right, rgba(124, 58, 237, 0.16), transparent 35%),
-                radial-gradient(circle at bottom left, rgba(0, 229, 255, 0.14), transparent 40%),
-                linear-gradient(180deg, rgba(15, 21, 37, 0.95), rgba(10, 16, 28, 0.95));
-            border: 1px solid var(--glass-border);
-            box-shadow: 0 25px 70px rgba(0, 0, 0, 0.4);
-        }
-
-        .strategy-viz::before {
-            content: '';
-            position: absolute;
-            inset: 0;
-            background-image:
-                linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
-            background-size: 38px 38px;
-            opacity: 0.25;
-        }
-
-        .strategy-track {
-            position: absolute;
-            height: 2px;
-            border-radius: 10px;
-            background: linear-gradient(90deg, transparent, rgba(0, 229, 255, 0.45), transparent);
-            overflow: visible;
-        }
-
-        .track-1 { top: 22%; left: 8%; width: 68%; }
-        .track-2 { top: 38%; left: 18%; width: 62%; }
-        .track-3 { top: 56%; left: 10%; width: 75%; }
-        .track-4 { top: 74%; left: 22%; width: 55%; }
-
-        .strategy-pulse {
-            position: absolute;
-            top: 50%;
-            left: -12px;
-            width: 11px;
-            height: 11px;
-            border-radius: 50%;
-            transform: translateY(-50%);
-            background: var(--accent-cyan);
-            box-shadow: 0 0 18px rgba(0, 229, 255, 0.9);
-            animation: strategyRun 3.5s linear infinite;
-        }
-
-        .track-2 .strategy-pulse { animation-duration: 4.5s; animation-delay: 0.4s; }
-        .track-3 .strategy-pulse { animation-duration: 3.8s; animation-delay: 0.8s; }
-        .track-4 .strategy-pulse { animation-duration: 4.2s; animation-delay: 1.2s; }
-
-        @keyframes strategyRun {
-            0% { left: -12px; opacity: 0; }
-            8% { opacity: 1; }
-            100% { left: calc(100% + 12px); opacity: 1; }
-        }
-
-        .strat-card {
-            position: absolute;
-            padding: 0.75rem 1rem;
-            background: rgba(15, 21, 37, 0.7);
-            border: 1px solid rgba(0, 229, 255, 0.14);
-            border-radius: 12px;
-            backdrop-filter: blur(12px);
-            box-shadow: 0 10px 30px rgba(0,0,0,0.25);
-            animation: stratFloat 5s ease-in-out infinite;
-            max-width: 42%;
-        }
-
-        .strat-card .small {
-            display: block;
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 0.68rem;
-            color: var(--accent-cyan);
-            letter-spacing: 1px;
-            margin-bottom: 0.25rem;
-        }
-
-        .strat-card .big {
-            font-size: 1rem;
-            font-weight: 700;
-            color: var(--text-primary);
-            word-break: break-word;
-        }
-
-        .strat-card-1 { top: 10%; right: 8%; animation-delay: 0s; }
-        .strat-card-2 { bottom: 14%; left: 10%; animation-delay: 1.2s; }
-        .strat-card-3 { bottom: 24%; right: 12%; animation-delay: 2.4s; }
-
-        @keyframes stratFloat {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-10px); }
-        }
-
-        .strategy-beacon {
-            position: absolute;
-            width: 14px;
-            height: 14px;
-            border-radius: 50%;
-            background: rgba(0, 229, 255, 0.9);
-            box-shadow: 0 0 0 0 rgba(0, 229, 255, 0.4);
-            animation: beaconPulse 2.8s infinite;
-        }
-
-        .beacon-1 { top: 18%; left: 14%; }
-        .beacon-2 { top: 52%; left: 72%; animation-delay: 0.8s; }
-        .beacon-3 { top: 78%; left: 38%; animation-delay: 1.4s; }
-
-        @keyframes beaconPulse {
-            0% { box-shadow: 0 0 0 0 rgba(0, 229, 255, 0.45); transform: scale(1); }
-            70% { box-shadow: 0 0 0 20px rgba(0, 229, 255, 0); transform: scale(1.15); }
-            100% { box-shadow: 0 0 0 0 rgba(0, 229, 255, 0); transform: scale(1); }
         }
 
         .pipeline-viz {
@@ -1389,452 +1025,6 @@
         @keyframes arrowMove {
             0%, 100% { transform: translateX(0); opacity: 0.5; }
             50% { transform: translateX(5px); opacity: 1; }
-        }
-
-        .chart-viz {
-            position: relative;
-            background: var(--glass-bg);
-            border: 1px solid var(--glass-border);
-            border-radius: 16px;
-            padding: 1.5rem;
-        }
-
-        .chart-grid {
-            position: absolute;
-            top: 1.5rem;
-            left: 1.5rem;
-            right: 1.5rem;
-            bottom: 3rem;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-        }
-
-        .chart-grid-line {
-            width: 100%;
-            height: 1px;
-            background: rgba(255,255,255,0.05);
-        }
-
-        .chart-bars {
-            position: absolute;
-            bottom: 3rem;
-            left: 1.5rem;
-            right: 1.5rem;
-            height: calc(100% - 4.5rem);
-            display: flex;
-            align-items: flex-end;
-            justify-content: space-around;
-            gap: 4px;
-            min-width: 0;
-        }
-
-        .chart-bar {
-            flex: 1 1 0;
-            background: linear-gradient(to top, var(--accent-blue), var(--accent-cyan));
-            border-radius: 3px 3px 0 0;
-            opacity: 0.7;
-            animation: barGrow 2s ease-in-out infinite alternate;
-            min-height: 20px;
-        }
-
-        .chart-bar:nth-child(odd) {
-            background: linear-gradient(to top, var(--accent-purple), var(--accent-blue));
-            animation-delay: 0.3s;
-        }
-
-        @keyframes barGrow {
-            from { height: 20%; }
-            to { height: 90%; }
-        }
-
-        .chart-label {
-            position: absolute;
-            bottom: 1rem;
-            left: 1.5rem;
-            right: 1.5rem;
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 0.7rem;
-            color: var(--text-secondary);
-            overflow: hidden;
-            text-overflow: ellipsis;
-            white-space: nowrap;
-        }
-
-        .automation-flow {
-            position: relative;
-            border-radius: 18px;
-            background:
-                radial-gradient(circle at center, rgba(0, 229, 255, 0.08), transparent 45%),
-                linear-gradient(180deg, rgba(15, 21, 37, 0.96), rgba(10, 15, 26, 0.96));
-            border: 1px solid var(--glass-border);
-        }
-
-        .automation-flow::before {
-            content: '';
-            position: absolute;
-            inset: 0;
-            background-image:
-                linear-gradient(rgba(255,255,255,0.025) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(255,255,255,0.025) 1px, transparent 1px);
-            background-size: 36px 36px;
-            opacity: 0.22;
-        }
-
-        .auto-box {
-            position: absolute;
-            min-width: 120px;
-            max-width: 34%;
-            padding: 0.9rem 1rem;
-            background: rgba(20, 29, 46, 0.75);
-            border: 1px solid rgba(0, 229, 255, 0.14);
-            border-radius: 12px;
-            text-align: center;
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 0.78rem;
-            color: var(--text-primary);
-            backdrop-filter: blur(12px);
-            box-shadow: 0 12px 28px rgba(0,0,0,0.2);
-        }
-
-        .auto-box small {
-            display: block;
-            color: var(--accent-cyan);
-            font-size: 0.65rem;
-            letter-spacing: 1px;
-            margin-bottom: 0.3rem;
-        }
-
-        .auto-box-1 { top: 18%; left: 12%; }
-        .auto-box-2 { top: 18%; right: 12%; }
-        .auto-box-3 { bottom: 18%; left: 12%; }
-        .auto-box-4 { bottom: 18%; right: 12%; }
-
-        .auto-link {
-            position: absolute;
-            background: linear-gradient(90deg, rgba(0,229,255,0.15), rgba(0,229,255,0.5), rgba(0,229,255,0.15));
-            border-radius: 10px;
-        }
-
-        .link-top { top: 31%; left: 33%; width: 34%; height: 2px; }
-        .link-left { top: 31%; left: 25%; width: 2px; height: 38%; background: linear-gradient(180deg, rgba(0,229,255,0.15), rgba(0,229,255,0.5), rgba(0,229,255,0.15)); }
-        .link-right { top: 31%; right: 25%; width: 2px; height: 38%; background: linear-gradient(180deg, rgba(0,229,255,0.15), rgba(0,229,255,0.5), rgba(0,229,255,0.15)); }
-        .link-bottom { bottom: 31%; left: 33%; width: 34%; height: 2px; }
-
-        .auto-packet {
-            position: absolute;
-            width: 10px;
-            height: 10px;
-            border-radius: 50%;
-            background: var(--accent-cyan);
-            box-shadow: 0 0 16px rgba(0,229,255,0.85);
-        }
-
-        .packet-1 { top: calc(31% - 4px); left: 33%; animation: moveTop 3.2s linear infinite; }
-        .packet-2 { top: 31%; left: calc(25% - 4px); animation: moveLeft 3.6s linear infinite 0.5s; }
-        .packet-3 { top: 31%; right: calc(25% - 4px); animation: moveRight 3.6s linear infinite 1s; }
-        .packet-4 { bottom: calc(31% - 4px); left: 67%; animation: moveBottom 3.2s linear infinite 1.4s; }
-
-        @keyframes moveTop {
-            0% { left: 33%; opacity: 0; }
-            10% { opacity: 1; }
-            100% { left: 67%; opacity: 1; }
-        }
-
-        @keyframes moveLeft {
-            0% { top: 31%; opacity: 0; }
-            10% { opacity: 1; }
-            100% { top: 69%; opacity: 1; }
-        }
-
-        @keyframes moveRight {
-            0% { top: 31%; opacity: 0; }
-            10% { opacity: 1; }
-            100% { top: 69%; opacity: 1; }
-        }
-
-        @keyframes moveBottom {
-            0% { left: 67%; opacity: 0; }
-            10% { opacity: 1; }
-            100% { left: 33%; opacity: 1; }
-        }
-
-        .auto-core {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            width: 78px;
-            height: 78px;
-            transform: translate(-50%, -50%);
-            border-radius: 50%;
-            background: radial-gradient(circle, rgba(0,229,255,0.45), rgba(79,70,229,0.25) 55%, transparent 56%);
-            border: 1px solid rgba(0,229,255,0.2);
-            box-shadow: 0 0 35px rgba(0,229,255,0.16);
-            animation: corePulse 2.6s ease-in-out infinite;
-        }
-
-        .auto-core::before {
-            content: 'AUTO';
-            position: absolute;
-            inset: 0;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 0.85rem;
-            color: var(--text-primary);
-            letter-spacing: 1px;
-        }
-
-        @keyframes corePulse {
-            0%, 100% { transform: translate(-50%, -50%) scale(1); }
-            50% { transform: translate(-50%, -50%) scale(1.08); }
-        }
-
-        .ob-viz {
-            background: var(--glass-bg);
-            border: 1px solid var(--glass-border);
-            border-radius: 16px;
-            padding: 1.5rem;
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 0.75rem;
-            display: flex;
-            flex-direction: column;
-            gap: 0.5rem;
-        }
-
-        .ob-header {
-            display: flex;
-            justify-content: space-between;
-            color: var(--text-secondary);
-            font-size: 0.7rem;
-            margin-bottom: 0.5rem;
-            border-bottom: 1px solid var(--border-subtle);
-            padding-bottom: 0.5rem;
-            gap: 0.5rem;
-            flex-wrap: wrap;
-        }
-
-        .ob-row {
-            display: flex;
-            justify-content: space-between;
-            gap: 0.5rem;
-            padding: 0.25rem 0;
-            min-width: 0;
-            animation: obFlash 0.35s ease;
-        }
-
-        @keyframes obFlash {
-            0% { opacity: 0; transform: translateY(8px); }
-            100% { opacity: 1; transform: translateY(0); }
-        }
-
-        .ob-price,
-        .ob-size,
-        .ob-total {
-            min-width: 0;
-            white-space: nowrap;
-        }
-
-        .ob-price { min-width: 60px; }
-        .ob-size { min-width: 60px; text-align: center; }
-        .ob-total { min-width: 60px; text-align: right; }
-
-        .ob-bid .ob-price { color: #27ca40; }
-        .ob-bid .ob-size { color: rgba(39, 202, 64, 0.6); }
-        .ob-ask .ob-price { color: #ff5f56; }
-        .ob-ask .ob-size { color: rgba(255, 95, 86, 0.6); }
-
-        .ob-spread {
-            text-align: center;
-            padding: 0.5rem;
-            color: var(--accent-cyan);
-            font-size: 0.8rem;
-            border-top: 1px solid var(--border-subtle);
-            border-bottom: 1px solid var(--border-subtle);
-            margin: 0.25rem 0;
-        }
-
-        .analytics-dashboard {
-            position: relative;
-            border-radius: 18px;
-            background:
-                radial-gradient(circle at top left, rgba(79,70,229,0.18), transparent 35%),
-                radial-gradient(circle at bottom right, rgba(0,229,255,0.14), transparent 40%),
-                linear-gradient(180deg, rgba(15, 21, 37, 0.96), rgba(11, 16, 28, 0.96));
-            border: 1px solid var(--glass-border);
-            padding: 1.25rem;
-        }
-
-        .analytics-top {
-            display: grid;
-            grid-template-columns: 140px minmax(0, 1fr);
-            gap: 1rem;
-            align-items: center;
-            margin-bottom: 1rem;
-        }
-
-        .analytics-donut {
-            width: 130px;
-            height: 130px;
-            border-radius: 50%;
-            background:
-                conic-gradient(var(--accent-cyan) 0 120deg, var(--accent-blue) 120deg 220deg, var(--accent-purple) 220deg 290deg, rgba(255,255,255,0.08) 290deg 360deg);
-            position: relative;
-            margin: 0 auto;
-            animation: donutSpin 8s linear infinite;
-            box-shadow: 0 0 30px rgba(0,229,255,0.12);
-            flex: 0 0 auto;
-        }
-
-        .analytics-donut::before {
-            content: '';
-            position: absolute;
-            inset: 20px;
-            border-radius: 50%;
-            background: var(--bg-surface);
-            box-shadow: inset 0 0 20px rgba(0,0,0,0.35);
-        }
-
-        .analytics-donut::after {
-            content: 'Alpha';
-            position: absolute;
-            inset: 0;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 0.85rem;
-            color: var(--text-primary);
-            letter-spacing: 1px;
-        }
-
-        @keyframes donutSpin {
-            from { transform: rotate(0deg); }
-            to { transform: rotate(360deg); }
-        }
-
-        .analytics-metrics {
-            display: grid;
-            grid-template-columns: repeat(2, minmax(0, 1fr));
-            gap: 0.75rem;
-        }
-
-        .analytics-metric {
-            padding: 0.8rem;
-            border-radius: 12px;
-            background: rgba(20, 29, 46, 0.65);
-            border: 1px solid rgba(255,255,255,0.06);
-            min-width: 0;
-        }
-
-        .analytics-metric .k {
-            display: block;
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 0.68rem;
-            color: var(--accent-cyan);
-            margin-bottom: 0.35rem;
-            letter-spacing: 1px;
-        }
-
-        .analytics-metric .v {
-            font-size: 1rem;
-            font-weight: 700;
-            color: var(--text-primary);
-            word-break: break-word;
-        }
-
-        .analytics-wave {
-            position: relative;
-            height: 90px;
-            border-radius: 12px;
-            background: rgba(12, 18, 31, 0.55);
-            border: 1px solid rgba(255,255,255,0.05);
-            overflow: hidden;
-            margin-bottom: 1rem;
-        }
-
-        .analytics-wave::before,
-        .analytics-wave::after {
-            content: '';
-            position: absolute;
-            left: -10%;
-            width: 120%;
-            height: 2px;
-            border-radius: 10px;
-        }
-
-        .analytics-wave::before {
-            top: 38%;
-            background: linear-gradient(90deg, transparent, var(--accent-cyan), transparent);
-            animation: waveMove 3.6s linear infinite;
-        }
-
-        .analytics-wave::after {
-            top: 62%;
-            background: linear-gradient(90deg, transparent, var(--accent-purple), transparent);
-            animation: waveMove 4.4s linear infinite reverse;
-        }
-
-        @keyframes waveMove {
-            0% { transform: translateX(-8%); }
-            100% { transform: translateX(8%); }
-        }
-
-        .tech-grid {
-            display: grid;
-            grid-template-columns: repeat(4, minmax(0, 1fr));
-            gap: 1.5rem;
-            margin-top: 1.5rem;
-        }
-
-        .tech-card {
-            background: var(--bg-surface);
-            border: 1px solid var(--border-subtle);
-            border-radius: 16px;
-            padding: 2.1rem 1.6rem;
-            text-align: center;
-            transition: all 0.3s;
-            min-height: 250px;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            overflow: hidden;
-        }
-
-        .tech-card:hover {
-            border-color: var(--border-glow);
-            transform: translateY(-5px);
-            box-shadow: 0 15px 40px rgba(0, 229, 255, 0.05);
-        }
-
-        .tech-icon {
-            font-size: 2.5rem;
-            margin-bottom: 1rem;
-            display: block;
-        }
-
-        .tech-card h4 {
-            font-size: 1rem;
-            margin-bottom: 0.75rem;
-            color: var(--text-primary);
-            word-break: break-word;
-        }
-
-        .tech-card p {
-            font-size: 0.95rem;
-            color: var(--text-secondary);
-            line-height: 1.7;
-        }
-
-        #technology-preview {
-            padding-top: 95px;
-            padding-bottom: 70px;
-        }
-
-        #methodology-preview {
-            padding-top: 60px;
-            padding-bottom: 60px;
         }
 
         .approach-grid {
@@ -1918,7 +1108,6 @@
             flex-wrap: wrap;
             justify-content: center;
             gap: 1rem;
-            margin-bottom: 3rem;
         }
 
         .serve-tag {
@@ -1939,19 +1128,6 @@
             background: rgba(0, 229, 255, 0.05);
             transform: translateY(-2px);
             box-shadow: 0 0 20px rgba(0, 229, 255, 0.1);
-        }
-
-        .mission-text {
-            max-width: 800px;
-            margin: 0 auto;
-            font-size: 1.12rem;
-            color: var(--text-secondary);
-            line-height: 1.9;
-        }
-
-        .mission-text strong {
-            color: var(--text-primary);
-            font-weight: 600;
         }
 
         .cta-section {
@@ -2119,7 +1295,7 @@
         }
 
         @media (max-width: 1100px) {
-            .tech-grid {
+            .services-grid {
                 grid-template-columns: repeat(2, minmax(0, 1fr));
             }
 
@@ -2146,7 +1322,6 @@
                 display: block;
             }
 
-            .hero-grid,
             .topic-row {
                 grid-template-columns: 1fr;
                 gap: 2.5rem;
@@ -2156,28 +1331,9 @@
                 direction: ltr;
             }
 
-            .hero {
+            .page-hero {
                 min-height: auto;
                 padding-bottom: 55px;
-            }
-
-            .hero-content {
-                order: 1;
-            }
-
-            .hero-visual {
-                order: 2;
-                display: flex !important;
-                height: 360px;
-                margin-top: 1rem;
-            }
-
-            .hft-terminal {
-                max-width: 100%;
-            }
-
-            .terminal-body {
-                height: 270px;
             }
 
             .stats-bar {
@@ -2190,16 +1346,6 @@
 
             .topic-visual {
                 height: 310px;
-            }
-
-            #technology-preview {
-                padding-top: 80px;
-                padding-bottom: 55px;
-            }
-
-            #methodology-preview {
-                padding-top: 45px;
-                padding-bottom: 50px;
             }
 
             .serve-section {
@@ -2263,57 +1409,31 @@
                 flex: 0 0 46px;
             }
 
-            .hero {
-                padding-top: 108px;
+            .page-hero {
+                padding-top: 120px;
                 padding-bottom: 45px;
             }
 
-            .hero h1 {
-                font-size: clamp(2.2rem, 10vw, 3.2rem);
+            .page-hero h1 {
+                font-size: clamp(2.1rem, 9vw, 3rem);
                 letter-spacing: -1.4px;
             }
 
-            .hero p {
+            .page-hero p {
                 font-size: 1rem;
             }
 
             .hero-buttons {
                 flex-direction: column;
+                width: 100%;
             }
 
             .btn {
                 width: 100%;
             }
 
-            .hero-visual {
-                height: 300px;
-                margin-top: 0.75rem;
-            }
-
-            .hft-terminal {
-                border-radius: 14px;
-            }
-
-            .terminal-header {
-                padding: 0.85rem 1rem;
-            }
-
-            .terminal-body {
-                padding: 1rem;
-                height: 210px;
-                font-size: 0.68rem;
-            }
-
-            .latency-monitor {
-                left: 1rem;
-                right: 1rem;
-                bottom: 0.8rem;
-                gap: 0.4rem;
-                justify-content: space-between;
-            }
-
             .stats-bar,
-            .tech-grid,
+            .services-grid,
             .footer-grid {
                 grid-template-columns: 1fr;
             }
@@ -2324,72 +1444,14 @@
 
             .topic-row {
                 gap: 2.25rem;
-                margin-bottom: 70px;
             }
 
             .topic-visual {
                 height: 260px;
             }
 
-            .code-body {
-                padding: 0.9rem 1rem;
-                font-size: 0.62rem;
-            }
-
-            .code-langs {
-                gap: 0.35rem;
-                padding: 0.55rem 0.75rem;
-            }
-
-            .code-lang {
-                font-size: 0.54rem;
-                padding: 0.22rem 0.5rem;
-            }
-
-            .bt-viz {
-                padding: 0.9rem;
-            }
-
-            .bt-results {
-                grid-template-columns: repeat(2, minmax(0, 1fr));
-            }
-
-            .bt-label {
-                font-size: 0.6rem;
-            }
-
-            .strat-card {
-                max-width: 46%;
-                padding: 0.55rem 0.7rem;
-            }
-
-            .strat-card .small {
-                font-size: 0.56rem;
-            }
-
-            .strat-card .big {
-                font-size: 0.76rem;
-            }
-
-            .auto-box {
-                min-width: 92px;
-                max-width: 38%;
-                padding: 0.55rem 0.55rem;
-                font-size: 0.62rem;
-            }
-
-            .auto-box small {
-                font-size: 0.5rem;
-                margin-bottom: 0.18rem;
-            }
-
-            .auto-core {
-                width: 62px;
-                height: 62px;
-            }
-
-            .auto-core::before {
-                font-size: 0.7rem;
+            .service-card {
+                padding: 1.7rem 1.3rem;
             }
 
             .pipeline-stage {
@@ -2405,59 +1467,12 @@
                 font-size: 0.9rem;
             }
 
-            .analytics-top {
-                grid-template-columns: 1fr;
-            }
-
-            .analytics-donut {
-                width: 100px;
-                height: 100px;
-            }
-
-            .analytics-donut::before {
-                inset: 16px;
-            }
-
-            .analytics-metrics {
-                grid-template-columns: repeat(2, minmax(0, 1fr));
-            }
-
-            .ob-viz,
-            .chart-viz,
-            .analytics-dashboard {
-                padding: 1rem;
-            }
-
-            .chart-grid,
-            .chart-bars {
-                left: 1rem;
-                right: 1rem;
-            }
-
-            .chart-grid {
-                top: 1rem;
-                bottom: 2.6rem;
-            }
-
-            .chart-bars {
-                bottom: 2.6rem;
-                height: calc(100% - 3.8rem);
-            }
-
-            .chart-label {
-                left: 1rem;
-                right: 1rem;
-                bottom: 0.8rem;
-                font-size: 0.62rem;
-            }
-
             .approach-item {
                 padding: 1.8rem 1.3rem;
             }
 
             .serve-tags {
                 gap: 0.75rem;
-                margin-bottom: 2.25rem;
             }
 
             .serve-tag {
@@ -2474,16 +1489,6 @@
                 text-align: center;
             }
 
-            #technology-preview {
-                padding-top: 65px;
-                padding-bottom: 42px;
-            }
-
-            #methodology-preview {
-                padding-top: 32px;
-                padding-bottom: 40px;
-            }
-
             .serve-section {
                 padding-top: 38px;
                 padding-bottom: 65px;
@@ -2491,481 +1496,3 @@
         }
     </style>
 </head>
-<body>
-    <div class="cursor-glow"></div>
-    <div class="cursor-trail"></div>
-    <div class="noise-overlay"></div>
-    <div class="scroll-progress"></div>
-    <div class="glow-orb glow-orb-1"></div>
-    <div class="glow-orb glow-orb-2"></div>
-
-    <canvas id="particle-canvas"></canvas>
-
-    <header>
-        <div class="nav-container">
-            <a href="/" class="logo" aria-label="QuantParticle Home">
-                <img src="/quant_particle_logo.png" alt="QuantParticle Logo" />
-            </a>
-
-            <nav>
-                <ul>
-                    <li><a href="/">Home</a></li>
-                    <li><a href="/about/">About</a></li>
-                    <li class="dropdown">
-                        <span class="nav-label" style="color: var(--accent-cyan);">Solutions</span>
-                        <ul class="dropdown-menu">
-                            <li><a href="/solutions/strategy-research/">Strategy Research</a></li>
-                            <li><a href="/solutions/execution-systems/">Execution Systems</a></li>
-                            <li><a href="/solutions/fintech-solutions/" class="active-nav" style="color: var(--accent-cyan);">Fintech Solutions</a></li>
-                            <li><a href="/solutions/prop-institutional/">Prop & Institutional</a></li>
-                        </ul>
-                    </li>
-                    <li><a href="/insights/">Insights</a></li>
-                    <li><a href="/contact/">Contact</a></li>
-                </ul>
-            </nav>
-
-            <button class="menu-toggle" id="menuToggle" aria-label="Open Menu" type="button">
-                <span></span>
-                <span></span>
-                <span></span>
-            </button>
-        </div>
-
-        <div class="mobile-menu" id="mobileMenu">
-            <a href="/">Home</a>
-            <a href="/about/">About</a>
-
-            <div class="mobile-menu-group">
-                <div class="mobile-menu-group-title">Solutions</div>
-                <a href="/solutions/strategy-research/" class="mobile-sub-link">Strategy Research</a>
-                <a href="/solutions/execution-systems/" class="mobile-sub-link">Execution Systems</a>
-                <a href="/solutions/fintech-solutions/" class="mobile-sub-link active-nav">Fintech Solutions</a>
-                <a href="/solutions/prop-institutional/" class="mobile-sub-link">Prop & Institutional</a>
-            </div>
-
-            <a href="/insights/">Insights</a>
-            <a href="/contact/">Contact</a>
-        </div>
-    </header>
-
-    <main>
-        <!-- Subpage Hero Section -->
-        <section class="hero container" style="min-height: 60vh; padding-bottom: 20px;">
-            <div class="hero-content" style="max-width: 800px; margin: 0 auto; text-align: center;">
-                <div class="hero-badge" style="margin: 0 auto 2rem;">
-                    <span class="pulse"></span>
-                    <span>B2B Infrastructure</span>
-                </div>
-
-                <h1 style="font-size: clamp(2.5rem, 4vw, 4rem);">
-                    <div class="line"><span class="hero-shine primary-text">Enterprise-Grade</span></div>
-                    <div class="line"><span class="hero-shine accent-text">Fintech Solutions.</span></div>
-                </h1>
-
-                <p style="margin: 0 auto 1.5rem; max-width: 650px;">
-                    <strong style="color: var(--text-primary);">Powering the Next Generation of Finance.</strong>
-                    We engineer robust custom solutions, web applications, and automated systems tailored for financial technology companies and brokerages.
-                </p>
-            </div>
-        </section>
-
-        <!-- Main Content Section -->
-        <section class="container">
-            <!-- Topic 1 -->
-            <div class="topic-row reveal">
-                <div class="topic-content">
-                    <h3><span class="topic-num">01 // AUTOMATION</span>Custom Solution & Process Automation</h3>
-                    <p>We analyze your unique operational bottlenecks and engineer a bespoke <strong>custom solution</strong> from the ground up. By implementing advanced <strong>process automation</strong>, we eliminate manual workflows, reduce operational risk, and scale your trade routing, reporting, and backend processing securely.</p>
-                    <ul class="topic-features">
-                        <li>Bespoke custom solution architecture</li>
-                        <li>End-to-end process automation</li>
-                        <li>Automated workflow pipelines</li>
-                    </ul>
-                </div>
-                <div class="topic-visual">
-                    <div class="pipeline-viz">
-                        <div class="pipeline-stage">
-                            <div class="pipeline-box active">Manual Process<div class="fill-bar"></div></div>
-                            <span class="pipeline-arrow">→</span>
-                            <div class="pipeline-box">Custom Solution<div class="fill-bar" style="animation-delay: 0.5s;"></div></div>
-                        </div>
-                        <div class="pipeline-stage" style="justify-content: center;">
-                            <span class="pipeline-arrow" style="transform: rotate(90deg); animation: none; font-size: 1.5rem; margin: -0.5rem 0;">↓</span>
-                        </div>
-                        <div class="pipeline-stage">
-                            <div class="pipeline-box active" style="flex: 0 0 60%; margin: 0 auto; text-align: center;">Process Automation Achieved<div class="fill-bar" style="animation-delay: 0.3s;"></div></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Topic 2 -->
-            <div class="topic-row reverse reveal">
-                <div class="topic-visual">
-                    <div class="tech-grid" style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-top: 0;">
-                        <div class="tech-card" style="min-height: 180px; padding: 1.5rem;">
-                            <span class="tech-icon" style="font-size: 1.8rem;">📱</span>
-                            <h4 style="font-size: 0.9rem;">App Dev</h4>
-                        </div>
-                        <div class="tech-card" style="min-height: 180px; padding: 1.5rem;">
-                            <span class="tech-icon" style="font-size: 1.8rem;">🌐</span>
-                            <h4 style="font-size: 0.9rem;">Website Dev</h4>
-                        </div>
-                        <div class="tech-card" style="min-height: 180px; padding: 1.5rem;">
-                            <span class="tech-icon" style="font-size: 1.8rem;">💻</span>
-                            <h4 style="font-size: 0.9rem;">WebApp Dev</h4>
-                        </div>
-                        <div class="tech-card" style="min-height: 180px; padding: 1.5rem;">
-                            <span class="tech-icon" style="font-size: 1.8rem;">⚙️</span>
-                            <h4 style="font-size: 0.9rem;">Full Stack</h4>
-                        </div>
-                    </div>
-                </div>
-                <div class="topic-content">
-                    <h3><span class="topic-num">02 // PLATFORMS</span>Digital Platforms & Applications</h3>
-                    <p>Stand out in a highly competitive market with high-performance digital interfaces. Our software engineers specialize in robust <strong>application development</strong>, corporate <strong>website development</strong>, and dynamic <strong>webapp development</strong> built explicitly to handle the rigorous demands of financial users.</p>
-                    <ul class="topic-features">
-                        <li>High-performance application development</li>
-                        <li>Corporate and client-facing website development</li>
-                        <li>Interactive trading webapp development</li>
-                    </ul>
-                </div>
-            </div>
-
-            <!-- Topic 3 -->
-            <div class="topic-row reveal">
-                <div class="topic-content">
-                    <h3><span class="topic-num">03 // INFRASTRUCTURE</span>Data Feeds & Broker Support</h3>
-                    <p>Financial markets move in microseconds. We integrate low-latency, <strong>Realtime data</strong> streaming into your platforms to ensure accurate pricing and execution. Additionally, we provide comprehensive, <strong>Ongoing tech support for brokers & financial firms</strong>, keeping your critical infrastructure online and strictly compliant 24/7.</p>
-                    <ul class="topic-features">
-                        <li>Sub-millisecond Realtime data streaming</li>
-                        <li>Ongoing tech support for brokers & financial firms</li>
-                        <li>24/7 system monitoring and failover</li>
-                    </ul>
-                </div>
-                <div class="topic-visual">
-                    <div class="hft-terminal">
-                        <div class="terminal-header">
-                            <div class="terminal-dots">
-                                <span class="terminal-dot"></span>
-                                <span class="terminal-dot"></span>
-                                <span class="terminal-dot"></span>
-                            </div>
-                            <span class="terminal-title">DATA_STREAM // REALTIME</span>
-                            <div style="width: 40px; flex: 0 0 auto;"></div>
-                        </div>
-                        <div class="terminal-body" id="terminal-body"></div>
-                        <div class="latency-monitor">
-                            <span class="latency-label">AVG LATENCY</span>
-                            <span class="latency-value" id="latency">8.4µs</span>
-                            <span class="latency-label">UPTIME</span>
-                            <span class="latency-value">99.99%</span>
-                        </div>
-                        <div class="throughput-bar"></div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- CTA Section -->
-        <section class="cta-section container">
-            <div class="cta-box reveal">
-                <div class="section-label" style="justify-content:center;">
-                    <span style="width:30px;height:1px;background:var(--accent-cyan);box-shadow:0 0 8px var(--accent-cyan);"></span>
-                    <span>Partner With Us</span>
-                    <span style="width:30px;height:1px;background:var(--accent-cyan);box-shadow:0 0 8px var(--accent-cyan);"></span>
-                </div>
-                <h2>Upgrade Your Tech Stack</h2>
-                <p>Looking for a custom solution, new web application, or require ongoing technical support for your brokerage? Let's discuss your architecture.</p>
-                <div class="hero-buttons">
-                    <a href="/contact/" class="btn btn-primary">Schedule a Consultation <span style="font-size: 1.2rem;">→</span></a>
-                </div>
-            </div>
-        </section>
-    </main>
-
-    <footer>
-        <div class="container">
-            <div class="footer-grid">
-                <div class="footer-brand reveal">
-                    <div class="logo-text">QuantParticle</div>
-                    <p>Research-driven trading technology for professional market participants. Building the next generation of systematic trading infrastructure.</p>
-                </div>
-
-                <div class="footer-links reveal">
-                    <h4>Solutions</h4>
-                    <a href="/solutions/strategy-research/">Strategy Research</a>
-                    <a href="/solutions/execution-systems/">Execution Systems</a>
-                    <a href="/solutions/fintech-solutions/">Fintech Solutions</a>
-                    <a href="/solutions/prop-institutional/">Prop & Institutional</a>
-                </div>
-
-                <div class="footer-links reveal">
-                    <h4>Company</h4>
-                    <a href="/about/">About</a>
-                    <a href="/insights/">Insights</a>
-                    <a href="/contact/">Contact</a>
-                </div>
-
-                <div class="footer-links reveal">
-                    <h4>Legal</h4>
-                    <a href="/privacy/">Privacy Policy</a>
-                    <a href="/terms/">Terms of Service</a>
-                    <a href="/risk/">Risk Disclosure</a>
-                </div>
-            </div>
-
-            <div class="footer-bottom">
-                <p>© 2026 QuantParticle. All rights reserved.</p>
-                <div class="footer-social">
-                    <a href="#" class="social-link" aria-label="X">𝕏</a>
-                    <a href="#" class="social-link" aria-label="LinkedIn">in</a>
-                    <a href="#" class="social-link" aria-label="GitHub">Git</a>
-                </div>
-            </div>
-        </div>
-    </footer>
-
-    <script>
-        const cursor = document.querySelector('.cursor-glow');
-        const trail = document.querySelector('.cursor-trail');
-        let mouseX = 0, mouseY = 0;
-        let cursorX = 0, cursorY = 0;
-        let trailX = 0, trailY = 0;
-
-        document.addEventListener('mousemove', (e) => {
-            mouseX = e.clientX;
-            mouseY = e.clientY;
-        });
-
-        function animateCursor() {
-            if (cursor && trail && window.innerWidth > 968) {
-                cursorX += (mouseX - cursorX) * 0.15;
-                cursorY += (mouseY - cursorY) * 0.15;
-                trailX += (mouseX - trailX) * 0.08;
-                trailY += (mouseY - trailY) * 0.08;
-                cursor.style.left = cursorX + 'px';
-                cursor.style.top = cursorY + 'px';
-                trail.style.left = trailX + 'px';
-                trail.style.top = trailY + 'px';
-            }
-            requestAnimationFrame(animateCursor);
-        }
-        animateCursor();
-
-        const interactiveElements = document.querySelectorAll('a, button, .tech-card, .serve-tag');
-        interactiveElements.forEach(el => {
-            el.addEventListener('mouseenter', () => {
-                if (cursor) cursor.classList.add('hover');
-            });
-            el.addEventListener('mouseleave', () => {
-                if (cursor) cursor.classList.remove('hover');
-            });
-        });
-
-        const scrollProgress = document.querySelector('.scroll-progress');
-        window.addEventListener('scroll', () => {
-            const scrolled = window.scrollY;
-            const max = document.documentElement.scrollHeight - window.innerHeight;
-            if(scrollProgress) scrollProgress.style.width = max > 0 ? (scrolled / max) * 100 + '%' : '0%';
-        });
-
-        const header = document.querySelector('header');
-        window.addEventListener('scroll', () => {
-            if (header) {
-                if (window.scrollY > 50) {
-                    header.classList.add('scrolled');
-                } else {
-                    header.classList.remove('scrolled');
-                }
-            }
-        });
-
-        const observerOptions = { threshold: 0.1, rootMargin: '0px 0px -50px 0px' };
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('active');
-                }
-            });
-        }, observerOptions);
-
-        document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
-
-        const menuToggle = document.getElementById('menuToggle');
-        const mobileMenu = document.getElementById('mobileMenu');
-
-        if (menuToggle && mobileMenu) {
-            menuToggle.addEventListener('click', () => {
-                menuToggle.classList.toggle('active');
-                mobileMenu.classList.toggle('active');
-                document.body.style.overflow = mobileMenu.classList.contains('active') ? 'hidden' : '';
-            });
-
-            document.querySelectorAll('.mobile-menu a').forEach(link => {
-                link.addEventListener('click', () => {
-                    menuToggle.classList.remove('active');
-                    mobileMenu.classList.remove('active');
-                    document.body.style.overflow = '';
-                });
-            });
-
-            window.addEventListener('resize', () => {
-                if (window.innerWidth > 968) {
-                    menuToggle.classList.remove('active');
-                    mobileMenu.classList.remove('active');
-                    document.body.style.overflow = '';
-                }
-            });
-        }
-
-        const symbols = ['BTC-PERP', 'ETH-PERP', 'SOL-PERP', 'AVAX-PERP', 'AAPL', 'TSLA', 'ES1!', 'NQ1!'];
-        const terminalBody = document.getElementById('terminal-body');
-        const latencyEl = document.getElementById('latency');
-
-        function createOrderRow() {
-            const symbol = symbols[Math.floor(Math.random() * symbols.length)];
-            const side = Math.random() > 0.5 ? 'buy' : 'sell';
-            const qty = Math.floor(Math.random() * 500 + 10);
-            const price = (Math.random() * 1000 + 100).toFixed(2);
-            const statuses = ['PEND', 'OPEN', 'FILL', 'PART'];
-            const status = Math.random() > 0.7 ? 'FILL' : statuses[Math.floor(Math.random() * 3)];
-
-            const row = document.createElement('div');
-            row.className = 'order-row';
-            row.innerHTML = `
-                <span class="order-symbol">${symbol}</span>
-                <span class="order-side ${side}">${side.toUpperCase()}</span>
-                <span class="order-qty">${qty}</span>
-                <span class="order-price">${price}</span>
-                <span class="order-status ${status === 'FILL' ? 'fill' : ''}">${status}</span>
-            `;
-            return row;
-        }
-
-        function updateTerminal() {
-            if (!terminalBody) return;
-
-            const row = createOrderRow();
-            terminalBody.prepend(row);
-
-            if (terminalBody.children.length > 8) {
-                terminalBody.lastElementChild.remove();
-            }
-
-            if (latencyEl) {
-                const lat = (Math.random() * 15 + 2).toFixed(1);
-                latencyEl.textContent = `${lat}µs`;
-            }
-        }
-
-        if (terminalBody) {
-            terminalBody.innerHTML = '';
-            for (let i = 0; i < 6; i++) {
-                terminalBody.appendChild(createOrderRow());
-            }
-            setInterval(updateTerminal, 800);
-        }
-
-        const canvas = document.getElementById('particle-canvas');
-        if (canvas) {
-            const ctx = canvas.getContext('2d');
-
-            function resizeCanvas() {
-                canvas.width = window.innerWidth;
-                canvas.height = window.innerHeight;
-            }
-
-            resizeCanvas();
-            window.addEventListener('resize', resizeCanvas);
-
-            let particles = [];
-            const mouse = { x: null, y: null, radius: 200 };
-
-            window.addEventListener('mousemove', (e) => {
-                mouse.x = e.x;
-                mouse.y = e.y;
-            });
-
-            window.addEventListener('mouseout', () => {
-                mouse.x = null;
-                mouse.y = null;
-            });
-
-            class Particle {
-                constructor() {
-                    this.x = Math.random() * canvas.width;
-                    this.y = Math.random() * canvas.height;
-                    this.size = Math.random() * 2 + 0.5;
-                    this.baseX = this.x;
-                    this.baseY = this.y;
-                    this.density = Math.random() * 25 + 5;
-                    this.vx = (Math.random() - 0.5) * 0.5;
-                    this.vy = (Math.random() - 0.5) * 0.5;
-                    this.opacity = Math.random() * 0.5 + 0.2;
-                }
-
-                update() {
-                    if (mouse.x != null) {
-                        let dx = mouse.x - this.x;
-                        let dy = mouse.y - this.y;
-                        let distance = Math.sqrt(dx * dx + dy * dy);
-
-                        if (distance < mouse.radius && distance > 0) {
-                            const force = (mouse.radius - distance) / mouse.radius;
-                            const dirX = dx / distance;
-                            const dirY = dy / distance;
-                            const push = force * this.density * 0.8;
-                            this.x += dirX * push;
-                            this.y += dirY * push;
-                        }
-                    }
-
-                    this.x += this.vx;
-                    this.y += this.vy;
-
-                    let homeDx = this.x - this.baseX;
-                    let homeDy = this.y - this.baseY;
-                    this.x -= homeDx * 0.02;
-                    this.y -= homeDy * 0.02;
-
-                    if (this.x < 0) this.x = canvas.width;
-                    if (this.x > canvas.width) this.x = 0;
-                    if (this.y < 0) this.y = canvas.height;
-                    if (this.y > canvas.height) this.y = 0;
-                }
-
-                draw() {
-                    ctx.beginPath();
-                    ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-                    ctx.fillStyle = `rgba(0, 229, 255, ${this.opacity})`;
-                    ctx.fill();
-                }
-            }
-
-            function initParticles() {
-                particles = [];
-                const count = Math.min((canvas.width * canvas.height) / 12000, 150);
-                for (let i = 0; i < count; i++) {
-                    particles.push(new Particle());
-                }
-            }
-
-            function animateParticles() {
-                ctx.clearRect(0, 0, canvas.width, canvas.height);
-                for (let p of particles) {
-                    p.update();
-                    p.draw();
-                }
-                requestAnimationFrame(animateParticles);
-            }
-
-            initParticles();
-            animateParticles();
-
-            window.addEventListener('resize', initParticles);
-        }
-    </script>
-</body>
-</html>
