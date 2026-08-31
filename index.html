@@ -45,7 +45,7 @@
             color: var(--text-primary);
             font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
             line-height: 1.6;
-            cursor: none;
+            cursor: auto; /* changed from none to show default cursor */
             position: relative;
         }
 
@@ -58,7 +58,7 @@
         }
 
         a, button {
-            cursor: none;
+            cursor: pointer; /* changed from none to default pointer on interactive elements */
         }
 
         .cursor-glow {
@@ -318,7 +318,7 @@
         }
 
         .dropdown-menu {
-            display: block; /* Override inherited flex layout to fix horizontal stretching */
+            display: block;
             opacity: 0;
             visibility: hidden;
             transform: translateY(10px);
@@ -359,7 +359,7 @@
         }
 
         .nav-label::before {
-            content: 'Ã¢â€“Â¼';
+            content: '▼';
             font-size: 0.5rem;
             margin-right: 6px;
             opacity: 0.6;
@@ -941,7 +941,7 @@
 
         .stats-bar {
             display: grid;
-            grid-template-columns: repeat(4, minmax(0, 1fr));
+            grid-template-columns: repeat(2, minmax(0, 1fr)); /* reduced to 2 stats */
             gap: 2rem;
             padding: 2.5rem 0;
             border-top: 1px solid var(--border-subtle);
@@ -1046,7 +1046,7 @@
         }
 
         .topic-features li::before {
-            content: 'Ã¢â€ â€™';
+            content: '→';
             color: var(--accent-cyan);
             font-weight: 700;
             flex: 0 0 auto;
@@ -1061,195 +1061,78 @@
             overflow: hidden;
         }
 
-        .strategy-viz,
-        .automation-flow,
-        .analytics-dashboard,
-        .chart-viz,
-        .ob-viz {
-            width: 100%;
-            height: 100%;
-            max-width: 100%;
-            overflow: hidden;
-        }
-
-        .strategy-viz {
+        /* NEW: coding animation for STRATEGY section */
+        .strategy-code {
             position: relative;
+            width: 100%;
+            max-width: 480px;
             border-radius: 18px;
-            background:
-                radial-gradient(circle at top right, rgba(124, 58, 237, 0.16), transparent 35%),
-                radial-gradient(circle at bottom left, rgba(0, 229, 255, 0.14), transparent 40%),
-                linear-gradient(180deg, rgba(15, 21, 37, 0.95), rgba(10, 16, 28, 0.95));
+            background: linear-gradient(180deg, rgba(15, 21, 37, 0.95), rgba(10, 16, 28, 0.95));
             border: 1px solid var(--glass-border);
             box-shadow: 0 25px 70px rgba(0, 0, 0, 0.4);
-        }
-
-        .strategy-viz::before {
-            content: '';
-            position: absolute;
-            inset: 0;
-            background-image:
-                linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
-            background-size: 38px 38px;
-            opacity: 0.25;
-        }
-
-        .strategy-track {
-            position: absolute;
-            height: 2px;
-            border-radius: 10px;
-            background: linear-gradient(90deg, transparent, rgba(0, 229, 255, 0.45), transparent);
-            overflow: visible;
-        }
-
-        .track-1 { top: 22%; left: 8%; width: 68%; }
-        .track-2 { top: 38%; left: 18%; width: 62%; }
-        .track-3 { top: 56%; left: 10%; width: 75%; }
-        .track-4 { top: 74%; left: 22%; width: 55%; }
-
-        .strategy-pulse {
-            position: absolute;
-            top: 50%;
-            left: -12px;
-            width: 11px;
-            height: 11px;
-            border-radius: 50%;
-            transform: translateY(-50%);
-            background: var(--accent-cyan);
-            box-shadow: 0 0 18px rgba(0, 229, 255, 0.9);
-            animation: strategyRun 3.5s linear infinite;
-        }
-
-        .track-2 .strategy-pulse { animation-duration: 4.5s; animation-delay: 0.4s; }
-        .track-3 .strategy-pulse { animation-duration: 3.8s; animation-delay: 0.8s; }
-        .track-4 .strategy-pulse { animation-duration: 4.2s; animation-delay: 1.2s; }
-
-        @keyframes strategyRun {
-            0% { left: -12px; opacity: 0; }
-            8% { opacity: 1; }
-            100% { left: calc(100% + 12px); opacity: 1; }
-        }
-
-        .strat-card {
-            position: absolute;
-            padding: 0.75rem 1rem;
-            background: rgba(15, 21, 37, 0.7);
-            border: 1px solid rgba(0, 229, 255, 0.14);
-            border-radius: 12px;
-            backdrop-filter: blur(12px);
-            box-shadow: 0 10px 30px rgba(0,0,0,0.25);
-            animation: stratFloat 5s ease-in-out infinite;
-            max-width: 42%;
-        }
-
-        .strat-card .small {
-            display: block;
+            overflow: hidden;
             font-family: 'JetBrains Mono', monospace;
-            font-size: 0.68rem;
-            color: var(--accent-cyan);
-            letter-spacing: 1px;
-            margin-bottom: 0.25rem;
         }
 
-        .strat-card .big {
-            font-size: 1rem;
-            font-weight: 700;
-            color: var(--text-primary);
-            word-break: break-word;
-        }
-
-        .strat-card-1 { top: 10%; right: 8%; animation-delay: 0s; }
-        .strat-card-2 { bottom: 14%; left: 10%; animation-delay: 1.2s; }
-        .strat-card-3 { bottom: 24%; right: 12%; animation-delay: 2.4s; }
-
-        @keyframes stratFloat {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-10px); }
-        }
-
-        .strategy-beacon {
-            position: absolute;
-            width: 14px;
-            height: 14px;
-            border-radius: 50%;
-            background: rgba(0, 229, 255, 0.9);
-            box-shadow: 0 0 0 0 rgba(0, 229, 255, 0.4);
-            animation: beaconPulse 2.8s infinite;
-        }
-
-        .beacon-1 { top: 18%; left: 14%; }
-        .beacon-2 { top: 52%; left: 72%; animation-delay: 0.8s; }
-        .beacon-3 { top: 78%; left: 38%; animation-delay: 1.4s; }
-
-        @keyframes beaconPulse {
-            0% { box-shadow: 0 0 0 0 rgba(0, 229, 255, 0.45); transform: scale(1); }
-            70% { box-shadow: 0 0 0 20px rgba(0, 229, 255, 0); transform: scale(1.15); }
-            100% { box-shadow: 0 0 0 0 rgba(0, 229, 255, 0); transform: scale(1); }
-        }
-
-        .pipeline-viz {
-            width: 100%;
-            height: 100%;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            gap: 1.5rem;
-            max-width: 100%;
-        }
-
-        .pipeline-stage {
+        .strategy-code-header {
             display: flex;
             align-items: center;
-            gap: 1rem;
-            max-width: 100%;
+            justify-content: space-between;
+            padding: 0.8rem 1.2rem;
+            background: rgba(0, 0, 0, 0.35);
+            border-bottom: 1px solid var(--border-subtle);
         }
 
-        .pipeline-box {
-            flex: 1 1 0;
-            padding: 1rem;
-            background: var(--glass-bg);
-            border: 1px solid var(--glass-border);
-            border-radius: 10px;
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 0.8rem;
+        .strategy-code-header span {
+            font-size: 0.75rem;
             color: var(--text-secondary);
+            letter-spacing: 1px;
+        }
+
+        .strategy-code-body {
+            padding: 1.2rem 1.4rem;
+            font-size: 0.8rem;
+            color: var(--accent-cyan);
             position: relative;
             overflow: hidden;
-            min-width: 0;
-            text-align: center;
-            word-break: break-word;
+            height: 230px;
         }
 
-        .pipeline-box.active {
-            border-color: var(--accent-cyan);
-            box-shadow: 0 0 20px rgba(0, 229, 255, 0.1);
+        .code-line {
+            display: block;
+            color: var(--text-secondary);
+            margin-bottom: 0.25rem;
+            opacity: 0;
+            transform: translateY(10px);
+            animation: codeType 6s linear infinite;
         }
 
-        .pipeline-box .fill-bar {
+        .code-line:nth-child(1) { animation-delay: 0.1s; }
+        .code-line:nth-child(2) { animation-delay: 0.4s; }
+        .code-line:nth-child(3) { animation-delay: 0.7s; }
+        .code-line:nth-child(4) { animation-delay: 1.0s; }
+        .code-line:nth-child(5) { animation-delay: 1.3s; }
+        .code-line:nth-child(6) { animation-delay: 1.6s; }
+        .code-line:nth-child(7) { animation-delay: 1.9s; }
+        .code-line:nth-child(8) { animation-delay: 2.2s; }
+
+        @keyframes codeType {
+            0%   { opacity: 0; transform: translateY(10px); }
+            10%  { opacity: 1; transform: translateY(0); }
+            90%  { opacity: 1; transform: translateY(0); }
+            100% { opacity: 0; transform: translateY(-10px); }
+        }
+
+        .strategy-code-footer {
             position: absolute;
             bottom: 0;
             left: 0;
-            height: 2px;
-            background: var(--accent-cyan);
-            animation: fillBar 2s ease-in-out infinite;
-        }
-
-        @keyframes fillBar {
-            0% { width: 0; }
-            50% { width: 100%; }
-            100% { width: 0; left: auto; right: 0; }
-        }
-
-        .pipeline-arrow {
+            right: 0;
+            padding: 0.6rem 1.4rem;
+            font-size: 0.7rem;
             color: var(--accent-cyan);
-            font-size: 1.2rem;
-            animation: arrowMove 1.5s ease-in-out infinite;
-            flex: 0 0 auto;
-        }
-
-        @keyframes arrowMove {
-            0%, 100% { transform: translateX(0); opacity: 0.5; }
-            50% { transform: translateX(5px); opacity: 1; }
+            background: rgba(0, 0, 0, 0.4);
+            border-top: 1px solid var(--border-subtle);
         }
 
         .chart-viz {
@@ -1642,50 +1525,58 @@
             100% { transform: translateX(8%); }
         }
 
-        .tech-grid {
-            display: grid;
-            grid-template-columns: repeat(4, minmax(0, 1fr));
-            gap: 1.5rem;
-            margin-top: 1.5rem;
+        /* simple fintech solutions visual */
+        .fintech-viz {
+            position: relative;
+            border-radius: 18px;
+            background:
+                radial-gradient(circle at top right, rgba(0, 229, 255, 0.16), transparent 40%),
+                linear-gradient(180deg, rgba(15, 21, 37, 0.96), rgba(10, 15, 26, 0.96));
+            border: 1px solid var(--glass-border);
+            padding: 1.5rem;
+            box-shadow: 0 25px 70px rgba(0, 0, 0, 0.4);
         }
 
-        .tech-card {
-            background: var(--bg-surface);
-            border: 1px solid var(--border-subtle);
-            border-radius: 16px;
-            padding: 2.1rem 1.6rem;
-            text-align: center;
-            transition: all 0.3s;
-            min-height: 250px;
+        .fintech-row {
             display: flex;
-            flex-direction: column;
-            justify-content: center;
-            overflow: hidden;
-        }
-
-        .tech-card:hover {
-            border-color: var(--border-glow);
-            transform: translateY(-5px);
-            box-shadow: 0 15px 40px rgba(0, 229, 255, 0.05);
-        }
-
-        .tech-icon {
-            font-size: 2.5rem;
+            justify-content: space-between;
+            gap: 0.75rem;
             margin-bottom: 1rem;
-            display: block;
-        }
-
-        .tech-card h4 {
-            font-size: 1rem;
-            margin-bottom: 0.75rem;
-            color: var(--text-primary);
-            word-break: break-word;
-        }
-
-        .tech-card p {
-            font-size: 0.95rem;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.78rem;
             color: var(--text-secondary);
-            line-height: 1.7;
+        }
+
+        .fintech-pill {
+            flex: 1 1 0;
+            border-radius: 999px;
+            padding: 0.5rem 0.9rem;
+            background: rgba(20, 29, 46, 0.85);
+            border: 1px solid rgba(0, 229, 255, 0.14);
+            text-align: center;
+            animation: fintechPulse 4s ease-in-out infinite;
+        }
+
+        .fintech-pill:nth-child(2) { animation-delay: 0.8s; }
+        .fintech-pill:nth-child(3) { animation-delay: 1.6s; }
+
+        @keyframes fintechPulse {
+            0%, 100% { transform: translateY(0); box-shadow: 0 0 0 rgba(0,229,255,0); }
+            50% { transform: translateY(-4px); box-shadow: 0 0 18px rgba(0,229,255,0.18); }
+        }
+
+        .fintech-strip {
+            margin-top: 0.5rem;
+            height: 3px;
+            border-radius: 999px;
+            background: linear-gradient(90deg, var(--accent-cyan), var(--accent-blue));
+            animation: fintechProgress 5s linear infinite;
+        }
+
+        @keyframes fintechProgress {
+            0% { transform: scaleX(0.2); transform-origin: left; }
+            50% { transform: scaleX(1); transform-origin: left; }
+            100% { transform: scaleX(0.2); transform-origin: right; }
         }
 
         #technology-preview {
@@ -2146,103 +2037,6 @@
                 height: 260px;
             }
 
-            .strat-card {
-                max-width: 46%;
-                padding: 0.55rem 0.7rem;
-            }
-
-            .strat-card .small {
-                font-size: 0.56rem;
-            }
-
-            .strat-card .big {
-                font-size: 0.76rem;
-            }
-
-            .auto-box {
-                min-width: 92px;
-                max-width: 38%;
-                padding: 0.55rem 0.55rem;
-                font-size: 0.62rem;
-            }
-
-            .auto-box small {
-                font-size: 0.5rem;
-                margin-bottom: 0.18rem;
-            }
-
-            .auto-core {
-                width: 62px;
-                height: 62px;
-            }
-
-            .auto-core::before {
-                font-size: 0.7rem;
-            }
-
-            .pipeline-stage {
-                gap: 0.45rem;
-            }
-
-            .pipeline-box {
-                padding: 0.7rem 0.5rem;
-                font-size: 0.64rem;
-            }
-
-            .pipeline-arrow {
-                font-size: 0.9rem;
-            }
-
-            .analytics-top {
-                grid-template-columns: 1fr;
-            }
-
-            .analytics-donut {
-                width: 100px;
-                height: 100px;
-            }
-
-            .analytics-donut::before {
-                inset: 16px;
-            }
-
-            .analytics-metrics {
-                grid-template-columns: repeat(2, minmax(0, 1fr));
-            }
-
-            .ob-viz,
-            .chart-viz,
-            .analytics-dashboard {
-                padding: 1rem;
-            }
-
-            .chart-grid,
-            .chart-bars {
-                left: 1rem;
-                right: 1rem;
-            }
-
-            .chart-grid {
-                top: 1rem;
-                bottom: 2.6rem;
-            }
-
-            .chart-bars {
-                bottom: 2.6rem;
-                height: calc(100% - 3.8rem);
-            }
-
-            .chart-label {
-                left: 1rem;
-                right: 1rem;
-                bottom: 0.8rem;
-                font-size: 0.62rem;
-            }
-
-            .approach-item {
-                padding: 1.8rem 1.3rem;
-            }
-
             .serve-tags {
                 gap: 0.75rem;
                 margin-bottom: 2.25rem;
@@ -2300,13 +2094,13 @@
                         <ul class="dropdown-menu">
                             <li><a href="/solutions/strategy-research/">Strategy Research</a></li>
                             <li><a href="/solutions/execution-systems/">Execution Systems</a></li>
-                            <li><a href="/solutions/quant-lab/">Quant Lab</a></li>
+                            <li><a href="/solutions/fintech-solutions/">Fintech Solutions</a></li> <!-- Quant Lab replaced -->
                             <li><a href="/solutions/prop-institutional/">Prop & Institutional</a></li>
                         </ul>
                     </li>
-                    <li><a href="/technology/">Technology</a></li>
+                    <!-- Technology removed -->
                     <li><a href="/insights/">Insights</a></li>
-                    <li><a href="/careers/">Careers</a></li>
+                    <!-- Careers removed -->
                     <li><a href="/contact/">Contact</a></li>
                 </ul>
             </nav>
@@ -2326,13 +2120,13 @@
                 <div class="mobile-menu-group-title">Solutions</div>
                 <a href="/solutions/strategy-research/" class="mobile-sub-link">Strategy Research</a>
                 <a href="/solutions/execution-systems/" class="mobile-sub-link">Execution Systems</a>
-                <a href="/solutions/quant-lab/" class="mobile-sub-link">Quant Lab</a>
+                <a href="/solutions/fintech-solutions/" class="mobile-sub-link">Fintech Solutions</a> <!-- Quant Lab replaced -->
                 <a href="/solutions/prop-institutional/" class="mobile-sub-link">Prop & Institutional</a>
             </div>
 
-            <a href="/technology/">Technology</a>
+            <!-- Technology removed -->
             <a href="/insights/">Insights</a>
-            <a href="/careers/">Careers</a>
+            <!-- Careers removed -->
             <a href="/contact/">Contact</a>
         </div>
     </header>
@@ -2357,11 +2151,11 @@
                     </p>
 
                     <div class="hero-meta">
-                        <span>LFT</span> Ã¢â‚¬Â¢ <span>MFT</span> Ã¢â‚¬Â¢ <span>HFT</span> Ã¢â‚¬Â¢ <span>Multi-Asset</span> Ã¢â‚¬Â¢ <span>Global Markets</span>
+                        <span>LFT</span> • <span>MFT</span> • <span>HFT</span> • <span>Multi-Asset</span> • <span>Global Markets</span>
                     </div>
 
                     <div class="hero-buttons">
-                        <a href="/solutions/strategy-research/" class="btn btn-primary">Explore Solutions <span style="font-size: 1.2rem;">Ã¢â€ â€™</span></a>
+                        <a href="/solutions/strategy-research/" class="btn btn-primary">Explore Solutions <span style="font-size: 1.2rem;">→</span></a>
                         <a href="/contact/" class="btn btn-secondary">Contact Research Team</a>
                     </div>
                 </div>
@@ -2382,7 +2176,7 @@
 
                         <div class="latency-monitor">
                             <span class="latency-label">AVG LATENCY</span>
-                            <span class="latency-value" id="latency">8.4Ã‚Âµs</span>
+                            <span class="latency-value" id="latency">8.4µs</span>
                             <span class="latency-label">THROUGHPUT</span>
                             <span class="latency-value">142K TPS</span>
                         </div>
@@ -2395,18 +2189,12 @@
 
         <section class="container" style="padding-top: 0; padding-bottom: 0;">
             <div class="stats-bar reveal">
+                <!-- 4.2B Notional Traded removed -->
                 <div class="stat-item">
-                    <div class="stat-number">4.2B</div>
-                    <div class="stat-label">Notional Traded</div>
-                </div>
-                <div class="stat-item">
-                    <div class="stat-number">12Ã‚Âµs</div>
+                    <div class="stat-number">12µs</div>
                     <div class="stat-label">Avg Latency</div>
                 </div>
-                <div class="stat-item">
-                    <div class="stat-number">142</div>
-                    <div class="stat-label">Active Strategies</div>
-                </div>
+                <!-- Active Strategies stat removed -->
                 <div class="stat-item">
                     <div class="stat-number">99.99</div>
                     <div class="stat-label">Uptime SLA</div>
@@ -2427,62 +2215,62 @@
                 </p>
             </div>
 
+            <!-- 01 // STRATEGY -->
             <div class="topic-row reveal">
                 <div class="topic-content">
                     <h3><span class="topic-num">01 // STRATEGY</span>Quantitative Strategy Development</h3>
-                    <p>We architect systematic trading models grounded in statistical inference, mathematical optimization, and market microstructure theory. Every signal is hypothesis-tested before touching production capital.</p>
+                    <p>
+                        We architect and code systematic trading models in Python, C++, C, MT5, AFL, Pine Script, and other languages,
+                        grounded in statistical inference, optimization, and market microstructure theory. Every signal is hypothesis-tested
+                        and engineered before touching production capital.
+                    </p>
                     <ul class="topic-features">
-                        <li>Statistical arbitrage factor modeling</li>
-                        <li>Machine learning signal generation</li>
-                        <li>Regime detection and adaptivity</li>
-                        <li>Multi-asset cross-market systems</li>
+                        <li>Language-native strategy development (Python, C++, C, MT5, AFL, Pine Script)</li>
+                        <li>Statistical arbitrage and factor modeling</li>
+                        <li>Machine learning signal generation and regime detection</li>
+                        <li>Multi-asset, cross-market systems with adaptive risk engines</li>
                     </ul>
                 </div>
 
                 <div class="topic-visual">
-                    <div class="strategy-viz">
-                        <div class="strategy-track track-1"><span class="strategy-pulse"></span></div>
-                        <div class="strategy-track track-2"><span class="strategy-pulse"></span></div>
-                        <div class="strategy-track track-3"><span class="strategy-pulse"></span></div>
-                        <div class="strategy-track track-4"><span class="strategy-pulse"></span></div>
-
-                        <div class="strategy-beacon beacon-1"></div>
-                        <div class="strategy-beacon beacon-2"></div>
-                        <div class="strategy-beacon beacon-3"></div>
-
-                        <div class="strat-card strat-card-1">
-                            <span class="small">SIGNAL</span>
-                            <span class="big">Momentum Cluster</span>
+                    <div class="strategy-code">
+                        <div class="strategy-code-header">
+                            <span>STRATEGY_ENGINE.py</span>
+                            <span>LIVE BUILD</span>
                         </div>
-
-                        <div class="strat-card strat-card-2">
-                            <span class="small">MODEL</span>
-                            <span class="big">Regime Switch</span>
+                        <div class="strategy-code-body">
+                            <span class="code-line">def execute_strategy(signal):</span>
+                            <span class="code-line">    position = risk_engine.size(signal)</span>
+                            <span class="code-line">    if signal.alpha &gt; threshold:</span>
+                            <span class="code-line">        router.send_order(position)</span>
+                            <span class="code-line"># Python · C++ · C · MT5 · AFL · Pine Script</span>
+                            <span class="code-line"># multi-asset, multi-venue execution</span>
+                            <span class="code-line">if __name__ == "__main__":</span>
+                            <span class="code-line">    backtest.run_all_strategies()</span>
                         </div>
-
-                        <div class="strat-card strat-card-3">
-                            <span class="small">RISK</span>
-                            <span class="big">Adaptive Sizing</span>
+                        <div class="strategy-code-footer">
+                            BUILD STATUS: OK · COVERAGE: 98.2% · LATENCY PIPELINE READY
                         </div>
                     </div>
                 </div>
             </div>
 
+            <!-- 02 // EXECUTION (unchanged content/visual) -->
             <div class="topic-row reverse reveal">
                 <div class="topic-visual">
                     <div class="pipeline-viz">
                         <div class="pipeline-stage">
                             <div class="pipeline-box active">Signal Generation<div class="fill-bar"></div></div>
-                            <span class="pipeline-arrow">Ã¢â€ â€™</span>
+                            <span class="pipeline-arrow">→</span>
                             <div class="pipeline-box">Risk Engine<div class="fill-bar" style="animation-delay: 0.5s;"></div></div>
                         </div>
                         <div class="pipeline-stage">
                             <div class="pipeline-box">Order Manager<div class="fill-bar" style="animation-delay: 1s;"></div></div>
-                            <span class="pipeline-arrow">Ã¢â€ â€™</span>
+                            <span class="pipeline-arrow">→</span>
                             <div class="pipeline-box">Exchange Gateway<div class="fill-bar" style="animation-delay: 1.5s;"></div></div>
                         </div>
                         <div class="pipeline-stage" style="justify-content: center;">
-                            <span class="pipeline-arrow" style="transform: rotate(90deg); animation: none; font-size: 1.5rem; margin: -0.5rem 0;">Ã¢â€ â€œ</span>
+                            <span class="pipeline-arrow" style="transform: rotate(90deg); animation: none; font-size: 1.5rem; margin: -0.5rem 0;">↓</span>
                         </div>
                         <div class="pipeline-stage">
                             <div class="pipeline-box active" style="flex: 0 0 60%; margin: 0 auto; text-align: center;">P&L Monitoring<div class="fill-bar" style="animation-delay: 0.3s;"></div></div>
@@ -2496,21 +2284,26 @@
                     <ul class="topic-features">
                         <li>Colocated cross-region deployment</li>
                         <li>Smart order routing and slicing</li>
-                        <li>Real-time position and P&L tracking</li>
+                        <li>Real-time position and P&amp;L tracking</li>
                         <li>Multi-venue connectivity</li>
                     </ul>
                 </div>
             </div>
 
+            <!-- 03 // RESEARCH updated text & kept animated graph -->
             <div class="topic-row reveal">
                 <div class="topic-content">
-                    <h3><span class="topic-num">03 // RESEARCH</span>Backtesting & Research</h3>
-                    <p>Robust simulation frameworks that replicate real market conditions, slippage, latency, partial fills, and fees so strategies are validated honestly before live capital deployment.</p>
+                    <h3><span class="topic-num">03 // RESEARCH</span>Backtesting &amp; Research</h3>
+                    <p>
+                        We provide robust backtesting infrastructure and clean, structured data so your strategies are validated under realistic
+                        market conditions before going live. Our simulations incorporate slippage, fees, latency, partial fills, and market
+                        microstructure effects, with detailed performance and risk reporting.
+                    </p>
                     <ul class="topic-features">
-                        <li>Tick-level and bar-based simulation</li>
-                        <li>Transaction cost analysis</li>
-                        <li>Walk-forward and out-of-sample testing</li>
-                        <li>Parameter stability and overfitting detection</li>
+                        <li>Tick-level and bar-based multi-asset simulation</li>
+                        <li>Institutional-grade historical data and corporate action handling</li>
+                        <li>Walk-forward, out-of-sample, and stress testing workflows</li>
+                        <li>Automated reporting of P&amp;L curves, drawdowns, and factor diagnostics</li>
                     </ul>
                 </div>
 
@@ -2535,17 +2328,18 @@
                             <div class="chart-bar" style="height: 85%;"></div>
                             <div class="chart-bar" style="height: 60%;"></div>
                         </div>
-                        <div class="chart-label">CUMULATIVE P&L // BACKTEST SERIES</div>
+                        <div class="chart-label">BACKTEST EQUITY CURVE // STRATEGY PERFORMANCE</div>
                     </div>
                 </div>
             </div>
 
+            <!-- 04 // AUTOMATION updated text (animation kept) -->
             <div class="topic-row reverse reveal">
                 <div class="topic-visual">
                     <div class="automation-flow">
                         <div class="auto-box auto-box-1"><small>INGESTION</small>Market Data</div>
                         <div class="auto-box auto-box-2"><small>EXECUTION</small>Trade Engine</div>
-                        <div class="auto-box auto-box-3"><small>MONITORING</small>Alerts & Logs</div>
+                        <div class="auto-box auto-box-3"><small>MONITORING</small>Alerts &amp; Logs</div>
                         <div class="auto-box auto-box-4"><small>RECOVERY</small>Failover</div>
 
                         <div class="auto-link link-top"></div>
@@ -2564,16 +2358,21 @@
 
                 <div class="topic-content">
                     <h3><span class="topic-num">04 // AUTOMATION</span>Trading Automation</h3>
-                    <p>Zero-touch automation pipelines integrating market data ingestion, signal generation, execution, and post-trade monitoring. Built for 24/7 reliability with autonomous failover and alerting.</p>
+                    <p>
+                        We build zero-touch trading automation pipelines that integrate data ingestion, signal generation, execution, and
+                        post-trade monitoring. Automation spans Python, C++, C, AFL, MT5, TradingView, and other platforms, engineered for
+                        24/7 reliability with autonomous failover and alerting.
+                    </p>
                     <ul class="topic-features">
-                        <li>Fully automated signal-to-trade lifecycle</li>
-                        <li>Webhook and API bridge integrations</li>
-                        <li>Self-healing recovery systems</li>
-                        <li>Telegram, Slack, and dashboard alerts</li>
+                        <li>Fully automated signal-to-trade lifecycle across multiple brokers and venues</li>
+                        <li>Webhook, API bridge, and FIX/WebSocket-based integrations</li>
+                        <li>Self-healing recovery systems with health checks and restart logic</li>
+                        <li>Telegram, Slack, and dashboard alerts for live supervision</li>
                     </ul>
                 </div>
             </div>
 
+            <!-- 05 // MARKET MAKING (unchanged) -->
             <div class="topic-row reveal">
                 <div class="topic-content">
                     <h3><span class="topic-num">05 // MARKET MAKING</span>Market Making Systems</h3>
@@ -2599,6 +2398,45 @@
                 </div>
             </div>
 
+            <!-- NEW 06 // FINTECH SOLUTIONS -->
+            <div class="topic-row reveal">
+                <div class="topic-content">
+                    <h3><span class="topic-num">06 // FINTECH</span>Fintech Solutions</h3>
+                    <p>
+                        We provide technology support for brokers and financial companies, including full-stack software development,
+                        advanced charting technology, algorithmic trading infrastructure, data engineering, and other high-tech fintech
+                        builds tailored to production environments.
+                    </p>
+                    <ul class="topic-features">
+                        <li>Custom trading terminals, OMS/RMS modules, and broker tools</li>
+                        <li>Charting technology, analytics dashboards, and visualization pipelines</li>
+                        <li>Strategy engines, algos, and API connectivity for retail &amp; institutional flows</li>
+                        <li>Data collection, cleaning, and storage architectures for quant and reporting use-cases</li>
+                    </ul>
+                    <!-- CTA for fintech solutions -->
+                    <a href="/contact/" class="btn btn-primary" style="margin-top:1.5rem;">
+                        Discuss Fintech Solutions <span style="font-size:1.1rem;">→</span>
+                    </a>
+                </div>
+
+                <div class="topic-visual">
+                    <div class="fintech-viz">
+                        <div class="fintech-row">
+                            <div class="fintech-pill">Broker APIs</div>
+                            <div class="fintech-pill">Chart Tech</div>
+                            <div class="fintech-pill">Algo Engines</div>
+                        </div>
+                        <div class="fintech-row">
+                            <div class="fintech-pill">Data Pipelines</div>
+                            <div class="fintech-pill">Dashboards</div>
+                            <div class="fintech-pill">Fintech Cloud</div>
+                        </div>
+                        <div class="fintech-strip"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 07 // ANALYTICS (renumbered from 06) -->
             <div class="topic-row reverse reveal">
                 <div class="topic-visual">
                     <div class="analytics-dashboard">
@@ -2620,7 +2458,7 @@
                 </div>
 
                 <div class="topic-content">
-                    <h3><span class="topic-num">06 // ANALYTICS</span>Quantitative Analytics</h3>
+                    <h3><span class="topic-num">07 // ANALYTICS</span>Quantitative Analytics</h3>
                     <p>Advanced performance diagnostics including factor decomposition, drawdown attribution, optimization, and real-time portfolio health dashboards for decision-makers.</p>
                     <ul class="topic-features">
                         <li>Factor exposure and attribution models</li>
@@ -2647,25 +2485,25 @@
 
             <div class="tech-grid reveal">
                 <div class="tech-card">
-                    <span class="tech-icon">Ã¢â€”Ë†</span>
+                    <span class="tech-icon">◈</span>
                     <h4>Pine Script / TradingView</h4>
-                    <p>Custom indicator & strategy development with advanced visualizations.</p>
+                    <p>Custom indicator &amp; strategy development with advanced visualizations.</p>
                 </div>
 
                 <div class="tech-card">
-                    <span class="tech-icon">Ã¢Å¡Â¡</span>
+                    <span class="tech-icon">⚡</span>
                     <h4>C++ / Rust Engine</h4>
                     <p>Low-latency execution cores for HFT and market making systems.</p>
                 </div>
 
                 <div class="tech-card">
-                    <span class="tech-icon">Ã¢â€”Å½</span>
+                    <span class="tech-icon">◎</span>
                     <h4>Python / PyTorch</h4>
                     <p>ML signal generation, backtesting frameworks, and data pipelines.</p>
                 </div>
 
                 <div class="tech-card">
-                    <span class="tech-icon">Ã¢â€”â€¡</span>
+                    <span class="tech-icon">◇</span>
                     <h4>WebSocket / FIX</h4>
                     <p>Exchange connectivity, order routing, and real-time market data.</p>
                 </div>
@@ -2694,54 +2532,51 @@
                 <div class="approach-item reveal">
                     <div class="approach-number">02</div>
                     <div class="approach-content">
-                        <h3>Data Driven</h3>
-                        <p>Models are built on measurable market behaviour rather than opinions. We ingest large volumes of market data to identify persistent, exploitable patterns.</p>
+                        <h3>Production Discipline</h3>
+                        <p>We treat trading systems as production-grade software: versioned, tested, monitored, and hardened against edge cases and market regime shifts.</p>
                     </div>
                 </div>
 
                 <div class="approach-item reveal">
                     <div class="approach-number">03</div>
                     <div class="approach-content">
-                        <h3>Systematic Execution</h3>
-                        <p>Execution quality is treated as a core component of strategy performance, not an afterthought. Every microsecond matters in our design philosophy.</p>
+                        <h3>Risk Embedded</h3>
+                        <p>Risk is embedded into every stage of the pipeline—from signal definition to order execution and portfolio rebalancing.</p>
                     </div>
                 </div>
 
                 <div class="approach-item reveal">
                     <div class="approach-number">04</div>
                     <div class="approach-content">
-                        <h3>Continuous Improvement</h3>
-                        <p>Models evolve through relentless testing, validation, monitoring, and refinement. Markets change, so the infrastructure must evolve with them.</p>
+                        <h3>Iterative Refinement</h3>
+                        <p>Strategies, infrastructure, and analytics are iterated continuously based on data, outcomes, and evolving market structure.</p>
                     </div>
                 </div>
             </div>
         </section>
 
-        <section class="serve-section container">
-            <div class="reveal">
-                <div class="section-label" style="justify-content:center;">
-                    <span style="width:30px;height:1px;background:var(--accent-cyan);box-shadow:0 0 8px var(--accent-cyan);"></span>
-                    <span>Clients</span>
-                    <span style="width:30px;height:1px;background:var(--accent-cyan);box-shadow:0 0 8px var(--accent-cyan);"></span>
+        <section class="serve-section">
+            <div class="container">
+                <div class="reveal" style="text-align:center; margin-bottom: 42px;">
+                    <div class="section-label" style="justify-content:center;">
+                        <span style="width:30px;height:1px;background:var(--accent-cyan);box-shadow:0 0 8px var(--accent-cyan);"></span>
+                        <span>Who We Serve</span>
+                        <span style="width:30px;height:1px;background:var(--accent-cyan);box-shadow:0 0 8px var(--accent-cyan);"></span>
+                    </div>
+                    <h2 class="section-title">Built for Professionals</h2>
                 </div>
-                <h2 class="section-title">Who We Serve</h2>
-            </div>
 
-            <div class="serve-tags reveal">
-                <div class="serve-tag">Proprietary Trading Firms</div>
-                <div class="serve-tag">Institutional Trading Teams</div>
-                <div class="serve-tag">Quantitative Researchers</div>
-                <div class="serve-tag">Fintech Companies</div>
-                <div class="serve-tag">Professional Traders</div>
-                <div class="serve-tag">Brokerage Technology Platforms</div>
-                <div class="serve-tag">Family Offices</div>
-                <div class="serve-tag">Hedge Funds</div>
-            </div>
+                <div class="serve-tags reveal">
+                    <span class="serve-tag">Proprietary Trading Firms</span>
+                    <span class="serve-tag">Institutional Desks</span>
+                    <span class="serve-tag">Fintech Platforms</span>
+                    <span class="serve-tag">Professional Quant Traders</span>
+                    <span class="serve-tag">Market Makers</span>
+                </div>
 
-            <div class="reveal">
-                <h3 style="font-size: 2.2rem; font-weight: 800; margin-bottom: 1.5rem; letter-spacing: -1px;">Building the Future of Systematic Trading</h3>
-                <p class="mission-text">
-                    From idea generation to live deployment, we help transform trading concepts into <strong>scalable, data-driven systems</strong>. Our mission is to bridge quantitative research, execution technology, and automation infrastructure to create intelligent trading systems capable of operating across modern financial markets including equities, futures, crypto, FX, and options.
+                <p class="mission-text reveal">
+                    <strong>QuantParticle</strong> exists to build the quantitative infrastructure behind professional trading desks and fintech
+                    platforms. From alpha research to live execution, we engineer systems that are measurable, observable, and robust.
                 </p>
             </div>
         </section>
@@ -2751,25 +2586,25 @@
         <div class="container">
             <div class="footer-grid">
                 <div class="footer-brand reveal">
-                    <div class="logo-text">QuantParticle</div>
-                    <p>Research-driven trading technology for professional market participants. Building the next generation of systematic trading infrastructure.</p>
+                    <span class="logo-text">QuantParticle</span>
+                    <p>Quantitative trading infrastructure for systematic traders, proprietary firms, and fintech platforms.</p>
+                </div>
+
+                <div class="footer-links reveal">
+                    <h4>Company</h4>
+                    <a href="/about/">About</a>
+                    <!-- Technology removed -->
+                    <a href="/insights/">Insights</a>
+                    <!-- Careers removed -->
+                    <a href="/contact/">Contact</a>
                 </div>
 
                 <div class="footer-links reveal">
                     <h4>Solutions</h4>
                     <a href="/solutions/strategy-research/">Strategy Research</a>
                     <a href="/solutions/execution-systems/">Execution Systems</a>
-                    <a href="/solutions/quant-lab/">Quant Lab</a>
-                    <a href="/solutions/prop-institutional/">Prop & Institutional</a>
-                </div>
-
-                <div class="footer-links reveal">
-                    <h4>Company</h4>
-                    <a href="/about/">About</a>
-                    <a href="/technology/">Technology</a>
-                    <a href="/insights/">Insights</a>
-                    <a href="/careers/">Careers</a>
-                    <a href="/contact/">Contact</a>
+                    <a href="/solutions/fintech-solutions/">Fintech Solutions</a>
+                    <a href="/solutions/prop-institutional/">Prop &amp; Institutional</a>
                 </div>
 
                 <div class="footer-links reveal">
@@ -2781,9 +2616,9 @@
             </div>
 
             <div class="footer-bottom">
-                <p>Ã‚Â© 2026 QuantParticle. All rights reserved.</p>
+                <p>© 2026 QuantParticle. All rights reserved.</p>
                 <div class="footer-social">
-                    <a href="#" class="social-link" aria-label="X">Ã°Ââ€¢Â</a>
+                    <a href="#" class="social-link" aria-label="X">𝕏</a>
                     <a href="#" class="social-link" aria-label="LinkedIn">in</a>
                     <a href="#" class="social-link" aria-label="GitHub">Git</a>
                 </div>
@@ -2835,12 +2670,12 @@
             scrollProgress.style.width = max > 0 ? (scrolled / max) * 100 + '%' : '0%';
         });
 
-        const header = document.querySelector('header');
+        const headerEl = document.querySelector('header');
         window.addEventListener('scroll', () => {
             if (window.scrollY > 50) {
-                header.classList.add('scrolled');
+                headerEl.classList.add('scrolled');
             } else {
-                header.classList.remove('scrolled');
+                headerEl.classList.remove('scrolled');
             }
         });
 
@@ -2918,7 +2753,7 @@
 
             if (latencyEl) {
                 const lat = (Math.random() * 15 + 2).toFixed(1);
-                latencyEl.textContent = `${lat}Ã‚Âµs`;
+                latencyEl.textContent = `${lat}µs`;
             }
         }
 
