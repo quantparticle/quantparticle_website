@@ -1496,3 +1496,549 @@
         }
     </style>
 </head>
+<body>
+    <div class="cursor-glow"></div>
+    <div class="cursor-trail"></div>
+    <div class="noise-overlay"></div>
+    <div class="scroll-progress"></div>
+    <div class="glow-orb glow-orb-1"></div>
+    <div class="glow-orb glow-orb-2"></div>
+
+    <canvas id="particle-canvas"></canvas>
+
+    <header>
+        <div class="nav-container">
+            <a href="/" class="logo" aria-label="QuantParticle Home">
+                <img src="/quant_particle_logo.png" alt="QuantParticle Logo" />
+            </a>
+
+            <nav>
+                <ul>
+                    <li><a href="/">Home</a></li>
+                    <li><a href="/about/">About</a></li>
+                    <li class="dropdown">
+                        <span class="nav-label active-nav">Solutions</span>
+                        <ul class="dropdown-menu">
+                            <li><a href="/solutions/strategy-research/">Strategy Research</a></li>
+                            <li><a href="/solutions/execution-systems/">Execution Systems</a></li>
+                            <li><a href="/solutions/fintech-solutions/" class="active-nav">Fintech Solutions</a></li>
+                            <li><a href="/solutions/prop-institutional/">Prop & Institutional</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="/insights/">Insights</a></li>
+                    <li><a href="/contact/">Contact</a></li>
+                </ul>
+            </nav>
+
+            <button class="menu-toggle" id="menuToggle" aria-label="Open Menu" type="button">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+
+        <div class="mobile-menu" id="mobileMenu">
+            <a href="/">Home</a>
+            <a href="/about/">About</a>
+
+            <div class="mobile-menu-group">
+                <div class="mobile-menu-group-title">Solutions</div>
+                <a href="/solutions/strategy-research/" class="mobile-sub-link">Strategy Research</a>
+                <a href="/solutions/execution-systems/" class="mobile-sub-link">Execution Systems</a>
+                <a href="/solutions/fintech-solutions/" class="mobile-sub-link active-nav">Fintech Solutions</a>
+                <a href="/solutions/prop-institutional/" class="mobile-sub-link">Prop & Institutional</a>
+            </div>
+
+            <a href="/insights/">Insights</a>
+            <a href="/contact/">Contact</a>
+        </div>
+    </header>
+
+    <main>
+        <section class="page-hero container">
+            <div class="hero-badge">
+                <span class="pulse"></span>
+                <span>FINTECH SOLUTIONS</span>
+            </div>
+
+            <h1>
+                <div class="line"><span class="hero-shine primary-text">Fintech Engineering for</span></div>
+                <div class="line"><span class="hero-shine accent-text">Brokers & Financial Firms.</span></div>
+            </h1>
+
+            <p>
+                We design, build, and maintain high-performance financial technology — custom software, applications, websites, web apps, realtime data infrastructure, and process automation — backed by ongoing tech support your business can rely on.
+            </p>
+
+            <div class="hero-meta">
+                <span>Custom</span> • <span>Apps</span> • <span>Web</span> • <span>Realtime Data</span> • <span>Automation</span> • <span>Support</span>
+            </div>
+
+            <div class="hero-buttons">
+                <a href="/contact/" class="btn btn-primary">Start a Project <span style="font-size: 1.2rem;">→</span></a>
+                <a href="#services" class="btn btn-secondary">Explore Services</a>
+            </div>
+        </section>
+
+        <section class="container" style="padding-top: 0; padding-bottom: 0;">
+            <div class="stats-bar reveal">
+                <div class="stat-item">
+                    <div class="stat-number">7+</div>
+                    <div class="stat-label">Fintech Service Lines</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">24/7</div>
+                    <div class="stat-label">Support Coverage</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">100%</div>
+                    <div class="stat-label">Custom Built</div>
+                </div>
+            </div>
+        </section>
+
+        <section id="services" class="container">
+            <div class="reveal" style="text-align: center; margin-bottom: 60px;">
+                <div class="section-label" style="justify-content: center;">
+                    <span style="width:30px;height:1px;background:var(--accent-cyan);box-shadow:0 0 8px var(--accent-cyan);"></span>
+                    <span>Services</span>
+                    <span style="width:30px;height:1px;background:var(--accent-cyan);box-shadow:0 0 8px var(--accent-cyan);"></span>
+                </div>
+                <h2 class="section-title">What We Build</h2>
+                <p class="section-subtitle" style="margin: 0 auto;">
+                    End-to-end fintech development services — from concept and architecture to deployment and long-term support.
+                </p>
+            </div>
+
+            <div class="services-grid reveal">
+                <div class="service-card">
+                    <span class="service-icon">◈</span>
+                    <h4>Custom Solutions</h4>
+                    <p>Bespoke fintech software engineered around your exact business logic — from trading tools and analytics engines to internal platforms built from scratch.</p>
+                    <ul class="service-features">
+                        <li>Tailored system architecture</li>
+                        <li>Broker-specific workflows</li>
+                        <li>Third-party API integrations</li>
+                    </ul>
+                </div>
+
+                <div class="service-card">
+                    <span class="service-icon">⚡</span>
+                    <h4>Application Development</h4>
+                    <p>High-performance desktop and mobile applications for trading, analytics, and client management — secure, scalable, and built for speed.</p>
+                    <ul class="service-features">
+                        <li>Desktop & mobile applications</li>
+                        <li>Trading terminals & tools</li>
+                        <li>Secure, scalable builds</li>
+                    </ul>
+                </div>
+
+                <div class="service-card">
+                    <span class="service-icon">◎</span>
+                    <h4>Website Development</h4>
+                    <p>Blazing-fast, conversion-focused websites for brokers and financial companies — designed to build trust and turn visitors into clients.</p>
+                    <ul class="service-features">
+                        <li>Fast, SEO-ready builds</li>
+                        <li>Brand-focused design</li>
+                        <li>Compliance-friendly structure</li>
+                    </ul>
+                </div>
+
+                <div class="service-card">
+                    <span class="service-icon">◇</span>
+                    <h4>WebApp Development</h4>
+                    <p>Powerful browser-based platforms — client portals, trading dashboards, admin panels, and back-office systems with real-time interfaces.</p>
+                    <ul class="service-features">
+                        <li>Client portals & dashboards</li>
+                        <li>Admin & back-office panels</li>
+                        <li>Real-time UI updates</li>
+                    </ul>
+                </div>
+
+                <div class="service-card">
+                    <span class="service-icon">↯</span>
+                    <h4>Realtime Data</h4>
+                    <p>Low-latency market data infrastructure — live feeds, streaming pipelines, and APIs that keep your platform updated tick by tick.</p>
+                    <ul class="service-features">
+                        <li>Tick-level live data feeds</li>
+                        <li>WebSocket & REST APIs</li>
+                        <li>Multi-exchange aggregation</li>
+                    </ul>
+                </div>
+
+                <div class="service-card">
+                    <span class="service-icon">⬡</span>
+                    <h4>Process Automation</h4>
+                    <p>Eliminate manual work across trading and operations — automated reporting, reconciliations, alerts, and back-office workflows.</p>
+                    <ul class="service-features">
+                        <li>Trade operations automation</li>
+                        <li>Reports & reconciliations</li>
+                        <li>Telegram, email & dashboard alerts</li>
+                    </ul>
+                </div>
+
+                <div class="service-card">
+                    <span class="service-icon">✚</span>
+                    <h4>Ongoing Tech Support</h4>
+                    <p>Dedicated engineering support for brokers and financial firms — monitoring, maintenance, upgrades, and rapid issue resolution.</p>
+                    <ul class="service-features">
+                        <li>SLA-backed response times</li>
+                        <li>Monitoring & maintenance</li>
+                        <li>Feature upgrades & scaling</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <section class="container" style="padding-top: 40px;">
+            <div class="topic-row reverse reveal">
+                <div class="topic-visual">
+                    <div class="pipeline-viz">
+                        <div class="pipeline-stage">
+                            <div class="pipeline-box active">Broker APIs<div class="fill-bar"></div></div>
+                            <span class="pipeline-arrow">→</span>
+                            <div class="pipeline-box">Charting Tech<div class="fill-bar" style="animation-delay: 0.5s;"></div></div>
+                        </div>
+                        <div class="pipeline-stage">
+                            <div class="pipeline-box">Algo Engines<div class="fill-bar" style="animation-delay: 1s;"></div></div>
+                            <span class="pipeline-arrow">→</span>
+                            <div class="pipeline-box">Data Infrastructure<div class="fill-bar" style="animation-delay: 1.5s;"></div></div>
+                        </div>
+                        <div class="pipeline-stage" style="justify-content: center;">
+                            <span class="pipeline-arrow" style="transform: rotate(90deg); animation: none; font-size: 1.5rem; margin: -0.5rem 0;">↓</span>
+                        </div>
+                        <div class="pipeline-stage">
+                            <div class="pipeline-box active" style="flex: 0 0 60%; margin: 0 auto; text-align: center;">24/7 Tech Support<div class="fill-bar" style="animation-delay: 0.3s;"></div></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="topic-content">
+                    <h3><span class="topic-num">BUILT FOR BROKERS</span>Technology Partner, Not Just a Vendor</h3>
+                    <p>We work as an extension of your team. Brokers and financial companies get a dedicated engineering partner who understands market infrastructure — and stays on board long after launch to keep systems fast, secure, and up to date.</p>
+                    <ul class="topic-features">
+                        <li>Dedicated support channel for your team</li>
+                        <li>Proactive monitoring & incident response</li>
+                        <li>Regular upgrades as your business scales</li>
+                        <li>Deep understanding of trading infrastructure</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <section class="container" style="padding-top: 40px;">
+            <div class="reveal" style="text-align:center; margin-bottom: 42px;">
+                <div class="section-label" style="justify-content:center;">
+                    <span style="width:30px;height:1px;background:var(--accent-cyan);box-shadow:0 0 8px var(--accent-cyan);"></span>
+                    <span>Process</span>
+                    <span style="width:30px;height:1px;background:var(--accent-cyan);box-shadow:0 0 8px var(--accent-cyan);"></span>
+                </div>
+                <h2 class="section-title">How We Deliver</h2>
+            </div>
+
+            <div class="approach-grid">
+                <div class="approach-item reveal">
+                    <div class="approach-number">01</div>
+                    <div class="approach-content">
+                        <h3>Discovery & Scoping</h3>
+                        <p>We start by understanding your business, workflows, and technical requirements in depth — then define a clear scope, timeline, and architecture before writing any code.</p>
+                    </div>
+                </div>
+
+                <div class="approach-item reveal">
+                    <div class="approach-number">02</div>
+                    <div class="approach-content">
+                        <h3>Design & Architecture</h3>
+                        <p>UI/UX design and system architecture built for financial workloads — low latency, high availability, and security baked in from day one.</p>
+                    </div>
+                </div>
+
+                <div class="approach-item reveal">
+                    <div class="approach-number">03</div>
+                    <div class="approach-content">
+                        <h3>Development & Integration</h3>
+                        <p>Agile development with regular demos and feedback cycles. We integrate broker APIs, data feeds, payment systems, and third-party services seamlessly.</p>
+                    </div>
+                </div>
+
+                <div class="approach-item reveal">
+                    <div class="approach-number">04</div>
+                    <div class="approach-content">
+                        <h3>Launch & Ongoing Support</h3>
+                        <p>Smooth deployment followed by continuous monitoring, maintenance, and feature upgrades — your systems stay production-ready around the clock.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="serve-section container">
+            <div class="reveal" style="margin-bottom: 2.5rem;">
+                <div class="section-label" style="justify-content:center;">
+                    <span style="width:30px;height:1px;background:var(--accent-cyan);box-shadow:0 0 8px var(--accent-cyan);"></span>
+                    <span>Clients</span>
+                    <span style="width:30px;height:1px;background:var(--accent-cyan);box-shadow:0 0 8px var(--accent-cyan);"></span>
+                </div>
+                <h2 class="section-title">Who We Build For</h2>
+            </div>
+
+            <div class="serve-tags reveal">
+                <div class="serve-tag">Stock Brokers</div>
+                <div class="serve-tag">Proprietary Trading Firms</div>
+                <div class="serve-tag">Wealth Management Firms</div>
+                <div class="serve-tag">Crypto Exchanges</div>
+                <div class="serve-tag">Fintech Startups</div>
+                <div class="serve-tag">Financial Advisors</div>
+                <div class="serve-tag">NBFCs</div>
+                <div class="serve-tag">Hedge Funds</div>
+            </div>
+        </section>
+
+        <section class="cta-section container">
+            <div class="cta-box reveal">
+                <div class="section-label" style="justify-content:center;">
+                    <span style="width:30px;height:1px;background:var(--accent-cyan);box-shadow:0 0 8px var(--accent-cyan);"></span>
+                    <span>Get Started</span>
+                    <span style="width:30px;height:1px;background:var(--accent-cyan);box-shadow:0 0 8px var(--accent-cyan);"></span>
+                </div>
+                <h2>Have a Fintech Product to Build?</h2>
+                <p>Tell us what you need — software, an app, a website, realtime data, or full process automation. Our team will scope it and engineer it to production-grade standards.</p>
+                <div class="hero-buttons">
+                    <a href="/contact/" class="btn btn-primary">Start a Project <span style="font-size: 1.2rem;">→</span></a>
+                    <a href="/" class="btn btn-secondary">Back to Home</a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand reveal">
+                    <div class="logo-text">QuantParticle</div>
+                    <p>Research-driven trading technology for professional market participants. Building the next generation of systematic trading infrastructure.</p>
+                </div>
+
+                <div class="footer-links reveal">
+                    <h4>Solutions</h4>
+                    <a href="/solutions/strategy-research/">Strategy Research</a>
+                    <a href="/solutions/execution-systems/">Execution Systems</a>
+                    <a href="/solutions/fintech-solutions/">Fintech Solutions</a>
+                    <a href="/solutions/prop-institutional/">Prop & Institutional</a>
+                </div>
+
+                <div class="footer-links reveal">
+                    <h4>Company</h4>
+                    <a href="/about/">About</a>
+                    <a href="/insights/">Insights</a>
+                    <a href="/contact/">Contact</a>
+                </div>
+
+                <div class="footer-links reveal">
+                    <h4>Legal</h4>
+                    <a href="/privacy/">Privacy Policy</a>
+                    <a href="/terms/">Terms of Service</a>
+                    <a href="/risk/">Risk Disclosure</a>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p>© 2026 QuantParticle. All rights reserved.</p>
+                <div class="footer-social">
+                    <a href="#" class="social-link" aria-label="X">𝕏</a>
+                    <a href="#" class="social-link" aria-label="LinkedIn">in</a>
+                    <a href="#" class="social-link" aria-label="GitHub">Git</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        const cursor = document.querySelector('.cursor-glow');
+        const trail = document.querySelector('.cursor-trail');
+        let mouseX = 0, mouseY = 0;
+        let cursorX = 0, cursorY = 0;
+        let trailX = 0, trailY = 0;
+
+        document.addEventListener('mousemove', (e) => {
+            mouseX = e.clientX;
+            mouseY = e.clientY;
+        });
+
+        function animateCursor() {
+            if (cursor && trail && window.innerWidth > 968) {
+                cursorX += (mouseX - cursorX) * 0.15;
+                cursorY += (mouseY - cursorY) * 0.15;
+                trailX += (mouseX - trailX) * 0.08;
+                trailY += (mouseY - trailY) * 0.08;
+                cursor.style.left = cursorX + 'px';
+                cursor.style.top = cursorY + 'px';
+                trail.style.left = trailX + 'px';
+                trail.style.top = trailY + 'px';
+            }
+            requestAnimationFrame(animateCursor);
+        }
+        animateCursor();
+
+        const interactiveElements = document.querySelectorAll('a, button, .service-card, .serve-tag');
+        interactiveElements.forEach(el => {
+            el.addEventListener('mouseenter', () => {
+                if (cursor) cursor.classList.add('hover');
+            });
+            el.addEventListener('mouseleave', () => {
+                if (cursor) cursor.classList.remove('hover');
+            });
+        });
+
+        const scrollProgress = document.querySelector('.scroll-progress');
+        window.addEventListener('scroll', () => {
+            const scrolled = window.scrollY;
+            const max = document.documentElement.scrollHeight - window.innerHeight;
+            scrollProgress.style.width = max > 0 ? (scrolled / max) * 100 + '%' : '0%';
+        });
+
+        const header = document.querySelector('header');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+
+        const observerOptions = { threshold: 0.1, rootMargin: '0px 0px -50px 0px' };
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+        const menuToggle = document.getElementById('menuToggle');
+        const mobileMenu = document.getElementById('mobileMenu');
+
+        if (menuToggle && mobileMenu) {
+            menuToggle.addEventListener('click', () => {
+                menuToggle.classList.toggle('active');
+                mobileMenu.classList.toggle('active');
+                document.body.style.overflow = mobileMenu.classList.contains('active') ? 'hidden' : '';
+            });
+
+            document.querySelectorAll('.mobile-menu a').forEach(link => {
+                link.addEventListener('click', () => {
+                    menuToggle.classList.remove('active');
+                    mobileMenu.classList.remove('active');
+                    document.body.style.overflow = '';
+                });
+            });
+
+            window.addEventListener('resize', () => {
+                if (window.innerWidth > 968) {
+                    menuToggle.classList.remove('active');
+                    mobileMenu.classList.remove('active');
+                    document.body.style.overflow = '';
+                }
+            });
+        }
+
+        const canvas = document.getElementById('particle-canvas');
+        const ctx = canvas.getContext('2d');
+
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+
+        resizeCanvas();
+        window.addEventListener('resize', resizeCanvas);
+
+        let particles = [];
+        const mouse = { x: null, y: null, radius: 200 };
+
+        window.addEventListener('mousemove', (e) => {
+            mouse.x = e.x;
+            mouse.y = e.y;
+        });
+
+        window.addEventListener('mouseout', () => {
+            mouse.x = null;
+            mouse.y = null;
+        });
+
+        class Particle {
+            constructor() {
+                this.x = Math.random() * canvas.width;
+                this.y = Math.random() * canvas.height;
+                this.size = Math.random() * 2 + 0.5;
+                this.baseX = this.x;
+                this.baseY = this.y;
+                this.density = Math.random() * 25 + 5;
+                this.vx = (Math.random() - 0.5) * 0.5;
+                this.vy = (Math.random() - 0.5) * 0.5;
+                this.opacity = Math.random() * 0.5 + 0.2;
+            }
+
+            update() {
+                if (mouse.x != null) {
+                    let dx = mouse.x - this.x;
+                    let dy = mouse.y - this.y;
+                    let distance = Math.sqrt(dx * dx + dy * dy);
+
+                    if (distance < mouse.radius && distance > 0) {
+                        const force = (mouse.radius - distance) / mouse.radius;
+                        const dirX = dx / distance;
+                        const dirY = dy / distance;
+                        const push = force * this.density * 0.8;
+                        this.x += dirX * push;
+                        this.y += dirY * push;
+                    }
+                }
+
+                this.x += this.vx;
+                this.y += this.vy;
+
+                let homeDx = this.x - this.baseX;
+                let homeDy = this.y - this.baseY;
+                this.x -= homeDx * 0.02;
+                this.y -= homeDy * 0.02;
+
+                if (this.x < 0) this.x = canvas.width;
+                if (this.x > canvas.width) this.x = 0;
+                if (this.y < 0) this.y = canvas.height;
+                if (this.y > canvas.height) this.y = 0;
+            }
+
+            draw() {
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fillStyle = `rgba(0, 229, 255, ${this.opacity})`;
+                ctx.fill();
+            }
+        }
+
+        function initParticles() {
+            particles = [];
+            const count = Math.min((canvas.width * canvas.height) / 12000, 150);
+            for (let i = 0; i < count; i++) {
+                particles.push(new Particle());
+            }
+        }
+
+        function animateParticles() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            for (let p of particles) {
+                p.update();
+                p.draw();
+            }
+            requestAnimationFrame(animateParticles);
+        }
+
+        initParticles();
+        animateParticles();
+
+        window.addEventListener('resize', initParticles);
+    </script>
+</body>
+</html>
