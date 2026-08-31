@@ -45,6 +45,7 @@
             color: var(--text-primary);
             font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
             line-height: 1.6;
+            cursor: none;
             position: relative;
         }
 
@@ -54,6 +55,10 @@
         video {
             max-width: 100%;
             display: block;
+        }
+
+        a, button {
+            cursor: none;
         }
 
         .cursor-glow {
@@ -313,7 +318,7 @@
         }
 
         .dropdown-menu {
-            display: block;
+            display: block; /* Override inherited flex layout to fix horizontal stretching */
             opacity: 0;
             visibility: hidden;
             transform: translateY(10px);
@@ -354,7 +359,7 @@
         }
 
         .nav-label::before {
-            content: '▼';
+            content: 'Ã¢â€“Â¼';
             font-size: 0.5rem;
             margin-right: 6px;
             opacity: 0.6;
@@ -387,7 +392,6 @@
             appearance: none;
             -webkit-appearance: none;
             margin-left: auto;
-            cursor: pointer;
         }
 
         .menu-toggle:hover {
@@ -680,7 +684,6 @@
             overflow: hidden;
             max-width: 100%;
             text-align: center;
-            cursor: pointer;
         }
 
         .btn-primary {
@@ -938,7 +941,7 @@
 
         .stats-bar {
             display: grid;
-            grid-template-columns: repeat(3, minmax(0, 1fr));
+            grid-template-columns: repeat(4, minmax(0, 1fr));
             gap: 2rem;
             padding: 2.5rem 0;
             border-top: 1px solid var(--border-subtle);
@@ -1043,7 +1046,7 @@
         }
 
         .topic-features li::before {
-            content: '→';
+            content: 'Ã¢â€ â€™';
             color: var(--accent-cyan);
             font-weight: 700;
             flex: 0 0 auto;
@@ -1058,8 +1061,6 @@
             overflow: hidden;
         }
 
-        .code-viz,
-        .bt-viz,
         .strategy-viz,
         .automation-flow,
         .analytics-dashboard,
@@ -1069,146 +1070,6 @@
             height: 100%;
             max-width: 100%;
             overflow: hidden;
-        }
-
-        .code-viz {
-            display: flex;
-            flex-direction: column;
-            background: var(--glass-bg);
-            backdrop-filter: blur(20px);
-            border: 1px solid var(--glass-border);
-            border-radius: 16px;
-            box-shadow: 0 25px 70px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(0, 229, 255, 0.08);
-        }
-
-        .code-body {
-            flex: 1 1 auto;
-            padding: 1.25rem 1.4rem;
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 0.76rem;
-            line-height: 1.7;
-            color: #a5f3fc;
-            white-space: pre-wrap;
-            word-break: break-word;
-            overflow: hidden;
-            min-height: 0;
-        }
-
-        .code-caret {
-            display: inline-block;
-            width: 8px;
-            height: 14px;
-            background: var(--accent-cyan);
-            vertical-align: middle;
-            margin-left: 2px;
-            box-shadow: 0 0 8px var(--accent-cyan);
-            animation: caretBlink 0.9s steps(1) infinite;
-        }
-
-        @keyframes caretBlink {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0; }
-        }
-
-        .code-langs {
-            display: flex;
-            gap: 0.5rem;
-            padding: 0.7rem 1rem;
-            border-top: 1px solid var(--border-subtle);
-            flex-wrap: wrap;
-            background: rgba(0, 0, 0, 0.25);
-        }
-
-        .code-lang {
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 0.64rem;
-            padding: 0.3rem 0.7rem;
-            border-radius: 100px;
-            border: 1px solid var(--border-subtle);
-            color: var(--text-secondary);
-            letter-spacing: 0.5px;
-            transition: all 0.3s;
-        }
-
-        .code-lang.active {
-            color: var(--accent-cyan);
-            border-color: var(--accent-cyan);
-            background: rgba(0, 229, 255, 0.08);
-            box-shadow: 0 0 12px rgba(0, 229, 255, 0.18);
-        }
-
-        .bt-viz {
-            position: relative;
-            display: flex;
-            flex-direction: column;
-            background: var(--glass-bg);
-            backdrop-filter: blur(20px);
-            border: 1px solid var(--glass-border);
-            border-radius: 16px;
-            padding: 1.25rem;
-            box-shadow: 0 25px 70px rgba(0, 0, 0, 0.4);
-        }
-
-        .bt-chart-wrap {
-            position: relative;
-            flex: 1 1 auto;
-            min-height: 0;
-            border-radius: 12px;
-            background: rgba(12, 18, 31, 0.55);
-            border: 1px solid rgba(255,255,255,0.05);
-            overflow: hidden;
-        }
-
-        #bt-canvas {
-            position: absolute;
-            inset: 0;
-            width: 100%;
-            height: 100%;
-        }
-
-        .bt-results {
-            display: grid;
-            grid-template-columns: repeat(4, minmax(0, 1fr));
-            gap: 0.6rem;
-            margin-top: 0.9rem;
-        }
-
-        .bt-metric {
-            background: rgba(20, 29, 46, 0.65);
-            border: 1px solid rgba(255,255,255,0.06);
-            border-radius: 10px;
-            padding: 0.55rem 0.4rem;
-            text-align: center;
-            min-width: 0;
-        }
-
-        .bt-metric .k {
-            display: block;
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 0.58rem;
-            color: var(--accent-cyan);
-            letter-spacing: 1px;
-            margin-bottom: 0.25rem;
-        }
-
-        .bt-metric .v {
-            font-size: 0.92rem;
-            font-weight: 700;
-            color: var(--text-primary);
-            font-family: 'JetBrains Mono', monospace;
-            word-break: break-word;
-        }
-
-        .bt-label {
-            margin-top: 0.7rem;
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 0.68rem;
-            color: var(--text-secondary);
-            text-align: center;
-            letter-spacing: 1px;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            white-space: nowrap;
         }
 
         .strategy-viz {
@@ -1954,60 +1815,6 @@
             font-weight: 600;
         }
 
-        .cta-section {
-            padding-top: 30px;
-            padding-bottom: 110px;
-        }
-
-        .cta-box {
-            position: relative;
-            text-align: center;
-            background:
-                radial-gradient(circle at top center, rgba(0, 229, 255, 0.1), transparent 55%),
-                linear-gradient(180deg, rgba(15, 21, 37, 0.95), rgba(10, 15, 26, 0.95));
-            border: 1px solid var(--glass-border);
-            border-radius: 24px;
-            padding: 4.2rem 2rem;
-            overflow: hidden;
-            box-shadow: 0 30px 90px rgba(0, 0, 0, 0.45), 0 0 0 1px rgba(0, 229, 255, 0.06);
-        }
-
-        .cta-box::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 1px;
-            background: linear-gradient(90deg, transparent, var(--accent-cyan), transparent);
-            opacity: 0.7;
-        }
-
-        .cta-box h2 {
-            font-size: clamp(1.9rem, 3.5vw, 2.7rem);
-            font-weight: 800;
-            letter-spacing: -1px;
-            margin-bottom: 1rem;
-            background: linear-gradient(135deg, var(--text-primary) 0%, var(--accent-cyan) 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-
-        .cta-box p {
-            color: var(--text-secondary);
-            max-width: 640px;
-            margin: 0 auto 2.3rem;
-            font-size: 1.06rem;
-            line-height: 1.8;
-        }
-
-        .cta-box .hero-buttons {
-            justify-content: center;
-            animation: none;
-            opacity: 1;
-        }
-
         footer {
             background: var(--bg-surface);
             padding: 5rem 0 2rem;
@@ -2129,6 +1936,14 @@
         }
 
         @media (max-width: 968px) {
+            body {
+                cursor: auto;
+            }
+
+            a, button {
+                cursor: pointer;
+            }
+
             .cursor-glow,
             .cursor-trail {
                 display: none;
@@ -2331,33 +2146,6 @@
                 height: 260px;
             }
 
-            .code-body {
-                padding: 0.9rem 1rem;
-                font-size: 0.62rem;
-            }
-
-            .code-langs {
-                gap: 0.35rem;
-                padding: 0.55rem 0.75rem;
-            }
-
-            .code-lang {
-                font-size: 0.54rem;
-                padding: 0.22rem 0.5rem;
-            }
-
-            .bt-viz {
-                padding: 0.9rem;
-            }
-
-            .bt-results {
-                grid-template-columns: repeat(2, minmax(0, 1fr));
-            }
-
-            .bt-label {
-                font-size: 0.6rem;
-            }
-
             .strat-card {
                 max-width: 46%;
                 padding: 0.55rem 0.7rem;
@@ -2465,10 +2253,6 @@
                 text-align: center;
             }
 
-            .cta-box {
-                padding: 2.8rem 1.2rem;
-            }
-
             .footer-bottom {
                 flex-direction: column;
                 text-align: center;
@@ -2516,11 +2300,13 @@
                         <ul class="dropdown-menu">
                             <li><a href="/solutions/strategy-research/">Strategy Research</a></li>
                             <li><a href="/solutions/execution-systems/">Execution Systems</a></li>
-                            <li><a href="/solutions/fintech-solutions/">Fintech Solutions</a></li>
+                            <li><a href="/solutions/quant-lab/">Quant Lab</a></li>
                             <li><a href="/solutions/prop-institutional/">Prop & Institutional</a></li>
                         </ul>
                     </li>
+                    <li><a href="/technology/">Technology</a></li>
                     <li><a href="/insights/">Insights</a></li>
+                    <li><a href="/careers/">Careers</a></li>
                     <li><a href="/contact/">Contact</a></li>
                 </ul>
             </nav>
@@ -2540,11 +2326,13 @@
                 <div class="mobile-menu-group-title">Solutions</div>
                 <a href="/solutions/strategy-research/" class="mobile-sub-link">Strategy Research</a>
                 <a href="/solutions/execution-systems/" class="mobile-sub-link">Execution Systems</a>
-                <a href="/solutions/fintech-solutions/" class="mobile-sub-link">Fintech Solutions</a>
+                <a href="/solutions/quant-lab/" class="mobile-sub-link">Quant Lab</a>
                 <a href="/solutions/prop-institutional/" class="mobile-sub-link">Prop & Institutional</a>
             </div>
 
+            <a href="/technology/">Technology</a>
             <a href="/insights/">Insights</a>
+            <a href="/careers/">Careers</a>
             <a href="/contact/">Contact</a>
         </div>
     </header>
@@ -2569,11 +2357,11 @@
                     </p>
 
                     <div class="hero-meta">
-                        <span>LFT</span> • <span>MFT</span> • <span>HFT</span> • <span>Multi-Asset</span> • <span>Global Markets</span>
+                        <span>LFT</span> Ã¢â‚¬Â¢ <span>MFT</span> Ã¢â‚¬Â¢ <span>HFT</span> Ã¢â‚¬Â¢ <span>Multi-Asset</span> Ã¢â‚¬Â¢ <span>Global Markets</span>
                     </div>
 
                     <div class="hero-buttons">
-                        <a href="/solutions/strategy-research/" class="btn btn-primary">Explore Solutions <span style="font-size: 1.2rem;">→</span></a>
+                        <a href="/solutions/strategy-research/" class="btn btn-primary">Explore Solutions <span style="font-size: 1.2rem;">Ã¢â€ â€™</span></a>
                         <a href="/contact/" class="btn btn-secondary">Contact Research Team</a>
                     </div>
                 </div>
@@ -2594,7 +2382,7 @@
 
                         <div class="latency-monitor">
                             <span class="latency-label">AVG LATENCY</span>
-                            <span class="latency-value" id="latency">8.4µs</span>
+                            <span class="latency-value" id="latency">8.4Ã‚Âµs</span>
                             <span class="latency-label">THROUGHPUT</span>
                             <span class="latency-value">142K TPS</span>
                         </div>
@@ -2608,11 +2396,15 @@
         <section class="container" style="padding-top: 0; padding-bottom: 0;">
             <div class="stats-bar reveal">
                 <div class="stat-item">
-                    <div class="stat-number">12µs</div>
+                    <div class="stat-number">4.2B</div>
+                    <div class="stat-label">Notional Traded</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">12Ã‚Âµs</div>
                     <div class="stat-label">Avg Latency</div>
                 </div>
                 <div class="stat-item">
-                    <div class="stat-number">200+</div>
+                    <div class="stat-number">142</div>
                     <div class="stat-label">Active Strategies</div>
                 </div>
                 <div class="stat-item">
@@ -2638,35 +2430,39 @@
             <div class="topic-row reveal">
                 <div class="topic-content">
                     <h3><span class="topic-num">01 // STRATEGY</span>Quantitative Strategy Development</h3>
-                    <p>We architect and code systematic trading strategies across every major language and platform. Our developers build production-grade strategies in Python, C++, C, MQL5 (MT5), AFL (AmiBroker), Pine Script (TradingView), and other languages — every signal hypothesis-tested before touching production capital.</p>
+                    <p>We architect systematic trading models grounded in statistical inference, mathematical optimization, and market microstructure theory. Every signal is hypothesis-tested before touching production capital.</p>
                     <ul class="topic-features">
-                        <li>Python, C++ & C strategy development</li>
-                        <li>MQL5 / MT5 Expert Advisor development</li>
-                        <li>AFL (AmiBroker) & Pine Script (TradingView) strategies</li>
+                        <li>Statistical arbitrage factor modeling</li>
                         <li>Machine learning signal generation</li>
+                        <li>Regime detection and adaptivity</li>
                         <li>Multi-asset cross-market systems</li>
                     </ul>
                 </div>
 
                 <div class="topic-visual">
-                    <div class="code-viz">
-                        <div class="terminal-header">
-                            <div class="terminal-dots">
-                                <span class="terminal-dot"></span>
-                                <span class="terminal-dot"></span>
-                                <span class="terminal-dot"></span>
-                            </div>
-                            <span class="terminal-title" id="code-filename">momentum_strategy.py</span>
-                            <div style="width: 40px; flex: 0 0 auto;"></div>
+                    <div class="strategy-viz">
+                        <div class="strategy-track track-1"><span class="strategy-pulse"></span></div>
+                        <div class="strategy-track track-2"><span class="strategy-pulse"></span></div>
+                        <div class="strategy-track track-3"><span class="strategy-pulse"></span></div>
+                        <div class="strategy-track track-4"><span class="strategy-pulse"></span></div>
+
+                        <div class="strategy-beacon beacon-1"></div>
+                        <div class="strategy-beacon beacon-2"></div>
+                        <div class="strategy-beacon beacon-3"></div>
+
+                        <div class="strat-card strat-card-1">
+                            <span class="small">SIGNAL</span>
+                            <span class="big">Momentum Cluster</span>
                         </div>
-                        <div class="code-body"><code id="code-typed"></code><span class="code-caret"></span></div>
-                        <div class="code-langs">
-                            <span class="code-lang" data-lang="Python">Python</span>
-                            <span class="code-lang" data-lang="C++">C++</span>
-                            <span class="code-lang" data-lang="C">C</span>
-                            <span class="code-lang" data-lang="MQL5">MQL5</span>
-                            <span class="code-lang" data-lang="AFL">AFL</span>
-                            <span class="code-lang" data-lang="Pine">Pine Script</span>
+
+                        <div class="strat-card strat-card-2">
+                            <span class="small">MODEL</span>
+                            <span class="big">Regime Switch</span>
+                        </div>
+
+                        <div class="strat-card strat-card-3">
+                            <span class="small">RISK</span>
+                            <span class="big">Adaptive Sizing</span>
                         </div>
                     </div>
                 </div>
@@ -2677,16 +2473,16 @@
                     <div class="pipeline-viz">
                         <div class="pipeline-stage">
                             <div class="pipeline-box active">Signal Generation<div class="fill-bar"></div></div>
-                            <span class="pipeline-arrow">→</span>
+                            <span class="pipeline-arrow">Ã¢â€ â€™</span>
                             <div class="pipeline-box">Risk Engine<div class="fill-bar" style="animation-delay: 0.5s;"></div></div>
                         </div>
                         <div class="pipeline-stage">
                             <div class="pipeline-box">Order Manager<div class="fill-bar" style="animation-delay: 1s;"></div></div>
-                            <span class="pipeline-arrow">→</span>
+                            <span class="pipeline-arrow">Ã¢â€ â€™</span>
                             <div class="pipeline-box">Exchange Gateway<div class="fill-bar" style="animation-delay: 1.5s;"></div></div>
                         </div>
                         <div class="pipeline-stage" style="justify-content: center;">
-                            <span class="pipeline-arrow" style="transform: rotate(90deg); animation: none; font-size: 1.5rem; margin: -0.5rem 0;">↓</span>
+                            <span class="pipeline-arrow" style="transform: rotate(90deg); animation: none; font-size: 1.5rem; margin: -0.5rem 0;">Ã¢â€ â€œ</span>
                         </div>
                         <div class="pipeline-stage">
                             <div class="pipeline-box active" style="flex: 0 0 60%; margin: 0 auto; text-align: center;">P&L Monitoring<div class="fill-bar" style="animation-delay: 0.3s;"></div></div>
@@ -2709,28 +2505,37 @@
             <div class="topic-row reveal">
                 <div class="topic-content">
                     <h3><span class="topic-num">03 // RESEARCH</span>Backtesting & Research</h3>
-                    <p>We provide professional backtesting of your trading strategies along with high-quality historical data for the same. Our simulation frameworks replicate real market conditions — slippage, latency, partial fills, and fees — so every strategy is validated honestly before live capital deployment.</p>
+                    <p>Robust simulation frameworks that replicate real market conditions, slippage, latency, partial fills, and fees so strategies are validated honestly before live capital deployment.</p>
                     <ul class="topic-features">
-                        <li>Strategy backtesting with quality historical data</li>
                         <li>Tick-level and bar-based simulation</li>
+                        <li>Transaction cost analysis</li>
                         <li>Walk-forward and out-of-sample testing</li>
-                        <li>Detailed performance reports & analytics</li>
                         <li>Parameter stability and overfitting detection</li>
                     </ul>
                 </div>
 
                 <div class="topic-visual">
-                    <div class="bt-viz">
-                        <div class="bt-chart-wrap">
-                            <canvas id="bt-canvas"></canvas>
+                    <div class="chart-viz">
+                        <div class="chart-grid">
+                            <div class="chart-grid-line"></div>
+                            <div class="chart-grid-line"></div>
+                            <div class="chart-grid-line"></div>
+                            <div class="chart-grid-line"></div>
+                            <div class="chart-grid-line"></div>
                         </div>
-                        <div class="bt-results">
-                            <div class="bt-metric"><span class="k">NET PROFIT</span><span class="v" id="bt-profit">+0.0%</span></div>
-                            <div class="bt-metric"><span class="k">SHARPE</span><span class="v" id="bt-sharpe">0.00</span></div>
-                            <div class="bt-metric"><span class="k">MAX DD</span><span class="v" id="bt-dd">0.0%</span></div>
-                            <div class="bt-metric"><span class="k">TRADES</span><span class="v" id="bt-trades">0</span></div>
+                        <div class="chart-bars">
+                            <div class="chart-bar" style="height: 40%;"></div>
+                            <div class="chart-bar" style="height: 65%;"></div>
+                            <div class="chart-bar" style="height: 30%;"></div>
+                            <div class="chart-bar" style="height: 80%;"></div>
+                            <div class="chart-bar" style="height: 55%;"></div>
+                            <div class="chart-bar" style="height: 90%;"></div>
+                            <div class="chart-bar" style="height: 45%;"></div>
+                            <div class="chart-bar" style="height: 70%;"></div>
+                            <div class="chart-bar" style="height: 85%;"></div>
+                            <div class="chart-bar" style="height: 60%;"></div>
                         </div>
-                        <div class="bt-label">EQUITY CURVE // LIVE BACKTEST SIMULATION</div>
+                        <div class="chart-label">CUMULATIVE P&L // BACKTEST SERIES</div>
                     </div>
                 </div>
             </div>
@@ -2759,11 +2564,10 @@
 
                 <div class="topic-content">
                     <h3><span class="topic-num">04 // AUTOMATION</span>Trading Automation</h3>
-                    <p>We automate trading end-to-end across Python, C++, C, AFL (AmiBroker), MQL5 (MT5), TradingView, and other platforms — zero-touch pipelines covering market data ingestion, signal generation, execution, and post-trade monitoring. Built for 24/7 reliability with autonomous failover and alerting.</p>
+                    <p>Zero-touch automation pipelines integrating market data ingestion, signal generation, execution, and post-trade monitoring. Built for 24/7 reliability with autonomous failover and alerting.</p>
                     <ul class="topic-features">
-                        <li>Automation in Python, C++, C, AFL & MQL5</li>
-                        <li>TradingView webhook & broker API bridges</li>
                         <li>Fully automated signal-to-trade lifecycle</li>
+                        <li>Webhook and API bridge integrations</li>
                         <li>Self-healing recovery systems</li>
                         <li>Telegram, Slack, and dashboard alerts</li>
                     </ul>
@@ -2797,52 +2601,6 @@
 
             <div class="topic-row reverse reveal">
                 <div class="topic-visual">
-                    <div class="pipeline-viz">
-                        <div class="pipeline-stage">
-                            <div class="pipeline-box active">Broker APIs<div class="fill-bar"></div></div>
-                            <span class="pipeline-arrow">→</span>
-                            <div class="pipeline-box">Charting Tech<div class="fill-bar" style="animation-delay: 0.5s;"></div></div>
-                        </div>
-                        <div class="pipeline-stage">
-                            <div class="pipeline-box">Algo Engines<div class="fill-bar" style="animation-delay: 1s;"></div></div>
-                            <span class="pipeline-arrow">→</span>
-                            <div class="pipeline-box">Data Infrastructure<div class="fill-bar" style="animation-delay: 1.5s;"></div></div>
-                        </div>
-                        <div class="pipeline-stage" style="justify-content: center;">
-                            <span class="pipeline-arrow" style="transform: rotate(90deg); animation: none; font-size: 1.5rem; margin: -0.5rem 0;">↓</span>
-                        </div>
-                        <div class="pipeline-stage">
-                            <div class="pipeline-box active" style="flex: 0 0 60%; margin: 0 auto; text-align: center;">24/7 Tech Support<div class="fill-bar" style="animation-delay: 0.3s;"></div></div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="topic-content">
-                    <h3><span class="topic-num">06 // FINTECH</span>Fintech Solutions</h3>
-                    <p>We provide dedicated technology support to brokers and other financial companies — building the high-tech infrastructure their business runs on. From custom software development and advanced charting technology to algo trading systems, market data solutions, and other cutting-edge development, we engineer fintech products to institutional standards.</p>
-                    <ul class="topic-features">
-                        <li>Custom trading software & platform development</li>
-                        <li>Advanced charting technology & dashboards</li>
-                        <li>Algo trading systems & execution engines</li>
-                        <li>Market data feeds, APIs & analytics infrastructure</li>
-                        <li>Ongoing tech support for brokers & financial firms</li>
-                    </ul>
-                </div>
-            </div>
-
-            <div class="topic-row reveal">
-                <div class="topic-content">
-                    <h3><span class="topic-num">07 // ANALYTICS</span>Quantitative Analytics</h3>
-                    <p>Advanced performance diagnostics including factor decomposition, drawdown attribution, optimization, and real-time portfolio health dashboards for decision-makers.</p>
-                    <ul class="topic-features">
-                        <li>Factor exposure and attribution models</li>
-                        <li>Drawdown and tail-risk decomposition</li>
-                        <li>Real-time performance dashboards</li>
-                        <li>Correlation and beta monitoring</li>
-                    </ul>
-                </div>
-
-                <div class="topic-visual">
                     <div class="analytics-dashboard">
                         <div class="analytics-top">
                             <div class="analytics-donut"></div>
@@ -2859,6 +2617,17 @@
                             <div class="analytics-metric"><span class="k">TURNOVER</span><span class="v">1.9x</span></div>
                         </div>
                     </div>
+                </div>
+
+                <div class="topic-content">
+                    <h3><span class="topic-num">06 // ANALYTICS</span>Quantitative Analytics</h3>
+                    <p>Advanced performance diagnostics including factor decomposition, drawdown attribution, optimization, and real-time portfolio health dashboards for decision-makers.</p>
+                    <ul class="topic-features">
+                        <li>Factor exposure and attribution models</li>
+                        <li>Drawdown and tail-risk decomposition</li>
+                        <li>Real-time performance dashboards</li>
+                        <li>Correlation and beta monitoring</li>
+                    </ul>
                 </div>
             </div>
         </section>
@@ -2878,25 +2647,25 @@
 
             <div class="tech-grid reveal">
                 <div class="tech-card">
-                    <span class="tech-icon">◈</span>
+                    <span class="tech-icon">Ã¢â€”Ë†</span>
                     <h4>Pine Script / TradingView</h4>
                     <p>Custom indicator & strategy development with advanced visualizations.</p>
                 </div>
 
                 <div class="tech-card">
-                    <span class="tech-icon">⚡</span>
+                    <span class="tech-icon">Ã¢Å¡Â¡</span>
                     <h4>C++ / Rust Engine</h4>
                     <p>Low-latency execution cores for HFT and market making systems.</p>
                 </div>
 
                 <div class="tech-card">
-                    <span class="tech-icon">◎</span>
+                    <span class="tech-icon">Ã¢â€”Å½</span>
                     <h4>Python / PyTorch</h4>
                     <p>ML signal generation, backtesting frameworks, and data pipelines.</p>
                 </div>
 
                 <div class="tech-card">
-                    <span class="tech-icon">◇</span>
+                    <span class="tech-icon">Ã¢â€”â€¡</span>
                     <h4>WebSocket / FIX</h4>
                     <p>Exchange connectivity, order routing, and real-time market data.</p>
                 </div>
@@ -2976,22 +2745,6 @@
                 </p>
             </div>
         </section>
-
-        <section class="cta-section container">
-            <div class="cta-box reveal">
-                <div class="section-label" style="justify-content:center;">
-                    <span style="width:30px;height:1px;background:var(--accent-cyan);box-shadow:0 0 8px var(--accent-cyan);"></span>
-                    <span>Get Started</span>
-                    <span style="width:30px;height:1px;background:var(--accent-cyan);box-shadow:0 0 8px var(--accent-cyan);"></span>
-                </div>
-                <h2>Ready to Build Your Trading Edge?</h2>
-                <p>Tell us about your strategy, automation, or fintech product — our team will scope, engineer, and deploy it to production-grade standards.</p>
-                <div class="hero-buttons">
-                    <a href="/contact/" class="btn btn-primary">Start a Project <span style="font-size: 1.2rem;">→</span></a>
-                    <a href="/solutions/fintech-solutions/" class="btn btn-secondary">Explore Fintech Solutions</a>
-                </div>
-            </div>
-        </section>
     </main>
 
     <footer>
@@ -3006,14 +2759,16 @@
                     <h4>Solutions</h4>
                     <a href="/solutions/strategy-research/">Strategy Research</a>
                     <a href="/solutions/execution-systems/">Execution Systems</a>
-                    <a href="/solutions/fintech-solutions/">Fintech Solutions</a>
+                    <a href="/solutions/quant-lab/">Quant Lab</a>
                     <a href="/solutions/prop-institutional/">Prop & Institutional</a>
                 </div>
 
                 <div class="footer-links reveal">
                     <h4>Company</h4>
                     <a href="/about/">About</a>
+                    <a href="/technology/">Technology</a>
                     <a href="/insights/">Insights</a>
+                    <a href="/careers/">Careers</a>
                     <a href="/contact/">Contact</a>
                 </div>
 
@@ -3026,15 +2781,16 @@
             </div>
 
             <div class="footer-bottom">
-                <p>© 2026 QuantParticle. All rights reserved.</p>
+                <p>Ã‚Â© 2026 QuantParticle. All rights reserved.</p>
                 <div class="footer-social">
-                    <a href="#" class="social-link" aria-label="X">𝕏</a>
+                    <a href="#" class="social-link" aria-label="X">Ã°Ââ€¢Â</a>
                     <a href="#" class="social-link" aria-label="LinkedIn">in</a>
                     <a href="#" class="social-link" aria-label="GitHub">Git</a>
                 </div>
             </div>
         </div>
     </footer>
+
     <script>
         const cursor = document.querySelector('.cursor-glow');
         const trail = document.querySelector('.cursor-trail');
@@ -3162,7 +2918,7 @@
 
             if (latencyEl) {
                 const lat = (Math.random() * 15 + 2).toFixed(1);
-                latencyEl.textContent = `${lat}µs`;
+                latencyEl.textContent = `${lat}Ã‚Âµs`;
             }
         }
 
@@ -3217,251 +2973,6 @@
 
         generateOB();
         setInterval(generateOB, 2000);
-
-        const codeSnippets = [
-            {
-                lang: 'Python',
-                file: 'momentum_strategy.py',
-                code:
-`import numpy as np
-import pandas as pd
-
-def momentum_signal(prices, lookback=20):
-    ret = prices.pct_change(lookback)
-    z = (ret - ret.mean()) / ret.std()
-    signal = np.where(z > 2.0, 1, -1)
-    return pd.Series(signal, index=prices.index)
-
-positions = momentum_signal(nifty_close)
-backtest.run(positions, capital=1_000_000)`
-            },
-            {
-                lang: 'C++',
-                file: 'execution_core.cpp',
-                code:
-`#include "engine/order_gateway.hpp"
-
-void on_tick(const Tick& t) {
-    double z = compute_zscore(window_, t.mid);
-    if (z > entry_threshold_) {
-        Order o{Side::BUY, qty_, t.ask};
-        gateway_.send(o);   // sub-ms routing
-        risk_.update(o);
-    }
-}`
-            },
-            {
-                lang: 'C',
-                file: 'signal_filter.c',
-                code:
-`#include "filter.h"
-
-double kalman_update(KalmanFilter *kf, double price) {
-    kf->x += kf->p / (kf->p + kf->r) * (price - kf->x);
-    kf->p  = (1.0 - kf->p / (kf->p + kf->r)) * kf->p + kf->q;
-    return kf->x;   // denoised fair value
-}`
-            },
-            {
-                lang: 'MQL5',
-                file: 'quant_ea.mq5',
-                code:
-`input int    EMA_Period = 20;
-input double Lots       = 0.10;
-
-void OnTick() {
-    double ema = iMA(_Symbol, PERIOD_M15, EMA_Period,
-                     0, MODE_EMA, PRICE_CLOSE);
-    if (Close[1] > ema && PositionsTotal() == 0) {
-        trade.Buy(Lots, _Symbol, 0, 0, 0, "QuantParticle");
-    }
-}`
-            },
-            {
-                lang: 'AFL',
-                file: 'breakout_system.afl',
-                code:
-`// AmiBroker AFL — breakout system
-Buy  = Cross(RSI(14), 60) AND Volume > MA(Volume, 20);
-Sell = Cross(40, RSI(14));
-
-PositionSize = -20;          // 20% of equity
-SetStop(2, stpATR, 1, True); // volatility stop
-ApplyStop(stopTypeTrailing, stopModePoint, 2*ATR(14));`
-            },
-            {
-                lang: 'Pine',
-                file: 'quant_strategy.pine',
-                code:
-`//@version=5
-strategy("QuantParticle Momentum", overlay=true)
-
-len  = input.int(20, "Lookback")
-long = ta.crossover(ta.rsi(close, len), 60)
-
-if long
-    strategy.entry("Long", strategy.long)
-
-plot(ta.ema(close, len), "EMA", color.aqua)`
-            }
-        ];
-
-        const codeTyped = document.getElementById('code-typed');
-        const codeFile = document.getElementById('code-filename');
-        const langChips = document.querySelectorAll('.code-lang');
-        let snipIdx = 0, charIdx = 0, deleting = false;
-
-        function typeLoop() {
-            if (!codeTyped) return;
-            const snip = codeSnippets[snipIdx];
-            if (codeFile) codeFile.textContent = snip.file;
-            langChips.forEach(c => c.classList.toggle('active', c.dataset.lang === snip.lang));
-
-            if (!deleting) {
-                charIdx++;
-                codeTyped.textContent = snip.code.slice(0, charIdx);
-                if (charIdx >= snip.code.length) {
-                    deleting = true;
-                    setTimeout(typeLoop, 2400);
-                    return;
-                }
-                setTimeout(typeLoop, 18 + Math.random() * 32);
-            } else {
-                charIdx -= 5;
-                if (charIdx <= 0) {
-                    charIdx = 0;
-                    deleting = false;
-                    snipIdx = (snipIdx + 1) % codeSnippets.length;
-                    codeTyped.textContent = '';
-                    setTimeout(typeLoop, 450);
-                    return;
-                }
-                codeTyped.textContent = snip.code.slice(0, charIdx);
-                setTimeout(typeLoop, 9);
-            }
-        }
-
-        if (codeTyped) typeLoop();
-
-        const btCanvas = document.getElementById('bt-canvas');
-        const btProfit = document.getElementById('bt-profit');
-        const btSharpe = document.getElementById('bt-sharpe');
-        const btDD = document.getElementById('bt-dd');
-        const btTrades = document.getElementById('bt-trades');
-
-        function sizeBtCanvas() {
-            if (!btCanvas) return;
-            const wrap = btCanvas.parentElement;
-            btCanvas.width = wrap.clientWidth;
-            btCanvas.height = wrap.clientHeight;
-        }
-
-        function drawBtCurve(ctx, pts, w, h) {
-            ctx.clearRect(0, 0, w, h);
-
-            ctx.strokeStyle = 'rgba(255,255,255,0.05)';
-            ctx.lineWidth = 1;
-            for (let i = 1; i <= 4; i++) {
-                const y = (h / 5) * i;
-                ctx.beginPath();
-                ctx.moveTo(0, y);
-                ctx.lineTo(w, y);
-                ctx.stroke();
-            }
-
-            if (pts.length < 2) return;
-
-            const min = Math.min(...pts);
-            const max = Math.max(...pts);
-            const range = (max - min) || 1;
-            const padX = 8, padY = 14;
-
-            const px = (i) => padX + (i / (pts.length - 1)) * (w - padX * 2);
-            const py = (v) => h - padY - ((v - min) / range) * (h - padY * 2);
-
-            const grad = ctx.createLinearGradient(0, 0, w, 0);
-            grad.addColorStop(0, '#4f46e5');
-            grad.addColorStop(1, '#00e5ff');
-
-            ctx.beginPath();
-            ctx.moveTo(px(0), py(pts[0]));
-            for (let i = 1; i < pts.length; i++) ctx.lineTo(px(i), py(pts[i]));
-            ctx.lineTo(px(pts.length - 1), h - padY);
-            ctx.lineTo(px(0), h - padY);
-            ctx.closePath();
-            const fillGrad = ctx.createLinearGradient(0, 0, 0, h);
-            fillGrad.addColorStop(0, 'rgba(0, 229, 255, 0.18)');
-            fillGrad.addColorStop(1, 'rgba(0, 229, 255, 0)');
-            ctx.fillStyle = fillGrad;
-            ctx.fill();
-
-            ctx.beginPath();
-            ctx.moveTo(px(0), py(pts[0]));
-            for (let i = 1; i < pts.length; i++) ctx.lineTo(px(i), py(pts[i]));
-            ctx.strokeStyle = grad;
-            ctx.lineWidth = 2;
-            ctx.shadowColor = 'rgba(0, 229, 255, 0.6)';
-            ctx.shadowBlur = 10;
-            ctx.stroke();
-            ctx.shadowBlur = 0;
-
-            const hi = pts.length - 1;
-            ctx.beginPath();
-            ctx.arc(px(hi), py(pts[hi]), 4, 0, Math.PI * 2);
-            ctx.fillStyle = '#00e5ff';
-            ctx.shadowColor = '#00e5ff';
-            ctx.shadowBlur = 14;
-            ctx.fill();
-            ctx.shadowBlur = 0;
-        }
-
-        function runBacktest() {
-            if (!btCanvas) return;
-            sizeBtCanvas();
-            const ctx = btCanvas.getContext('2d');
-            const w = btCanvas.width, h = btCanvas.height;
-            if (w === 0 || h === 0) { setTimeout(runBacktest, 500); return; }
-
-            const N = 120;
-            const pts = [];
-            let v = 100;
-            for (let i = 0; i < N; i++) {
-                v += (Math.random() - 0.42) * 2.2;
-                v = Math.max(v, 78);
-                pts.push(v);
-            }
-
-            const profit = ((pts[N - 1] - pts[0]) / pts[0]) * 100;
-            let peak = pts[0], mdd = 0;
-            pts.forEach(p => { peak = Math.max(peak, p); mdd = Math.max(mdd, ((peak - p) / peak) * 100); });
-            const sharpe = 1.2 + Math.random() * 1.6;
-            const trades = Math.floor(180 + Math.random() * 620);
-
-            let i = 2;
-            function step() {
-                i += 2;
-                const slice = pts.slice(0, Math.min(i, N));
-                drawBtCurve(ctx, slice, w, h);
-
-                const pr = Math.min(i / N, 1);
-                if (btProfit) btProfit.textContent = (profit >= 0 ? '+' : '-') + Math.abs(profit * pr).toFixed(1) + '%';
-                if (btSharpe) btSharpe.textContent = (sharpe * pr).toFixed(2);
-                if (btDD) btDD.textContent = (mdd * pr).toFixed(1) + '%';
-                if (btTrades) btTrades.textContent = Math.floor(trades * pr);
-
-                if (i < N) {
-                    requestAnimationFrame(step);
-                } else {
-                    setTimeout(runBacktest, 2800);
-                }
-            }
-            step();
-        }
-
-        if (btCanvas) {
-            runBacktest();
-            window.addEventListener('resize', sizeBtCanvas);
-        }
 
         const canvas = document.getElementById('particle-canvas');
         const ctx = canvas.getContext('2d');
@@ -3558,7 +3069,7 @@ plot(ta.ema(close, len), "EMA", color.aqua)`
                         ctx.beginPath();
                         ctx.strokeStyle = `rgba(0, 229, 255, ${opacity})`;
                         ctx.lineWidth = 0.5;
-                        ctx.moveTo(particles[i].x, particles[j].x);
+                        ctx.moveTo(particles[i].x, particles[i].y);
                         ctx.lineTo(particles[j].x, particles[j].y);
                         ctx.stroke();
                     }
