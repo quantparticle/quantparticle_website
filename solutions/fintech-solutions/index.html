@@ -498,16 +498,26 @@
         }
 
         .page-hero {
-            min-height: 72vh;
+            min-height: 100vh;
             display: flex;
             flex-direction: column;
             justify-content: center;
-            align-items: center;
-            text-align: center;
-            padding-top: 150px;
-            padding-bottom: 70px;
+            padding-top: 108px;
+            padding-bottom: 45px;
             position: relative;
             overflow: hidden;
+        }
+
+        .hero-grid {
+            display: grid;
+            grid-template-columns: minmax(0, 1.05fr) minmax(0, 1.15fr);
+            gap: 3.5rem;
+            align-items: center;
+        }
+
+        .hero-content,
+        .hero-visual {
+            min-width: 0;
         }
 
         .hero-badge {
@@ -521,7 +531,7 @@
             font-size: 0.8rem;
             font-family: 'JetBrains Mono', monospace;
             color: var(--accent-cyan);
-            margin-bottom: 2rem;
+            margin-bottom: 1.35rem;
             animation: fadeInUp 0.8s ease forwards;
             animation-delay: 0.2s;
             opacity: 0;
@@ -544,16 +554,18 @@
         }
 
         .page-hero h1 {
-            font-size: clamp(2.6rem, 5vw, 4.4rem);
-            line-height: 1.05;
-            margin-bottom: 1.5rem;
+            font-size: clamp(2.35rem, 4.2vw, 4.1rem);
+            line-height: 1.08;
+            margin-bottom: 1.15rem;
             font-weight: 800;
-            letter-spacing: -2px;
+            letter-spacing: -1.5px;
+            text-align: left;
         }
 
         .page-hero h1 .line {
             display: block;
             overflow: hidden;
+            white-space: nowrap;
         }
 
         .page-hero h1 .line span {
@@ -561,6 +573,36 @@
             transform: translateY(100%);
             position: relative;
             word-break: break-word;
+        }
+
+        .page-hero h1 .hero-line-typed {
+            min-height: 1.12em; /* locked vertical slot prevents button hopping */
+        }
+
+        .page-hero h1 .hero-line-typed .hero-shine #heroTyped {
+            display: inline;
+            transform: none;
+            position: static;
+        }
+
+        .page-hero h1 .hero-line-typed .hero-shine .typed-caret {
+            display: inline-block;
+            transform: none;
+            position: static;
+            width: 3.5px;
+            height: 0.82em;
+            margin-left: 6px;
+            border-radius: 2px;
+            background: var(--accent-cyan);
+            box-shadow: 0 0 12px var(--accent-cyan);
+            vertical-align: -0.06em;
+            animation: caretBlink 0.9s steps(1) infinite;
+            animation-delay: 0s;
+        }
+
+        @keyframes caretBlink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0; }
         }
 
         .hero-shine {
@@ -596,8 +638,9 @@
             );
         }
 
-        .page-hero h1 .line:nth-child(1) span { animation-delay: 0.4s, 1.7s; }
-        .page-hero h1 .line:nth-child(2) span { animation-delay: 0.7s, 1.9s; }
+        .page-hero h1 .line:nth-child(1) span { animation-delay: 0.3s, 1.5s; }
+        .page-hero h1 .line:nth-child(2) span { animation-delay: 0.55s, 1.75s; }
+        .page-hero h1 .line:nth-child(3) span { animation-delay: 0.8s, 2.0s; }
 
         @keyframes revealText {
             to { transform: translateY(0); }
@@ -609,23 +652,25 @@
         }
 
         .page-hero p {
-            font-size: 1.15rem;
+            font-size: 1.05rem;
             color: var(--text-secondary);
-            max-width: 720px;
-            margin: 0 auto 1.5rem;
-            line-height: 1.8;
+            max-width: 540px;
+            margin: 0 0 1.15rem 0;
+            line-height: 1.7;
+            text-align: left;
             animation: fadeInUp 0.8s ease forwards;
-            animation-delay: 1s;
+            animation-delay: 0.9s;
             opacity: 0;
         }
 
         .page-hero .hero-meta {
             font-family: 'JetBrains Mono', monospace;
-            font-size: 0.85rem;
+            font-size: 0.82rem;
             color: var(--text-secondary);
-            margin-bottom: 2.5rem;
+            margin-bottom: 1.75rem;
+            text-align: left;
             animation: fadeInUp 0.8s ease forwards;
-            animation-delay: 1.2s;
+            animation-delay: 1.1s;
             opacity: 0;
             max-width: 100%;
         }
@@ -639,14 +684,312 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
-        .hero-buttons {
+        .page-hero .hero-buttons {
             display: flex;
             gap: 1rem;
             flex-wrap: wrap;
-            justify-content: center;
+            justify-content: flex-start;
             animation: fadeInUp 0.8s ease forwards;
-            animation-delay: 1.4s;
+            animation-delay: 1.3s;
             opacity: 0;
+        }
+
+        /* ===== Right-Side Advanced Fintech Solution Visualizer ===== */
+        .hero-visual {
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            perspective: 1000px;
+        }
+
+        .fintech-hub {
+            width: 100%;
+            max-width: 580px;
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            padding: 1.4rem;
+            box-shadow: 0 25px 80px rgba(0, 0, 0, 0.55), 0 0 0 1px rgba(0, 229, 255, 0.12);
+            animation: hubFloat 8s ease-in-out infinite;
+            transform-style: preserve-3d;
+            position: relative;
+            overflow: hidden;
+        }
+
+        @keyframes hubFloat {
+            0%, 100% { transform: translateY(0) rotateX(3deg) rotateY(-3deg); }
+            50% { transform: translateY(-12px) rotateX(3deg) rotateY(-3deg); }
+        }
+
+        .hub-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding-bottom: 0.9rem;
+            border-bottom: 1px solid var(--border-subtle);
+            margin-bottom: 1rem;
+            gap: 0.5rem;
+        }
+
+        .hub-dots {
+            display: flex;
+            gap: 6px;
+        }
+
+        .hub-dots span {
+            width: 9px;
+            height: 9px;
+            border-radius: 50%;
+        }
+
+        .hub-dots span:nth-child(1) { background: #ff5f56; }
+        .hub-dots span:nth-child(2) { background: #ffbd2e; }
+        .hub-dots span:nth-child(3) { background: #27ca40; }
+
+        .hub-title {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.74rem;
+            color: var(--text-primary);
+            letter-spacing: 1px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-weight: 600;
+        }
+
+        .hub-live-dot {
+            width: 7px;
+            height: 7px;
+            border-radius: 50%;
+            background: var(--accent-cyan);
+            box-shadow: 0 0 10px var(--accent-cyan);
+            animation: pulse 1.8s infinite;
+        }
+
+        .hub-status-pill {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.65rem;
+            padding: 3px 9px;
+            border-radius: 100px;
+            background: rgba(39, 202, 64, 0.12);
+            border: 1px solid rgba(39, 202, 64, 0.3);
+            color: #27ca40;
+            font-weight: 600;
+        }
+
+        /* KPI Row */
+        .hub-kpis {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 0.6rem;
+            margin-bottom: 1rem;
+        }
+
+        .hub-kpi {
+            background: rgba(20, 29, 46, 0.7);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            border-radius: 10px;
+            padding: 0.55rem 0.6rem;
+            text-align: center;
+        }
+
+        .hub-kpi .kpi-k {
+            display: block;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.56rem;
+            color: var(--accent-cyan);
+            letter-spacing: 0.5px;
+            margin-bottom: 2px;
+        }
+
+        .hub-kpi .kpi-v {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.92rem;
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+
+        .hub-kpi .text-cyan {
+            color: var(--accent-cyan);
+        }
+
+        /* Split Hub Grid */
+        .hub-grid {
+            display: grid;
+            grid-template-columns: 1.05fr 1fr;
+            gap: 0.9rem;
+            margin-bottom: 1rem;
+        }
+
+        .hub-card {
+            background: rgba(12, 18, 31, 0.7);
+            border: 1px solid rgba(0, 229, 255, 0.14);
+            border-radius: 12px;
+            padding: 0.9rem;
+            position: relative;
+        }
+
+        .hub-card .card-tag {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.58rem;
+            color: var(--accent-cyan);
+            letter-spacing: 1px;
+            margin-bottom: 2px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .pulse-mini {
+            width: 5px;
+            height: 5px;
+            border-radius: 50%;
+            background: var(--accent-cyan);
+            box-shadow: 0 0 8px var(--accent-cyan);
+            animation: pulse 1.4s infinite;
+        }
+
+        .hub-card .card-title {
+            font-size: 0.84rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 0.65rem;
+        }
+
+        /* Left Card Streams */
+        .card-stream {
+            display: flex;
+            flex-direction: column;
+            gap: 0.42rem;
+        }
+
+        .stream-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0.35rem 0.5rem;
+            background: rgba(20, 29, 46, 0.55);
+            border: 1px solid rgba(255, 255, 255, 0.04);
+            border-radius: 6px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.68rem;
+            transition: all 0.3s ease;
+        }
+
+        .stream-item:hover {
+            border-color: rgba(0, 229, 255, 0.4);
+            background: rgba(0, 229, 255, 0.06);
+            transform: translateX(3px);
+        }
+
+        .stream-badge {
+            font-size: 0.54rem;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-weight: 700;
+        }
+
+        .stream-badge.ok { background: rgba(39, 202, 64, 0.18); color: #27ca40; }
+        .stream-badge.ws { background: rgba(0, 229, 255, 0.18); color: var(--accent-cyan); }
+        .stream-badge.rest { background: rgba(124, 58, 237, 0.25); color: #c4b5fd; }
+        .stream-badge.sync { background: rgba(79, 70, 229, 0.25); color: #93c5fd; }
+
+        .stream-name {
+            color: var(--text-primary);
+            font-size: 0.66rem;
+            margin: 0 auto 0 8px;
+        }
+
+        .stream-ms {
+            color: var(--accent-cyan);
+            font-size: 0.64rem;
+            font-weight: 600;
+        }
+
+        /* Right Card Telemetry Visualizer */
+        .fintech-chart-box {
+            position: relative;
+            height: 98px;
+            border-radius: 8px;
+            background: rgba(7, 11, 20, 0.6);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            overflow: hidden;
+            margin-bottom: 0.6rem;
+        }
+
+        #fintechTelemetryCanvas {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        .pipeline-flow-tags {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 3px;
+        }
+
+        .flow-pill {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.56rem;
+            padding: 3px 6px;
+            border-radius: 4px;
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            color: var(--text-secondary);
+        }
+
+        .flow-pill.active {
+            border-color: rgba(0, 229, 255, 0.4);
+            background: rgba(0, 229, 255, 0.1);
+            color: var(--accent-cyan);
+        }
+
+        .flow-arrow {
+            color: var(--accent-cyan);
+            font-size: 0.65rem;
+            opacity: 0.7;
+        }
+
+        /* Hub Event Log */
+        .hub-event-log {
+            padding: 0.55rem 0.8rem;
+            background: rgba(7, 11, 20, 0.7);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 8px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.64rem;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            overflow: hidden;
+            white-space: nowrap;
+        }
+
+        .log-label {
+            color: var(--accent-cyan);
+            font-weight: 700;
+            flex-shrink: 0;
+        }
+
+        .log-entry {
+            color: var(--text-secondary);
+            text-overflow: ellipsis;
+            overflow: hidden;
+            transition: color 0.3s;
+        }
+
+        .hub-beam {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            height: 2px;
+            background: linear-gradient(90deg, var(--accent-cyan), var(--accent-purple), var(--accent-blue));
+            animation: throughput 2.4s linear infinite;
         }
 
         .btn {
@@ -853,7 +1196,7 @@
             word-break: break-word;
         }
 
-        .service-card > p {
+        .service-card p {
             font-size: 0.95rem;
             color: var(--text-secondary);
             line-height: 1.7;
@@ -1333,7 +1676,21 @@
 
             .page-hero {
                 min-height: auto;
-                padding-bottom: 55px;
+                padding-top: 100px;
+                padding-bottom: 45px;
+            }
+
+            .hero-grid {
+                grid-template-columns: 1fr;
+                gap: 2.5rem;
+            }
+
+            .page-hero h1 {
+                font-size: clamp(2.1rem, 7vw, 3.2rem);
+            }
+
+            .hero-visual {
+                margin-top: 0.5rem;
             }
 
             .stats-bar {
@@ -1410,17 +1767,32 @@
             }
 
             .page-hero {
-                padding-top: 120px;
-                padding-bottom: 45px;
+                padding-top: 96px;
+                padding-bottom: 35px;
             }
 
             .page-hero h1 {
-                font-size: clamp(2.1rem, 9vw, 3rem);
-                letter-spacing: -1.4px;
+                font-size: clamp(1.85rem, 8.5vw, 2.6rem);
+                letter-spacing: -1px;
+                line-height: 1.12;
             }
 
             .page-hero p {
-                font-size: 1rem;
+                font-size: 0.95rem;
+                line-height: 1.65;
+            }
+
+            .page-hero .hero-meta {
+                margin-bottom: 1.5rem;
+                font-size: 0.76rem;
+            }
+
+            .hub-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .hub-kpis {
+                grid-template-columns: repeat(2, 1fr);
             }
 
             .hero-buttons {
@@ -1494,6 +1866,15 @@
                 padding-bottom: 65px;
             }
         }
+
+        @media (prefers-reduced-motion: reduce) {
+            .fintech-hub {
+                animation: none;
+            }
+            .page-hero h1 .hero-line-typed .hero-shine .typed-caret {
+                animation: none;
+            }
+        }
     </style>
 </head>
 <body>
@@ -1556,34 +1937,133 @@
 
     <main>
         <section class="page-hero container">
-            <div class="hero-badge">
-                <span class="pulse"></span>
-                <span>FINTECH SOLUTIONS</span>
-            </div>
+            <div class="hero-grid">
+                <div class="hero-content">
+                    <div class="hero-badge">
+                        <span class="pulse"></span>
+                        <span>FINTECH SOLUTIONS & PLATFORMS</span>
+                    </div>
 
-            <h1>
-                <div class="line"><span class="hero-shine primary-text">Fintech Engineering for</span></div>
-                <div class="line"><span class="hero-shine accent-text">Brokers & Financial Firms.</span></div>
-            </h1>
+                    <h1>
+                        <div class="line"><span class="hero-shine primary-text">Fintech Engineering</span></div>
+                        <div class="line hero-line-typed"><span class="hero-shine accent-text"><span id="heroTyped">For Stock Brokers.</span><span class="typed-caret" aria-hidden="true"></span></span></div>
+                        <div class="line"><span class="hero-shine primary-text">Built to Scale.</span></div>
+                    </h1>
 
-            <p>
-                We design, build, and maintain high-performance financial technology — custom software, applications, websites, web apps, realtime data infrastructure, and process automation — backed by ongoing tech support your business can rely on.
-            </p>
+                    <p>
+                        We design, build, and maintain institutional fintech products — trading platforms, broker APIs, custom client portals, real-time analytics dashboards, and automated ops pipelines backed by 24/7 dedicated engineering support.
+                    </p>
 
-            <div class="hero-meta">
-                <span>Custom</span> • <span>Apps</span> • <span>Web</span> • <span>Realtime Data</span> • <span>Automation</span> • <span>Support</span>
-            </div>
+                    <div class="hero-meta">
+                        <span>Trading Apps</span> • <span>Broker APIs</span> • <span>Web Platforms</span> • <span>Realtime Feeds</span> • <span>Automation</span> • <span>24/7 Support</span>
+                    </div>
 
-            <div class="hero-buttons">
-                <a href="/contact/" class="btn btn-primary">Start a Project <span style="font-size: 1.2rem;">→</span></a>
-                <a href="#services" class="btn btn-secondary">Explore Services</a>
+                    <div class="hero-buttons">
+                        <a href="/contact/" class="btn btn-primary">Start a Project <span style="font-size: 1.2rem;">→</span></a>
+                        <a href="#services" class="btn btn-secondary">Explore Services</a>
+                    </div>
+                </div>
+
+                <div class="hero-visual">
+                    <div class="fintech-hub">
+                        <!-- Hub Top Bar -->
+                        <div class="hub-header">
+                            <div class="hub-dots">
+                                <span></span><span></span><span></span>
+                            </div>
+                            <div class="hub-title">
+                                <span class="hub-live-dot"></span>
+                                FINTECH ENGINE // ARCHITECTURE ACTIVE
+                            </div>
+                            <div class="hub-status-pill">PROD • 99.99%</div>
+                        </div>
+
+                        <!-- Hub Metrics Row -->
+                        <div class="hub-kpis">
+                            <div class="hub-kpi">
+                                <span class="kpi-k">API LATENCY</span>
+                                <span class="kpi-v" id="kpi-latency">4.2ms</span>
+                            </div>
+                            <div class="hub-kpi">
+                                <span class="kpi-k">EVENT TPS</span>
+                                <span class="kpi-v" id="kpi-tps">84.2K</span>
+                            </div>
+                            <div class="hub-kpi">
+                                <span class="kpi-k">CONNECTIONS</span>
+                                <span class="kpi-v">12 BROKERS</span>
+                            </div>
+                            <div class="hub-kpi">
+                                <span class="kpi-k">UPTIME</span>
+                                <span class="kpi-v text-cyan">99.99%</span>
+                            </div>
+                        </div>
+
+                        <!-- Animated Interactive Architecture Grid -->
+                        <div class="hub-grid">
+                            <!-- Left: Broker Integration & Feeds -->
+                            <div class="hub-card hub-card-left">
+                                <div class="card-tag"><span class="pulse-mini"></span>GATEWAY</div>
+                                <div class="card-title">Broker &amp; API Mesh</div>
+                                <div class="card-stream">
+                                    <div class="stream-item">
+                                        <span class="stream-badge ok">FIX</span>
+                                        <span class="stream-name">NSE / BSE Gateway</span>
+                                        <span class="stream-ms">0.8ms</span>
+                                    </div>
+                                    <div class="stream-item">
+                                        <span class="stream-badge ws">WSS</span>
+                                        <span class="stream-name">Live Tick Stream</span>
+                                        <span class="stream-ms">1.2ms</span>
+                                    </div>
+                                    <div class="stream-item">
+                                        <span class="stream-badge rest">REST</span>
+                                        <span class="stream-name">Order Router API</span>
+                                        <span class="stream-ms">2.1ms</span>
+                                    </div>
+                                    <div class="stream-item">
+                                        <span class="stream-badge sync">SYNC</span>
+                                        <span class="stream-name">Ledger &amp; OMS Sync</span>
+                                        <span class="stream-ms">0.4ms</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Right: Live Fintech Canvas Visualizer -->
+                            <div class="hub-card hub-card-right">
+                                <div class="card-tag">PIPELINE</div>
+                                <div class="card-title">Realtime Telemetry</div>
+                                <div class="fintech-chart-box">
+                                    <canvas id="fintechTelemetryCanvas"></canvas>
+                                </div>
+                                <div class="pipeline-flow-tags">
+                                    <span class="flow-pill">Auth</span>
+                                    <span class="flow-arrow">→</span>
+                                    <span class="flow-pill active">Risk Engine</span>
+                                    <span class="flow-arrow">→</span>
+                                    <span class="flow-pill active">Execution</span>
+                                    <span class="flow-arrow">→</span>
+                                    <span class="flow-pill">Ledger</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Live Event Log Ticker -->
+                        <div class="hub-event-log">
+                            <span class="log-label">EVENT STREAM:</span>
+                            <span class="log-entry" id="hubLogEntry">⚡ [14:32:08.412] OrderRouter :: Multi-broker routing optimal → Fill 400 QTY @ 793.10</span>
+                        </div>
+
+                        <!-- Progress beam -->
+                        <div class="hub-beam"></div>
+                    </div>
+                </div>
             </div>
         </section>
 
         <section class="container" style="padding-top: 0; padding-bottom: 0;">
             <div class="stats-bar reveal">
                 <div class="stat-item">
-                    <div class="stat-number">7+</div>
+                    <div class="stat-number">7</div>
                     <div class="stat-label">Fintech Service Lines</div>
                 </div>
                 <div class="stat-item">
@@ -1606,7 +2086,7 @@
                 </div>
                 <h2 class="section-title">What We Build</h2>
                 <p class="section-subtitle" style="margin: 0 auto;">
-                    End-to-end fintech development services — from concept and architecture to deployment and long-term support.
+                    End-to-end fintech development services from concept and architecture to deployment and long-term support.
                 </p>
             </div>
 
@@ -1614,7 +2094,7 @@
                 <div class="service-card">
                     <span class="service-icon">◈</span>
                     <h4>Custom Solutions</h4>
-                    <p>Bespoke fintech software engineered around your exact business logic — from trading tools and analytics engines to internal platforms built from scratch.</p>
+                    <p>Bespoke fintech software engineered around your exact business logic from trading tools and analytics engines to internal platforms built from scratch.</p>
                     <ul class="service-features">
                         <li>Tailored system architecture</li>
                         <li>Broker-specific workflows</li>
@@ -1625,7 +2105,7 @@
                 <div class="service-card">
                     <span class="service-icon">⚡</span>
                     <h4>Application Development</h4>
-                    <p>High-performance desktop and mobile applications for trading, analytics, and client management — secure, scalable, and built for speed.</p>
+                    <p>High-performance desktop and mobile applications for trading, analytics, and client management secure, scalable, and built for speed.</p>
                     <ul class="service-features">
                         <li>Desktop & mobile applications</li>
                         <li>Trading terminals & tools</li>
@@ -1636,7 +2116,7 @@
                 <div class="service-card">
                     <span class="service-icon">◎</span>
                     <h4>Website Development</h4>
-                    <p>Blazing-fast, conversion-focused websites for brokers and financial companies — designed to build trust and turn visitors into clients.</p>
+                    <p>Blazing-fast, conversion-focused websites for brokers and financial companies designed to build trust and turn visitors into clients.</p>
                     <ul class="service-features">
                         <li>Fast, SEO-ready builds</li>
                         <li>Brand-focused design</li>
@@ -1647,7 +2127,7 @@
                 <div class="service-card">
                     <span class="service-icon">◇</span>
                     <h4>WebApp Development</h4>
-                    <p>Powerful browser-based platforms — client portals, trading dashboards, admin panels, and back-office systems with real-time interfaces.</p>
+                    <p>Powerful browser-based platforms client portals, trading dashboards, admin panels, and back-office systems with real-time interfaces.</p>
                     <ul class="service-features">
                         <li>Client portals & dashboards</li>
                         <li>Admin & back-office panels</li>
@@ -1656,9 +2136,9 @@
                 </div>
 
                 <div class="service-card">
-                    <span class="service-icon">↯</span>
+                    <span class="service-icon">📊</span>
                     <h4>Realtime Data</h4>
-                    <p>Low-latency market data infrastructure — live feeds, streaming pipelines, and APIs that keep your platform updated tick by tick.</p>
+                    <p>Low-latency market data infrastructure live feeds, streaming pipelines, and APIs that keep your platform updated tick by tick.</p>
                     <ul class="service-features">
                         <li>Tick-level live data feeds</li>
                         <li>WebSocket & REST APIs</li>
@@ -1667,20 +2147,20 @@
                 </div>
 
                 <div class="service-card">
-                    <span class="service-icon">⬡</span>
+                    <span class="service-icon">⚙️</span>
                     <h4>Process Automation</h4>
-                    <p>Eliminate manual work across trading and operations — automated reporting, reconciliations, alerts, and back-office workflows.</p>
+                    <p>Eliminate manual work across trading and operations automated reporting, reconciliations, alerts, and back-office workflows.</p>
                     <ul class="service-features">
-                        <li>Trade operations automation</li>
+                        <li>Trade & operations automation</li>
                         <li>Reports & reconciliations</li>
                         <li>Telegram, email & dashboard alerts</li>
                     </ul>
                 </div>
 
                 <div class="service-card">
-                    <span class="service-icon">✚</span>
+                    <span class="service-icon">🛡️</span>
                     <h4>Ongoing Tech Support</h4>
-                    <p>Dedicated engineering support for brokers and financial firms — monitoring, maintenance, upgrades, and rapid issue resolution.</p>
+                    <p>Dedicated engineering support for brokers and financial firms monitoring, maintenance, upgrades, and rapid issue resolution.</p>
                     <ul class="service-features">
                         <li>SLA-backed response times</li>
                         <li>Monitoring & maintenance</li>
@@ -1715,7 +2195,7 @@
 
                 <div class="topic-content">
                     <h3><span class="topic-num">BUILT FOR BROKERS</span>Technology Partner, Not Just a Vendor</h3>
-                    <p>We work as an extension of your team. Brokers and financial companies get a dedicated engineering partner who understands market infrastructure — and stays on board long after launch to keep systems fast, secure, and up to date.</p>
+                    <p>We work as an extension of your team. Brokers and financial companies get a dedicated engineering partner who understands market infrastructure and stays on board long after launch to keep systems fast, secure, and up to date.</p>
                     <ul class="topic-features">
                         <li>Dedicated support channel for your team</li>
                         <li>Proactive monitoring & incident response</li>
@@ -1741,7 +2221,7 @@
                     <div class="approach-number">01</div>
                     <div class="approach-content">
                         <h3>Discovery & Scoping</h3>
-                        <p>We start by understanding your business, workflows, and technical requirements in depth — then define a clear scope, timeline, and architecture before writing any code.</p>
+                        <p>We start by understanding your business, workflows, and technical requirements in depth then define a clear scope, timeline, and architecture before writing any code.</p>
                     </div>
                 </div>
 
@@ -1749,7 +2229,7 @@
                     <div class="approach-number">02</div>
                     <div class="approach-content">
                         <h3>Design & Architecture</h3>
-                        <p>UI/UX design and system architecture built for financial workloads — low latency, high availability, and security baked in from day one.</p>
+                        <p>UI/UX design and system architecture built for financial workloads low latency, high availability, and security baked in from day one.</p>
                     </div>
                 </div>
 
@@ -1765,7 +2245,7 @@
                     <div class="approach-number">04</div>
                     <div class="approach-content">
                         <h3>Launch & Ongoing Support</h3>
-                        <p>Smooth deployment followed by continuous monitoring, maintenance, and feature upgrades — your systems stay production-ready around the clock.</p>
+                        <p>Smooth deployment followed by continuous monitoring, maintenance, and feature upgrades your systems stay production-ready around the clock.</p>
                     </div>
                 </div>
             </div>
@@ -1801,7 +2281,7 @@
                     <span style="width:30px;height:1px;background:var(--accent-cyan);box-shadow:0 0 8px var(--accent-cyan);"></span>
                 </div>
                 <h2>Have a Fintech Product to Build?</h2>
-                <p>Tell us what you need — software, an app, a website, realtime data, or full process automation. Our team will scope it and engineer it to production-grade standards.</p>
+                <p>Tell us what you need software, an app, a website, realtime data, or full process automation. Our team will scope it and engineer it to production-grade standards.</p>
                 <div class="hero-buttons">
                     <a href="/contact/" class="btn btn-primary">Start a Project <span style="font-size: 1.2rem;">→</span></a>
                     <a href="/" class="btn btn-secondary">Back to Home</a>
@@ -1879,7 +2359,7 @@
         }
         animateCursor();
 
-        const interactiveElements = document.querySelectorAll('a, button, .service-card, .serve-tag');
+        const interactiveElements = document.querySelectorAll('a, button, .service-card, .serve-tag, .stream-item');
         interactiveElements.forEach(el => {
             el.addEventListener('mouseenter', () => {
                 if (cursor) cursor.classList.add('hover');
@@ -1958,8 +2438,8 @@
         const mouse = { x: null, y: null, radius: 200 };
 
         window.addEventListener('mousemove', (e) => {
-            mouse.x = e.x;
-            mouse.y = e.y;
+            mouse.x = e.clientX;
+            mouse.y = e.clientY;
         });
 
         window.addEventListener('mouseout', () => {
@@ -2039,6 +2519,201 @@
         animateParticles();
 
         window.addEventListener('resize', initParticles);
+    </script>
+
+    <script>
+        /* ===== Fintech Solutions Page: Hero Typing Rotator ===== */
+        (function () {
+            var typedEl = document.getElementById('heroTyped');
+            if (!typedEl) return;
+
+            var phrases = [
+                'For Stock Brokers.',
+                'For Trading Desks.',
+                'For Prop & Quants.',
+                'For Fintech Startups.',
+                'For Wealth Platforms.'
+            ];
+
+            var TYPE_MS = 70;
+            var DELETE_MS = 35;
+            var HOLD_MS = 2000;
+            var GAP_MS = 400;
+            var START_DELAY = 2200;
+
+            var reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+            if (reduceMotion) return;
+
+            var current = 0;
+
+            function typePhrase() {
+                current = (current + 1) % phrases.length;
+                var word = phrases[current];
+                var i = 0;
+                (function step() {
+                    i++;
+                    typedEl.textContent = word.slice(0, i);
+                    if (i < word.length) {
+                        setTimeout(step, TYPE_MS);
+                    } else {
+                        setTimeout(erasePhrase, HOLD_MS);
+                    }
+                })();
+            }
+
+            function erasePhrase() {
+                (function step() {
+                    typedEl.textContent = typedEl.textContent.slice(0, -1);
+                    if (typedEl.textContent.length > 0) {
+                        setTimeout(step, DELETE_MS);
+                    } else {
+                        setTimeout(typePhrase, GAP_MS);
+                    }
+                })();
+            }
+
+            setTimeout(erasePhrase, START_DELAY);
+        })();
+
+        /* ===== Right-Side Advanced Fintech Solution Visualizer Engine ===== */
+        (function () {
+            var canvas = document.getElementById('fintechTelemetryCanvas');
+            if (!canvas) return;
+
+            var ctx = canvas.getContext('2d');
+            var kpiLatency = document.getElementById('kpi-latency');
+            var kpiTps = document.getElementById('kpi-tps');
+            var hubLog = document.getElementById('hubLogEntry');
+
+            function resize() {
+                var box = canvas.parentElement;
+                if (!box) return;
+                canvas.width = box.clientWidth;
+                canvas.height = box.clientHeight;
+            }
+            resize();
+            window.addEventListener('resize', resize);
+
+            var N = 45;
+            var data1 = [];
+            var data2 = [];
+            for (var i = 0; i < N; i++) {
+                data1.push(40 + Math.sin(i * 0.3) * 15 + Math.random() * 10);
+                data2.push(25 + Math.cos(i * 0.25) * 12 + Math.random() * 8);
+            }
+
+            var logs = [
+                '⚡ [OrderRouter] Multi-broker routing optimal → Fill 400 QTY @ 793.10',
+                '🟢 [MarketFeed] Tick broadcast active: 142,800 events/sec via WebSocket',
+                '🛡️ [RiskEngine] Margin & Position check passed: Account #QP-9428-A',
+                '🔗 [BrokerGateway] Zero-latency FIX heartbeat verified (NSE/BSE link)',
+                '📊 [Analytics] Live P&L sync completed for 12 connected institutional accounts',
+                '🚀 [Execution] Smart order slice completed in 1.4ms (zero slippage)'
+            ];
+            var logIndex = 0;
+
+            function updateData() {
+                data1.shift();
+                data2.shift();
+                var last1 = data1[data1.length - 1];
+                var last2 = data2[data2.length - 1];
+                data1.push(Math.max(15, Math.min(85, last1 + (Math.random() - 0.48) * 14)));
+                data2.push(Math.max(10, Math.min(75, last2 + (Math.random() - 0.5) * 10)));
+
+                if (kpiLatency) {
+                    kpiLatency.textContent = (3.4 + Math.random() * 1.8).toFixed(1) + 'ms';
+                }
+                if (kpiTps) {
+                    kpiTps.textContent = (80 + Math.random() * 12).toFixed(1) + 'K';
+                }
+            }
+
+            function draw() {
+                var w = canvas.width;
+                var h = canvas.height;
+                if (w === 0 || h === 0) return;
+
+                ctx.clearRect(0, 0, w, h);
+
+                // Subtle grid
+                ctx.strokeStyle = 'rgba(255, 255, 255, 0.04)';
+                ctx.lineWidth = 1;
+                for (var y = 20; y < h; y += 24) {
+                    ctx.beginPath();
+                    ctx.moveTo(0, y);
+                    ctx.lineTo(w, y);
+                    ctx.stroke();
+                }
+
+                function drawLine(arr, color1, color2, fillAlpha) {
+                    var padX = 4;
+                    var padY = 8;
+                    var stepX = (w - padX * 2) / (arr.length - 1);
+
+                    ctx.beginPath();
+                    ctx.moveTo(padX, h - padY - (arr[0] / 100) * (h - padY * 2));
+                    for (var i = 1; i < arr.length; i++) {
+                        var x = padX + i * stepX;
+                        var y = h - padY - (arr[i] / 100) * (h - padY * 2);
+                        ctx.lineTo(x, y);
+                    }
+
+                    // Stroke
+                    var grad = ctx.createLinearGradient(0, 0, w, 0);
+                    grad.addColorStop(0, color1);
+                    grad.addColorStop(1, color2);
+                    ctx.strokeStyle = grad;
+                    ctx.lineWidth = 2;
+                    ctx.shadowColor = color2;
+                    ctx.shadowBlur = 8;
+                    ctx.stroke();
+                    ctx.shadowBlur = 0;
+
+                    // Fill under curve
+                    ctx.lineTo(w - padX, h);
+                    ctx.lineTo(padX, h);
+                    ctx.closePath();
+                    var fillGrad = ctx.createLinearGradient(0, 0, 0, h);
+                    fillGrad.addColorStop(0, color2.replace(')', ', ' + fillAlpha + ')').replace('rgb', 'rgba').replace('#00e5ff', 'rgba(0,229,255,' + fillAlpha + ')').replace('#4f46e5', 'rgba(79,70,229,' + fillAlpha + ')'));
+                    fillGrad.addColorStop(1, 'rgba(0,0,0,0)');
+                    ctx.fillStyle = fillGrad;
+                    ctx.fill();
+                }
+
+                drawLine(data2, '#7c3aed', '#4f46e5', 0.18);
+                drawLine(data1, '#4f46e5', '#00e5ff', 0.22);
+
+                // Pulse dot at end of main line
+                var padX = 4;
+                var padY = 8;
+                var lastX = w - padX;
+                var lastY = h - padY - (data1[data1.length - 1] / 100) * (h - padY * 2);
+                ctx.beginPath();
+                ctx.arc(lastX, lastY, 3.5, 0, Math.PI * 2);
+                ctx.fillStyle = '#00e5ff';
+                ctx.shadowColor = '#00e5ff';
+                ctx.shadowBlur = 12;
+                ctx.fill();
+                ctx.shadowBlur = 0;
+            }
+
+            setInterval(function () {
+                updateData();
+                draw();
+            }, 450);
+
+            setInterval(function () {
+                if (!hubLog) return;
+                logIndex = (logIndex + 1) % logs.length;
+                hubLog.style.opacity = '0';
+                setTimeout(function () {
+                    hubLog.textContent = logs[logIndex];
+                    hubLog.style.opacity = '1';
+                }, 200);
+            }, 3200);
+
+            draw();
+        })();
     </script>
 </body>
 </html>
