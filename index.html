@@ -240,15 +240,9 @@
             animation: logoPulse 3s ease-in-out infinite;
         }
 
-        @keyframes logoPulse {
-            0%, 100% { filter: drop-shadow(0 0 15px rgba(0, 229, 255, 0.4)); }
-            50% { filter: drop-shadow(0 0 25px rgba(0, 229, 255, 0.75)); }
-        }
+        @keyframes logoPulse {\n            0%, 100% { filter: drop-shadow(0 0 15px rgba(0, 229, 255, 0.4)); }\n            50% { filter: drop-shadow(0 0 25px rgba(0, 229, 255, 0.75)); }\n        }
 
-        @keyframes logoGlowPulse {
-            0%, 100% { opacity: 0.85; transform: translateY(-50%) scale(1); }
-            50% { opacity: 1; transform: translateY(-50%) scale(1.08); }
-        }
+        @keyframes logoGlowPulse {\n            0%, 100% { opacity: 0.85; transform: translateY(-50%) scale(1); }\n            50% { opacity: 1; transform: translateY(-50%) scale(1.08); }\n        }
 
         nav {
             flex: 1 1 auto;
@@ -499,17 +493,6 @@
             position: relative;
         }
 
-        .hero {
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            padding-top: 118px;
-            padding-bottom: 70px;
-            position: relative;
-            overflow: hidden;
-        }
-
         .hero-grid {
             display: grid;
             grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
@@ -560,19 +543,6 @@
             50% { opacity: 0.3; transform: scale(0.6); }
         }
 
-        .hero h1 {
-            font-size: clamp(2.8rem, 5vw, 4.8rem);
-            line-height: 1.05;
-            margin-bottom: 1.5rem;
-            font-weight: 800;
-            letter-spacing: -2px;
-        }
-
-        .hero h1 .line {
-            display: block;
-            overflow: hidden;
-        }
-
         .hero h1 .line span {
             display: block;
             transform: translateY(100%);
@@ -612,9 +582,6 @@
                 var(--accent-purple) 100%
             );
         }
-
-        .hero h1 .line:nth-child(1) span { animation-delay: 0.4s, 1.7s; }
-        .hero h1 .line:nth-child(2) span { animation-delay: 0.7s, 1.9s; }
 
         @keyframes revealText {
             to { transform: translateY(0); }
@@ -2118,15 +2085,7 @@
             box-shadow: 0 0 15px rgba(0, 229, 255, 0.2);
         }
 
-        @media (max-width: 1100px) {
-            .tech-grid {
-                grid-template-columns: repeat(2, minmax(0, 1fr));
-            }
-
-            .approach-grid {
-                grid-template-columns: 1fr;
-            }
-        }
+        @media (max-width: 1100px) {\n            .tech-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }\n            .approach-grid { grid-template-columns: 1fr; }\n        }
 
         @media (max-width: 968px) {
             .cursor-glow,
@@ -2154,11 +2113,6 @@
 
             .topic-row.reverse {
                 direction: ltr;
-            }
-
-            .hero {
-                min-height: auto;
-                padding-bottom: 55px;
             }
 
             .hero-content {
@@ -2261,20 +2215,6 @@
                 height: 46px;
                 min-width: 46px;
                 flex: 0 0 46px;
-            }
-
-            .hero {
-                padding-top: 108px;
-                padding-bottom: 45px;
-            }
-
-            .hero h1 {
-                font-size: clamp(2.2rem, 10vw, 3.2rem);
-                letter-spacing: -1.4px;
-            }
-
-            .hero p {
-                font-size: 1rem;
             }
 
             .hero-buttons {
@@ -2490,30 +2430,107 @@
             }
         }
 
-        /* ===== Hero typing rotator (Quant -> Fintech -> services) ===== */
-        .hero h1 .hero-typing-line .hero-shine #heroTyped {
+        /* ===== Hero Layout & Sizing Optimizations (Fixes Button Jumping) ===== */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding-top: 104px;
+            padding-bottom: 40px;
+        }
+
+        .hero h1 {
+            font-size: clamp(2.35rem, 4.2vw, 4.1rem);
+            line-height: 1.08;
+            margin-bottom: 1.15rem;
+            letter-spacing: -1.5px;
+        }
+
+        .hero h1 .line {
+            display: block;
+            overflow: hidden;
+            white-space: nowrap;
+        }
+
+        .hero h1 .hero-line-typed {
+            min-height: 1.12em; /* Reserve vertical slot so height never shifts during typing */
+        }
+
+        .hero h1 .hero-line-typed .hero-shine #heroTyped {
             display: inline;
             transform: none;
             position: static;
         }
 
-        .hero h1 .hero-typing-line .hero-shine .typed-caret {
+        .hero h1 .hero-line-typed .hero-shine .typed-caret {
             display: inline-block;
             transform: none;
             position: static;
-            width: 4px;
-            height: 0.8em;
-            margin-left: 8px;
+            width: 3.5px;
+            height: 0.82em;
+            margin-left: 6px;
             border-radius: 2px;
             background: var(--accent-cyan);
-            box-shadow: 0 0 14px var(--accent-cyan);
-            vertical-align: -0.08em;
+            box-shadow: 0 0 12px var(--accent-cyan);
+            vertical-align: -0.06em;
             animation: caretBlink 0.9s steps(1) infinite;
             animation-delay: 0s;
         }
 
+        .hero h1 .line:nth-child(1) span { animation-delay: 0.3s, 1.5s; }
+        .hero h1 .line:nth-child(2) span { animation-delay: 0.55s, 1.75s; }
+        .hero h1 .line:nth-child(3) span { animation-delay: 0.8s, 2.0s; }
+
+        .hero p {
+            font-size: 1.05rem;
+            max-width: 540px;
+            margin-bottom: 1.15rem;
+            line-height: 1.7;
+        }
+
+        .hero .hero-meta {
+            margin-bottom: 1.75rem;
+            font-size: 0.82rem;
+        }
+
+        .hero-badge {
+            margin-bottom: 1.35rem;
+        }
+
+        @media (max-width: 968px) {
+            .hero {
+                min-height: auto;
+                padding-top: 100px;
+                padding-bottom: 45px;
+            }
+            .hero h1 {
+                font-size: clamp(2.1rem, 7vw, 3.2rem);
+            }
+        }
+
+        @media (max-width: 640px) {
+            .hero {
+                padding-top: 96px;
+                padding-bottom: 35px;
+            }
+            .hero h1 {
+                font-size: clamp(1.85rem, 8.5vw, 2.6rem);
+                letter-spacing: -1px;
+                line-height: 1.12;
+            }
+            .hero p {
+                font-size: 0.95rem;
+                line-height: 1.65;
+            }
+            .hero .hero-meta {
+                margin-bottom: 1.5rem;
+                font-size: 0.76rem;
+            }
+        }
+
         @media (prefers-reduced-motion: reduce) {
-            .hero h1 .hero-typing-line .hero-shine .typed-caret {
+            .hero h1 .hero-line-typed .hero-shine .typed-caret {
                 animation: none;
             }
         }
@@ -2587,8 +2604,9 @@
                     </div>
 
                     <h1>
-                        <div class="line hero-typing-line"><span class="hero-shine primary-text"><span id="heroTyped">Quantitative Trading.</span><span class="typed-caret" aria-hidden="true"></span></span></div>
-                        <div class="line"><span class="hero-shine accent-text">Engineered.</span></div>
+                        <div class="line hero-line-static"><span class="hero-shine primary-text">Quantitative &</span></div>
+                        <div class="line hero-line-typed"><span class="hero-shine accent-text"><span id="heroTyped">Fintech Solutions.</span><span class="typed-caret" aria-hidden="true"></span></span></div>
+                        <div class="line hero-line-end"><span class="hero-shine primary-text">Engineered.</span></div>
                     </h1>
 
                     <p>
@@ -2894,9 +2912,9 @@
         <section id="technology-preview" class="container">
             <div class="reveal" style="text-align:center; margin-bottom: 45px;">
                 <div class="section-label" style="justify-content:center;">
-                    <span style="width:30px;height:1px;background:var(--accent-cyan);box-shadow:0 0 8px var(--accent-cyan);"></span>
+                    <span style="width:30px;height:1px;background:var(--accent-cyan);box-shadow:0 0 8px var(--accent-cyan);\"></span>
                     <span>Stack</span>
-                    <span style="width:30px;height:1px;background:var(--accent-cyan);box-shadow:0 0 8px var(--accent-cyan);"></span>
+                    <span style="width:30px;height:1px;background:var(--accent-cyan);box-shadow:0 0 8px var(--accent-cyan);\"></span>
                 </div>
                 <h2 class="section-title">Technology We Deploy</h2>
                 <p class="section-subtitle" style="margin: 0 auto;">
@@ -2934,9 +2952,9 @@
         <section id="methodology-preview" class="container">
             <div class="reveal" style="text-align:center; margin-bottom: 42px;">
                 <div class="section-label" style="justify-content:center;">
-                    <span style="width:30px;height:1px;background:var(--accent-cyan);box-shadow:0 0 8px var(--accent-cyan);"></span>
+                    <span style="width:30px;height:1px;background:var(--accent-cyan);box-shadow:0 0 8px var(--accent-cyan);\"></span>
                     <span>Methodology</span>
-                    <span style="width:30px;height:1px;background:var(--accent-cyan);box-shadow:0 0 8px var(--accent-cyan);"></span>
+                    <span style="width:30px;height:1px;background:var(--accent-cyan);box-shadow:0 0 8px var(--accent-cyan);\"></span>
                 </div>
                 <h2 class="section-title">Our Approach</h2>
             </div>
@@ -2979,9 +2997,9 @@
         <section class="serve-section container">
             <div class="reveal">
                 <div class="section-label" style="justify-content:center;">
-                    <span style="width:30px;height:1px;background:var(--accent-cyan);box-shadow:0 0 8px var(--accent-cyan);"></span>
+                    <span style="width:30px;height:1px;background:var(--accent-cyan);box-shadow:0 0 8px var(--accent-cyan);\"></span>
                     <span>Clients</span>
-                    <span style="width:30px;height:1px;background:var(--accent-cyan);box-shadow:0 0 8px var(--accent-cyan);"></span>
+                    <span style="width:30px;height:1px;background:var(--accent-cyan);box-shadow:0 0 8px var(--accent-cyan);\"></span>
                 </div>
                 <h2 class="section-title">Who We Serve</h2>
             </div>
@@ -2998,7 +3016,7 @@
             </div>
 
             <div class="reveal">
-                <h3 style="font-size: 2.2rem; font-weight: 800; margin-bottom: 1.5rem; letter-spacing: -1px;">Building the Future of Systematic Trading</h3>
+                <h3 style="font-size: 2.2rem; font-weight: 800; margin-bottom: 1.5rem; letter-spacing: -1px;\">Building the Future of Systematic Trading</h3>
                 <p class="mission-text">
                     From idea generation to live deployment, we help transform trading concepts into <strong>scalable, data-driven systems</strong>. Our mission is to bridge quantitative research, execution technology, and automation infrastructure to create intelligent trading systems capable of operating across modern financial markets including equities, futures, crypto, FX, and options.
                 </p>
@@ -3008,14 +3026,14 @@
         <section class="cta-section container">
             <div class="cta-box reveal">
                 <div class="section-label" style="justify-content:center;">
-                    <span style="width:30px;height:1px;background:var(--accent-cyan);box-shadow:0 0 8px var(--accent-cyan);"></span>
+                    <span style="width:30px;height:1px;background:var(--accent-cyan);box-shadow:0 0 8px var(--accent-cyan);\"></span>
                     <span>Get Started</span>
-                    <span style="width:30px;height:1px;background:var(--accent-cyan);box-shadow:0 0 8px var(--accent-cyan);"></span>
+                    <span style="width:30px;height:1px;background:var(--accent-cyan);box-shadow:0 0 8px var(--accent-cyan);\"></span>
                 </div>
                 <h2>Ready to Build Your Trading Edge?</h2>
                 <p>Tell us about your strategy, automation, or fintech product — our team will scope, engineer, and deploy it to production-grade standards.</p>
                 <div class="hero-buttons">
-                    <a href="/contact/" class="btn btn-primary">Start a Project <span style="font-size: 1.2rem;">→</span></a>
+                    <a href="/contact/" class="btn btn-primary">Start a Project <span style="font-size: 1.2rem;\">→</span></a>
                     <a href="/solutions/fintech-solutions/" class="btn btn-secondary">Explore Fintech Solutions</a>
                 </div>
             </div>
@@ -3506,8 +3524,8 @@ plot(ta.ema(close, len), "EMA", color.aqua)`
         const mouse = { x: null, y: null, radius: 200 };
 
         window.addEventListener('mousemove', (e) => {
-            mouse.x = e.x;
-            mouse.y = e.y;
+            mouse.x = e.clientX;
+            mouse.y = e.clientY;
         });
 
         window.addEventListener('mouseout', () => {
@@ -3586,7 +3604,7 @@ plot(ta.ema(close, len), "EMA", color.aqua)`
                         ctx.beginPath();
                         ctx.strokeStyle = `rgba(0, 229, 255, ${opacity})`;
                         ctx.lineWidth = 0.5;
-                        ctx.moveTo(particles[i].x, particles[j].x);
+                        ctx.moveTo(particles[i].x, particles[i].x);
                         ctx.lineTo(particles[j].x, particles[j].y);
                         ctx.stroke();
                     }
@@ -3600,7 +3618,6 @@ plot(ta.ema(close, len), "EMA", color.aqua)`
                 p.update();
                 p.draw();
             }
-            //drawConnections();
             requestAnimationFrame(animateParticles);
         }
 
@@ -3611,27 +3628,27 @@ plot(ta.ema(close, len), "EMA", color.aqua)`
     </script>
 
     <script>
-        /* ===== Hero typing rotator: cycles QuantParticle's service lines ===== */
+        /* ===== Hero typing rotator: Cycles line 2 services while line 1 & 3 stay fixed ===== */
         (function () {
             var typedEl = document.getElementById('heroTyped');
             if (!typedEl) return;
 
             var phrases = [
-                'Quantitative Trading.',
                 'Fintech Solutions.',
+                'Trading Systems.',
                 'Strategy Research.',
                 'Execution Systems.',
                 'Prop & Institutional.'
             ];
 
-            var TYPE_MS = 75;        /* ms per character while typing */
-            var DELETE_MS = 38;      /* ms per character while deleting */
-            var HOLD_MS = 1900;      /* pause with the full phrase visible */
-            var GAP_MS = 450;        /* pause when the line is empty */
-            var START_DELAY = 1900;  /* wait for hero reveal + shine to settle */
+            var TYPE_MS = 70;        /* ms per character typing */
+            var DELETE_MS = 35;      /* ms per character erasing */
+            var HOLD_MS = 2000;      /* pause with full word */
+            var GAP_MS = 400;        /* pause at empty */
+            var START_DELAY = 2200;  /* initial delay to let reveal animation finish */
 
             var reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-            if (reduceMotion) return; /* keep the static headline for reduced-motion users */
+            if (reduceMotion) return;
 
             var current = 0;
 
