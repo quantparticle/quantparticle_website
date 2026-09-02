@@ -2489,6 +2489,34 @@
                 padding-bottom: 65px;
             }
         }
+
+        /* ===== Hero typing rotator (Quant -> Fintech -> services) ===== */
+        .hero h1 .hero-typing-line .hero-shine #heroTyped {
+            display: inline;
+            transform: none;
+            position: static;
+        }
+
+        .hero h1 .hero-typing-line .hero-shine .typed-caret {
+            display: inline-block;
+            transform: none;
+            position: static;
+            width: 4px;
+            height: 0.8em;
+            margin-left: 8px;
+            border-radius: 2px;
+            background: var(--accent-cyan);
+            box-shadow: 0 0 14px var(--accent-cyan);
+            vertical-align: -0.08em;
+            animation: caretBlink 0.9s steps(1) infinite;
+            animation-delay: 0s;
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .hero h1 .hero-typing-line .hero-shine .typed-caret {
+                animation: none;
+            }
+        }
     </style>
 </head>
 <body>
@@ -2559,17 +2587,17 @@
                     </div>
 
                     <h1>
-                        <div class="line"><span class="hero-shine primary-text">Quantitative Trading.</span></div>
+                        <div class="line hero-typing-line"><span class="hero-shine primary-text"><span id="heroTyped">Quantitative Trading.</span><span class="typed-caret" aria-hidden="true"></span></span></div>
                         <div class="line"><span class="hero-shine accent-text">Engineered.</span></div>
                     </h1>
 
                     <p>
-                        <strong style="color: var(--text-primary);">Research-Driven Trading Technology.</strong>
-                        QuantParticle develops quantitative trading systems, execution infrastructure, and systematic trading solutions for professional traders, proprietary trading firms, institutions, and fintech businesses across global markets.
+                        <strong style="color: var(--text-primary);">Research-Driven Quant & Fintech Technology.</strong>
+                        QuantParticle builds quantitative trading systems, low-latency execution infrastructure, and fintech products — trading platforms, analytics dashboards, broker &amp; API integrations, and automation tools — for professional traders, proprietary trading firms, institutions, and fintech businesses across global markets.
                     </p>
 
                     <div class="hero-meta">
-                        <span>LFT</span> • <span>MFT</span> • <span>HFT</span> • <span>Multi-Asset</span> • <span>Global Markets</span>
+                        <span>Quant</span> • <span>Fintech</span> • <span>LFT</span> • <span>MFT</span> • <span>HFT</span> • <span>Multi-Asset</span> • <span>Global Markets</span>
                     </div>
 
                     <div class="hero-buttons">
@@ -3580,6 +3608,61 @@ plot(ta.ema(close, len), "EMA", color.aqua)`
         animateParticles();
 
         window.addEventListener('resize', initParticles);
+    </script>
+
+    <script>
+        /* ===== Hero typing rotator: cycles QuantParticle's service lines ===== */
+        (function () {
+            var typedEl = document.getElementById('heroTyped');
+            if (!typedEl) return;
+
+            var phrases = [
+                'Quantitative Trading.',
+                'Fintech Solutions.',
+                'Strategy Research.',
+                'Execution Systems.',
+                'Prop & Institutional.'
+            ];
+
+            var TYPE_MS = 75;        /* ms per character while typing */
+            var DELETE_MS = 38;      /* ms per character while deleting */
+            var HOLD_MS = 1900;      /* pause with the full phrase visible */
+            var GAP_MS = 450;        /* pause when the line is empty */
+            var START_DELAY = 1900;  /* wait for hero reveal + shine to settle */
+
+            var reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+            if (reduceMotion) return; /* keep the static headline for reduced-motion users */
+
+            var current = 0;
+
+            function typePhrase() {
+                current = (current + 1) % phrases.length;
+                var word = phrases[current];
+                var i = 0;
+                (function step() {
+                    i++;
+                    typedEl.textContent = word.slice(0, i);
+                    if (i < word.length) {
+                        setTimeout(step, TYPE_MS);
+                    } else {
+                        setTimeout(erasePhrase, HOLD_MS);
+                    }
+                })();
+            }
+
+            function erasePhrase() {
+                (function step() {
+                    typedEl.textContent = typedEl.textContent.slice(0, -1);
+                    if (typedEl.textContent.length > 0) {
+                        setTimeout(step, DELETE_MS);
+                    } else {
+                        setTimeout(typePhrase, GAP_MS);
+                    }
+                })();
+            }
+
+            setTimeout(erasePhrase, START_DELAY);
+        })();
     </script>
 </body>
 </html>
