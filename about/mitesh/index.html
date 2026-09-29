@@ -148,6 +148,68 @@ h1{font-size:clamp(2.7rem,6vw,5.8rem);line-height:.98;letter-spacing:-4px;max-wi
 
 .hero-card{transform-style:preserve-3d;transition:transform .18s ease,border-color .25s}
 
+
+/* ===== MT5-FIRST ANIMATION SYSTEM — EVERY SLIDE ===== */
+.slide-fx{position:absolute;inset:0;overflow:hidden;pointer-events:none;z-index:0}
+.slide-inner>*:not(.slide-fx){position:relative;z-index:1}
+.slide-fx:before,.slide-fx:after{content:"";position:absolute}
+
+/* 01 cover: live MT5 execution stream */
+.slide:nth-of-type(1) .slide-fx:before{inset:0;background:
+ radial-gradient(circle at 72% 38%,rgba(0,229,255,.11),transparent 24%),
+ linear-gradient(rgba(0,229,255,.035) 1px,transparent 1px),
+ linear-gradient(90deg,rgba(0,229,255,.035) 1px,transparent 1px);background-size:auto,38px 38px,38px 38px}
+.slide:nth-of-type(1) .slide-fx:after{width:46%;height:1px;right:3%;top:23%;background:linear-gradient(90deg,transparent,var(--cyan),transparent);box-shadow:0 0 16px var(--cyan);animation:execScan 2.2s linear infinite}
+@keyframes execScan{0%{transform:translateY(0);opacity:0}15%{opacity:1}100%{transform:translateY(430px);opacity:0}}
+
+/* 02 library: rotating numerical research universe */
+.slide:nth-of-type(2) .big-number{font-variant-numeric:tabular-nums;text-shadow:0 0 34px rgba(0,229,255,.18)}
+.slide:nth-of-type(2) .slide-fx:before{width:620px;height:620px;right:-120px;top:50%;transform:translateY(-50%);border:1px solid rgba(0,229,255,.12);border-radius:50%;box-shadow:inset 0 0 80px rgba(0,229,255,.035);animation:libOrbit 18s linear infinite}
+.slide:nth-of-type(2) .slide-fx:after{width:390px;height:390px;right:-5px;top:50%;margin-top:-195px;border:1px dashed rgba(124,58,237,.22);border-radius:50%;animation:libOrbit 11s linear infinite reverse}
+@keyframes libOrbit{to{transform:translateY(-50%) rotate(360deg)}}
+
+/* 03 core research: mathematical field */
+.slide:nth-of-type(3) .slide-fx{background-image:
+ radial-gradient(circle at 18% 24%,rgba(0,229,255,.08),transparent 18%),
+ radial-gradient(circle at 80% 72%,rgba(124,58,237,.08),transparent 20%)}
+.slide:nth-of-type(3) .slide-fx:before{content:"Σ  ∫  σ²  μ  λ  ∂P/∂t  E[r]  √Δt  Φ(d₁)  β  α  π  ∇  ρ";left:-10%;top:18%;width:120%;font:500 22px/4.4 'JetBrains Mono',monospace;word-spacing:52px;color:rgba(0,229,255,.11);transform:rotate(-7deg);animation:mathDrift 13s linear infinite}
+.slide:nth-of-type(3) .slide-fx:after{content:"dS = μSdt + σSdW     σ²ₜ = ω + αε²ₜ₋₁ + βσ²ₜ₋₁     P = Φ(d₁)S − Φ(d₂)Ke⁻ʳᵀ";left:3%;bottom:4%;white-space:nowrap;font:500 14px 'JetBrains Mono',monospace;color:rgba(139,149,168,.22);animation:codeTicker 15s linear infinite}
+@keyframes mathDrift{50%{transform:translateX(70px) rotate(-7deg)}} @keyframes codeTicker{from{transform:translateX(100%)}to{transform:translateX(-120%)}}
+
+/* 04 volatility: moving volatility chart */
+.slide:nth-of-type(4) .slide-fx:before{left:2%;right:2%;bottom:5%;height:38%;background:
+ repeating-linear-gradient(0deg,rgba(255,255,255,.035) 0 1px,transparent 1px 34px),
+ repeating-linear-gradient(90deg,rgba(255,255,255,.025) 0 1px,transparent 1px 52px)}
+.slide:nth-of-type(4) .vol-wave{height:145px;bottom:5%}
+
+/* 05 architecture: animated research-to-MT5 flow */
+.slide:nth-of-type(5) .slide-fx:before{left:5%;right:5%;top:50%;height:2px;background:linear-gradient(90deg,transparent,rgba(0,229,255,.15),var(--cyan),rgba(0,229,255,.15),transparent);background-size:220% 100%;animation:flowBeam 2.4s linear infinite}
+.slide:nth-of-type(5) .slide-fx:after{width:10px;height:10px;border-radius:50%;top:calc(50% - 4px);left:7%;background:var(--cyan);box-shadow:0 0 22px var(--cyan);animation:flowPacket 3s linear infinite}
+@keyframes flowBeam{to{background-position:-220% 0}} @keyframes flowPacket{to{left:92%}}
+
+/* 06 microstructure: rapid BUY / SELL tape */
+.slide:nth-of-type(6) .slide-fx:before{content:"BUY 1.08452   SELL 1.08449   BUY 1.08455   SELL 1.08451   BUY 1.08461   SELL 1.08458";left:0;right:0;top:9%;white-space:nowrap;font:600 13px 'JetBrains Mono',monospace;color:rgba(0,229,255,.22);animation:tape 4s linear infinite}
+.slide:nth-of-type(6) .slide-fx:after{content:"SELL 1.08447   BUY 1.08450   SELL 1.08446   BUY 1.08457   SELL 1.08453   BUY 1.08463";left:0;right:0;bottom:9%;white-space:nowrap;font:600 13px 'JetBrains Mono',monospace;color:rgba(255,95,86,.19);animation:tape 3.2s linear infinite reverse}
+@keyframes tape{from{transform:translateX(100%)}to{transform:translateX(-130%)}}
+
+/* 07 technology: MT5 terminal / Expert Advisor pulse */
+.slide:nth-of-type(7) .slide-fx:before{content:"MetaTrader 5  •  Expert Advisor  •  Strategy Tester  •  MQL5  •  OnTick()  •  OrderSend()  •  PositionSelect()  •  CopyBuffer()";left:0;bottom:5%;white-space:nowrap;font:500 13px 'JetBrains Mono',monospace;color:rgba(0,229,255,.2);animation:mt5Ticker 14s linear infinite}
+.slide:nth-of-type(7) .slide-fx:after{width:360px;height:360px;right:-90px;top:16%;border-radius:50%;background:conic-gradient(from 0deg,transparent,rgba(0,229,255,.13),transparent 28%);animation:spin 6s linear infinite}
+@keyframes mt5Ticker{from{transform:translateX(100%)}to{transform:translateX(-130%)}} @keyframes spin{to{transform:rotate(360deg)}}
+
+/* 08 MQL5 engineering: live code-writing cursor */
+.slide:nth-of-type(8) .slide-fx:before{content:"#property strict\\A input double Lots = 0.10;\\A void OnTick() {\\A   double atr = iATR(_Symbol, PERIOD_M5, 14);\\A   if(signal == BUY) trade.Buy(Lots);\\A   ManagePosition();\\A }";white-space:pre;right:5%;top:17%;width:43%;padding:22px;border:1px solid rgba(0,229,255,.1);border-radius:14px;background:rgba(7,11,20,.28);font:500 13px/1.9 'JetBrains Mono',monospace;color:rgba(165,243,252,.2);animation:codeGlow 2.2s ease-in-out infinite}
+.slide:nth-of-type(8) .slide-fx:after{right:7%;top:19%;width:2px;height:18px;background:var(--cyan);box-shadow:0 0 8px var(--cyan);animation:codeCursor 5.2s steps(12) infinite}
+@keyframes codeGlow{50%{border-color:rgba(0,229,255,.26)}} @keyframes codeCursor{0%{transform:translate(0,0)}25%{transform:translate(-120px,48px)}50%{transform:translate(-30px,96px)}75%{transform:translate(-170px,144px)}100%{transform:translate(-55px,192px)}}
+
+/* 09 deployment: strategy tester → EA → broker */
+.slide:nth-of-type(9) .slide-fx:before{content:"BACKTEST  →  OPTIMIZE  →  FORWARD TEST  →  .EX5  →  MT5 VPS  →  BROKER";left:8%;right:8%;top:11%;font:600 13px 'JetBrains Mono',monospace;letter-spacing:2px;color:rgba(0,229,255,.16);text-align:center}
+.slide:nth-of-type(9) .slide-fx:after{left:10%;top:15%;height:2px;width:10%;background:var(--cyan);box-shadow:0 0 16px var(--cyan);animation:deploy 4.8s ease-in-out infinite}
+@keyframes deploy{0%{left:10%;width:6%}50%{left:45%;width:18%}100%{left:84%;width:6%}}
+
+/* 10 final: global MT5 automation network */
+.slide:nth-of-type(10) .slide-fx:before{content:"MT5";position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);font:900 86px Inter,sans-serif;color:rgba(0,229,255,.025);letter-spacing:12px}
+
 @media(max-width:900px){.slide{padding:30px 24px;overflow:auto;align-items:start}.hero-grid,.two{grid-template-columns:1fr;gap:28px}.hero-card,.radar{display:none}.models{grid-template-columns:1fr 1fr}.vision{grid-template-columns:1fr 1fr}.stats{grid-template-columns:1fr 1fr}.stats .stat:last-child{grid-column:1/-1}.topbar{padding:0 20px}.top-meta{display:none}.controls{padding:0 20px}.hint{display:none}h1{letter-spacing:-2px}}
 @media(max-width:560px){.models,.vision{grid-template-columns:1fr}.slide{inset:76px 0 62px}.big-number{letter-spacing:-4px}.pipeline{justify-content:flex-start}.arrow{transform:rotate(90deg)}}
 </style>
@@ -410,6 +472,12 @@ function updateParticle(p){
  }
  requestAnimationFrame(draw);
 })();
+
+const slideObserver=new MutationObserver(()=>{
+ document.querySelectorAll('.slide.active').forEach(animateResearchCount);
+});
+document.querySelectorAll('.slide').forEach(sl=>slideObserver.observe(sl,{attributes:true,attributeFilter:['class']}));
+document.querySelectorAll('.slide.active').forEach(animateResearchCount);
 </script>
 </body>
 </html>
