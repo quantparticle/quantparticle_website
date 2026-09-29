@@ -259,6 +259,40 @@ h1{font-size:clamp(2.7rem,6vw,5.8rem);line-height:.98;letter-spacing:-4px;max-wi
 @keyframes deploy{0%{left:10%;width:6%}50%{left:45%;width:18%}100%{left:84%;width:6%}}
 .slide:nth-of-type(10) .slide-fx:before{content:"MT5";position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);font:900 86px Inter,sans-serif;color:rgba(0,229,255,.025);letter-spacing:12px}
 
+
+/* ===== SLIDE 2 ONLY: Quant Research Code Factory ===== */
+.research-engine{height:400px;position:relative;overflow:hidden;border:1px solid rgba(0,229,255,.18);border-radius:18px;background:linear-gradient(180deg,rgba(15,21,37,.94),rgba(7,11,20,.82));box-shadow:0 25px 70px rgba(0,0,0,.36),inset 0 0 60px rgba(0,229,255,.025)}
+.re-head{height:48px;padding:0 18px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--border);font:600 .65rem "JetBrains Mono";letter-spacing:1px;color:var(--muted)}
+.re-live{color:var(--cyan);text-shadow:0 0 10px rgba(0,229,255,.6);animation:reBlink 1.2s ease-in-out infinite}
+@keyframes reBlink{50%{opacity:.35}}
+.re-code{height:286px;padding:15px 18px;font:500 .68rem/1.7 "JetBrains Mono";overflow:hidden;position:relative}
+.re-line{display:grid;grid-template-columns:28px 1fr;gap:9px;opacity:0;transform:translateY(8px);animation:reLineIn .28s forwards}
+.re-line .ln{color:#465168;text-align:right;user-select:none}.re-line .kw{color:#c792ea}.re-line .fn{color:#82aaff}.re-line .num{color:#f78c6c}.re-line .str{color:#c3e88d}.re-line .cm{color:#59657a}.re-line .cyan{color:#7eeeff}
+@keyframes reLineIn{to{opacity:1;transform:none}}
+.re-cursor{display:inline-block;width:7px;height:13px;background:var(--cyan);vertical-align:-2px;margin-left:4px;box-shadow:0 0 8px var(--cyan);animation:reCursor .65s step-end infinite}
+@keyframes reCursor{50%{opacity:0}}
+.re-bottom{position:absolute;left:0;right:0;bottom:0;height:64px;border-top:1px solid var(--border);display:grid;grid-template-columns:repeat(3,1fr);background:rgba(7,11,20,.82)}
+.re-bottom>div{padding:10px 14px;border-right:1px solid var(--border);display:flex;flex-direction:column;gap:4px}.re-bottom>div:last-child{border-right:0}
+.re-bottom span{font:500 .52rem "JetBrains Mono";color:#667187;letter-spacing:1px}.re-bottom b{font:600 .68rem "JetBrains Mono";color:#d7dfeb}.re-bottom b.cyan{color:var(--cyan)}
+.re-scan{position:absolute;left:0;right:0;height:1px;top:48px;background:linear-gradient(90deg,transparent,var(--cyan),transparent);box-shadow:0 0 14px var(--cyan);opacity:.45;animation:reScan 3.2s linear infinite}
+@keyframes reScan{to{transform:translateY(286px)}}
+
+/* ===== SLIDE 6 ONLY: Homepage-style live multi-asset MT5 execution ===== */
+.execution-engine{height:420px;position:relative;overflow:hidden;border:1px solid rgba(0,229,255,.18);border-radius:18px;background:linear-gradient(180deg,rgba(15,21,37,.96),rgba(8,13,23,.94));box-shadow:0 28px 80px rgba(0,0,0,.42),inset 0 0 55px rgba(0,229,255,.025)}
+.exec-head{height:54px;display:flex;align-items:center;justify-content:space-between;padding:0 18px;border-bottom:1px solid var(--border);font:600 .62rem "JetBrains Mono";letter-spacing:1px;color:#9aa5b8}
+.exec-latency{font-size:.52rem;color:#667187}.exec-latency b{color:var(--cyan);font-size:.68rem}
+.exec-columns,.exec-row{display:grid;grid-template-columns:1.35fr .75fr .65fr 1fr .8fr;align-items:center;padding:0 17px}
+.exec-columns{height:30px;border-bottom:1px solid rgba(255,255,255,.05);font:500 .5rem "JetBrains Mono";letter-spacing:1px;color:#59657a}
+.exec-rows{height:286px;overflow:hidden}
+.exec-row{height:40px;border-bottom:1px solid rgba(255,255,255,.045);font:600 .66rem "JetBrains Mono";position:relative;animation:execRowIn .25s ease-out}
+@keyframes execRowIn{from{opacity:0;transform:translateX(18px);background:rgba(0,229,255,.12)}to{opacity:1;transform:none;background:transparent}}
+.exec-symbol{color:#d7dfeb}.exec-side{justify-self:start;padding:5px 8px;border-radius:5px;font-size:.58rem}.exec-side.buy{color:#67ef84;background:rgba(39,202,64,.14)}.exec-side.sell{color:#ff7c75;background:rgba(255,95,86,.14)}
+.exec-lot{color:#818ca0}.exec-price{color:var(--cyan);text-shadow:0 0 9px rgba(0,229,255,.22)}.exec-status{font-size:.56rem;color:#68758b}.exec-status.fill{color:#55e67b}
+.exec-flash{position:absolute;inset:0;pointer-events:none;animation:tradeFlash .42s ease-out}
+.exec-flash.buy{background:linear-gradient(90deg,rgba(39,202,64,.13),transparent 55%)}.exec-flash.sell{background:linear-gradient(90deg,rgba(255,95,86,.13),transparent 55%)}
+@keyframes tradeFlash{from{opacity:1}to{opacity:0}}
+.exec-foot{position:absolute;left:0;right:0;bottom:0;height:50px;display:flex;align-items:center;justify-content:space-between;padding:0 17px;border-top:1px solid var(--border);background:rgba(7,11,20,.86);font:500 .52rem "JetBrains Mono";color:#667187}.exec-foot b{color:var(--cyan)}
+
 @media(max-width:900px){.slide{padding:30px 24px;overflow:auto;align-items:start}.hero-grid,.two{grid-template-columns:1fr;gap:28px}.hero-card,.radar{display:none}.models{grid-template-columns:1fr 1fr}.vision{grid-template-columns:1fr 1fr}.stats{grid-template-columns:1fr 1fr}.stats .stat:last-child{grid-column:1/-1}.topbar{padding:0 20px}.top-meta{display:none}.controls{padding:0 20px}.hint{display:none}h1{letter-spacing:-2px}.logo-particles-container{width:200px;height:200px}.logo-center{width:120px;height:120px}}
 @media(max-width:560px){.models,.vision{grid-template-columns:1fr}.slide{inset:76px 0 62px}.big-number{letter-spacing:-4px}.pipeline{justify-content:flex-start}.arrow{transform:rotate(90deg)}}
 </style>
@@ -325,8 +359,15 @@ h1{font-size:clamp(2.7rem,6vw,5.8rem);line-height:.98;letter-spacing:-4px;max-wi
    <p class="lead">Our research library spans momentum, mean reversion, volatility, statistical inference, regime detection, market microstructure, signal processing, machine learning and execution logic.</p>
    <p class="note">"1200+" represents QuantParticle's internal strategy/model research library and should not be interpreted as 1,200 independently validated or production-deployed trading systems.</p>
   </div>
-  <div style="position:relative;height:400px;" id="strategyCards">
-   <div class="radar"><div class="market-grid topic-engine"></div><div class="research-orbit"></div><div class="research-orbit o2"></div><div class="sweep"></div><i class="dot d1"></i><i class="dot d2"></i><i class="dot d3"></i><i class="dot d4"></i></div>
+  <div class="research-engine" id="strategyCards">
+   <div class="re-head"><span>QP_RESEARCH_ENGINE</span><span class="re-live">● GENERATING</span></div>
+   <div class="re-code" id="researchCode"></div>
+   <div class="re-bottom">
+    <div><span>MODELS</span><b id="modelPulse">1,200+</b></div>
+    <div><span>PIPELINE</span><b>R&amp;D → MT5</b></div>
+    <div><span>STATUS</span><b class="cyan">ACTIVE</b></div>
+   </div>
+   <div class="re-scan"></div>
   </div>
  </div>
 </section>
@@ -414,19 +455,12 @@ h1{font-size:clamp(2.7rem,6vw,5.8rem);line-height:.98;letter-spacing:-4px;max-wi
    <div class="list"><div class="li">Order-flow informativeness and liquidity behaviour</div><div class="li">Market-making and inventory-aware quote research</div><div class="li">Microstructure regime classification</div><div class="li">Execution, slippage and transaction-cost awareness</div><div class="li">Broker/API connectivity for retail automation</div></div>
   </div>
   <div>
-   <div class="tape-container" id="tapeContainer">
-    <div class="order-book">
-     <div style="color:var(--muted);margin-bottom:5px;">ORDER BOOK</div>
-     <div class="order-book-row" style="color:var(--red)"><span>1.08465</span><span>1.2</span></div>
-     <div class="order-book-row" style="color:var(--red)"><span>1.08462</span><span>0.8</span></div>
-     <div class="order-book-row" style="color:var(--red)"><span>1.08459</span><span>2.1</span></div>
-     <div style="border-top:1px solid var(--border);margin:5px 0;"></div>
-     <div class="order-book-row" style="color:var(--green)"><span>1.08455</span><span>1.5</span></div>
-     <div class="order-book-row" style="color:var(--green)"><span>1.08452</span><span>0.9</span></div>
-     <div class="order-book-row" style="color:var(--green)"><span>1.08449</span><span>1.8</span></div>
-    </div>
+   <div class="execution-engine" id="tapeContainer">
+    <div class="exec-head"><span>MT5_EXECUTION_ENGINE // LIVE</span><span class="exec-latency">AVG LATENCY <b>15.8µs</b></span></div>
+    <div class="exec-columns"><span>SYMBOL</span><span>SIDE</span><span>LOT</span><span>PRICE</span><span>STATUS</span></div>
+    <div class="exec-rows" id="execRows"></div>
+    <div class="exec-foot"><span>EA ROUTING ACTIVE</span><span>ORDERS <b id="orderCount">0000</b></span><span>MT5 <b>CONNECTED</b></span></div>
    </div>
-   <div class="radar" style="margin-top:20px;width:100%;max-width:280px;"><div class="market-grid topic-engine"></div><div class="sweep"></div><span class="liquidity-pulse lp1"></span><span class="liquidity-pulse lp2"></span><span class="liquidity-pulse lp3"></span><i class="dot d1"></i><i class="dot d2"></i><i class="dot d3"></i><i class="dot d4"></i></div>
   </div>
  </div>
 </section>
@@ -751,22 +785,36 @@ function resetRollingCounter(){
  addStrategyCards();
 }
 
+let researchTimer;
 function addStrategyCards(){
- const container = document.getElementById('strategyCards');
- if(!container) return;
- const cards = container.querySelectorAll('.strategy-card');
- cards.forEach(c=>c.remove());
-
- const strategies = ['Momentum','Mean Reversion','GARCH','Bayesian','PCA','LASSO','Order Flow','ML Signals'];
- strategies.forEach((s,i)=>{
-  const card = document.createElement('div');
-  card.className = 'strategy-card';
-  card.textContent = s;
-  card.style.left = (10+Math.random()*70)+'%';
-  card.style.top = (5+Math.random()*80)+'%';
-  card.style.animationDelay = (i*0.3)+'s';
-  container.appendChild(card);
- });
+ const box=document.getElementById('researchCode');
+ if(!box) return;
+ clearTimeout(researchTimer);
+ const lines=[
+  ['<span class="cm">// QuantParticle Research Engine / MT5 R&D</span>'],
+  ['<span class="kw">model</span> = <span class="fn">GARCH</span>(alpha=<span class="num">0.10</span>, beta=<span class="num">0.88</span>)'],
+  ['vol = <span class="fn">ConditionalVariance</span>(returns)'],
+  ['signal = <span class="fn">BayesianRegimeFilter</span>(features)'],
+  ['factor = <span class="fn">PCA</span>(market_matrix, components=<span class="num">3</span>)'],
+  ['sparse = <span class="fn">LASSO</span>(X, y, lambda=<span class="num">0.015</span>)'],
+  ['flow = <span class="fn">OrderFlowImbalance</span>(bid, ask, volume)'],
+  ['entry = signal &amp;&amp; flow &gt; threshold'],
+  ['risk = <span class="fn">VolatilityAdaptiveSL</span>(vol, multiplier)'],
+  ['ea = <span class="fn">CompileMQL5</span>(strategy, risk, execution)'],
+  ['<span class="cyan">BUILD → QP_Research_Model.ex5</span>'],
+  ['<span class="str">✓ strategy research package ready for MT5 testing</span>']
+ ];
+ let i=0;
+ box.innerHTML='';
+ function next(){
+  if(i>=lines.length){ researchTimer=setTimeout(addStrategyCards,1700); return; }
+  const d=document.createElement('div'); d.className='re-line';
+  d.innerHTML=`<span class="ln">${String(i+1).padStart(2,'0')}</span><span>${lines[i][0]}${i===lines.length-1?'<i class="re-cursor"></i>':''}</span>`;
+  box.appendChild(d);
+  if(box.children.length>11) box.removeChild(box.firstChild);
+  i++; researchTimer=setTimeout(next,220);
+ }
+ next();
 }
 
 // SLIDE 3: Math Symbols
@@ -884,34 +932,44 @@ function resetFlowChart(){
  nodes.forEach(n=>n.classList.remove('active'));
 }
 
-// SLIDE 6: Buy/Sell Tape
+// SLIDE 6: Homepage-style live multi-asset Buy/Sell execution
+let executionTimer=null, executionOrders=0;
+const executionMarkets=[
+ {s:'XAUUSD',p:3828.42,d:0.42},{s:'BTCUSD',p:112684.30,d:34.0},
+ {s:'XAGUSD',p:46.715,d:0.035},{s:'USOIL',p:64.82,d:0.12},
+ {s:'EURUSD',p:1.17342,d:0.00018},{s:'GBPUSD',p:1.34188,d:0.00022},
+ {s:'NAS100',p:24618.7,d:8.5},{s:'US30',p:46520.0,d:13.0}
+];
+function marketPrice(m){
+ m.p += (Math.random()-.48)*m.d;
+ if(m.s.includes('USD') && m.p<10) return m.p.toFixed(m.s==='XAGUSD'?3:5);
+ return m.p.toLocaleString(undefined,{minimumFractionDigits:2,maximumFractionDigits:2});
+}
+function makeExecutionRow(){
+ const rows=document.getElementById('execRows'); if(!rows)return;
+ const m=executionMarkets[Math.floor(Math.random()*executionMarkets.length)];
+ const buy=Math.random()>.48, lot=(Math.random()*.9+.1).toFixed(2), fill=Math.random()>.18;
+ const row=document.createElement('div'); row.className='exec-row';
+ row.innerHTML=`<span class="exec-symbol">${m.s}</span><span class="exec-side ${buy?'buy':'sell'}">${buy?'BUY':'SELL'}</span><span class="exec-lot">${lot}</span><span class="exec-price">${marketPrice(m)}</span><span class="exec-status ${fill?'fill':''}">${fill?'FILL':'PEND'}</span><i class="exec-flash ${buy?'buy':'sell'}"></i>`;
+ rows.prepend(row);
+ while(rows.children.length>7) rows.removeChild(rows.lastChild);
+ executionOrders++; const c=document.getElementById('orderCount'); if(c)c.textContent=String(executionOrders).padStart(4,'0');
+}
 function initTape(){
- const container = document.getElementById('tapeContainer');
- if(!container) return;
-
- const prices = ['1.08450','1.08452','1.08455','1.08448','1.08461','1.08449','1.08457','1.08453'];
-
- for(let i=0;i<8;i++){
-  const row = document.createElement('div');
-  const isBuy = Math.random()>0.5;
-  row.className = 'tape-row ' + (isBuy?'buy':'sell');
-  row.style.top = (i*12)+'%';
-  row.style.animationDelay = (i*0.3)+'s';
-  row.style.animationDuration = (4+Math.random()*4)+'s';
-  row.innerHTML = `<span>${isBuy?'BUY':'SELL'}</span><span>${prices[Math.floor(Math.random()*prices.length)]}</span><span>${(Math.random()*5).toFixed(2)}</span><span>${new Date().toLocaleTimeString()}</span>`;
-  container.appendChild(row);
- }
-}
-
-function resetTape(){
- const container = document.getElementById('tapeContainer');
- const rows = container.querySelectorAll('.tape-row');
- rows.forEach(r=>{
-  r.style.animation='none';
-  r.offsetHeight;
-  r.style.animation='';
+ clearInterval(executionTimer);
+ const rows=document.getElementById('execRows'); if(!rows)return;
+ rows.innerHTML=''; executionOrders=0;
+ ['XAUUSD','BTCUSD','XAGUSD','USOIL','EURUSD','NAS100'].forEach((sym,i)=>{
+   setTimeout(()=>{
+    const m=executionMarkets.find(x=>x.s===sym), buy=i%2===0, row=document.createElement('div');
+    row.className='exec-row';
+    row.innerHTML=`<span class="exec-symbol">${m.s}</span><span class="exec-side ${buy?'buy':'sell'}">${buy?'BUY':'SELL'}</span><span class="exec-lot">${(0.1+i*.1).toFixed(2)}</span><span class="exec-price">${marketPrice(m)}</span><span class="exec-status fill">FILL</span><i class="exec-flash ${buy?'buy':'sell'}"></i>`;
+    rows.prepend(row); executionOrders++;
+   },i*90);
  });
+ executionTimer=setInterval(makeExecutionRow,430);
 }
+function resetTape(){ initTape(); }
 
 // SLIDE 7: MT5 Candles
 function initMT5Candles(){
