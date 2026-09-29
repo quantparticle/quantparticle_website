@@ -295,6 +295,23 @@ h1{font-size:clamp(2.7rem,6vw,5.8rem);line-height:.98;letter-spacing:-4px;max-wi
 
 @media(max-width:900px){.slide{padding:30px 24px;overflow:auto;align-items:start}.hero-grid,.two{grid-template-columns:1fr;gap:28px}.hero-card,.radar{display:none}.models{grid-template-columns:1fr 1fr}.vision{grid-template-columns:1fr 1fr}.stats{grid-template-columns:1fr 1fr}.stats .stat:last-child{grid-column:1/-1}.topbar{padding:0 20px}.top-meta{display:none}.controls{padding:0 20px}.hint{display:none}h1{letter-spacing:-2px}.logo-particles-container{width:200px;height:200px}.logo-center{width:120px;height:120px}}
 @media(max-width:560px){.models,.vision{grid-template-columns:1fr}.slide{inset:76px 0 62px}.big-number{letter-spacing:-4px}.pipeline{justify-content:flex-start}.arrow{transform:rotate(90deg)}}
+
+/* ===== AUTO FIT PRESENTATION TO VIEWPORT =====
+   Keeps the original 1700x860 visual composition and automatically scales it
+   to the available browser viewport. No browser zoom-out required. */
+:root{--deck-scale:1}
+html,body{width:100%;height:100%;overflow:hidden}
+body{position:relative}
+.app{
+  width:calc(100vw / var(--deck-scale));
+  height:calc(100vh / var(--deck-scale));
+  transform:scale(var(--deck-scale));
+  transform-origin:top left;
+}
+.app.active{display:block}
+.topbar,.controls{width:calc(100vw / var(--deck-scale))}
+.deck{height:calc(100vh / var(--deck-scale))}
+
 </style>
 </head>
 <body>
@@ -1110,6 +1127,24 @@ function createFinalParticles(){
 // Initialize counter display
 counter.textContent="01 / "+String(slides.length).padStart(2,"0");
 progress.style.width=(1/slides.length*100)+"%";
+
+// ===== Automatic viewport fitting =====
+// Designed around the presentation's comfortable desktop canvas.
+// Scale only DOWN; never enlarge above 100%.
+function fitPresentationToScreen(){
+  const DESIGN_W = 1700;
+  const DESIGN_H = 860;
+  const vw = window.innerWidth;
+  const vh = window.innerHeight;
+  let scale = Math.min(1, vw / DESIGN_W, vh / DESIGN_H);
+  // A tiny safety margin prevents font rounding from clipping the last pixels.
+  scale = Math.max(.62, scale * .985);
+  document.documentElement.style.setProperty('--deck-scale', scale.toFixed(4));
+}
+fitPresentationToScreen();
+window.addEventListener('resize', fitPresentationToScreen);
+window.addEventListener('orientationchange', ()=>setTimeout(fitPresentationToScreen,120));
+
 </script>
 </body>
 </html>
