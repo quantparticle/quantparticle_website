@@ -35,7 +35,7 @@ button,input{font:inherit}
 .deck{height:100vh;position:relative}
 .slide{position:absolute;inset:76px 0 62px;display:grid;place-items:center;padding:44px 6vw;opacity:0;visibility:hidden;transform:translateX(45px);transition:.5s cubic-bezier(.2,.8,.2,1)}
 .slide.active{opacity:1;visibility:visible;transform:none}.slide.prev{transform:translateX(-45px)}
-.wrap{width:min(1220px,100%);margin:auto}
+.wrap{width:min(1220px,100%);margin:auto;position:relative;z-index:2}
 .eyebrow{font-family:"JetBrains Mono";font-size:.72rem;color:var(--cyan);letter-spacing:3px;text-transform:uppercase;margin-bottom:18px;display:flex;align-items:center;gap:10px}.eyebrow:before{content:"";width:30px;height:1px;background:var(--cyan);box-shadow:0 0 8px var(--cyan)}
 h1{font-size:clamp(2.7rem,6vw,5.8rem);line-height:.98;letter-spacing:-4px;max-width:1000px}h2{font-size:clamp(2rem,4vw,3.6rem);line-height:1.05;letter-spacing:-2px;margin-bottom:20px}.grad{background:linear-gradient(100deg,#fff,var(--cyan),#8d83ff);-webkit-background-clip:text;color:transparent}
 .lead{font-size:clamp(1rem,1.6vw,1.24rem);line-height:1.8;color:var(--muted);max-width:800px;margin-top:25px}
@@ -45,32 +45,24 @@ h1{font-size:clamp(2.7rem,6vw,5.8rem);line-height:.98;letter-spacing:-4px;max-wi
 .terminal-head{display:flex;justify-content:space-between;border-bottom:1px solid var(--border);padding-bottom:16px;margin-bottom:18px;font-family:"JetBrains Mono";font-size:.68rem;color:var(--muted)}.dots{display:flex;gap:7px}.dots i{width:9px;height:9px;border-radius:50%;background:#ff5f56}.dots i:nth-child(2){background:#ffbd2e}.dots i:nth-child(3){background:#27ca40}
 .code{font-family:"JetBrains Mono";font-size:.77rem;line-height:2;color:#a5f3fc}.code .m{color:#768198}.code .v{color:#c4b5fd}.code .g{color:#6ee7b7}
 .stats{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:40px}.stat{padding:22px;border-radius:15px}.stat strong{display:block;font-size:2rem;color:var(--cyan);margin-bottom:5px}.stat span{font-family:"JetBrains Mono";font-size:.68rem;color:var(--muted);text-transform:uppercase;letter-spacing:1px}
-.models{display:grid;grid-template-columns:repeat(3,1fr);gap:15px;margin-top:30px}.model-card{padding:20px;border-radius:14px;min-height:126px;transition:.25s}.model-card:hover{border-color:rgba(0,229,255,.32);transform:translateY(-3px)}.model-card small{font-family:"JetBrains Mono";color:var(--cyan);font-size:.63rem;letter-spacing:1px}.model-card h3{font-size:1rem;margin:9px 0 6px}.model-card p{font-size:.78rem;color:var(--muted);line-height:1.5}
-.pipeline{display:flex;align-items:center;justify-content:center;gap:12px;margin-top:42px;flex-wrap:wrap}.node{padding:17px 19px;border:1px solid var(--border);border-radius:12px;background:var(--glass);font-family:"JetBrains Mono";font-size:.72rem;min-width:135px;text-align:center}.arrow{color:var(--cyan);font-size:1.25rem}
+.models{display:grid;grid-template-columns:repeat(3,1fr);gap:15px;margin-top:30px}.model-card{padding:20px;border-radius:14px;min-height:126px;transition:.25s;position:relative;overflow:hidden}.model-card:hover{border-color:rgba(0,229,255,.32);transform:translateY(-3px)}.model-card small{font-family:"JetBrains Mono";color:var(--cyan);font-size:.63rem;letter-spacing:1px}.model-card h3{font-size:1rem;margin:9px 0 6px}.model-card p{font-size:.78rem;color:var(--muted);line-height:1.5}
+.pipeline{display:flex;align-items:center;justify-content:center;gap:12px;margin-top:42px;flex-wrap:wrap;position:relative}.node{padding:17px 19px;border:1px solid var(--border);border-radius:12px;background:var(--glass);font-family:"JetBrains Mono";font-size:.72rem;min-width:135px;text-align:center;position:relative;overflow:hidden}.arrow{color:var(--cyan);font-size:1.25rem}
 .big-number{font-size:clamp(5rem,13vw,10rem);font-weight:900;letter-spacing:-8px;line-height:.8;background:linear-gradient(135deg,#fff,var(--cyan),var(--blue));-webkit-background-clip:text;color:transparent}.big-caption{font-family:"JetBrains Mono";color:var(--muted);font-size:.9rem;margin-top:25px;letter-spacing:2px}
 .list{display:grid;gap:13px;margin-top:26px}.li{padding:15px 17px;border-left:2px solid var(--cyan);background:linear-gradient(90deg,rgba(0,229,255,.06),transparent);color:#b9c2d0;line-height:1.55}.li b{color:#fff}
 .radar{width:min(430px,100%);aspect-ratio:1;border:1px solid var(--border);border-radius:50%;margin:auto;position:relative;background:repeating-radial-gradient(circle,transparent 0 55px,rgba(255,255,255,.05) 56px),linear-gradient(rgba(0,229,255,.02),rgba(79,70,229,.03));box-shadow:inset 0 0 60px rgba(0,229,255,.04)}
 .radar:before,.radar:after{content:"";position:absolute;background:rgba(255,255,255,.06)}.radar:before{left:50%;top:0;bottom:0;width:1px}.radar:after{top:50%;left:0;right:0;height:1px}.sweep{position:absolute;inset:8%;border-radius:50%;background:conic-gradient(from 0deg,transparent 0 315deg,rgba(0,229,255,.18) 350deg,rgba(0,229,255,.45));animation:spin 5s linear infinite}@keyframes spin{to{transform:rotate(360deg)}}.dot{position:absolute;width:9px;height:9px;border-radius:50%;background:var(--cyan);box-shadow:0 0 18px var(--cyan)}.d1{left:30%;top:28%}.d2{right:23%;top:42%}.d3{left:44%;bottom:22%}.d4{right:37%;top:19%}
-.vision{display:grid;grid-template-columns:repeat(4,1fr);gap:15px;margin-top:35px}.vision .panel{border-radius:15px;padding:22px}.vision .n{font-family:"JetBrains Mono";color:var(--cyan);font-size:.7rem}.vision h3{font-size:1rem;margin:12px 0 7px}.vision p{font-size:.78rem;color:var(--muted);line-height:1.55}
+.vision{display:grid;grid-template-columns:repeat(4,1fr);gap:15px;margin-top:35px}.vision .panel{border-radius:15px;padding:22px;position:relative;overflow:hidden}.vision .n{font-family:"JetBrains Mono";color:var(--cyan);font-size:.7rem}.vision h3{font-size:1rem;margin:12px 0 7px}.vision p{font-size:.78rem;color:var(--muted);line-height:1.55}
 .note{font-size:.72rem;color:#6f7a8e;margin-top:24px;max-width:900px;line-height:1.6}
 .controls{position:fixed;bottom:0;left:0;right:0;height:62px;z-index:120;background:rgba(7,11,20,.82);backdrop-filter:blur(18px);border-top:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;padding:0 34px}
 .progress{position:absolute;left:0;top:-1px;height:2px;background:linear-gradient(90deg,var(--cyan),var(--blue));transition:.35s}.counter{font-family:"JetBrains Mono";font-size:.7rem;color:var(--muted)}.navbtns{display:flex;gap:8px}.navbtn{width:40px;height:36px;border:1px solid var(--border);background:var(--surface);color:#fff;border-radius:9px;cursor:pointer}.navbtn:hover{border-color:var(--cyan);color:var(--cyan)}
 .hint{font-family:"JetBrains Mono";font-size:.64rem;color:#606b7d}
 
-
-/* ===== Cursor copied from QuantParticle homepage behavior ===== */
-.cursor-glow{
- position:fixed;width:20px;height:20px;border:2px solid var(--cyan);border-radius:50%;
- pointer-events:none;z-index:99999;transform:translate(-50%,-50%);
- transition:width .2s,height .2s,background .2s;mix-blend-mode:difference
-}
+/* ===== Cursor ===== */
+.cursor-glow{position:fixed;width:20px;height:20px;border:2px solid var(--cyan);border-radius:50%;pointer-events:none;z-index:99999;transform:translate(-50%,-50%);transition:width .2s,height .2s,background .2s;mix-blend-mode:difference}
 .cursor-glow.hover{width:50px;height:50px;background:rgba(0,229,255,.1)}
-.cursor-trail{
- position:fixed;width:6px;height:6px;background:var(--cyan);border-radius:50%;
- pointer-events:none;z-index:99998;transform:translate(-50%,-50%);opacity:.5;transition:opacity .5s
-}
+.cursor-trail{position:fixed;width:6px;height:6px;background:var(--cyan);border-radius:50%;pointer-events:none;z-index:99998;transform:translate(-50%,-50%);opacity:.5;transition:opacity .5s}
 
-/* ===== Presentation entrance motion ===== */
+/* ===== Entrance animations ===== */
 .slide.active .eyebrow{animation:slideUp .65s .04s both}
 .slide.active h1,.slide.active h2,.slide.active .big-number{animation:slideUp .78s .12s both}
 .slide.active .lead,.slide.active .big-caption{animation:slideUp .72s .23s both}
@@ -91,126 +83,183 @@ h1{font-size:clamp(2.7rem,6vw,5.8rem);line-height:.98;letter-spacing:-4px;max-wi
 @keyframes cardIn{from{opacity:0;transform:translateX(42px) rotateY(-5deg) scale(.97)}to{opacity:1;transform:none}}
 @keyframes scaleIn{from{opacity:0;transform:scale(.82)}to{opacity:1;transform:scale(1)}}
 
-/* ===== Topic-specific visual engines ===== */
-.topic-engine{position:absolute;inset:0;pointer-events:none;overflow:hidden;border-radius:20px}
+/* ===== Slide FX Containers ===== */
+.slide-fx{position:absolute;inset:0;overflow:hidden;pointer-events:none;z-index:0}
+
+/* ===== SLIDE 1: Logo with attracting particles ===== */
+.logo-particles-container{position:relative;width:300px;height:300px;margin:0 auto}
+.logo-center{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:180px;height:180px;display:grid;place-items:center}
+.logo-center img{width:100%;height:100%;object-fit:contain;filter:drop-shadow(0 0 30px rgba(0,229,255,.5));animation:logoFloat 3s ease-in-out infinite}
+@keyframes logoFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
+.logo-ring{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);border:1px solid rgba(0,229,255,.2);border-radius:50%}
+.logo-ring.r1{width:200px;height:200px;animation:ringPulse 2s ease-in-out infinite}
+.logo-ring.r2{width:240px;height:240px;animation:ringPulse 2s ease-in-out infinite .5s;border-color:rgba(124,58,237,.15)}
+.logo-ring.r3{width:280px;height:280px;animation:ringPulse 2s ease-in-out infinite 1s;border-color:rgba(0,229,255,.1)}
+@keyframes ringPulse{0%,100%{transform:translate(-50%,-50%) scale(1);opacity:.5}50%{transform:translate(-50%,-50%) scale(1.05);opacity:1}}
+.orbit-particle{position:absolute;width:6px;height:6px;background:var(--cyan);border-radius:50%;box-shadow:0 0 10px var(--cyan);animation:orbitParticle 4s linear infinite}
+@keyframes orbitParticle{from{transform:rotate(0deg) translateX(140px) rotate(0deg)}to{transform:rotate(360deg) translateX(140px) rotate(-360deg)}}
+.attract-particle{position:absolute;width:4px;height:4px;background:rgba(0,229,255,.6);border-radius:50%;animation:attractToLogo 3s ease-in-out infinite}
+@keyframes attractToLogo{0%{transform:translate(var(--sx),var(--sy)) scale(1);opacity:0}20%{opacity:1}80%{transform:translate(0,0) scale(.3);opacity:.8}100%{transform:translate(0,0) scale(0);opacity:0}}
+
+/* ===== SLIDE 2: Rolling 1200+ counter ===== */
+.counter-container{position:relative;display:inline-block}
+.counter-digit{display:inline-block;font-variant-numeric:tabular-nums;animation:digitRoll .5s ease-out}
+@keyframes digitRoll{from{transform:translateY(-100%);opacity:0}to{transform:translateY(0);opacity:1}}
+.research-particles{position:absolute;inset:0;pointer-events:none}
+.research-particle{position:absolute;width:5px;height:5px;background:var(--cyan);border-radius:50%;opacity:.6;animation:floatUp 4s ease-in-out infinite}
+@keyframes floatUp{0%,100%{transform:translateY(0);opacity:.3}50%{transform:translateY(-20px);opacity:.8}}
+.strategy-card{position:absolute;padding:8px 14px;background:rgba(15,21,37,.9);border:1px solid rgba(0,229,255,.2);border-radius:8px;font-family:"JetBrains Mono";font-size:.65rem;color:var(--cyan);animation:strategyFloat 6s ease-in-out infinite;white-space:nowrap}
+@keyframes strategyFloat{0%,100%{transform:translateY(0) rotate(-2deg)}50%{transform:translateY(-15px) rotate(2deg)}}
+
+/* ===== SLIDE 3: Math animations ===== */
+.math-symbol{position:absolute;font-family:"JetBrains Mono";color:rgba(0,229,255,.15);animation:mathFloat 8s ease-in-out infinite;pointer-events:none}
+@keyframes mathFloat{0%,100%{transform:translateY(0) rotate(0deg);opacity:.1}50%{transform:translateY(-30px) rotate(10deg);opacity:.25}}
+.math-formula{position:absolute;font-family:"JetBrains Mono";font-size:.75rem;color:rgba(139,149,168,.2);white-space:nowrap;animation:formulaScroll 20s linear infinite}
+@keyframes formulaScroll{from{transform:translateX(100%)}to{transform:translateX(-100%)}}
+.model-card .formula-bar{position:absolute;bottom:0;left:0;height:2px;background:linear-gradient(90deg,var(--cyan),var(--purple));animation:formulaBar 2s ease-in-out infinite}
+@keyframes formulaBar{0%,100%{width:0%;opacity:.3}50%{width:100%;opacity:1}}
+
+/* ===== SLIDE 4: Volatility chart animation ===== */
+.vol-chart-container{position:relative;width:100%;height:200px;margin-top:20px}
+.vol-svg{width:100%;height:100%}
+.vol-line{fill:none;stroke:var(--cyan);stroke-width:2;filter:drop-shadow(0 0 8px rgba(0,229,255,.6))}
+.vol-area{fill:url(#volGradient);opacity:.3}
+.vol-dot{fill:var(--cyan);filter:drop-shadow(0 0 6px var(--cyan))}
+.vol-grid-line{stroke:rgba(255,255,255,.05);stroke-width:1}
+.garch-eq{position:absolute;font-family:"JetBrains Mono";font-size:.7rem;color:rgba(0,229,255,.4);animation:eqPulse 2s ease-in-out infinite}
+@keyframes eqPulse{0%,100%{opacity:.3}50%{opacity:.8}}
+
+/* ===== SLIDE 5: Flow chart animation ===== */
+.flow-container{position:relative;width:100%;height:300px;margin-top:30px}
+.flow-node{position:absolute;padding:14px 20px;background:var(--glass);border:1px solid var(--border);border-radius:10px;font-family:"JetBrains Mono";font-size:.72rem;text-align:center;backdrop-filter:blur(10px)}
+.flow-node.active{border-color:var(--cyan);box-shadow:0 0 20px rgba(0,229,255,.3)}
+.flow-connection{position:absolute;height:2px;background:linear-gradient(90deg,rgba(0,229,255,.1),var(--cyan),rgba(0,229,255,.1));transform-origin:left center;animation:flowPulse 2s ease-in-out infinite}
+@keyframes flowPulse{0%,100%{opacity:.3}50%{opacity:1}}
+.flow-particle{position:absolute;width:8px;height:8px;background:var(--cyan);border-radius:50%;box-shadow:0 0 12px var(--cyan);animation:flowTravel 3s linear infinite}
+@keyframes flowTravel{0%{left:0;opacity:0}10%{opacity:1}90%{opacity:1}100%{left:calc(100% - 8px);opacity:0}}
+
+/* ===== SLIDE 6: Buy/Sell tape animation ===== */
+.tape-container{position:relative;width:100%;height:250px;margin-top:20px;overflow:hidden;border:1px solid var(--border);border-radius:12px;background:rgba(7,11,20,.5)}
+.tape-row{position:absolute;left:0;right:0;height:28px;display:flex;align-items:center;gap:20px;padding:0 15px;font-family:"JetBrains Mono";font-size:.68rem;white-space:nowrap;animation:tapeScroll 8s linear infinite}
+.tape-row.buy{color:var(--green)}
+.tape-row.sell{color:var(--red)}
+@keyframes tapeScroll{from{transform:translateX(100%)}to{transform:translateX(-100%)}}
+.order-book{position:absolute;right:10px;top:10px;width:150px;background:rgba(15,21,37,.9);border:1px solid var(--border);border-radius:8px;padding:10px;font-family:"JetBrains Mono";font-size:.6rem}
+.order-book-row{display:flex;justify-content:space-between;padding:3px 0;animation:bookUpdate .5s ease-in-out infinite}
+@keyframes bookUpdate{0%,100%{opacity:.7}50%{opacity:1}}
+
+/* ===== SLIDE 7: MT5 animation ===== */
+.mt5-container{position:relative;width:100%;height:280px;margin-top:20px}
+.mt5-window{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:80%;max-width:500px;background:rgba(15,21,37,.95);border:1px solid var(--border);border-radius:12px;overflow:hidden;box-shadow:0 20px 60px rgba(0,0,0,.5)}
+.mt5-header{padding:10px 15px;background:rgba(7,11,20,.8);border-bottom:1px solid var(--border);display:flex;justify-content:space-between;font-family:"JetBrains Mono";font-size:.65rem;color:var(--muted)}
+.mt5-chart{height:150px;position:relative;background:linear-gradient(rgba(0,229,255,.02),rgba(0,229,255,.05))}
+.mt5-candle{position:absolute;width:8px;animation:candleGrow 1s ease-out both}
+@keyframes candleGrow{from{transform:scaleY(0)}to{transform:scaleY(1)}}
+.mt5-price-line{position:absolute;left:0;right:0;height:1px;background:var(--cyan);box-shadow:0 0 10px var(--cyan);animation:priceLine 2s ease-in-out infinite}
+@keyframes priceLine{0%,100%{top:30%;opacity:.5}50%{top:70%;opacity:1}}
+.mt5-ea-status{position:absolute;bottom:10px;left:10px;padding:5px 10px;background:rgba(0,229,255,.1);border:1px solid rgba(0,229,255,.3);border-radius:5px;font-family:"JetBrains Mono";font-size:.6rem;color:var(--cyan);animation:eaBlink 1.5s ease-in-out infinite}
+@keyframes eaBlink{0%,100%{opacity:.6}50%{opacity:1}}
+
+/* ===== SLIDE 8: MQL5 coding animation ===== */
+.code-editor{position:relative;width:100%;height:300px;background:rgba(7,11,20,.9);border:1px solid var(--border);border-radius:12px;overflow:hidden;margin-top:20px}
+.code-header{padding:10px 15px;background:rgba(15,21,37,.8);border-bottom:1px solid var(--border);display:flex;align-items:center;gap:10px;font-family:"JetBrains Mono";font-size:.65rem;color:var(--muted)}
+.code-body{padding:15px;font-family:"JetBrains Mono";font-size:.72rem;line-height:1.8;height:calc(100% - 40px);overflow:hidden;position:relative}
+.code-line{opacity:0;transform:translateX(-20px);animation:codeLineIn .3s ease-out forwards}
+@keyframes codeLineIn{to{opacity:1;transform:translateX(0)}}
+.code-line .kw{color:#c792ea}.code-line .fn{color:#82aaff}.code-line .str{color:#c3e88d}.code-line .num{color:#f78c6c}.code-line .cm{color:#676e95}
+.typing-cursor{position:absolute;width:2px;height:16px;background:var(--cyan);animation:blink .8s step-end infinite;box-shadow:0 0 8px var(--cyan)}
+@keyframes blink{50%{opacity:0}}
+
+/* ===== SLIDE 9: Deployment animation ===== */
+.deploy-container{position:relative;width:100%;height:250px;margin-top:20px}
+.deploy-stage{position:absolute;padding:16px 24px;background:var(--glass);border:1px solid var(--border);border-radius:12px;text-align:center;font-family:"JetBrains Mono";font-size:.72rem;backdrop-filter:blur(10px)}
+.deploy-stage.active{border-color:var(--cyan);box-shadow:0 0 25px rgba(0,229,255,.3)}
+.deploy-arrow{position:absolute;color:var(--cyan);font-size:1.5rem;animation:deployArrow 1s ease-in-out infinite}
+@keyframes deployArrow{0%,100%{opacity:.3;transform:translateX(0)}50%{opacity:1;transform:translateX(10px)}}
+.deploy-progress{position:absolute;height:3px;background:linear-gradient(90deg,var(--cyan),var(--blue));border-radius:2px;animation:deployProgress 4s ease-in-out infinite}
+@keyframes deployProgress{0%{width:0%;opacity:1}90%{width:100%;opacity:1}100%{width:100%;opacity:0}}
+
+/* ===== SLIDE 10: Global network ===== */
+.global-container{position:relative;width:100%;height:300px;margin-top:20px}
+.global-center{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:80px;height:80px;background:radial-gradient(circle,rgba(0,229,255,.2),transparent);border-radius:50%;display:grid;place-items:center;font-family:"JetBrains Mono";font-size:.7rem;color:var(--cyan)}
+.global-node{position:absolute;width:12px;height:12px;background:var(--cyan);border-radius:50%;box-shadow:0 0 15px var(--cyan);animation:nodePulse 2s ease-in-out infinite}
+@keyframes nodePulse{0%,100%{transform:scale(1);opacity:.6}50%{transform:scale(1.3);opacity:1}}
+.global-connection{position:absolute;height:1px;background:linear-gradient(90deg,transparent,rgba(0,229,255,.3),transparent);transform-origin:left center;animation:connPulse 2s ease-in-out infinite}
+@keyframes connPulse{0%,100%{opacity:.2}50%{opacity:.6}}
+.global-data-packet{position:absolute;width:6px;height:6px;background:var(--cyan);border-radius:50%;box-shadow:0 0 10px var(--cyan);animation:packetTravel 3s linear infinite}
+@keyframes packetTravel{0%{left:0;opacity:0}10%{opacity:1}90%{opacity:1}100%{left:100%;opacity:0}}
+
+/* ===== SLIDE 11: Final ===== */
+.final-particles{position:absolute;inset:0;pointer-events:none;overflow:hidden}
+.final-ring{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);border:1px solid rgba(0,229,255,.15);border-radius:50%;animation:finalRing 4s ease-out infinite}
+@keyframes finalRing{0%{width:100px;height:100px;opacity:.6}100%{width:800px;height:800px;opacity:0}}
+.final-particle{position:absolute;width:4px;height:4px;background:var(--cyan);border-radius:50%;opacity:.5;animation:finalFloat 6s ease-in-out infinite}
+@keyframes finalFloat{0%,100%{transform:translate(0,0);opacity:.2}25%{transform:translate(20px,-30px);opacity:.6}50%{transform:translate(-10px,-50px);opacity:.3}75%{transform:translate(-30px,-20px);opacity:.5}}
+
+/* ===== Common FX ===== */
 .market-grid{background-image:linear-gradient(rgba(0,229,255,.045) 1px,transparent 1px),linear-gradient(90deg,rgba(0,229,255,.045) 1px,transparent 1px);background-size:34px 34px;mask-image:linear-gradient(to bottom,transparent,#000 18%,#000 82%,transparent)}
 .scanline{position:absolute;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--cyan),transparent);box-shadow:0 0 18px var(--cyan);animation:scanDown 3.6s linear infinite;opacity:.65}
 @keyframes scanDown{from{top:0}to{top:100%}}
-
-/* Slide 2: 1200+ research universe */
 .research-orbit{position:absolute;inset:9%;border:1px solid rgba(0,229,255,.16);border-radius:50%;animation:orbitSpin 18s linear infinite}
 .research-orbit.o2{inset:22%;animation-duration:12s;animation-direction:reverse;border-color:rgba(124,58,237,.2)}
 .research-orbit:before{content:"";position:absolute;width:9px;height:9px;border-radius:50%;background:var(--cyan);box-shadow:0 0 18px var(--cyan);left:50%;top:-5px}
 @keyframes orbitSpin{to{transform:rotate(360deg)}}
-
-/* Slide 3: model neural constellation */
 .model-card:before{content:"";position:absolute;inset:0;background:radial-gradient(circle at var(--mx,50%) var(--my,50%),rgba(0,229,255,.12),transparent 35%);opacity:0;transition:.25s;pointer-events:none}
 .model-card:hover:before{opacity:1}
-.model-card{position:relative;overflow:hidden}
-
-/* Slide 4: GARCH volatility waveform */
 .vol-wave{position:absolute;left:4%;right:4%;bottom:8%;height:90px;opacity:.75}
 .vol-wave svg{width:100%;height:100%;overflow:visible}
 .vol-path{fill:none;stroke:var(--cyan);stroke-width:2;stroke-dasharray:900;stroke-dashoffset:900;filter:drop-shadow(0 0 7px rgba(0,229,255,.8))}
 .slide.active .vol-path{animation:drawWave 2.2s .35s ease forwards,glowWave 2s 2.6s ease-in-out infinite}
 @keyframes drawWave{to{stroke-dashoffset:0}} @keyframes glowWave{50%{opacity:.35}}
-
-/* Slide 5: research pipeline packets */
-.pipeline{position:relative}
 .pipeline .node{position:relative;overflow:hidden}
 .pipeline .node:before{content:"";position:absolute;left:-45%;top:0;width:30%;height:100%;background:linear-gradient(90deg,transparent,rgba(0,229,255,.22),transparent);transform:skewX(-20deg)}
 .slide.active .pipeline .node:before{animation:packetSweep 2.4s infinite}
 @keyframes packetSweep{to{left:125%}}
 .slide.active .arrow{animation:arrowPulse .72s infinite alternate}
 @keyframes arrowPulse{from{opacity:.28;transform:translateX(-3px)}to{opacity:1;transform:translateX(4px);text-shadow:0 0 15px var(--cyan)}}
-
-/* Slide 6: order-flow liquidity pulses */
 .liquidity-pulse{position:absolute;border:1px solid rgba(0,229,255,.25);border-radius:50%;width:22px;height:22px;animation:liq 2.8s infinite}
 .lp1{left:25%;top:28%}.lp2{right:24%;top:43%;animation-delay:.8s}.lp3{left:47%;bottom:24%;animation-delay:1.4s}
 @keyframes liq{0%{transform:scale(.4);opacity:1}100%{transform:scale(6);opacity:0}}
-
-/* Slide 7: platform/data packets */
 .platform-packet{position:absolute;width:7px;height:7px;border-radius:50%;background:var(--cyan);box-shadow:0 0 14px var(--cyan);animation:dataFly 3.5s linear infinite}
 .pp1{left:8%;top:22%}.pp2{left:18%;top:55%;animation-delay:1s}.pp3{left:3%;top:78%;animation-delay:2s}
 @keyframes dataFly{0%{transform:translateX(0);opacity:0}10%{opacity:1}100%{transform:translateX(86vw);opacity:0}}
-
-/* Slide 8/9: B2B2C flow cards */
-.vision .panel{position:relative;overflow:hidden}
 .vision .panel:after{content:"";position:absolute;inset:auto 0 0;height:2px;background:linear-gradient(90deg,transparent,var(--cyan),transparent);transform:translateX(-100%)}
 .slide.active .vision .panel:after{animation:partnerFlow 2.8s infinite}
 .slide.active .vision .panel:nth-child(2):after{animation-delay:.45s}.slide.active .vision .panel:nth-child(3):after{animation-delay:.9s}.slide.active .vision .panel:nth-child(4):after{animation-delay:1.35s}
 @keyframes partnerFlow{to{transform:translateX(100%)}}
-
-/* Final slide: expanding global rings */
 .global-ring{position:absolute;left:50%;top:50%;width:120px;height:120px;border:1px solid rgba(0,229,255,.3);border-radius:50%;transform:translate(-50%,-50%);animation:globalPulse 4s infinite;opacity:0}
 .global-ring.g2{animation-delay:1.3s}.global-ring.g3{animation-delay:2.6s}
 @keyframes globalPulse{0%{width:80px;height:80px;opacity:.65}100%{width:900px;height:900px;opacity:0}}
-
 .hero-card{transform-style:preserve-3d;transition:transform .18s ease,border-color .25s}
 
-
-/* ===== MT5-FIRST ANIMATION SYSTEM — EVERY SLIDE ===== */
-.slide-fx{position:absolute;inset:0;overflow:hidden;pointer-events:none;z-index:0}
-.slide-inner>*:not(.slide-fx){position:relative;z-index:1}
-.slide-fx:before,.slide-fx:after{content:"";position:absolute}
-
-/* 01 cover: live MT5 execution stream */
-.slide:nth-of-type(1) .slide-fx:before{inset:0;background:
- radial-gradient(circle at 72% 38%,rgba(0,229,255,.11),transparent 24%),
- linear-gradient(rgba(0,229,255,.035) 1px,transparent 1px),
- linear-gradient(90deg,rgba(0,229,255,.035) 1px,transparent 1px);background-size:auto,38px 38px,38px 38px}
+/* ===== Slide-specific FX backgrounds ===== */
+.slide:nth-of-type(1) .slide-fx:before{inset:0;background:radial-gradient(circle at 72% 38%,rgba(0,229,255,.11),transparent 24%),linear-gradient(rgba(0,229,255,.035) 1px,transparent 1px),linear-gradient(90deg,rgba(0,229,255,.035) 1px,transparent 1px);background-size:auto,38px 38px,38px 38px}
 .slide:nth-of-type(1) .slide-fx:after{width:46%;height:1px;right:3%;top:23%;background:linear-gradient(90deg,transparent,var(--cyan),transparent);box-shadow:0 0 16px var(--cyan);animation:execScan 2.2s linear infinite}
 @keyframes execScan{0%{transform:translateY(0);opacity:0}15%{opacity:1}100%{transform:translateY(430px);opacity:0}}
-
-/* 02 library: rotating numerical research universe */
 .slide:nth-of-type(2) .big-number{font-variant-numeric:tabular-nums;text-shadow:0 0 34px rgba(0,229,255,.18)}
 .slide:nth-of-type(2) .slide-fx:before{width:620px;height:620px;right:-120px;top:50%;transform:translateY(-50%);border:1px solid rgba(0,229,255,.12);border-radius:50%;box-shadow:inset 0 0 80px rgba(0,229,255,.035);animation:libOrbit 18s linear infinite}
 .slide:nth-of-type(2) .slide-fx:after{width:390px;height:390px;right:-5px;top:50%;margin-top:-195px;border:1px dashed rgba(124,58,237,.22);border-radius:50%;animation:libOrbit 11s linear infinite reverse}
 @keyframes libOrbit{to{transform:translateY(-50%) rotate(360deg)}}
-
-/* 03 core research: mathematical field */
-.slide:nth-of-type(3) .slide-fx{background-image:
- radial-gradient(circle at 18% 24%,rgba(0,229,255,.08),transparent 18%),
- radial-gradient(circle at 80% 72%,rgba(124,58,237,.08),transparent 20%)}
-.slide:nth-of-type(3) .slide-fx:before{content:"Σ  ∫  σ²  μ  λ  ∂P/∂t  E[r]  √Δt  Φ(d₁)  β  α  π  ∇  ρ";left:-10%;top:18%;width:120%;font:500 22px/4.4 'JetBrains Mono',monospace;word-spacing:52px;color:rgba(0,229,255,.11);transform:rotate(-7deg);animation:mathDrift 13s linear infinite}
-.slide:nth-of-type(3) .slide-fx:after{content:"dS = μSdt + σSdW     σ²ₜ = ω + αε²ₜ₋₁ + βσ²ₜ₋₁     P = Φ(d₁)S − Φ(d₂)Ke⁻ʳᵀ";left:3%;bottom:4%;white-space:nowrap;font:500 14px 'JetBrains Mono',monospace;color:rgba(139,149,168,.22);animation:codeTicker 15s linear infinite}
-@keyframes mathDrift{50%{transform:translateX(70px) rotate(-7deg)}} @keyframes codeTicker{from{transform:translateX(100%)}to{transform:translateX(-120%)}}
-
-/* 04 volatility: moving volatility chart */
-.slide:nth-of-type(4) .slide-fx:before{left:2%;right:2%;bottom:5%;height:38%;background:
- repeating-linear-gradient(0deg,rgba(255,255,255,.035) 0 1px,transparent 1px 34px),
- repeating-linear-gradient(90deg,rgba(255,255,255,.025) 0 1px,transparent 1px 52px)}
-.slide:nth-of-type(4) .vol-wave{height:145px;bottom:5%}
-
-/* 05 architecture: animated research-to-MT5 flow */
+.slide:nth-of-type(3) .slide-fx{background-image:radial-gradient(circle at 18% 24%,rgba(0,229,255,.08),transparent 18%),radial-gradient(circle at 80% 72%,rgba(124,58,237,.08),transparent 20%)}
+.slide:nth-of-type(4) .slide-fx:before{left:2%;right:2%;bottom:5%;height:38%;background:repeating-linear-gradient(0deg,rgba(255,255,255,.035) 0 1px,transparent 1px 34px),repeating-linear-gradient(90deg,rgba(255,255,255,.025) 0 1px,transparent 1px 52px)}
 .slide:nth-of-type(5) .slide-fx:before{left:5%;right:5%;top:50%;height:2px;background:linear-gradient(90deg,transparent,rgba(0,229,255,.15),var(--cyan),rgba(0,229,255,.15),transparent);background-size:220% 100%;animation:flowBeam 2.4s linear infinite}
 .slide:nth-of-type(5) .slide-fx:after{width:10px;height:10px;border-radius:50%;top:calc(50% - 4px);left:7%;background:var(--cyan);box-shadow:0 0 22px var(--cyan);animation:flowPacket 3s linear infinite}
 @keyframes flowBeam{to{background-position:-220% 0}} @keyframes flowPacket{to{left:92%}}
-
-/* 06 microstructure: rapid BUY / SELL tape */
 .slide:nth-of-type(6) .slide-fx:before{content:"BUY 1.08452   SELL 1.08449   BUY 1.08455   SELL 1.08451   BUY 1.08461   SELL 1.08458";left:0;right:0;top:9%;white-space:nowrap;font:600 13px 'JetBrains Mono',monospace;color:rgba(0,229,255,.22);animation:tape 4s linear infinite}
 .slide:nth-of-type(6) .slide-fx:after{content:"SELL 1.08447   BUY 1.08450   SELL 1.08446   BUY 1.08457   SELL 1.08453   BUY 1.08463";left:0;right:0;bottom:9%;white-space:nowrap;font:600 13px 'JetBrains Mono',monospace;color:rgba(255,95,86,.19);animation:tape 3.2s linear infinite reverse}
 @keyframes tape{from{transform:translateX(100%)}to{transform:translateX(-130%)}}
-
-/* 07 technology: MT5 terminal / Expert Advisor pulse */
 .slide:nth-of-type(7) .slide-fx:before{content:"MetaTrader 5  •  Expert Advisor  •  Strategy Tester  •  MQL5  •  OnTick()  •  OrderSend()  •  PositionSelect()  •  CopyBuffer()";left:0;bottom:5%;white-space:nowrap;font:500 13px 'JetBrains Mono',monospace;color:rgba(0,229,255,.2);animation:mt5Ticker 14s linear infinite}
 .slide:nth-of-type(7) .slide-fx:after{width:360px;height:360px;right:-90px;top:16%;border-radius:50%;background:conic-gradient(from 0deg,transparent,rgba(0,229,255,.13),transparent 28%);animation:spin 6s linear infinite}
-@keyframes mt5Ticker{from{transform:translateX(100%)}to{transform:translateX(-130%)}} @keyframes spin{to{transform:rotate(360deg)}}
-
-/* 08 MQL5 engineering: live code-writing cursor */
-.slide:nth-of-type(8) .slide-fx:before{content:"#property strict\\A input double Lots = 0.10;\\A void OnTick() {\\A   double atr = iATR(_Symbol, PERIOD_M5, 14);\\A   if(signal == BUY) trade.Buy(Lots);\\A   ManagePosition();\\A }";white-space:pre;right:5%;top:17%;width:43%;padding:22px;border:1px solid rgba(0,229,255,.1);border-radius:14px;background:rgba(7,11,20,.28);font:500 13px/1.9 'JetBrains Mono',monospace;color:rgba(165,243,252,.2);animation:codeGlow 2.2s ease-in-out infinite}
+@keyframes mt5Ticker{from{transform:translateX(100%)}to{transform:translateX(-130%)}}
+.slide:nth-of-type(8) .slide-fx:before{content:"#property strict\A input double Lots = 0.10;\A void OnTick() {\A   double atr = iATR(_Symbol, PERIOD_M5, 14);\A   if(signal == BUY) trade.Buy(Lots);\A   ManagePosition();\A }";white-space:pre;right:5%;top:17%;width:43%;padding:22px;border:1px solid rgba(0,229,255,.1);border-radius:14px;background:rgba(7,11,20,.28);font:500 13px/1.9 'JetBrains Mono',monospace;color:rgba(165,243,252,.2);animation:codeGlow 2.2s ease-in-out infinite}
 .slide:nth-of-type(8) .slide-fx:after{right:7%;top:19%;width:2px;height:18px;background:var(--cyan);box-shadow:0 0 8px var(--cyan);animation:codeCursor 5.2s steps(12) infinite}
 @keyframes codeGlow{50%{border-color:rgba(0,229,255,.26)}} @keyframes codeCursor{0%{transform:translate(0,0)}25%{transform:translate(-120px,48px)}50%{transform:translate(-30px,96px)}75%{transform:translate(-170px,144px)}100%{transform:translate(-55px,192px)}}
-
-/* 09 deployment: strategy tester → EA → broker */
 .slide:nth-of-type(9) .slide-fx:before{content:"BACKTEST  →  OPTIMIZE  →  FORWARD TEST  →  .EX5  →  MT5 VPS  →  BROKER";left:8%;right:8%;top:11%;font:600 13px 'JetBrains Mono',monospace;letter-spacing:2px;color:rgba(0,229,255,.16);text-align:center}
 .slide:nth-of-type(9) .slide-fx:after{left:10%;top:15%;height:2px;width:10%;background:var(--cyan);box-shadow:0 0 16px var(--cyan);animation:deploy 4.8s ease-in-out infinite}
 @keyframes deploy{0%{left:10%;width:6%}50%{left:45%;width:18%}100%{left:84%;width:6%}}
-
-/* 10 final: global MT5 automation network */
 .slide:nth-of-type(10) .slide-fx:before{content:"MT5";position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);font:900 86px Inter,sans-serif;color:rgba(0,229,255,.025);letter-spacing:12px}
 
-@media(max-width:900px){.slide{padding:30px 24px;overflow:auto;align-items:start}.hero-grid,.two{grid-template-columns:1fr;gap:28px}.hero-card,.radar{display:none}.models{grid-template-columns:1fr 1fr}.vision{grid-template-columns:1fr 1fr}.stats{grid-template-columns:1fr 1fr}.stats .stat:last-child{grid-column:1/-1}.topbar{padding:0 20px}.top-meta{display:none}.controls{padding:0 20px}.hint{display:none}h1{letter-spacing:-2px}}
+@media(max-width:900px){.slide{padding:30px 24px;overflow:auto;align-items:start}.hero-grid,.two{grid-template-columns:1fr;gap:28px}.hero-card,.radar{display:none}.models{grid-template-columns:1fr 1fr}.vision{grid-template-columns:1fr 1fr}.stats{grid-template-columns:1fr 1fr}.stats .stat:last-child{grid-column:1/-1}.topbar{padding:0 20px}.top-meta{display:none}.controls{padding:0 20px}.hint{display:none}h1{letter-spacing:-2px}.logo-particles-container{width:200px;height:200px}.logo-center{width:120px;height:120px}}
 @media(max-width:560px){.models,.vision{grid-template-columns:1fr}.slide{inset:76px 0 62px}.big-number{letter-spacing:-4px}.pipeline{justify-content:flex-start}.arrow{transform:rotate(90deg)}}
 </style>
 </head>
@@ -239,79 +288,168 @@ h1{font-size:clamp(2.7rem,6vw,5.8rem);line-height:.98;letter-spacing:-4px;max-wi
 </header>
 
 <main class="deck">
+
+<!-- SLIDE 1: Cover with Logo Particle Attraction -->
 <section class="slide active">
- <div class="wrap hero-grid">
-  <div>
-   <div class="eyebrow">Quantitative Trading. Engineered.</div>
-   <h1>Researching the mathematics behind <span class="grad">modern markets.</span></h1>
-   <p class="lead">QuantParticle is building a quantitative research ecosystem focused on systematic strategies, statistical models, market microstructure and execution technology—with a long-term objective of powering brokers, financial institutions, fintechs and trading businesses that serve retail customers globally.</p>
-   <div class="stats"><div class="stat"><strong>1200+</strong><span>Quant strategy concepts</span></div><div class="stat"><strong>Multi-Asset</strong><span>Research direction</span></div><div class="stat"><strong>B2B2C</strong><span>Platform vision</span></div></div>
-  </div>
-  <div class="hero-card">
-   <div class="terminal-head"><div class="dots"><i></i><i></i><i></i></div><span>QP_RESEARCH_ENGINE</span><span>LIVE</span></div>
-   <div class="code"><span class="m"># model research stack</span><br>volatility = <span class="v">GARCH(1,1)</span><br>regime = <span class="v">BayesianFilter()</span><br>mean_rev = <span class="v">OrnsteinUhlenbeck()</span><br>features = <span class="v">PCA + LASSO</span><br>microstructure = <span class="v">OrderFlow()</span><br>quotes = <span class="v">AvellanedaStoikov()</span><br><br><span class="g">research → test → validate → deploy</span></div>
-  </div>
- </div>
-</section>
-
-<section class="slide">
- <div class="wrap two">
-  <div><div class="eyebrow">Research Library</div><div class="big-number">1200+</div><div class="big-caption">QUANT-BASED STRATEGY & MODEL CONCEPTS</div><p class="lead">Our research library spans momentum, mean reversion, volatility, statistical inference, regime detection, market microstructure, signal processing, machine learning and execution logic.</p><p class="note">“1200+” represents QuantParticle's internal strategy/model research library and should not be interpreted as 1,200 independently validated or production-deployed trading systems.</p></div>
-  <div class="radar"><div class="market-grid topic-engine"></div><div class="research-orbit"></div><div class="research-orbit o2"></div><div class="sweep"></div><i class="dot d1"></i><i class="dot d2"></i><i class="dot d3"></i><i class="dot d4"></i></div>
- </div>
-</section>
-
-<section class="slide">
+ <div class="slide-fx"></div>
  <div class="wrap">
-  <div class="eyebrow">Core Research Areas</div><h2>From volatility modelling to <span class="grad">market microstructure.</span></h2>
-  <div class="models">
-   <div class="model-card"><small>VOLATILITY</small><h3>GARCH Family</h3><p>Conditional volatility estimation, adaptive exits, risk bands and volatility-aware signal logic.</p></div>
-   <div class="model-card"><small>STOCHASTIC PROCESS</small><h3>Ornstein–Uhlenbeck</h3><p>Mean-reversion modelling for deviations, spreads and normalized price processes.</p></div>
-   <div class="model-card"><small>MARKET MAKING</small><h3>Avellaneda–Stoikov</h3><p>Inventory-aware quoting and spread logic studied for market-making research.</p></div>
-   <div class="model-card"><small>REGIME</small><h3>Bayesian Filters</h3><p>Probabilistic state and regime inference for changing market environments.</p></div>
-   <div class="model-card"><small>DIMENSIONALITY</small><h3>PCA</h3><p>Dominant component extraction and compression of correlated market features.</p></div>
-   <div class="model-card"><small>SPARSE MODELS</small><h3>LASSO Regression</h3><p>Feature selection and regularized modelling for signal research.</p></div>
-   <div class="model-card"><small>SIGNAL PROCESSING</small><h3>Hilbert / DSP</h3><p>Cycle, phase, denoising and transformed-signal research.</p></div>
-   <div class="model-card"><small>MICROSTRUCTURE</small><h3>Order Flow</h3><p>Liquidity, imbalance, informativeness and short-horizon market behaviour.</p></div>
-   <div class="model-card"><small>ML RESEARCH</small><h3>Tree & Kernel Models</h3><p>Machine-learning signals, nonlinear relationships and model-combination research.</p></div>
+  <div class="hero-grid">
+   <div>
+    <div class="eyebrow">Quantitative Trading. Engineered.</div>
+    <h1>Researching the mathematics behind <span class="grad">modern markets.</span></h1>
+    <p class="lead">QuantParticle is building a quantitative research ecosystem focused on systematic strategies, statistical models, market microstructure and execution technology—with a long-term objective of powering brokers, financial institutions, fintechs and trading businesses that serve retail customers globally.</p>
+    <div class="stats"><div class="stat"><strong>1200+</strong><span>Quant strategy concepts</span></div><div class="stat"><strong>Multi-Asset</strong><span>Research direction</span></div><div class="stat"><strong>B2B2C</strong><span>Platform vision</span></div></div>
+   </div>
+   <div class="logo-particles-container" id="logoParticles">
+    <div class="logo-ring r1"></div>
+    <div class="logo-ring r2"></div>
+    <div class="logo-ring r3"></div>
+    <div class="logo-center">
+     <img src="/quant_particle_logo.png" onerror="this.src='/quant_particle_logo_fevicon.png'" alt="QuantParticle">
+    </div>
+   </div>
   </div>
  </div>
 </section>
 
+<!-- SLIDE 2: 1200+ Rolling Counter -->
 <section class="slide">
+ <div class="slide-fx"></div>
  <div class="wrap two">
   <div>
-   <div class="eyebrow">Volatility Research</div><h2>GARCH as a dynamic <span class="grad">risk & exit layer.</span></h2>
+   <div class="eyebrow">Research Library</div>
+   <div class="counter-container">
+    <div class="big-number" id="rollingCounter">0</div>
+   </div>
+   <div class="big-caption">QUANT-BASED STRATEGY & MODEL CONCEPTS</div>
+   <p class="lead">Our research library spans momentum, mean reversion, volatility, statistical inference, regime detection, market microstructure, signal processing, machine learning and execution logic.</p>
+   <p class="note">"1200+" represents QuantParticle's internal strategy/model research library and should not be interpreted as 1,200 independently validated or production-deployed trading systems.</p>
+  </div>
+  <div style="position:relative;height:400px;" id="strategyCards">
+   <div class="radar"><div class="market-grid topic-engine"></div><div class="research-orbit"></div><div class="research-orbit o2"></div><div class="sweep"></div><i class="dot d1"></i><i class="dot d2"></i><i class="dot d3"></i><i class="dot d4"></i></div>
+  </div>
+ </div>
+</section>
+
+<!-- SLIDE 3: Core Research with Math Animations -->
+<section class="slide">
+ <div class="slide-fx"></div>
+ <div class="wrap">
+  <div class="eyebrow">Core Research Areas</div>
+  <h2>From volatility modelling to <span class="grad">market microstructure.</span></h2>
+  <div class="models" id="mathModels">
+   <div class="model-card"><small>VOLATILITY</small><h3>GARCH Family</h3><p>Conditional volatility estimation, adaptive exits, risk bands and volatility-aware signal logic.</p><div class="formula-bar"></div></div>
+   <div class="model-card"><small>STOCHASTIC PROCESS</small><h3>Ornstein–Uhlenbeck</h3><p>Mean-reversion modelling for deviations, spreads and normalized price processes.</p><div class="formula-bar"></div></div>
+   <div class="model-card"><small>MARKET MAKING</small><h3>Avellaneda–Stoikov</h3><p>Inventory-aware quoting and spread logic studied for market-making research.</p><div class="formula-bar"></div></div>
+   <div class="model-card"><small>REGIME</small><h3>Bayesian Filters</h3><p>Probabilistic state and regime inference for changing market environments.</p><div class="formula-bar"></div></div>
+   <div class="model-card"><small>DIMENSIONALITY</small><h3>PCA</h3><p>Dominant component extraction and compression of correlated market features.</p><div class="formula-bar"></div></div>
+   <div class="model-card"><small>SPARSE MODELS</small><h3>LASSO Regression</h3><p>Feature selection and regularized modelling for signal research.</p><div class="formula-bar"></div></div>
+   <div class="model-card"><small>SIGNAL PROCESSING</small><h3>Hilbert / DSP</h3><p>Cycle, phase, denoising and transformed-signal research.</p><div class="formula-bar"></div></div>
+   <div class="model-card"><small>MICROSTRUCTURE</small><h3>Order Flow</h3><p>Liquidity, imbalance, informativeness and short-horizon market behaviour.</p><div class="formula-bar"></div></div>
+   <div class="model-card"><small>ML RESEARCH</small><h3>Tree & Kernel Models</h3><p>Machine-learning signals, nonlinear relationships and model-combination research.</p><div class="formula-bar"></div></div>
+  </div>
+ </div>
+</section>
+
+<!-- SLIDE 4: Volatility Research with Live Chart -->
+<section class="slide">
+ <div class="slide-fx"></div>
+ <div class="wrap two">
+  <div>
+   <div class="eyebrow">Volatility Research</div>
+   <h2>GARCH as a dynamic <span class="grad">risk & exit layer.</span></h2>
    <p class="lead">We are researching volatility-responsive systems where exits and risk logic adapt to changing market conditions rather than relying only on static distances.</p>
    <div class="list"><div class="li"><b>Conditional volatility:</b> model changing variance instead of assuming constant volatility.</div><div class="li"><b>Adaptive trailing:</b> investigate volatility-scaled stop and trail distances.</div><div class="li"><b>Parameter research:</b> compare alpha, beta and multiplier combinations across instruments and regimes.</div><div class="li"><b>Risk objective:</b> reduce uncontrolled tail losses while preserving room for profitable movement.</div></div>
   </div>
-  <div class="hero-card"><div class="topic-engine market-grid"><div class="scanline"></div></div><div class="vol-wave"><svg viewBox="0 0 800 100" preserveAspectRatio="none"><path class="vol-path" d="M0,70 C40,65 55,30 90,52 S145,90 175,46 S235,18 260,61 S320,88 350,42 S420,12 445,58 S500,86 535,38 S600,20 625,60 S690,88 720,43 S770,28 800,50"/></svg></div><div class="terminal-head"><span>GARCH_RESEARCH</span><span>σ²(t)</span></div><div class="code"><span class="m"># conceptual representation</span><br>σ²ₜ = ω + αε²ₜ₋₁ + βσ²ₜ₋₁<br><br>trail_distance = k × σₜ<br>risk_state = f(σₜ, regime)<br><br><span class="g">adaptive volatility layer</span><br><span class="m">not a performance guarantee</span></div></div>
+  <div class="hero-card">
+   <div class="terminal-head"><span>GARCH_LIVE_CHART</span><span>σ²(t)</span><span style="color:var(--green)">● LIVE</span></div>
+   <div class="vol-chart-container">
+    <svg class="vol-svg" viewBox="0 0 400 200" preserveAspectRatio="none">
+     <defs>
+      <linearGradient id="volGradient" x1="0" y1="0" x2="0" y2="1">
+       <stop offset="0%" stop-color="#00e5ff" stop-opacity=".4"/>
+       <stop offset="100%" stop-color="#00e5ff" stop-opacity="0"/>
+      </linearGradient>
+     </defs>
+     <line class="vol-grid-line" x1="0" y1="50" x2="400" y2="50"/>
+     <line class="vol-grid-line" x1="0" y1="100" x2="400" y2="100"/>
+     <line class="vol-grid-line" x1="0" y1="150" x2="400" y2="150"/>
+     <path class="vol-area" id="volArea" d=""/>
+     <path class="vol-line" id="volLine" d=""/>
+     <circle class="vol-dot" id="volDot" r="4" cx="0" cy="0"/>
+    </svg>
+   </div>
+   <div class="code" style="margin-top:15px"><span class="m"># GARCH(1,1) process</span><br>σ²ₜ = ω + αε²ₜ₋₁ + βσ²ₜ₋₁<br><span class="g">adaptive volatility layer</span></div>
+  </div>
  </div>
 </section>
 
+<!-- SLIDE 5: Research Architecture Flow -->
 <section class="slide">
+ <div class="slide-fx"></div>
  <div class="wrap">
-  <div class="eyebrow">Research Architecture</div><h2>A systematic pipeline from <span class="grad">idea to execution.</span></h2>
+  <div class="eyebrow">Research Architecture</div>
+  <h2>A systematic pipeline from <span class="grad">idea to execution.</span></h2>
   <p class="lead">The goal is not simply to generate indicators. Each research idea can move through a structured process designed around data, modelling, testing, risk controls and deployment.</p>
-  <div class="pipeline"><div class="node">MARKET DATA</div><div class="arrow">→</div><div class="node">FEATURES</div><div class="arrow">→</div><div class="node">MODEL</div><div class="arrow">→</div><div class="node">SIGNAL</div><div class="arrow">→</div><div class="node">RISK</div><div class="arrow">→</div><div class="node">EXECUTION</div></div>
+  <div class="flow-container" id="flowChart">
+   <div class="flow-node" style="left:0%;top:40%;" data-step="0">MARKET<br>DATA</div>
+   <div class="flow-node" style="left:18%;top:15%;" data-step="1">FEATURES</div>
+   <div class="flow-node" style="left:36%;top:40%;" data-step="2">MODEL</div>
+   <div class="flow-node" style="left:54%;top:15%;" data-step="3">SIGNAL</div>
+   <div class="flow-node" style="left:72%;top:40%;" data-step="4">RISK</div>
+   <div class="flow-node" style="left:90%;top:40%;" data-step="5">EXECUTION</div>
+  </div>
   <div class="stats"><div class="stat"><strong>01</strong><span>Research hypothesis</span></div><div class="stat"><strong>02</strong><span>Back / forward testing</span></div><div class="stat"><strong>03</strong><span>Deployment controls</span></div></div>
  </div>
 </section>
 
+<!-- SLIDE 6: Execution & Microstructure with Buy/Sell Tape -->
 <section class="slide">
+ <div class="slide-fx"></div>
  <div class="wrap two">
   <div>
-   <div class="eyebrow">Execution & Microstructure</div><h2>Research beyond <span class="grad">buy and sell signals.</span></h2>
+   <div class="eyebrow">Execution & Microstructure</div>
+   <h2>Research beyond <span class="grad">buy and sell signals.</span></h2>
    <p class="lead">QuantParticle also explores the mechanics surrounding execution—liquidity, order flow, spreads, inventory, latency-aware architecture and broker/API connectivity.</p>
    <div class="list"><div class="li">Order-flow informativeness and liquidity behaviour</div><div class="li">Market-making and inventory-aware quote research</div><div class="li">Microstructure regime classification</div><div class="li">Execution, slippage and transaction-cost awareness</div><div class="li">Broker/API connectivity for retail automation</div></div>
   </div>
-  <div class="radar"><div class="market-grid topic-engine"></div><div class="sweep"></div><span class="liquidity-pulse lp1"></span><span class="liquidity-pulse lp2"></span><span class="liquidity-pulse lp3"></span><i class="dot d1"></i><i class="dot d2"></i><i class="dot d3"></i><i class="dot d4"></i></div>
+  <div>
+   <div class="tape-container" id="tapeContainer">
+    <div class="order-book">
+     <div style="color:var(--muted);margin-bottom:5px;">ORDER BOOK</div>
+     <div class="order-book-row" style="color:var(--red)"><span>1.08465</span><span>1.2</span></div>
+     <div class="order-book-row" style="color:var(--red)"><span>1.08462</span><span>0.8</span></div>
+     <div class="order-book-row" style="color:var(--red)"><span>1.08459</span><span>2.1</span></div>
+     <div style="border-top:1px solid var(--border);margin:5px 0;"></div>
+     <div class="order-book-row" style="color:var(--green)"><span>1.08455</span><span>1.5</span></div>
+     <div class="order-book-row" style="color:var(--green)"><span>1.08452</span><span>0.9</span></div>
+     <div class="order-book-row" style="color:var(--green)"><span>1.08449</span><span>1.8</span></div>
+    </div>
+   </div>
+   <div class="radar" style="margin-top:20px;width:100%;max-width:280px;"><div class="market-grid topic-engine"></div><div class="sweep"></div><span class="liquidity-pulse lp1"></span><span class="liquidity-pulse lp2"></span><span class="liquidity-pulse lp3"></span><i class="dot d1"></i><i class="dot d2"></i><i class="dot d3"></i><i class="dot d4"></i></div>
+  </div>
  </div>
 </section>
 
+<!-- SLIDE 7: Technology Direction with MT5 Animation -->
 <section class="slide">
+ <div class="slide-fx"></div>
  <div class="wrap">
-  <div class="topic-engine market-grid"><span class="platform-packet pp1"></span><span class="platform-packet pp2"></span><span class="platform-packet pp3"></span></div><div class="eyebrow">Technology Direction</div><h2>One research layer. <span class="grad">Multiple execution environments.</span></h2>
+  <div class="eyebrow">Technology Direction</div>
+  <h2>One research layer. <span class="grad">Multiple execution environments.</span></h2>
+  <div class="mt5-container">
+   <div class="mt5-window">
+    <div class="mt5-header"><span>MetaTrader 5 - EURUSD,M5</span><span style="color:var(--green)">● Connected</span></div>
+    <div class="mt5-chart" id="mt5Chart">
+     <div class="mt5-price-line"></div>
+    </div>
+    <div style="padding:10px 15px;display:flex;justify-content:space-between;font-family:'JetBrains Mono';font-size:.62rem;color:var(--muted);border-top:1px solid var(--border);">
+     <span>Expert Advisor: QP_Strategy_v2</span>
+     <span style="color:var(--green)">● Running</span>
+    </div>
+    <div class="mt5-ea-status">EA ACTIVE</div>
+   </div>
+  </div>
   <div class="models">
    <div class="model-card"><small>RESEARCH</small><h3>Python</h3><p>Quant research, model testing, analytics, data pipelines and strategy services.</p></div>
    <div class="model-card"><small>CHARTING</small><h3>TradingView</h3><p>Signal visualization, alert generation and strategy prototyping.</p></div>
@@ -323,9 +461,55 @@ h1{font-size:clamp(2.7rem,6vw,5.8rem);line-height:.98;letter-spacing:-4px;max-wi
  </div>
 </section>
 
+<!-- SLIDE 8: MQL5 Coding Animation -->
 <section class="slide">
+ <div class="slide-fx"></div>
+ <div class="wrap two">
+  <div>
+   <div class="eyebrow">MQL5 Engineering</div>
+   <h2>Live code. <span class="grad">Live execution.</span></h2>
+   <p class="lead">Our Expert Advisors are written in MQL5 with strict typing, robust error handling, and institutional-grade execution logic.</p>
+   <div class="list"><div class="li"><b>Strict compilation:</b> #property strict for maximum runtime safety</div><div class="li"><b>Risk management:</b> Built-in position sizing and drawdown controls</div><div class="li"><b>Low latency:</b> Optimized OnTick() execution paths</div><div class="li"><b>Robust logging:</b> Full audit trail of every decision</div></div>
+  </div>
+  <div class="code-editor">
+   <div class="code-header"><div class="dots"><i></i><i></i><i></i></div><span>QP_Strategy_v2.mq5</span><span>MQL5</span></div>
+   <div class="code-body" id="codeBody"></div>
+  </div>
+ </div>
+</section>
+
+<!-- SLIDE 9: Deployment Pipeline -->
+<section class="slide">
+ <div class="slide-fx"></div>
  <div class="wrap">
-  <div class="eyebrow">The Vision</div><h2>Building infrastructure for <span class="grad">retail-facing institutions.</span></h2>
+  <div class="eyebrow">Deployment Pipeline</div>
+  <h2>From backtest to <span class="grad">live production.</span></h2>
+  <div class="deploy-container" id="deployChart">
+   <div class="deploy-stage" style="left:0%;top:35%;" data-step="0">BACKTEST</div>
+   <div class="deploy-arrow" style="left:16%;top:38%;">→</div>
+   <div class="deploy-stage" style="left:22%;top:35%;" data-step="1">OPTIMIZE</div>
+   <div class="deploy-arrow" style="left:38%;top:38%;">→</div>
+   <div class="deploy-stage" style="left:44%;top:35%;" data-step="2">FORWARD TEST</div>
+   <div class="deploy-arrow" style="left:62%;top:38%;">→</div>
+   <div class="deploy-stage" style="left:68%;top:35%;" data-step="3">.EX5 BUILD</div>
+   <div class="deploy-arrow" style="left:82%;top:38%;">→</div>
+   <div class="deploy-stage" style="left:88%;top:35%;" data-step="4">LIVE</div>
+  </div>
+  <div class="vision">
+   <div class="panel"><div class="n">01 / TEST</div><h3>Strategy Tester</h3><p>Multi-year backtests with real tick data and variable spreads.</p></div>
+   <div class="panel"><div class="n">02 / OPTIMIZE</div><h3>Parameter Search</h3><p>Genetic algorithms and walk-forward analysis.</p></div>
+   <div class="panel"><div class="n">03 / VALIDATE</div><h3>Forward Test</h3><p>Demo account validation before any live capital.</p></div>
+   <div class="panel"><div class="n">04 / DEPLOY</div><h3>MT5 VPS</h3><p>24/7 low-latency execution on secure virtual servers.</p></div>
+  </div>
+ </div>
+</section>
+
+<!-- SLIDE 10: B2B2C Vision -->
+<section class="slide">
+ <div class="slide-fx"></div>
+ <div class="wrap">
+  <div class="eyebrow">The Vision</div>
+  <h2>Building infrastructure for <span class="grad">retail-facing institutions.</span></h2>
   <p class="lead">Our long-term direction is a configurable B2B2C algorithmic infrastructure layer for brokers, fintechs, trading platforms and financial businesses that want to offer systematic-trading capabilities to their own retail customer base.</p>
   <div class="vision">
    <div class="panel"><div class="n">01 / CONNECT</div><h3>Enterprise Connectivity</h3><p>Connect broker APIs, supported execution venues and institutional partner infrastructure.</p></div>
@@ -336,48 +520,19 @@ h1{font-size:clamp(2.7rem,6vw,5.8rem);line-height:.98;letter-spacing:-4px;max-wi
  </div>
 </section>
 
+<!-- SLIDE 11: Final -->
 <section class="slide">
+ <div class="slide-fx"></div>
+ <div class="final-particles" id="finalParticles"></div>
  <div class="wrap">
-  <div class="eyebrow">B2B2C Opportunity</div><h2>Your brand. Your customers. <span class="grad">Our quant infrastructure.</span></h2>
-  <p class="lead">QuantParticle is positioned as a technology and research layer for corporate partners—not as a direct retail proposition in this presentation. The partner retains the customer relationship while QuantParticle can power quantitative strategy, automation and execution infrastructure behind the experience.</p>
-  <div class="vision">
-   <div class="panel"><div class="n">01 / PARTNER</div><h3>Broker / Fintech / Institution</h3><p>Own the brand, distribution, commercial model and retail customer relationship.</p></div>
-   <div class="panel"><div class="n">02 / QP LAYER</div><h3>QuantParticle Technology</h3><p>Research systems, strategy logic, APIs, automation workflows and platform components.</p></div>
-   <div class="panel"><div class="n">03 / EXPERIENCE</div><h3>White-Label Delivery</h3><p>Deploy within a partner-branded web or trading environment subject to integration scope.</p></div>
-   <div class="panel"><div class="n">04 / END USER</div><h3>Retail Customer</h3><p>Uses the partner's offering, controls and supported broker/execution connection.</p></div>
-  </div>
-  <div class="pipeline"><div class="node">CORPORATE PARTNER</div><div class="arrow">→</div><div class="node">QUANTPARTICLE</div><div class="arrow">→</div><div class="node">PARTNER PLATFORM</div><div class="arrow">→</div><div class="node">RETAIL CUSTOMER</div></div>
- </div>
-</section>
-
-<section class="slide">
- <div class="wrap two">
-  <div><div class="eyebrow">Why QuantParticle</div><h2>Research depth meets <span class="grad">product engineering.</span></h2><div class="list"><div class="li"><b>Broad research library:</b> 1200+ quantitative strategy/model concepts under exploration.</div><div class="li"><b>Multi-model thinking:</b> volatility, regimes, mean reversion, ML, signal processing and microstructure.</div><div class="li"><b>Multi-platform implementation:</b> research translated into practical trading environments.</div><div class="li"><b>B2B2C infrastructure focus:</b> enabling corporate partners to deliver quantitative automation to their retail customers.</div><div class="li"><b>Global ambition:</b> configurable, partner-ready architecture designed for multi-broker, multi-market and white-label expansion.</div></div></div>
-  <div class="hero-card"><div class="terminal-head"><span>QUANTPARTICLE</span><span>ROADMAP</span></div><div class="code">RESEARCH      <span class="g">██████████</span><br>MODELS        <span class="g">████████░░</span><br>EXECUTION     <span class="v">███████░░░</span><br>RETAIL STACK  <span class="v">██████░░░░</span><br>GLOBAL SCALE  <span class="m">████░░░░░░</span><br><br><span class="m">status: continuous development</span></div></div>
- </div>
-</section>
-
-<section class="slide">
- <div class="wrap">
-  <div class="eyebrow">Research Principles</div><h2>Built around testing, <span class="grad">not promises.</span></h2>
-  <div class="vision">
-   <div class="panel"><div class="n">A</div><h3>Hypothesis First</h3><p>Start with a measurable market hypothesis rather than a visually attractive signal.</p></div>
-   <div class="panel"><div class="n">B</div><h3>Validation</h3><p>Backtests are only one layer; forward testing, robustness and costs matter.</p></div>
-   <div class="panel"><div class="n">C</div><h3>Risk Engineering</h3><p>Position management, exits and drawdown control are part of the model design.</p></div>
-   <div class="panel"><div class="n">D</div><h3>Iteration</h3><p>Models are researched, challenged, revised and discarded when evidence does not hold.</p></div>
-  </div>
-  <p class="note">Quantitative research is experimental. Historical or simulated results do not guarantee future performance. Any partner deployment should include jurisdiction-appropriate disclosures, broker/API permissions, customer suitability controls where applicable, and regulatory/compliance review.</p>
- </div>
-</section>
-
-<section class="slide">
- <div class="wrap">
-  <div class="topic-engine"><span class="global-ring"></span><span class="global-ring g2"></span><span class="global-ring g3"></span></div><div class="eyebrow">QuantParticle</div><h1>Engineering the quantitative layer behind <span class="grad">retail-facing businesses.</span></h1>
+  <div class="eyebrow">QuantParticle</div>
+  <h1>Engineering the quantitative layer behind <span class="grad">retail-facing businesses.</span></h1>
   <p class="lead">1200+ research concepts. Statistical and mathematical models. Execution technology. One direction: scalable quantitative infrastructure that corporate partners can deliver to retail participants across global markets.</p>
   <div class="stats"><div class="stat"><strong>Research</strong><span>Mathematics + markets</span></div><div class="stat"><strong>Build</strong><span>Models + infrastructure</span></div><div class="stat"><strong>Scale</strong><span>B2B2C + global</span></div></div>
   <p class="note">Private presentation • QuantParticle • For discussion and technology overview purposes only.</p>
  </div>
 </section>
+
 </main>
 
 <footer class="controls">
@@ -386,19 +541,19 @@ h1{font-size:clamp(2.7rem,6vw,5.8rem);line-height:.98;letter-spacing:-4px;max-wi
  <div class="navbtns"><button class="navbtn" id="prev" aria-label="Previous slide">←</button><button class="navbtn" id="next" aria-label="Next slide">→</button></div>
 </footer>
 </div>
-
 <script>
 const PASSWORD="Mitesh@1010";
 const lock=document.getElementById("lock"),app=document.getElementById("app"),form=document.getElementById("loginForm"),pw=document.getElementById("password"),err=document.getElementById("error");
-form.addEventListener("submit",e=>{e.preventDefault();if(pw.value===PASSWORD){sessionStorage.setItem("qp_access","1");lock.classList.add("hidden");app.classList.add("active")}else{err.textContent="Incorrect password. Please try again.";pw.select()}});
-if(sessionStorage.getItem("qp_access")==="1"){lock.classList.add("hidden");app.classList.add("active")}
+form.addEventListener("submit",e=>{e.preventDefault();if(pw.value===PASSWORD){sessionStorage.setItem("qp_access","1");lock.classList.add("hidden");app.classList.add("active");initAnimations()}else{err.textContent="Incorrect password. Please try again.";pw.select()}});
+if(sessionStorage.getItem("qp_access")==="1"){lock.classList.add("hidden");app.classList.add("active");setTimeout(initAnimations,100)}
+
 const slides=[...document.querySelectorAll(".slide")],counter=document.getElementById("counter"),progress=document.getElementById("progress");let current=0;
-function show(n){const old=current;current=(n+slides.length)%slides.length;slides.forEach((s,i)=>{s.classList.remove("active","prev");if(i===old&&old!==current)s.classList.add("prev")});slides[current].classList.add("active");counter.textContent=String(current+1).padStart(2,"0")+" / "+String(slides.length).padStart(2,"0");progress.style.width=((current+1)/slides.length*100)+"%"}
+function show(n){const old=current;current=(n+slides.length)%slides.length;slides.forEach((s,i)=>{s.classList.remove("active","prev");if(i===old&&old!==current)s.classList.add("prev")});slides[current].classList.add("active");counter.textContent=String(current+1).padStart(2,"0")+" / "+String(slides.length).padStart(2,"0");progress.style.width=((current+1)/slides.length*100)+"%";triggerSlideAnimations(current)}
 document.getElementById("next").onclick=()=>show(current+1);document.getElementById("prev").onclick=()=>show(current-1);
 document.addEventListener("keydown",e=>{if(!app.classList.contains("active"))return;if(["ArrowRight","PageDown"," "].includes(e.key)){e.preventDefault();show(current+1)}if(["ArrowLeft","PageUp"].includes(e.key)){e.preventDefault();show(current-1)}if(e.key==="Home")show(0);if(e.key==="End")show(slides.length-1)});
 let touchX=0;document.addEventListener("touchstart",e=>touchX=e.changedTouches[0].screenX,{passive:true});document.addEventListener("touchend",e=>{let d=e.changedTouches[0].screenX-touchX;if(Math.abs(d)>55)show(current+(d<0?1:-1))},{passive:true});
 
-// Cursor behavior mirrored from the attached QuantParticle homepage.
+// Cursor
 const cursor=document.querySelector('.cursor-glow');
 const trail=document.querySelector('.cursor-trail');
 let mouseX=0,mouseY=0,cursorX=0,cursorY=0,trailX=0,trailY=0;
@@ -418,7 +573,7 @@ document.querySelectorAll('a,button,input,.model-card,.panel,.stat,.node,.hero-c
  el.addEventListener('mouseleave',()=>cursor&&cursor.classList.remove('hover'));
 });
 
-// 3D response for presentation cards.
+// 3D cards
 document.querySelectorAll('.hero-card').forEach(card=>{
  card.addEventListener('mousemove',e=>{
    const r=card.getBoundingClientRect();
@@ -435,11 +590,10 @@ document.querySelectorAll('.model-card').forEach(card=>{
  });
 });
 
-// Homepage-style mouse-reactive particle field.
+// Particle field
 const particleMouse={x:null,y:null,radius:200};
 window.addEventListener('mousemove',e=>{particleMouse.x=e.clientX;particleMouse.y=e.clientY});
 window.addEventListener('mouseout',()=>{particleMouse.x=null;particleMouse.y=null});
-
 const c=document.getElementById("particles"),x=c.getContext("2d");let pts=[];
 function resize(){
  c.width=innerWidth;c.height=innerHeight;
@@ -473,11 +627,431 @@ function updateParticle(p){
  requestAnimationFrame(draw);
 })();
 
-const slideObserver=new MutationObserver(()=>{
- document.querySelectorAll('.slide.active').forEach(animateResearchCount);
-});
-document.querySelectorAll('.slide').forEach(sl=>slideObserver.observe(sl,{attributes:true,attributeFilter:['class']}));
-document.querySelectorAll('.slide.active').forEach(animateResearchCount);
+// ===== SLIDE-SPECIFIC ANIMATIONS =====
+let animationsInitialized = false;
+
+function initAnimations(){
+ if(animationsInitialized) return;
+ animationsInitialized = true;
+
+ // Slide 1: Logo particles
+ createLogoParticles();
+
+ // Slide 2: Rolling counter
+ startRollingCounter();
+
+ // Slide 3: Math symbols
+ createMathSymbols();
+
+ // Slide 4: Volatility chart
+ initVolChart();
+
+ // Slide 5: Flow chart
+ initFlowChart();
+
+ // Slide 6: Buy/Sell tape
+ initTape();
+
+ // Slide 7: MT5 candles
+ initMT5Candles();
+
+ // Slide 8: MQL5 code typing
+ initCodeTyping();
+
+ // Slide 9: Deployment
+ initDeployment();
+
+ // Slide 11: Final particles
+ createFinalParticles();
+}
+
+function triggerSlideAnimations(slideIndex){
+ // Re-trigger animations when slide becomes active
+ switch(slideIndex){
+  case 0: resetLogoParticles(); break;
+  case 1: resetRollingCounter(); break;
+  case 3: resetVolChart(); break;
+  case 4: resetFlowChart(); break;
+  case 5: resetTape(); break;
+  case 6: resetMT5Candles(); break;
+  case 7: resetCodeTyping(); break;
+  case 8: resetDeployment(); break;
+ }
+}
+
+// SLIDE 1: Logo Particle Attraction
+function createLogoParticles(){
+ const container = document.getElementById('logoParticles');
+ if(!container) return;
+
+ // Create orbiting particles
+ for(let i=0;i<8;i++){
+  const p = document.createElement('div');
+  p.className = 'orbit-particle';
+  p.style.animationDelay = (i*0.5)+'s';
+  p.style.animationDuration = (3+Math.random()*3)+'s';
+  container.appendChild(p);
+ }
+
+ // Create attracting particles
+ for(let i=0;i<20;i++){
+  const p = document.createElement('div');
+  p.className = 'attract-particle';
+  const angle = (i/20)*Math.PI*2;
+  const dist = 150+Math.random()*100;
+  const sx = Math.cos(angle)*dist;
+  const sy = Math.sin(angle)*dist;
+  p.style.setProperty('--sx', sx+'px');
+  p.style.setProperty('--sy', sy+'px');
+  p.style.animationDelay = (Math.random()*3)+'s';
+  p.style.animationDuration = (2+Math.random()*2)+'s';
+  container.appendChild(p);
+ }
+}
+
+function resetLogoParticles(){
+ const container = document.getElementById('logoParticles');
+ if(!container) return;
+ const particles = container.querySelectorAll('.attract-particle');
+ particles.forEach(p=>{
+  p.style.animation='none';
+  p.offsetHeight;
+  p.style.animation='';
+ });
+}
+
+// SLIDE 2: Rolling Counter
+let counterInterval;
+function startRollingCounter(){
+ animateCounter();
+}
+
+function animateCounter(){
+ const el = document.getElementById('rollingCounter');
+ if(!el) return;
+ let current = 0;
+ const target = 1200;
+ const duration = 2000;
+ const start = performance.now();
+
+ function update(now){
+  const elapsed = now - start;
+  const progress = Math.min(elapsed/duration, 1);
+  const eased = 1 - Math.pow(1-progress, 3);
+  current = Math.floor(eased * target);
+  el.textContent = current.toLocaleString() + (progress===1?'+':'');
+  if(progress<1) requestAnimationFrame(update);
+ }
+ requestAnimationFrame(update);
+}
+
+function resetRollingCounter(){
+ animateCounter();
+ // Add floating strategy cards
+ addStrategyCards();
+}
+
+function addStrategyCards(){
+ const container = document.getElementById('strategyCards');
+ if(!container) return;
+ const cards = container.querySelectorAll('.strategy-card');
+ cards.forEach(c=>c.remove());
+
+ const strategies = ['Momentum','Mean Reversion','GARCH','Bayesian','PCA','LASSO','Order Flow','ML Signals'];
+ strategies.forEach((s,i)=>{
+  const card = document.createElement('div');
+  card.className = 'strategy-card';
+  card.textContent = s;
+  card.style.left = (10+Math.random()*70)+'%';
+  card.style.top = (5+Math.random()*80)+'%';
+  card.style.animationDelay = (i*0.3)+'s';
+  container.appendChild(card);
+ });
+}
+
+// SLIDE 3: Math Symbols
+function createMathSymbols(){
+ const slide = slides[2];
+ if(!slide) return;
+ const symbols = ['Σ','∫','σ²','μ','λ','∂','β','α','π','∇','ρ','Φ'];
+ symbols.forEach((s,i)=>{
+  const el = document.createElement('div');
+  el.className = 'math-symbol';
+  el.textContent = s;
+  el.style.left = (5+Math.random()*90)+'%';
+  el.style.top = (10+Math.random()*80)+'%';
+  el.style.fontSize = (20+Math.random()*30)+'px';
+  el.style.animationDelay = (i*0.5)+'s';
+  slide.querySelector('.slide-fx').appendChild(el);
+ });
+}
+
+// SLIDE 4: Volatility Chart
+let volData = [];
+let volAnimationId;
+function initVolChart(){
+ volData = [];
+ for(let i=0;i<50;i++){
+  volData.push(50 + Math.sin(i*0.2)*20 + Math.random()*15);
+ }
+ animateVolChart();
+}
+
+function animateVolChart(){
+ const line = document.getElementById('volLine');
+ const area = document.getElementById('volArea');
+ const dot = document.getElementById('volDot');
+ if(!line) return;
+
+ // Shift data
+ volData.shift();
+ volData.push(50 + Math.sin(Date.now()*0.001)*20 + Math.random()*15);
+
+ // Create path
+ let path = 'M';
+ let areaPath = 'M';
+ volData.forEach((v,i)=>{
+  const xPos = (i/(volData.length-1))*400;
+  const yPos = 200 - v;
+  path += (i===0?'':',') + xPos + ',' + yPos;
+  areaPath += (i===0?'':',') + xPos + ',' + yPos;
+ });
+ areaPath += ' L400,200 L0,200 Z';
+
+ line.setAttribute('d', path);
+ area.setAttribute('d', areaPath);
+ dot.setAttribute('cx', 400);
+ dot.setAttribute('cy', 200 - volData[volData.length-1]);
+
+ volAnimationId = setTimeout(animateVolChart, 100);
+}
+
+function resetVolChart(){
+ clearTimeout(volAnimationId);
+ initVolChart();
+}
+
+// SLIDE 5: Flow Chart
+function initFlowChart(){
+ const container = document.getElementById('flowChart');
+ if(!container) return;
+
+ // Create connections
+ const nodes = container.querySelectorAll('.flow-node');
+ nodes.forEach((node,i)=>{
+  if(i<nodes.length-1){
+   const next = nodes[i+1];
+   const conn = document.createElement('div');
+   conn.className = 'flow-connection';
+   const x1 = parseFloat(node.style.left)+10;
+   const y1 = parseFloat(node.style.top)+20;
+   const x2 = parseFloat(next.style.left);
+   const y2 = parseFloat(next.style.top)+20;
+   const length = Math.sqrt(Math.pow(x2-x1,2)+Math.pow(y2-y1,2));
+   const angle = Math.atan2(y2-y1,x2-x1)*180/Math.PI;
+   conn.style.left = x1+'%';
+   conn.style.top = y1+'%';
+   conn.style.width = length+'%';
+   conn.style.transform = `rotate(${angle}deg)`;
+   conn.style.animationDelay = (i*0.2)+'s';
+   container.appendChild(conn);
+
+   // Add particle
+   const particle = document.createElement('div');
+   particle.className = 'flow-particle';
+   particle.style.animationDelay = (i*0.3)+'s';
+   conn.appendChild(particle);
+  }
+ });
+
+ // Animate nodes
+ animateFlowNodes();
+}
+
+function animateFlowNodes(){
+ const nodes = document.querySelectorAll('.flow-node');
+ nodes.forEach((n,i)=>{
+  setTimeout(()=>{
+   n.classList.add('active');
+   setTimeout(()=>n.classList.remove('active'), 500);
+  }, i*300);
+ });
+ setTimeout(animateFlowNodes, nodes.length*300+1000);
+}
+
+function resetFlowChart(){
+ const nodes = document.querySelectorAll('.flow-node');
+ nodes.forEach(n=>n.classList.remove('active'));
+}
+
+// SLIDE 6: Buy/Sell Tape
+function initTape(){
+ const container = document.getElementById('tapeContainer');
+ if(!container) return;
+
+ const prices = ['1.08450','1.08452','1.08455','1.08448','1.08461','1.08449','1.08457','1.08453'];
+
+ for(let i=0;i<8;i++){
+  const row = document.createElement('div');
+  const isBuy = Math.random()>0.5;
+  row.className = 'tape-row ' + (isBuy?'buy':'sell');
+  row.style.top = (i*12)+'%';
+  row.style.animationDelay = (i*0.3)+'s';
+  row.style.animationDuration = (4+Math.random()*4)+'s';
+  row.innerHTML = `<span>${isBuy?'BUY':'SELL'}</span><span>${prices[Math.floor(Math.random()*prices.length)]}</span><span>${(Math.random()*5).toFixed(2)}</span><span>${new Date().toLocaleTimeString()}</span>`;
+  container.appendChild(row);
+ }
+}
+
+function resetTape(){
+ const container = document.getElementById('tapeContainer');
+ const rows = container.querySelectorAll('.tape-row');
+ rows.forEach(r=>{
+  r.style.animation='none';
+  r.offsetHeight;
+  r.style.animation='';
+ });
+}
+
+// SLIDE 7: MT5 Candles
+function initMT5Candles(){
+ const chart = document.getElementById('mt5Chart');
+ if(!chart) return;
+
+ for(let i=0;i<15;i++){
+  const candle = document.createElement('div');
+  candle.className = 'mt5-candle';
+  const isUp = Math.random()>0.5;
+  candle.style.left = (5+i*6)+'%';
+  candle.style.bottom = '20%';
+  candle.style.height = (30+Math.random()*60)+'px';
+  candle.style.background = isUp?'var(--green)':'var(--red)';
+  candle.style.animationDelay = (i*0.1)+'s';
+  chart.appendChild(candle);
+ }
+}
+
+function resetMT5Candles(){
+ const chart = document.getElementById('mt5Chart');
+ const candles = chart.querySelectorAll('.mt5-candle');
+ candles.forEach(c=>{
+  c.style.animation='none';
+  c.offsetHeight;
+  c.style.animation='';
+ });
+}
+
+// SLIDE 8: MQL5 Code Typing
+const mqlCode = [
+ {text:'//+------------------------------------------------------------------+', cls:'cm'},
+ {text:'//| QP_Strategy_v2.mq5 - QuantParticle Expert Advisor               |', cls:'cm'},
+ {text:'//+------------------------------------------------------------------+', cls:'cm'},
+ {text:'#property strict', cls:'kw'},
+ {text:'#property version   "2.00"', cls:'kw'},
+ {text:'', cls:''},
+ {text:'input double    Lots = 0.10;', cls:''},
+ {text:'input int       StopLoss = 50;', cls:''},
+ {text:'input int       TakeProfit = 100;', cls:''},
+ {text:'', cls:''},
+ {text:'int OnInit()', cls:'fn'},
+ {text:'  {', cls:''},
+ {text:'   Print("QP Strategy v2 initialized");', cls:'fn'},
+ {text:'   return(INIT_SUCCEEDED);', cls:'kw'},
+ {text:'  }', cls:''},
+ {text:'', cls:''},
+ {text:'void OnTick()', cls:'fn'},
+ {text:'  {', cls:''},
+ {text:'   double atr = iATR(_Symbol, PERIOD_M5, 14, 0);', cls:'fn'},
+ {text:'   double close = iClose(_Symbol, PERIOD_M5, 0);', cls:'fn'},
+ {text:'   ', cls:''},
+ {text:'   if(signal == BUY && CountPositions() == 0)', cls:'kw'},
+ {text:'      trade.Buy(Lots, _Symbol, close, StopLoss, TakeProfit);', cls:'fn'},
+ {text:'   ', cls:''},
+ {text:'   ManagePosition();', cls:'fn'},
+ {text:'  }', cls:''},
+];
+
+let codeLineIndex = 0;
+function initCodeTyping(){
+ codeLineIndex = 0;
+ typeNextLine();
+}
+
+function typeNextLine(){
+ const body = document.getElementById('codeBody');
+ if(!body || codeLineIndex >= mqlCode.length) return;
+
+ const line = mqlCode[codeLineIndex];
+ const div = document.createElement('div');
+ div.className = 'code-line';
+ div.innerHTML = `<span class="${line.cls}">${line.text}</span>`;
+ body.appendChild(div);
+
+ // Remove old lines if too many
+ while(body.children.length > 15){
+  body.removeChild(body.firstChild);
+ }
+
+ codeLineIndex++;
+ setTimeout(typeNextLine, 100+Math.random()*200);
+}
+
+function resetCodeTyping(){
+ const body = document.getElementById('codeBody');
+ if(body) body.innerHTML = '';
+ codeLineIndex = 0;
+ setTimeout(typeNextLine, 500);
+}
+
+// SLIDE 9: Deployment
+function initDeployment(){
+ animateDeployment();
+}
+
+function animateDeployment(){
+ const stages = document.querySelectorAll('.deploy-stage');
+ stages.forEach((s,i)=>{
+  setTimeout(()=>{
+   s.classList.add('active');
+   setTimeout(()=>s.classList.remove('active'), 800);
+  }, i*600);
+ });
+ setTimeout(animateDeployment, stages.length*600+2000);
+}
+
+function resetDeployment(){
+ const stages = document.querySelectorAll('.deploy-stage');
+ stages.forEach(s=>s.classList.remove('active'));
+}
+
+// SLIDE 11: Final Particles
+function createFinalParticles(){
+ const container = document.getElementById('finalParticles');
+ if(!container) return;
+
+ // Create rings
+ for(let i=0;i<3;i++){
+  const ring = document.createElement('div');
+  ring.className = 'final-ring';
+  ring.style.animationDelay = (i*1.3)+'s';
+  container.appendChild(ring);
+ }
+
+ // Create particles
+ for(let i=0;i<30;i++){
+  const p = document.createElement('div');
+  p.className = 'final-particle';
+  p.style.left = Math.random()*100+'%';
+  p.style.top = Math.random()*100+'%';
+  p.style.animationDelay = (Math.random()*6)+'s';
+  p.style.animationDuration = (4+Math.random()*4)+'s';
+  container.appendChild(p);
+ }
+}
+
+// Initialize counter display
+counter.textContent="01 / "+String(slides.length).padStart(2,"0");
+progress.style.width=(1/slides.length*100)+"%";
 </script>
 </body>
 </html>
