@@ -57,45 +57,96 @@ h1{font-size:clamp(2.7rem,6vw,5.8rem);line-height:.98;letter-spacing:-4px;max-wi
 .progress{position:absolute;left:0;top:-1px;height:2px;background:linear-gradient(90deg,var(--cyan),var(--blue));transition:.35s}.counter{font-family:"JetBrains Mono";font-size:.7rem;color:var(--muted)}.navbtns{display:flex;gap:8px}.navbtn{width:40px;height:36px;border:1px solid var(--border);background:var(--surface);color:#fff;border-radius:9px;cursor:pointer}.navbtn:hover{border-color:var(--cyan);color:var(--cyan)}
 .hint{font-family:"JetBrains Mono";font-size:.64rem;color:#606b7d}
 
-/* ===== Magnetic cursor ===== */
-@media (pointer:fine){
- body{cursor:none}
- a,button,input,.model-card,.panel,.stat,.node,.hero-card{cursor:none}
- .mag-cursor,.mag-dot{position:fixed;left:0;top:0;pointer-events:none;z-index:10000;border-radius:50%;transform:translate(-50%,-50%)}
- .mag-cursor{width:34px;height:34px;border:1.5px solid rgba(0,229,255,.82);box-shadow:0 0 22px rgba(0,229,255,.22);transition:width .22s,height .22s,border-color .22s,background .22s}
- .mag-dot{width:5px;height:5px;background:var(--cyan);box-shadow:0 0 12px var(--cyan)}
- .mag-cursor.hover{width:58px;height:58px;background:rgba(0,229,255,.07);border-color:rgba(255,255,255,.65)}
+
+/* ===== Cursor copied from QuantParticle homepage behavior ===== */
+.cursor-glow{
+ position:fixed;width:20px;height:20px;border:2px solid var(--cyan);border-radius:50%;
+ pointer-events:none;z-index:99999;transform:translate(-50%,-50%);
+ transition:width .2s,height .2s,background .2s;mix-blend-mode:difference
+}
+.cursor-glow.hover{width:50px;height:50px;background:rgba(0,229,255,.1)}
+.cursor-trail{
+ position:fixed;width:6px;height:6px;background:var(--cyan);border-radius:50%;
+ pointer-events:none;z-index:99998;transform:translate(-50%,-50%);opacity:.5;transition:opacity .5s
 }
 
-/* ===== Per-slide cinematic animation system ===== */
-.slide.active .eyebrow{animation:slideUp .65s .05s both}
-.slide.active h1,.slide.active h2,.slide.active .big-number{animation:slideUp .75s .13s both}
-.slide.active .lead,.slide.active .big-caption{animation:slideUp .72s .24s both}
-.slide.active .note{animation:fadeUp .65s .65s both}
-.slide.active .hero-card{animation:cardIn .85s .2s both}
-.slide.active .radar{animation:scaleIn .9s .25s both}
-.slide.active .stat{animation:fadeUp .65s both}
-.slide.active .stat:nth-child(1){animation-delay:.34s}.slide.active .stat:nth-child(2){animation-delay:.44s}.slide.active .stat:nth-child(3){animation-delay:.54s}
+/* ===== Presentation entrance motion ===== */
+.slide.active .eyebrow{animation:slideUp .65s .04s both}
+.slide.active h1,.slide.active h2,.slide.active .big-number{animation:slideUp .78s .12s both}
+.slide.active .lead,.slide.active .big-caption{animation:slideUp .72s .23s both}
+.slide.active .note{animation:fadeUp .65s .68s both}
+.slide.active .hero-card{animation:cardIn .9s .2s both}
+.slide.active .radar{animation:scaleIn .9s .24s both}
+.slide.active .stat{animation:fadeUp .62s both}
+.slide.active .stat:nth-child(1){animation-delay:.32s}.slide.active .stat:nth-child(2){animation-delay:.42s}.slide.active .stat:nth-child(3){animation-delay:.52s}
 .slide.active .model-card{animation:fadeUp .58s both}
-.slide.active .model-card:nth-child(1){animation-delay:.18s}.slide.active .model-card:nth-child(2){animation-delay:.24s}.slide.active .model-card:nth-child(3){animation-delay:.30s}.slide.active .model-card:nth-child(4){animation-delay:.36s}.slide.active .model-card:nth-child(5){animation-delay:.42s}.slide.active .model-card:nth-child(6){animation-delay:.48s}.slide.active .model-card:nth-child(7){animation-delay:.54s}.slide.active .model-card:nth-child(8){animation-delay:.60s}.slide.active .model-card:nth-child(9){animation-delay:.66s}
+.slide.active .model-card:nth-child(1){animation-delay:.16s}.slide.active .model-card:nth-child(2){animation-delay:.22s}.slide.active .model-card:nth-child(3){animation-delay:.28s}.slide.active .model-card:nth-child(4){animation-delay:.34s}.slide.active .model-card:nth-child(5){animation-delay:.40s}.slide.active .model-card:nth-child(6){animation-delay:.46s}.slide.active .model-card:nth-child(7){animation-delay:.52s}.slide.active .model-card:nth-child(8){animation-delay:.58s}.slide.active .model-card:nth-child(9){animation-delay:.64s}
 .slide.active .li{animation:fromLeft .58s both}
-.slide.active .li:nth-child(1){animation-delay:.28s}.slide.active .li:nth-child(2){animation-delay:.36s}.slide.active .li:nth-child(3){animation-delay:.44s}.slide.active .li:nth-child(4){animation-delay:.52s}.slide.active .li:nth-child(5){animation-delay:.60s}
-.slide.active .node{animation:nodePop .52s both}
-.slide.active .node:nth-of-type(1){animation-delay:.24s}.slide.active .node:nth-of-type(2){animation-delay:.34s}.slide.active .node:nth-of-type(3){animation-delay:.44s}.slide.active .node:nth-of-type(4){animation-delay:.54s}.slide.active .node:nth-of-type(5){animation-delay:.64s}.slide.active .node:nth-of-type(6){animation-delay:.74s}
-.slide.active .arrow{animation:arrowPulse .75s infinite alternate}
+.slide.active .li:nth-child(1){animation-delay:.27s}.slide.active .li:nth-child(2){animation-delay:.35s}.slide.active .li:nth-child(3){animation-delay:.43s}.slide.active .li:nth-child(4){animation-delay:.51s}.slide.active .li:nth-child(5){animation-delay:.59s}
 .slide.active .vision .panel{animation:fadeUp .62s both}
-.slide.active .vision .panel:nth-child(1){animation-delay:.25s}.slide.active .vision .panel:nth-child(2){animation-delay:.35s}.slide.active .vision .panel:nth-child(3){animation-delay:.45s}.slide.active .vision .panel:nth-child(4){animation-delay:.55s}
+.slide.active .vision .panel:nth-child(1){animation-delay:.24s}.slide.active .vision .panel:nth-child(2){animation-delay:.34s}.slide.active .vision .panel:nth-child(3){animation-delay:.44s}.slide.active .vision .panel:nth-child(4){animation-delay:.54s}
 @keyframes slideUp{from{opacity:0;transform:translateY(34px);filter:blur(7px)}to{opacity:1;transform:none;filter:none}}
 @keyframes fadeUp{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:none}}
 @keyframes fromLeft{from{opacity:0;transform:translateX(-28px)}to{opacity:1;transform:none}}
 @keyframes cardIn{from{opacity:0;transform:translateX(42px) rotateY(-5deg) scale(.97)}to{opacity:1;transform:none}}
 @keyframes scaleIn{from{opacity:0;transform:scale(.82)}to{opacity:1;transform:scale(1)}}
-@keyframes nodePop{from{opacity:0;transform:scale(.78)}to{opacity:1;transform:scale(1)}}
-@keyframes arrowPulse{from{opacity:.25;transform:translateX(-3px)}to{opacity:1;transform:translateX(3px);text-shadow:0 0 15px var(--cyan)}}
+
+/* ===== Topic-specific visual engines ===== */
+.topic-engine{position:absolute;inset:0;pointer-events:none;overflow:hidden;border-radius:20px}
+.market-grid{background-image:linear-gradient(rgba(0,229,255,.045) 1px,transparent 1px),linear-gradient(90deg,rgba(0,229,255,.045) 1px,transparent 1px);background-size:34px 34px;mask-image:linear-gradient(to bottom,transparent,#000 18%,#000 82%,transparent)}
+.scanline{position:absolute;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--cyan),transparent);box-shadow:0 0 18px var(--cyan);animation:scanDown 3.6s linear infinite;opacity:.65}
+@keyframes scanDown{from{top:0}to{top:100%}}
+
+/* Slide 2: 1200+ research universe */
+.research-orbit{position:absolute;inset:9%;border:1px solid rgba(0,229,255,.16);border-radius:50%;animation:orbitSpin 18s linear infinite}
+.research-orbit.o2{inset:22%;animation-duration:12s;animation-direction:reverse;border-color:rgba(124,58,237,.2)}
+.research-orbit:before{content:"";position:absolute;width:9px;height:9px;border-radius:50%;background:var(--cyan);box-shadow:0 0 18px var(--cyan);left:50%;top:-5px}
+@keyframes orbitSpin{to{transform:rotate(360deg)}}
+
+/* Slide 3: model neural constellation */
+.model-card:before{content:"";position:absolute;inset:0;background:radial-gradient(circle at var(--mx,50%) var(--my,50%),rgba(0,229,255,.12),transparent 35%);opacity:0;transition:.25s;pointer-events:none}
+.model-card:hover:before{opacity:1}
+.model-card{position:relative;overflow:hidden}
+
+/* Slide 4: GARCH volatility waveform */
+.vol-wave{position:absolute;left:4%;right:4%;bottom:8%;height:90px;opacity:.75}
+.vol-wave svg{width:100%;height:100%;overflow:visible}
+.vol-path{fill:none;stroke:var(--cyan);stroke-width:2;stroke-dasharray:900;stroke-dashoffset:900;filter:drop-shadow(0 0 7px rgba(0,229,255,.8))}
+.slide.active .vol-path{animation:drawWave 2.2s .35s ease forwards,glowWave 2s 2.6s ease-in-out infinite}
+@keyframes drawWave{to{stroke-dashoffset:0}} @keyframes glowWave{50%{opacity:.35}}
+
+/* Slide 5: research pipeline packets */
+.pipeline{position:relative}
+.pipeline .node{position:relative;overflow:hidden}
+.pipeline .node:before{content:"";position:absolute;left:-45%;top:0;width:30%;height:100%;background:linear-gradient(90deg,transparent,rgba(0,229,255,.22),transparent);transform:skewX(-20deg)}
+.slide.active .pipeline .node:before{animation:packetSweep 2.4s infinite}
+@keyframes packetSweep{to{left:125%}}
+.slide.active .arrow{animation:arrowPulse .72s infinite alternate}
+@keyframes arrowPulse{from{opacity:.28;transform:translateX(-3px)}to{opacity:1;transform:translateX(4px);text-shadow:0 0 15px var(--cyan)}}
+
+/* Slide 6: order-flow liquidity pulses */
+.liquidity-pulse{position:absolute;border:1px solid rgba(0,229,255,.25);border-radius:50%;width:22px;height:22px;animation:liq 2.8s infinite}
+.lp1{left:25%;top:28%}.lp2{right:24%;top:43%;animation-delay:.8s}.lp3{left:47%;bottom:24%;animation-delay:1.4s}
+@keyframes liq{0%{transform:scale(.4);opacity:1}100%{transform:scale(6);opacity:0}}
+
+/* Slide 7: platform/data packets */
+.platform-packet{position:absolute;width:7px;height:7px;border-radius:50%;background:var(--cyan);box-shadow:0 0 14px var(--cyan);animation:dataFly 3.5s linear infinite}
+.pp1{left:8%;top:22%}.pp2{left:18%;top:55%;animation-delay:1s}.pp3{left:3%;top:78%;animation-delay:2s}
+@keyframes dataFly{0%{transform:translateX(0);opacity:0}10%{opacity:1}100%{transform:translateX(86vw);opacity:0}}
+
+/* Slide 8/9: B2B2C flow cards */
+.vision .panel{position:relative;overflow:hidden}
+.vision .panel:after{content:"";position:absolute;inset:auto 0 0;height:2px;background:linear-gradient(90deg,transparent,var(--cyan),transparent);transform:translateX(-100%)}
+.slide.active .vision .panel:after{animation:partnerFlow 2.8s infinite}
+.slide.active .vision .panel:nth-child(2):after{animation-delay:.45s}.slide.active .vision .panel:nth-child(3):after{animation-delay:.9s}.slide.active .vision .panel:nth-child(4):after{animation-delay:1.35s}
+@keyframes partnerFlow{to{transform:translateX(100%)}}
+
+/* Final slide: expanding global rings */
+.global-ring{position:absolute;left:50%;top:50%;width:120px;height:120px;border:1px solid rgba(0,229,255,.3);border-radius:50%;transform:translate(-50%,-50%);animation:globalPulse 4s infinite;opacity:0}
+.global-ring.g2{animation-delay:1.3s}.global-ring.g3{animation-delay:2.6s}
+@keyframes globalPulse{0%{width:80px;height:80px;opacity:.65}100%{width:900px;height:900px;opacity:0}}
+
 .hero-card{transform-style:preserve-3d;transition:transform .18s ease,border-color .25s}
-.model-card,.vision .panel,.stat,.node{position:relative;overflow:hidden}
-.model-card:after,.vision .panel:after,.stat:after,.node:after{content:"";position:absolute;inset:-100% auto -100% -45%;width:30%;transform:rotate(20deg);background:linear-gradient(90deg,transparent,rgba(255,255,255,.08),transparent);transition:left .7s}
-.model-card:hover:after,.vision .panel:hover:after,.stat:hover:after,.node:hover:after{left:125%}
 
 @media(max-width:900px){.slide{padding:30px 24px;overflow:auto;align-items:start}.hero-grid,.two{grid-template-columns:1fr;gap:28px}.hero-card,.radar{display:none}.models{grid-template-columns:1fr 1fr}.vision{grid-template-columns:1fr 1fr}.stats{grid-template-columns:1fr 1fr}.stats .stat:last-child{grid-column:1/-1}.topbar{padding:0 20px}.top-meta{display:none}.controls{padding:0 20px}.hint{display:none}h1{letter-spacing:-2px}}
 @media(max-width:560px){.models,.vision{grid-template-columns:1fr}.slide{inset:76px 0 62px}.big-number{letter-spacing:-4px}.pipeline{justify-content:flex-start}.arrow{transform:rotate(90deg)}}
@@ -103,8 +154,8 @@ h1{font-size:clamp(2.7rem,6vw,5.8rem);line-height:.98;letter-spacing:-4px;max-wi
 </head>
 <body>
 <div class="noise"></div><canvas id="particles"></canvas>
-<div class="mag-cursor" id="magCursor"></div>
-<div class="mag-dot" id="magDot"></div><div class="orb o1"></div><div class="orb o2"></div>
+<div class="cursor-glow"></div>
+<div class="cursor-trail"></div><div class="orb o1"></div><div class="orb o2"></div>
 
 <div class="lock" id="lock">
  <div class="lock-card">
@@ -144,7 +195,7 @@ h1{font-size:clamp(2.7rem,6vw,5.8rem);line-height:.98;letter-spacing:-4px;max-wi
 <section class="slide">
  <div class="wrap two">
   <div><div class="eyebrow">Research Library</div><div class="big-number">1200+</div><div class="big-caption">QUANT-BASED STRATEGY & MODEL CONCEPTS</div><p class="lead">Our research library spans momentum, mean reversion, volatility, statistical inference, regime detection, market microstructure, signal processing, machine learning and execution logic.</p><p class="note">“1200+” represents QuantParticle's internal strategy/model research library and should not be interpreted as 1,200 independently validated or production-deployed trading systems.</p></div>
-  <div class="radar"><div class="sweep"></div><i class="dot d1"></i><i class="dot d2"></i><i class="dot d3"></i><i class="dot d4"></i></div>
+  <div class="radar"><div class="market-grid topic-engine"></div><div class="research-orbit"></div><div class="research-orbit o2"></div><div class="sweep"></div><i class="dot d1"></i><i class="dot d2"></i><i class="dot d3"></i><i class="dot d4"></i></div>
  </div>
 </section>
 
@@ -172,7 +223,7 @@ h1{font-size:clamp(2.7rem,6vw,5.8rem);line-height:.98;letter-spacing:-4px;max-wi
    <p class="lead">We are researching volatility-responsive systems where exits and risk logic adapt to changing market conditions rather than relying only on static distances.</p>
    <div class="list"><div class="li"><b>Conditional volatility:</b> model changing variance instead of assuming constant volatility.</div><div class="li"><b>Adaptive trailing:</b> investigate volatility-scaled stop and trail distances.</div><div class="li"><b>Parameter research:</b> compare alpha, beta and multiplier combinations across instruments and regimes.</div><div class="li"><b>Risk objective:</b> reduce uncontrolled tail losses while preserving room for profitable movement.</div></div>
   </div>
-  <div class="hero-card"><div class="terminal-head"><span>GARCH_RESEARCH</span><span>σ²(t)</span></div><div class="code"><span class="m"># conceptual representation</span><br>σ²ₜ = ω + αε²ₜ₋₁ + βσ²ₜ₋₁<br><br>trail_distance = k × σₜ<br>risk_state = f(σₜ, regime)<br><br><span class="g">adaptive volatility layer</span><br><span class="m">not a performance guarantee</span></div></div>
+  <div class="hero-card"><div class="topic-engine market-grid"><div class="scanline"></div></div><div class="vol-wave"><svg viewBox="0 0 800 100" preserveAspectRatio="none"><path class="vol-path" d="M0,70 C40,65 55,30 90,52 S145,90 175,46 S235,18 260,61 S320,88 350,42 S420,12 445,58 S500,86 535,38 S600,20 625,60 S690,88 720,43 S770,28 800,50"/></svg></div><div class="terminal-head"><span>GARCH_RESEARCH</span><span>σ²(t)</span></div><div class="code"><span class="m"># conceptual representation</span><br>σ²ₜ = ω + αε²ₜ₋₁ + βσ²ₜ₋₁<br><br>trail_distance = k × σₜ<br>risk_state = f(σₜ, regime)<br><br><span class="g">adaptive volatility layer</span><br><span class="m">not a performance guarantee</span></div></div>
  </div>
 </section>
 
@@ -192,13 +243,13 @@ h1{font-size:clamp(2.7rem,6vw,5.8rem);line-height:.98;letter-spacing:-4px;max-wi
    <p class="lead">QuantParticle also explores the mechanics surrounding execution—liquidity, order flow, spreads, inventory, latency-aware architecture and broker/API connectivity.</p>
    <div class="list"><div class="li">Order-flow informativeness and liquidity behaviour</div><div class="li">Market-making and inventory-aware quote research</div><div class="li">Microstructure regime classification</div><div class="li">Execution, slippage and transaction-cost awareness</div><div class="li">Broker/API connectivity for retail automation</div></div>
   </div>
-  <div class="radar"><div class="sweep"></div><i class="dot d1"></i><i class="dot d2"></i><i class="dot d3"></i><i class="dot d4"></i></div>
+  <div class="radar"><div class="market-grid topic-engine"></div><div class="sweep"></div><span class="liquidity-pulse lp1"></span><span class="liquidity-pulse lp2"></span><span class="liquidity-pulse lp3"></span><i class="dot d1"></i><i class="dot d2"></i><i class="dot d3"></i><i class="dot d4"></i></div>
  </div>
 </section>
 
 <section class="slide">
  <div class="wrap">
-  <div class="eyebrow">Technology Direction</div><h2>One research layer. <span class="grad">Multiple execution environments.</span></h2>
+  <div class="topic-engine market-grid"><span class="platform-packet pp1"></span><span class="platform-packet pp2"></span><span class="platform-packet pp3"></span></div><div class="eyebrow">Technology Direction</div><h2>One research layer. <span class="grad">Multiple execution environments.</span></h2>
   <div class="models">
    <div class="model-card"><small>RESEARCH</small><h3>Python</h3><p>Quant research, model testing, analytics, data pipelines and strategy services.</p></div>
    <div class="model-card"><small>CHARTING</small><h3>TradingView</h3><p>Signal visualization, alert generation and strategy prototyping.</p></div>
@@ -259,7 +310,7 @@ h1{font-size:clamp(2.7rem,6vw,5.8rem);line-height:.98;letter-spacing:-4px;max-wi
 
 <section class="slide">
  <div class="wrap">
-  <div class="eyebrow">QuantParticle</div><h1>Engineering the quantitative layer behind <span class="grad">retail-facing businesses.</span></h1>
+  <div class="topic-engine"><span class="global-ring"></span><span class="global-ring g2"></span><span class="global-ring g3"></span></div><div class="eyebrow">QuantParticle</div><h1>Engineering the quantitative layer behind <span class="grad">retail-facing businesses.</span></h1>
   <p class="lead">1200+ research concepts. Statistical and mathematical models. Execution technology. One direction: scalable quantitative infrastructure that corporate partners can deliver to retail participants across global markets.</p>
   <div class="stats"><div class="stat"><strong>Research</strong><span>Mathematics + markets</span></div><div class="stat"><strong>Build</strong><span>Models + infrastructure</span></div><div class="stat"><strong>Scale</strong><span>B2B2C + global</span></div></div>
   <p class="note">Private presentation • QuantParticle • For discussion and technology overview purposes only.</p>
@@ -285,31 +336,80 @@ document.getElementById("next").onclick=()=>show(current+1);document.getElementB
 document.addEventListener("keydown",e=>{if(!app.classList.contains("active"))return;if(["ArrowRight","PageDown"," "].includes(e.key)){e.preventDefault();show(current+1)}if(["ArrowLeft","PageUp"].includes(e.key)){e.preventDefault();show(current-1)}if(e.key==="Home")show(0);if(e.key==="End")show(slides.length-1)});
 let touchX=0;document.addEventListener("touchstart",e=>touchX=e.changedTouches[0].screenX,{passive:true});document.addEventListener("touchend",e=>{let d=e.changedTouches[0].screenX-touchX;if(Math.abs(d)>55)show(current+(d<0?1:-1))},{passive:true});
 
-// Magnetic cursor: ring follows with inertia; dot follows pointer exactly.
-const mc=document.getElementById("magCursor"),md=document.getElementById("magDot");
-let mx=innerWidth/2,my=innerHeight/2,cx=mx,cy=my;
-if(matchMedia("(pointer:fine)").matches){
- document.addEventListener("mousemove",e=>{mx=e.clientX;my=e.clientY;md.style.left=mx+"px";md.style.top=my+"px"});
- (function cursorLoop(){cx+=(mx-cx)*.16;cy+=(my-cy)*.16;mc.style.left=cx+"px";mc.style.top=cy+"px";requestAnimationFrame(cursorLoop)})();
- document.querySelectorAll("button,.model-card,.panel,.stat,.node,.hero-card,input").forEach(el=>{
-   el.addEventListener("mouseenter",()=>mc.classList.add("hover"));
-   el.addEventListener("mouseleave",()=>mc.classList.remove("hover"));
- });
- // Subtle magnetic attraction for buttons only.
- document.querySelectorAll(".navbtn,.unlock").forEach(el=>{
-   el.addEventListener("mousemove",e=>{const r=el.getBoundingClientRect();const dx=e.clientX-(r.left+r.width/2),dy=e.clientY-(r.top+r.height/2);el.style.transform=`translate(${dx*.12}px,${dy*.12}px)`});
-   el.addEventListener("mouseleave",()=>el.style.transform="");
- });
- // 3D terminal/card motion.
- document.querySelectorAll(".hero-card").forEach(card=>{
-   card.addEventListener("mousemove",e=>{const r=card.getBoundingClientRect(),rx=((e.clientY-r.top)/r.height-.5)*-5,ry=((e.clientX-r.left)/r.width-.5)*7;card.style.transform=`perspective(900px) rotateX(${rx}deg) rotateY(${ry}deg)`});
-   card.addEventListener("mouseleave",()=>card.style.transform="");
- });
+// Cursor behavior mirrored from the attached QuantParticle homepage.
+const cursor=document.querySelector('.cursor-glow');
+const trail=document.querySelector('.cursor-trail');
+let mouseX=0,mouseY=0,cursorX=0,cursorY=0,trailX=0,trailY=0;
+document.addEventListener('mousemove',e=>{mouseX=e.clientX;mouseY=e.clientY});
+function animateCursor(){
+ if(cursor&&trail&&window.innerWidth>968){
+   cursorX+=(mouseX-cursorX)*.15; cursorY+=(mouseY-cursorY)*.15;
+   trailX+=(mouseX-trailX)*.08; trailY+=(mouseY-trailY)*.08;
+   cursor.style.left=cursorX+'px'; cursor.style.top=cursorY+'px';
+   trail.style.left=trailX+'px'; trail.style.top=trailY+'px';
+ }
+ requestAnimationFrame(animateCursor);
 }
+animateCursor();
+document.querySelectorAll('a,button,input,.model-card,.panel,.stat,.node,.hero-card').forEach(el=>{
+ el.addEventListener('mouseenter',()=>cursor&&cursor.classList.add('hover'));
+ el.addEventListener('mouseleave',()=>cursor&&cursor.classList.remove('hover'));
+});
+
+// 3D response for presentation cards.
+document.querySelectorAll('.hero-card').forEach(card=>{
+ card.addEventListener('mousemove',e=>{
+   const r=card.getBoundingClientRect();
+   const rx=((e.clientY-r.top)/r.height-.5)*-5,ry=((e.clientX-r.left)/r.width-.5)*7;
+   card.style.transform=`perspective(900px) rotateX(${rx}deg) rotateY(${ry}deg)`;
+ });
+ card.addEventListener('mouseleave',()=>card.style.transform='');
+});
+document.querySelectorAll('.model-card').forEach(card=>{
+ card.addEventListener('mousemove',e=>{
+   const r=card.getBoundingClientRect();
+   card.style.setProperty('--mx',((e.clientX-r.left)/r.width*100)+'%');
+   card.style.setProperty('--my',((e.clientY-r.top)/r.height*100)+'%');
+ });
+});
+
+// Homepage-style mouse-reactive particle field.
+const particleMouse={x:null,y:null,radius:200};
+window.addEventListener('mousemove',e=>{particleMouse.x=e.clientX;particleMouse.y=e.clientY});
+window.addEventListener('mouseout',()=>{particleMouse.x=null;particleMouse.y=null});
 
 const c=document.getElementById("particles"),x=c.getContext("2d");let pts=[];
-function resize(){c.width=innerWidth;c.height=innerHeight;pts=Array.from({length:Math.min(80,Math.floor(innerWidth/18))},()=>({x:Math.random()*c.width,y:Math.random()*c.height,vx:(Math.random()-.5)*.18,vy:(Math.random()-.5)*.18,r:Math.random()*1.3+.3}))}resize();addEventListener("resize",resize);
-(function draw(){x.clearRect(0,0,c.width,c.height);for(const p of pts){p.x+=p.vx;p.y+=p.vy;if(p.x<0||p.x>c.width)p.vx*=-1;if(p.y<0||p.y>c.height)p.vy*=-1;x.beginPath();x.arc(p.x,p.y,p.r,0,Math.PI*2);x.fillStyle="rgba(0,229,255,.25)";x.fill()}requestAnimationFrame(draw)})();
+function resize(){
+ c.width=innerWidth;c.height=innerHeight;
+ pts=Array.from({length:Math.min(150,Math.floor((c.width*c.height)/12000))},()=>({
+  x:Math.random()*c.width,y:Math.random()*c.height,baseX:0,baseY:0,
+  vx:(Math.random()-.5)*.5,vy:(Math.random()-.5)*.5,r:Math.random()*2+.5,
+  density:Math.random()*25+5,opacity:Math.random()*.5+.2
+ })).map(p=>{p.baseX=p.x;p.baseY=p.y;return p});
+}
+resize();addEventListener("resize",resize);
+function updateParticle(p){
+ if(particleMouse.x!=null){
+   const dx=particleMouse.x-p.x,dy=particleMouse.y-p.y,dist=Math.hypot(dx,dy);
+   if(dist<particleMouse.radius&&dist>0){
+     const force=(particleMouse.radius-dist)/particleMouse.radius;
+     const push=force*p.density*.8;
+     p.x+=(dx/dist)*push;p.y+=(dy/dist)*push;
+   }
+ }
+ p.x+=p.vx;p.y+=p.vy;
+ p.x-=(p.x-p.baseX)*.02;p.y-=(p.y-p.baseY)*.02;
+ if(p.x<0)p.x=c.width;if(p.x>c.width)p.x=0;if(p.y<0)p.y=c.height;if(p.y>c.height)p.y=0;
+}
+(function draw(){
+ x.clearRect(0,0,c.width,c.height);
+ pts.forEach(p=>{updateParticle(p);x.beginPath();x.arc(p.x,p.y,p.r,0,Math.PI*2);x.fillStyle=`rgba(0,229,255,${p.opacity})`;x.fill()});
+ for(let i=0;i<pts.length;i++)for(let j=i+1;j<pts.length;j++){
+   const d=Math.hypot(pts[i].x-pts[j].x,pts[i].y-pts[j].y);
+   if(d<100){x.beginPath();x.strokeStyle=`rgba(0,229,255,${(1-d/100)*.15})`;x.moveTo(pts[i].x,pts[i].y);x.lineTo(pts[j].x,pts[j].y);x.stroke()}
+ }
+ requestAnimationFrame(draw);
+})();
 </script>
 </body>
 </html>
