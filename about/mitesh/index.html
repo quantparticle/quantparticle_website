@@ -1,1 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<meta name="robots" content="noindex,nofollow,noarchive">
+<title>QuantParticle | Quant Research Presentation</title>
+<link rel="icon" href="/quant_particle_logo_fevicon.png" type="image/png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+ --bg:#070b14;--surface:#0f1525;--surface2:#141d2e;--text:#e8ecf1;--muted:#8b95a8;
+ --cyan:#00e5ff;--blue:#4f46e5;--purple:#7c3aed;--green:#27ca40;--red:#ff5f56;
+ --border:rgba(255,255,255,.08);--glass:rgba(15,21,37,.72)
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:Inter,system-ui,sans-serif;overflow:hidden}
+button,input{font:inherit}
+.noise{position:fixed;inset:0;pointer-events:none;opacity:.025;z-index:50;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='4' stitchTiles='stitchTiles'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+#particles{position:fixed;inset:0;z-index:0;pointer-events:none}
+.orb{position:fixed;border-radius:50%;filter:blur(110px);opacity:.12;pointer-events:none;z-index:0}.o1{width:420px;height:420px;background:var(--blue);left:-180px;top:10%}.o2{width:360px;height:360px;background:var(--cyan);right:-150px;bottom:5%}
+.lock{position:fixed;inset:0;z-index:9999;display:grid;place-items:center;background:radial-gradient(circle at 50% 25%,rgba(79,70,229,.17),transparent 35%),#070b14;padding:22px}
+.lock.hidden{display:none}.lock-card{width:min(460px,100%);padding:38px;border:1px solid var(--border);border-radius:22px;background:rgba(15,21,37,.82);backdrop-filter:blur(22px);box-shadow:0 30px 90px rgba(0,0,0,.55)}
+.lock-logo{height:58px;max-width:230px;object-fit:contain;margin:0 auto 26px;filter:drop-shadow(0 0 18px rgba(0,229,255,.35))}
+.lock h1{text-align:center;font-size:1.65rem;margin-bottom:9px}.lock p{text-align:center;color:var(--muted);line-height:1.6;margin-bottom:25px;font-size:.92rem}
+.pw{width:100%;padding:15px 16px;border-radius:11px;border:1px solid var(--border);background:#090e19;color:#fff;outline:none;font-family:"JetBrains Mono";margin-bottom:12px}.pw:focus{border-color:var(--cyan);box-shadow:0 0 0 3px rgba(0,229,255,.08)}
+.unlock{width:100%;border:0;border-radius:11px;padding:15px;background:linear-gradient(135deg,var(--cyan),var(--blue));color:#061019;font-weight:800;cursor:pointer}.error{height:20px;color:#ff7b73;text-align:center;font-size:.78rem;margin-top:12px}
+.app{height:100vh;position:relative;z-index:1;display:none}.app.active{display:block}
+.topbar{position:fixed;left:0;right:0;top:0;height:76px;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:0 34px;background:rgba(7,11,20,.72);backdrop-filter:blur(20px);border-bottom:1px solid var(--border)}
+.brand img{height:50px;max-width:210px;object-fit:contain;filter:drop-shadow(0 0 16px rgba(0,229,255,.3))}
+.top-meta{display:flex;align-items:center;gap:14px;font-family:"JetBrains Mono";font-size:.7rem;color:var(--muted);letter-spacing:.8px}.live{width:7px;height:7px;border-radius:50%;background:var(--cyan);box-shadow:0 0 12px var(--cyan);animation:pulse 1.8s infinite}@keyframes pulse{50%{opacity:.35}}
+.deck{height:100vh;position:relative}
+.slide{position:absolute;inset:76px 0 62px;display:grid;place-items:center;padding:44px 6vw;opacity:0;visibility:hidden;transform:translateX(45px);transition:.5s cubic-bezier(.2,.8,.2,1)}
+.slide.active{opacity:1;visibility:visible;transform:none}.slide.prev{transform:translateX(-45px)}
+.wrap{width:min(1220px,100%);margin:auto}
+.eyebrow{font-family:"JetBrains Mono";font-size:.72rem;color:var(--cyan);letter-spacing:3px;text-transform:uppercase;margin-bottom:18px;display:flex;align-items:center;gap:10px}.eyebrow:before{content:"";width:30px;height:1px;background:var(--cyan);box-shadow:0 0 8px var(--cyan)}
+h1{font-size:clamp(2.7rem,6vw,5.8rem);line-height:.98;letter-spacing:-4px;max-width:1000px}h2{font-size:clamp(2rem,4vw,3.6rem);line-height:1.05;letter-spacing:-2px;margin-bottom:20px}.grad{background:linear-gradient(100deg,#fff,var(--cyan),#8d83ff);-webkit-background-clip:text;color:transparent}
+.lead{font-size:clamp(1rem,1.6vw,1.24rem);line-height:1.8;color:var(--muted);max-width:800px;margin-top:25px}
+.hero-grid,.two{display:grid;grid-template-columns:1.15fr .85fr;gap:70px;align-items:center}
+.hero-card,.panel,.model-card,.stat{background:var(--glass);border:1px solid var(--border);backdrop-filter:blur(18px);box-shadow:0 24px 70px rgba(0,0,0,.3)}
+.hero-card{border-radius:20px;padding:24px;position:relative;overflow:hidden}.hero-card:before{content:"";position:absolute;inset:0;background:linear-gradient(135deg,rgba(0,229,255,.07),transparent 42%,rgba(124,58,237,.08));pointer-events:none}
+.terminal-head{display:flex;justify-content:space-between;border-bottom:1px solid var(--border);padding-bottom:16px;margin-bottom:18px;font-family:"JetBrains Mono";font-size:.68rem;color:var(--muted)}.dots{display:flex;gap:7px}.dots i{width:9px;height:9px;border-radius:50%;background:#ff5f56}.dots i:nth-child(2){background:#ffbd2e}.dots i:nth-child(3){background:#27ca40}
+.code{font-family:"JetBrains Mono";font-size:.77rem;line-height:2;color:#a5f3fc}.code .m{color:#768198}.code .v{color:#c4b5fd}.code .g{color:#6ee7b7}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:40px}.stat{padding:22px;border-radius:15px}.stat strong{display:block;font-size:2rem;color:var(--cyan);margin-bottom:5px}.stat span{font-family:"JetBrains Mono";font-size:.68rem;color:var(--muted);text-transform:uppercase;letter-spacing:1px}
+.models{display:grid;grid-template-columns:repeat(3,1fr);gap:15px;margin-top:30px}.model-card{padding:20px;border-radius:14px;min-height:126px;transition:.25s}.model-card:hover{border-color:rgba(0,229,255,.32);transform:translateY(-3px)}.model-card small{font-family:"JetBrains Mono";color:var(--cyan);font-size:.63rem;letter-spacing:1px}.model-card h3{font-size:1rem;margin:9px 0 6px}.model-card p{font-size:.78rem;color:var(--muted);line-height:1.5}
+.pipeline{display:flex;align-items:center;justify-content:center;gap:12px;margin-top:42px;flex-wrap:wrap}.node{padding:17px 19px;border:1px solid var(--border);border-radius:12px;background:var(--glass);font-family:"JetBrains Mono";font-size:.72rem;min-width:135px;text-align:center}.arrow{color:var(--cyan);font-size:1.25rem}
+.big-number{font-size:clamp(5rem,13vw,10rem);font-weight:900;letter-spacing:-8px;line-height:.8;background:linear-gradient(135deg,#fff,var(--cyan),var(--blue));-webkit-background-clip:text;color:transparent}.big-caption{font-family:"JetBrains Mono";color:var(--muted);font-size:.9rem;margin-top:25px;letter-spacing:2px}
+.list{display:grid;gap:13px;margin-top:26px}.li{padding:15px 17px;border-left:2px solid var(--cyan);background:linear-gradient(90deg,rgba(0,229,255,.06),transparent);color:#b9c2d0;line-height:1.55}.li b{color:#fff}
+.radar{width:min(430px,100%);aspect-ratio:1;border:1px solid var(--border);border-radius:50%;margin:auto;position:relative;background:repeating-radial-gradient(circle,transparent 0 55px,rgba(255,255,255,.05) 56px),linear-gradient(rgba(0,229,255,.02),rgba(79,70,229,.03));box-shadow:inset 0 0 60px rgba(0,229,255,.04)}
+.radar:before,.radar:after{content:"";position:absolute;background:rgba(255,255,255,.06)}.radar:before{left:50%;top:0;bottom:0;width:1px}.radar:after{top:50%;left:0;right:0;height:1px}.sweep{position:absolute;inset:8%;border-radius:50%;background:conic-gradient(from 0deg,transparent 0 315deg,rgba(0,229,255,.18) 350deg,rgba(0,229,255,.45));animation:spin 5s linear infinite}@keyframes spin{to{transform:rotate(360deg)}}.dot{position:absolute;width:9px;height:9px;border-radius:50%;background:var(--cyan);box-shadow:0 0 18px var(--cyan)}.d1{left:30%;top:28%}.d2{right:23%;top:42%}.d3{left:44%;bottom:22%}.d4{right:37%;top:19%}
+.vision{display:grid;grid-template-columns:repeat(4,1fr);gap:15px;margin-top:35px}.vision .panel{border-radius:15px;padding:22px}.vision .n{font-family:"JetBrains Mono";color:var(--cyan);font-size:.7rem}.vision h3{font-size:1rem;margin:12px 0 7px}.vision p{font-size:.78rem;color:var(--muted);line-height:1.55}
+.note{font-size:.72rem;color:#6f7a8e;margin-top:24px;max-width:900px;line-height:1.6}
+.controls{position:fixed;bottom:0;left:0;right:0;height:62px;z-index:120;background:rgba(7,11,20,.82);backdrop-filter:blur(18px);border-top:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;padding:0 34px}
+.progress{position:absolute;left:0;top:-1px;height:2px;background:linear-gradient(90deg,var(--cyan),var(--blue));transition:.35s}.counter{font-family:"JetBrains Mono";font-size:.7rem;color:var(--muted)}.navbtns{display:flex;gap:8px}.navbtn{width:40px;height:36px;border:1px solid var(--border);background:var(--surface);color:#fff;border-radius:9px;cursor:pointer}.navbtn:hover{border-color:var(--cyan);color:var(--cyan)}
+.hint{font-family:"JetBrains Mono";font-size:.64rem;color:#606b7d}
+@media(max-width:900px){.slide{padding:30px 24px;overflow:auto;align-items:start}.hero-grid,.two{grid-template-columns:1fr;gap:28px}.hero-card,.radar{display:none}.models{grid-template-columns:1fr 1fr}.vision{grid-template-columns:1fr 1fr}.stats{grid-template-columns:1fr 1fr}.stats .stat:last-child{grid-column:1/-1}.topbar{padding:0 20px}.top-meta{display:none}.controls{padding:0 20px}.hint{display:none}h1{letter-spacing:-2px}}
+@media(max-width:560px){.models,.vision{grid-template-columns:1fr}.slide{inset:76px 0 62px}.big-number{letter-spacing:-4px}.pipeline{justify-content:flex-start}.arrow{transform:rotate(90deg)}}
+</style>
+</head>
+<body>
+<div class="noise"></div><canvas id="particles"></canvas><div class="orb o1"></div><div class="orb o2"></div>
 
+<div class="lock" id="lock">
+ <div class="lock-card">
+   <img class="lock-logo" src="/quant_particle_logo.png" onerror="this.src='/quant_particle_logo_fevicon.png'" alt="QuantParticle">
+   <h1>Private Presentation</h1>
+   <p>QuantParticle quantitative research & retail algorithmic infrastructure overview.</p>
+   <form id="loginForm">
+     <input class="pw" id="password" type="password" autocomplete="current-password" placeholder="Enter access password" autofocus>
+     <button class="unlock" type="submit">Unlock Presentation →</button>
+     <div class="error" id="error"></div>
+   </form>
+ </div>
+</div>
+
+<div class="app" id="app">
+<header class="topbar">
+ <div class="brand"><img src="/quant_particle_logo.png" onerror="this.src='/quant_particle_logo_fevicon.png'" alt="QuantParticle"></div>
+ <div class="top-meta"><span class="live"></span> PRIVATE RESEARCH PRESENTATION <span>•</span> QUANTPARTICLE</div>
+</header>
+
+<main class="deck">
+<section class="slide active">
+ <div class="wrap hero-grid">
+  <div>
+   <div class="eyebrow">Quantitative Trading. Engineered.</div>
+   <h1>Researching the mathematics behind <span class="grad">modern markets.</span></h1>
+   <p class="lead">QuantParticle is building a quantitative research ecosystem focused on systematic strategies, statistical models, market microstructure and execution technology—with a long-term objective of bringing institutional-style algorithmic infrastructure to global retail traders.</p>
+   <div class="stats"><div class="stat"><strong>1200+</strong><span>Quant strategy concepts</span></div><div class="stat"><strong>Multi-Asset</strong><span>Research direction</span></div><div class="stat"><strong>Global</strong><span>Platform vision</span></div></div>
+  </div>
+  <div class="hero-card">
+   <div class="terminal-head"><div class="dots"><i></i><i></i><i></i></div><span>QP_RESEARCH_ENGINE</span><span>LIVE</span></div>
+   <div class="code"><span class="m"># model research stack</span><br>volatility = <span class="v">GARCH(1,1)</span><br>regime = <span class="v">BayesianFilter()</span><br>mean_rev = <span class="v">OrnsteinUhlenbeck()</span><br>features = <span class="v">PCA + LASSO</span><br>microstructure = <span class="v">OrderFlow()</span><br>quotes = <span class="v">AvellanedaStoikov()</span><br><br><span class="g">research → test → validate → deploy</span></div>
+  </div>
+ </div>
+</section>
+
+<section class="slide">
+ <div class="wrap two">
+  <div><div class="eyebrow">Research Library</div><div class="big-number">1200+</div><div class="big-caption">QUANT-BASED STRATEGY & MODEL CONCEPTS</div><p class="lead">Our research library spans momentum, mean reversion, volatility, statistical inference, regime detection, market microstructure, signal processing, machine learning and execution logic.</p><p class="note">“1200+” represents QuantParticle's internal strategy/model research library and should not be interpreted as 1,200 independently validated or production-deployed trading systems.</p></div>
+  <div class="radar"><div class="sweep"></div><i class="dot d1"></i><i class="dot d2"></i><i class="dot d3"></i><i class="dot d4"></i></div>
+ </div>
+</section>
+
+<section class="slide">
+ <div class="wrap">
+  <div class="eyebrow">Core Research Areas</div><h2>From volatility modelling to <span class="grad">market microstructure.</span></h2>
+  <div class="models">
+   <div class="model-card"><small>VOLATILITY</small><h3>GARCH Family</h3><p>Conditional volatility estimation, adaptive exits, risk bands and volatility-aware signal logic.</p></div>
+   <div class="model-card"><small>STOCHASTIC PROCESS</small><h3>Ornstein–Uhlenbeck</h3><p>Mean-reversion modelling for deviations, spreads and normalized price processes.</p></div>
+   <div class="model-card"><small>MARKET MAKING</small><h3>Avellaneda–Stoikov</h3><p>Inventory-aware quoting and spread logic studied for market-making research.</p></div>
+   <div class="model-card"><small>REGIME</small><h3>Bayesian Filters</h3><p>Probabilistic state and regime inference for changing market environments.</p></div>
+   <div class="model-card"><small>DIMENSIONALITY</small><h3>PCA</h3><p>Dominant component extraction and compression of correlated market features.</p></div>
+   <div class="model-card"><small>SPARSE MODELS</small><h3>LASSO Regression</h3><p>Feature selection and regularized modelling for signal research.</p></div>
+   <div class="model-card"><small>SIGNAL PROCESSING</small><h3>Hilbert / DSP</h3><p>Cycle, phase, denoising and transformed-signal research.</p></div>
+   <div class="model-card"><small>MICROSTRUCTURE</small><h3>Order Flow</h3><p>Liquidity, imbalance, informativeness and short-horizon market behaviour.</p></div>
+   <div class="model-card"><small>ML RESEARCH</small><h3>Tree & Kernel Models</h3><p>Machine-learning signals, nonlinear relationships and model-combination research.</p></div>
+  </div>
+ </div>
+</section>
+
+<section class="slide">
+ <div class="wrap two">
+  <div>
+   <div class="eyebrow">Volatility Research</div><h2>GARCH as a dynamic <span class="grad">risk & exit layer.</span></h2>
+   <p class="lead">We are researching volatility-responsive systems where exits and risk logic adapt to changing market conditions rather than relying only on static distances.</p>
+   <div class="list"><div class="li"><b>Conditional volatility:</b> model changing variance instead of assuming constant volatility.</div><div class="li"><b>Adaptive trailing:</b> investigate volatility-scaled stop and trail distances.</div><div class="li"><b>Parameter research:</b> compare alpha, beta and multiplier combinations across instruments and regimes.</div><div class="li"><b>Risk objective:</b> reduce uncontrolled tail losses while preserving room for profitable movement.</div></div>
+  </div>
+  <div class="hero-card"><div class="terminal-head"><span>GARCH_RESEARCH</span><span>σ²(t)</span></div><div class="code"><span class="m"># conceptual representation</span><br>σ²ₜ = ω + αε²ₜ₋₁ + βσ²ₜ₋₁<br><br>trail_distance = k × σₜ<br>risk_state = f(σₜ, regime)<br><br><span class="g">adaptive volatility layer</span><br><span class="m">not a performance guarantee</span></div></div>
+ </div>
+</section>
+
+<section class="slide">
+ <div class="wrap">
+  <div class="eyebrow">Research Architecture</div><h2>A systematic pipeline from <span class="grad">idea to execution.</span></h2>
+  <p class="lead">The goal is not simply to generate indicators. Each research idea can move through a structured process designed around data, modelling, testing, risk controls and deployment.</p>
+  <div class="pipeline"><div class="node">MARKET DATA</div><div class="arrow">→</div><div class="node">FEATURES</div><div class="arrow">→</div><div class="node">MODEL</div><div class="arrow">→</div><div class="node">SIGNAL</div><div class="arrow">→</div><div class="node">RISK</div><div class="arrow">→</div><div class="node">EXECUTION</div></div>
+  <div class="stats"><div class="stat"><strong>01</strong><span>Research hypothesis</span></div><div class="stat"><strong>02</strong><span>Back / forward testing</span></div><div class="stat"><strong>03</strong><span>Deployment controls</span></div></div>
+ </div>
+</section>
+
+<section class="slide">
+ <div class="wrap two">
+  <div>
+   <div class="eyebrow">Execution & Microstructure</div><h2>Research beyond <span class="grad">buy and sell signals.</span></h2>
+   <p class="lead">QuantParticle also explores the mechanics surrounding execution—liquidity, order flow, spreads, inventory, latency-aware architecture and broker/API connectivity.</p>
+   <div class="list"><div class="li">Order-flow informativeness and liquidity behaviour</div><div class="li">Market-making and inventory-aware quote research</div><div class="li">Microstructure regime classification</div><div class="li">Execution, slippage and transaction-cost awareness</div><div class="li">Broker/API connectivity for retail automation</div></div>
+  </div>
+  <div class="radar"><div class="sweep"></div><i class="dot d1"></i><i class="dot d2"></i><i class="dot d3"></i><i class="dot d4"></i></div>
+ </div>
+</section>
+
+<section class="slide">
+ <div class="wrap">
+  <div class="eyebrow">Technology Direction</div><h2>One research layer. <span class="grad">Multiple execution environments.</span></h2>
+  <div class="models">
+   <div class="model-card"><small>RESEARCH</small><h3>Python</h3><p>Quant research, model testing, analytics, data pipelines and strategy services.</p></div>
+   <div class="model-card"><small>CHARTING</small><h3>TradingView</h3><p>Signal visualization, alert generation and strategy prototyping.</p></div>
+   <div class="model-card"><small>EXECUTION</small><h3>MetaTrader 5</h3><p>Expert Advisors and automated strategy execution for supported markets.</p></div>
+   <div class="model-card"><small>DESKTOP QUANT</small><h3>AmiBroker / MultiCharts</h3><p>Strategy research and implementation across established quantitative platforms.</p></div>
+   <div class="model-card"><small>CONNECTIVITY</small><h3>Broker APIs</h3><p>User-authorized connectivity for order routing, positions and live account data.</p></div>
+   <div class="model-card"><small>PLATFORM</small><h3>Web Infrastructure</h3><p>Dashboards, strategy deployment, controls, logs and user-facing automation.</p></div>
+  </div>
+ </div>
+</section>
+
+<section class="slide">
+ <div class="wrap">
+  <div class="eyebrow">The Vision</div><h2>Building toward a <span class="grad">global retail algo platform.</span></h2>
+  <p class="lead">Our long-term direction is to make systematic trading infrastructure easier to access: connect a supported broker, select or configure a strategy, control risk, deploy automation and monitor activity from a unified environment.</p>
+  <div class="vision">
+   <div class="panel"><div class="n">01 / CONNECT</div><h3>Broker Connectivity</h3><p>Secure, user-authorized API connections across supported brokers and markets.</p></div>
+   <div class="panel"><div class="n">02 / SELECT</div><h3>Strategy Layer</h3><p>Research-driven systems with transparent configuration and deployment controls.</p></div>
+   <div class="panel"><div class="n">03 / EXECUTE</div><h3>Automation Engine</h3><p>Signal-to-order infrastructure designed for reliable retail execution workflows.</p></div>
+   <div class="panel"><div class="n">04 / CONTROL</div><h3>Risk Dashboard</h3><p>Positions, P&L, logs, exits and kill-switch controls in one interface.</p></div>
+  </div>
+ </div>
+</section>
+
+<section class="slide">
+ <div class="wrap two">
+  <div><div class="eyebrow">Why QuantParticle</div><h2>Research depth meets <span class="grad">product engineering.</span></h2><div class="list"><div class="li"><b>Broad research library:</b> 1200+ quantitative strategy/model concepts under exploration.</div><div class="li"><b>Multi-model thinking:</b> volatility, regimes, mean reversion, ML, signal processing and microstructure.</div><div class="li"><b>Multi-platform implementation:</b> research translated into practical trading environments.</div><div class="li"><b>Retail infrastructure focus:</b> bridging sophisticated research with usable automation.</div><div class="li"><b>Global ambition:</b> platform architecture designed with multi-broker and multi-market expansion in mind.</div></div></div>
+  <div class="hero-card"><div class="terminal-head"><span>QUANTPARTICLE</span><span>ROADMAP</span></div><div class="code">RESEARCH      <span class="g">██████████</span><br>MODELS        <span class="g">████████░░</span><br>EXECUTION     <span class="v">███████░░░</span><br>RETAIL STACK  <span class="v">██████░░░░</span><br>GLOBAL SCALE  <span class="m">████░░░░░░</span><br><br><span class="m">status: continuous development</span></div></div>
+ </div>
+</section>
+
+<section class="slide">
+ <div class="wrap">
+  <div class="eyebrow">Research Principles</div><h2>Built around testing, <span class="grad">not promises.</span></h2>
+  <div class="vision">
+   <div class="panel"><div class="n">A</div><h3>Hypothesis First</h3><p>Start with a measurable market hypothesis rather than a visually attractive signal.</p></div>
+   <div class="panel"><div class="n">B</div><h3>Validation</h3><p>Backtests are only one layer; forward testing, robustness and costs matter.</p></div>
+   <div class="panel"><div class="n">C</div><h3>Risk Engineering</h3><p>Position management, exits and drawdown control are part of the model design.</p></div>
+   <div class="panel"><div class="n">D</div><h3>Iteration</h3><p>Models are researched, challenged, revised and discarded when evidence does not hold.</p></div>
+  </div>
+  <p class="note">Quantitative research is experimental. Historical or simulated results do not guarantee future performance. Any future retail product should include jurisdiction-appropriate disclosures, broker/API permissions and regulatory/compliance review.</p>
+ </div>
+</section>
+
+<section class="slide">
+ <div class="wrap">
+  <div class="eyebrow">QuantParticle</div><h1>Engineering the next layer of <span class="grad">retail quantitative trading.</span></h1>
+  <p class="lead">1200+ research concepts. Statistical and mathematical models. Execution technology. One direction: a scalable algorithmic trading ecosystem for retail participants across global markets.</p>
+  <div class="stats"><div class="stat"><strong>Research</strong><span>Mathematics + markets</span></div><div class="stat"><strong>Build</strong><span>Models + infrastructure</span></div><div class="stat"><strong>Scale</strong><span>Retail + global</span></div></div>
+  <p class="note">Private presentation • QuantParticle • For discussion and technology overview purposes only.</p>
+ </div>
+</section>
+</main>
+
+<footer class="controls">
+ <div class="progress" id="progress"></div><div class="counter" id="counter">01 / 10</div>
+ <div class="hint">← → ARROW KEYS &nbsp;•&nbsp; SPACE TO ADVANCE</div>
+ <div class="navbtns"><button class="navbtn" id="prev" aria-label="Previous slide">←</button><button class="navbtn" id="next" aria-label="Next slide">→</button></div>
+</footer>
+</div>
+
+<script>
+const PASSWORD="Mitesh@1010";
+const lock=document.getElementById("lock"),app=document.getElementById("app"),form=document.getElementById("loginForm"),pw=document.getElementById("password"),err=document.getElementById("error");
+form.addEventListener("submit",e=>{e.preventDefault();if(pw.value===PASSWORD){sessionStorage.setItem("qp_access","1");lock.classList.add("hidden");app.classList.add("active")}else{err.textContent="Incorrect password. Please try again.";pw.select()}});
+if(sessionStorage.getItem("qp_access")==="1"){lock.classList.add("hidden");app.classList.add("active")}
+const slides=[...document.querySelectorAll(".slide")],counter=document.getElementById("counter"),progress=document.getElementById("progress");let current=0;
+function show(n){const old=current;current=(n+slides.length)%slides.length;slides.forEach((s,i)=>{s.classList.remove("active","prev");if(i===old&&old!==current)s.classList.add("prev")});slides[current].classList.add("active");counter.textContent=String(current+1).padStart(2,"0")+" / "+String(slides.length).padStart(2,"0");progress.style.width=((current+1)/slides.length*100)+"%"}
+document.getElementById("next").onclick=()=>show(current+1);document.getElementById("prev").onclick=()=>show(current-1);
+document.addEventListener("keydown",e=>{if(!app.classList.contains("active"))return;if(["ArrowRight","PageDown"," "].includes(e.key)){e.preventDefault();show(current+1)}if(["ArrowLeft","PageUp"].includes(e.key)){e.preventDefault();show(current-1)}if(e.key==="Home")show(0);if(e.key==="End")show(slides.length-1)});
+let touchX=0;document.addEventListener("touchstart",e=>touchX=e.changedTouches[0].screenX,{passive:true});document.addEventListener("touchend",e=>{let d=e.changedTouches[0].screenX-touchX;if(Math.abs(d)>55)show(current+(d<0?1:-1))},{passive:true});
+const c=document.getElementById("particles"),x=c.getContext("2d");let pts=[];
+function resize(){c.width=innerWidth;c.height=innerHeight;pts=Array.from({length:Math.min(80,Math.floor(innerWidth/18))},()=>({x:Math.random()*c.width,y:Math.random()*c.height,vx:(Math.random()-.5)*.18,vy:(Math.random()-.5)*.18,r:Math.random()*1.3+.3}))}resize();addEventListener("resize",resize);
+(function draw(){x.clearRect(0,0,c.width,c.height);for(const p of pts){p.x+=p.vx;p.y+=p.vy;if(p.x<0||p.x>c.width)p.vx*=-1;if(p.y<0||p.y>c.height)p.vy*=-1;x.beginPath();x.arc(p.x,p.y,p.r,0,Math.PI*2);x.fillStyle="rgba(0,229,255,.25)";x.fill()}requestAnimationFrame(draw)})();
+</script>
+</body>
+</html>
