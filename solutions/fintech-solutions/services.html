@@ -359,7 +359,7 @@ body{position:relative}
 </footer>
 </div>
 <script>
-const PASSWORD="Mitesh@1010";
+const PASSWORD="makeithappen";
 const lock=document.getElementById("lock"),app=document.getElementById("app"),form=document.getElementById("loginForm"),pw=document.getElementById("password"),err=document.getElementById("error");
 form.addEventListener("submit",e=>{e.preventDefault();if(pw.value===PASSWORD){sessionStorage.setItem("qp_access","1");lock.classList.add("hidden");app.classList.add("active");initAnimations()}else{err.textContent="Incorrect password. Please try again.";pw.select()}});
 if(sessionStorage.getItem("qp_access")==="1"){lock.classList.add("hidden");app.classList.add("active");setTimeout(initAnimations,100)}
