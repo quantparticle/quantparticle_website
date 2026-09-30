@@ -1,1 +1,925 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<meta name="robots" content="noindex,nofollow,noarchive">
+<title>QuantParticle | Quant Research Presentation</title>
+<link rel="icon" href="/quant_particle_logo_fevicon.png" type="image/png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+ --bg:#070b14;--surface:#0f1525;--surface2:#141d2e;--text:#e8ecf1;--muted:#8b95a8;
+ --cyan:#00e5ff;--blue:#4f46e5;--purple:#7c3aed;--green:#27ca40;--red:#ff5f56;
+ --border:rgba(255,255,255,.08);--glass:rgba(15,21,37,.72)
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:Inter,system-ui,sans-serif;overflow:hidden}
+button,input{font:inherit}
+.noise{position:fixed;inset:0;pointer-events:none;opacity:.025;z-index:50;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='4' stitchTiles='stitchTiles'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+#particles{position:fixed;inset:0;z-index:0;pointer-events:none}
+.orb{position:fixed;border-radius:50%;filter:blur(110px);opacity:.12;pointer-events:none;z-index:0}.o1{width:420px;height:420px;background:var(--blue);left:-180px;top:10%}.o2{width:360px;height:360px;background:var(--cyan);right:-150px;bottom:5%}
+.lock{position:fixed;inset:0;z-index:9999;display:grid;place-items:center;background:radial-gradient(circle at 50% 25%,rgba(79,70,229,.17),transparent 35%),#070b14;padding:22px}
+.lock.hidden{display:none}.lock-card{width:min(460px,100%);padding:38px;border:1px solid var(--border);border-radius:22px;background:rgba(15,21,37,.82);backdrop-filter:blur(22px);box-shadow:0 30px 90px rgba(0,0,0,.55)}
+.lock-logo{height:58px;max-width:230px;object-fit:contain;margin:0 auto 26px;filter:drop-shadow(0 0 18px rgba(0,229,255,.35))}
+.lock h1{text-align:center;font-size:1.65rem;margin-bottom:9px}.lock p{text-align:center;color:var(--muted);line-height:1.6;margin-bottom:25px;font-size:.92rem}
+.pw{width:100%;padding:15px 16px;border-radius:11px;border:1px solid var(--border);background:#090e19;color:#fff;outline:none;font-family:"JetBrains Mono";margin-bottom:12px}.pw:focus{border-color:var(--cyan);box-shadow:0 0 0 3px rgba(0,229,255,.08)}
+.unlock{width:100%;border:0;border-radius:11px;padding:15px;background:linear-gradient(135deg,var(--cyan),var(--blue));color:#061019;font-weight:800;cursor:pointer}.error{height:20px;color:#ff7b73;text-align:center;font-size:.78rem;margin-top:12px}
+.app{height:100vh;position:relative;z-index:1;display:none}.app.active{display:block}
+.topbar{position:fixed;left:0;right:0;top:0;height:76px;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:0 34px;background:rgba(7,11,20,.72);backdrop-filter:blur(20px);border-bottom:1px solid var(--border)}
+.brand img{height:50px;max-width:210px;object-fit:contain;filter:drop-shadow(0 0 16px rgba(0,229,255,.3))}
+.top-meta{display:flex;align-items:center;gap:14px;font-family:"JetBrains Mono";font-size:.7rem;color:var(--muted);letter-spacing:.8px}.live{width:7px;height:7px;border-radius:50%;background:var(--cyan);box-shadow:0 0 12px var(--cyan);animation:pulse 1.8s infinite}@keyframes pulse{50%{opacity:.35}}
+.deck{height:100vh;position:relative}
+.slide{position:absolute;inset:76px 0 62px;display:grid;place-items:center;padding:44px 6vw;opacity:0;visibility:hidden;transform:translateX(45px);transition:.5s cubic-bezier(.2,.8,.2,1)}
+.slide.active{opacity:1;visibility:visible;transform:none}.slide.prev{transform:translateX(-45px)}
+.wrap{width:min(1220px,100%);margin:auto;position:relative;z-index:2}
+.eyebrow{font-family:"JetBrains Mono";font-size:.72rem;color:var(--cyan);letter-spacing:3px;text-transform:uppercase;margin-bottom:18px;display:flex;align-items:center;gap:10px}.eyebrow:before{content:"";width:30px;height:1px;background:var(--cyan);box-shadow:0 0 8px var(--cyan)}
+h1{font-size:clamp(2.7rem,6vw,5.8rem);line-height:.98;letter-spacing:-4px;max-width:1000px}h2{font-size:clamp(2rem,4vw,3.6rem);line-height:1.05;letter-spacing:-2px;margin-bottom:20px}.grad{background:linear-gradient(100deg,#fff,var(--cyan),#8d83ff);-webkit-background-clip:text;color:transparent}
+.lead{font-size:clamp(1rem,1.6vw,1.24rem);line-height:1.8;color:var(--muted);max-width:800px;margin-top:25px}
+.hero-grid,.two{display:grid;grid-template-columns:1.15fr .85fr;gap:70px;align-items:center}
+.hero-card,.panel,.model-card,.stat{background:var(--glass);border:1px solid var(--border);backdrop-filter:blur(18px);box-shadow:0 24px 70px rgba(0,0,0,.3)}
+.hero-card{border-radius:20px;padding:24px;position:relative;overflow:hidden}.hero-card:before{content:"";position:absolute;inset:0;background:linear-gradient(135deg,rgba(0,229,255,.07),transparent 42%,rgba(124,58,237,.08));pointer-events:none}
+.terminal-head{display:flex;justify-content:space-between;border-bottom:1px solid var(--border);padding-bottom:16px;margin-bottom:18px;font-family:"JetBrains Mono";font-size:.68rem;color:var(--muted)}.dots{display:flex;gap:7px}.dots i{width:9px;height:9px;border-radius:50%;background:#ff5f56}.dots i:nth-child(2){background:#ffbd2e}.dots i:nth-child(3){background:#27ca40}
+.code{font-family:"JetBrains Mono";font-size:.77rem;line-height:2;color:#a5f3fc}.code .m{color:#768198}.code .v{color:#c4b5fd}.code .g{color:#6ee7b7}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:40px}.stat{padding:22px;border-radius:15px}.stat strong{display:block;font-size:2rem;color:var(--cyan);margin-bottom:5px}.stat span{font-family:"JetBrains Mono";font-size:.68rem;color:var(--muted);text-transform:uppercase;letter-spacing:1px}
+.models{display:grid;grid-template-columns:repeat(3,1fr);gap:15px;margin-top:30px}.model-card{padding:20px;border-radius:14px;min-height:126px;transition:.25s;position:relative;overflow:hidden}.model-card:hover{border-color:rgba(0,229,255,.32);transform:translateY(-3px)}.model-card small{font-family:"JetBrains Mono";color:var(--cyan);font-size:.63rem;letter-spacing:1px}.model-card h3{font-size:1rem;margin:9px 0 6px}.model-card p{font-size:.78rem;color:var(--muted);line-height:1.5}
+.pipeline{display:flex;align-items:center;justify-content:center;gap:12px;margin-top:42px;flex-wrap:wrap;position:relative}.node{padding:17px 19px;border:1px solid var(--border);border-radius:12px;background:var(--glass);font-family:"JetBrains Mono";font-size:.72rem;min-width:135px;text-align:center;position:relative;overflow:hidden}.arrow{color:var(--cyan);font-size:1.25rem}
+.big-number{font-size:clamp(5rem,13vw,10rem);font-weight:900;letter-spacing:-8px;line-height:.8;background:linear-gradient(135deg,#fff,var(--cyan),var(--blue));-webkit-background-clip:text;color:transparent}.big-caption{font-family:"JetBrains Mono";color:var(--muted);font-size:.9rem;margin-top:25px;letter-spacing:2px}
+.list{display:grid;gap:13px;margin-top:26px}.li{padding:15px 17px;border-left:2px solid var(--cyan);background:linear-gradient(90deg,rgba(0,229,255,.06),transparent);color:#b9c2d0;line-height:1.55}.li b{color:#fff}
+.radar{width:min(430px,100%);aspect-ratio:1;border:1px solid var(--border);border-radius:50%;margin:auto;position:relative;background:repeating-radial-gradient(circle,transparent 0 55px,rgba(255,255,255,.05) 56px),linear-gradient(rgba(0,229,255,.02),rgba(79,70,229,.03));box-shadow:inset 0 0 60px rgba(0,229,255,.04)}
+.radar:before,.radar:after{content:"";position:absolute;background:rgba(255,255,255,.06)}.radar:before{left:50%;top:0;bottom:0;width:1px}.radar:after{top:50%;left:0;right:0;height:1px}.sweep{position:absolute;inset:8%;border-radius:50%;background:conic-gradient(from 0deg,transparent 0 315deg,rgba(0,229,255,.18) 350deg,rgba(0,229,255,.45));animation:spin 5s linear infinite}@keyframes spin{to{transform:rotate(360deg)}}.dot{position:absolute;width:9px;height:9px;border-radius:50%;background:var(--cyan);box-shadow:0 0 18px var(--cyan)}.d1{left:30%;top:28%}.d2{right:23%;top:42%}.d3{left:44%;bottom:22%}.d4{right:37%;top:19%}
+.vision{display:grid;grid-template-columns:repeat(4,1fr);gap:15px;margin-top:35px}.vision .panel{border-radius:15px;padding:22px;position:relative;overflow:hidden}.vision .n{font-family:"JetBrains Mono";color:var(--cyan);font-size:.7rem}.vision h3{font-size:1rem;margin:12px 0 7px}.vision p{font-size:.78rem;color:var(--muted);line-height:1.55}
+.note{font-size:.72rem;color:#6f7a8e;margin-top:24px;max-width:900px;line-height:1.6}
+.controls{position:fixed;bottom:0;left:0;right:0;height:62px;z-index:120;background:rgba(7,11,20,.82);backdrop-filter:blur(18px);border-top:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;padding:0 34px}
+.progress{position:absolute;left:0;top:-1px;height:2px;background:linear-gradient(90deg,var(--cyan),var(--blue));transition:.35s}.counter{font-family:"JetBrains Mono";font-size:.7rem;color:var(--muted)}.navbtns{display:flex;gap:8px}.navbtn{width:40px;height:36px;border:1px solid var(--border);background:var(--surface);color:#fff;border-radius:9px;cursor:pointer}.navbtn:hover{border-color:var(--cyan);color:var(--cyan)}
+.hint{font-family:"JetBrains Mono";font-size:.64rem;color:#606b7d}
 
+/* ===== Cursor ===== */
+.cursor-glow{position:fixed;width:20px;height:20px;border:2px solid var(--cyan);border-radius:50%;pointer-events:none;z-index:99999;transform:translate(-50%,-50%);transition:width .2s,height .2s,background .2s;mix-blend-mode:difference}
+.cursor-glow.hover{width:50px;height:50px;background:rgba(0,229,255,.1)}
+.cursor-trail{position:fixed;width:6px;height:6px;background:var(--cyan);border-radius:50%;pointer-events:none;z-index:99998;transform:translate(-50%,-50%);opacity:.5;transition:opacity .5s}
+
+/* ===== Entrance animations ===== */
+.slide.active .eyebrow{animation:slideUp .65s .04s both}
+.slide.active h1,.slide.active h2,.slide.active .big-number{animation:slideUp .78s .12s both}
+.slide.active .lead,.slide.active .big-caption{animation:slideUp .72s .23s both}
+.slide.active .note{animation:fadeUp .65s .68s both}
+.slide.active .hero-card{animation:cardIn .9s .2s both}
+.slide.active .radar{animation:scaleIn .9s .24s both}
+.slide.active .stat{animation:fadeUp .62s both}
+.slide.active .stat:nth-child(1){animation-delay:.32s}.slide.active .stat:nth-child(2){animation-delay:.42s}.slide.active .stat:nth-child(3){animation-delay:.52s}
+.slide.active .model-card{animation:fadeUp .58s both}
+.slide.active .model-card:nth-child(1){animation-delay:.16s}.slide.active .model-card:nth-child(2){animation-delay:.22s}.slide.active .model-card:nth-child(3){animation-delay:.28s}.slide.active .model-card:nth-child(4){animation-delay:.34s}.slide.active .model-card:nth-child(5){animation-delay:.40s}.slide.active .model-card:nth-child(6){animation-delay:.46s}.slide.active .model-card:nth-child(7){animation-delay:.52s}.slide.active .model-card:nth-child(8){animation-delay:.58s}.slide.active .model-card:nth-child(9){animation-delay:.64s}
+.slide.active .li{animation:fromLeft .58s both}
+.slide.active .li:nth-child(1){animation-delay:.27s}.slide.active .li:nth-child(2){animation-delay:.35s}.slide.active .li:nth-child(3){animation-delay:.43s}.slide.active .li:nth-child(4){animation-delay:.51s}.slide.active .li:nth-child(5){animation-delay:.59s}
+.slide.active .vision .panel{animation:fadeUp .62s both}
+.slide.active .vision .panel:nth-child(1){animation-delay:.24s}.slide.active .vision .panel:nth-child(2){animation-delay:.34s}.slide.active .vision .panel:nth-child(3){animation-delay:.44s}.slide.active .vision .panel:nth-child(4){animation-delay:.54s}
+@keyframes slideUp{from{opacity:0;transform:translateY(34px);filter:blur(7px)}to{opacity:1;transform:none;filter:none}}
+@keyframes fadeUp{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:none}}
+@keyframes fromLeft{from{opacity:0;transform:translateX(-28px)}to{opacity:1;transform:none}}
+@keyframes cardIn{from{opacity:0;transform:translateX(42px) rotateY(-5deg) scale(.97)}to{opacity:1;transform:none}}
+@keyframes scaleIn{from{opacity:0;transform:scale(.82)}to{opacity:1;transform:scale(1)}}
+
+/* ===== Slide FX Containers ===== */
+.slide-fx{position:absolute;inset:0;overflow:hidden;pointer-events:none;z-index:0}
+
+/* ===== SLIDE 1: Logo with attracting particles ===== */
+.logo-particles-container{position:relative;width:300px;height:300px;margin:0 auto}
+.logo-center{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:180px;height:180px;display:grid;place-items:center}
+.logo-center img{width:100%;height:100%;object-fit:contain;filter:drop-shadow(0 0 30px rgba(0,229,255,.5));animation:logoFloat 3s ease-in-out infinite}
+@keyframes logoFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
+.logo-ring{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);border:1px solid rgba(0,229,255,.2);border-radius:50%}
+.logo-ring.r1{width:200px;height:200px;animation:ringPulse 2s ease-in-out infinite}
+.logo-ring.r2{width:240px;height:240px;animation:ringPulse 2s ease-in-out infinite .5s;border-color:rgba(124,58,237,.15)}
+.logo-ring.r3{width:280px;height:280px;animation:ringPulse 2s ease-in-out infinite 1s;border-color:rgba(0,229,255,.1)}
+@keyframes ringPulse{0%,100%{transform:translate(-50%,-50%) scale(1);opacity:.5}50%{transform:translate(-50%,-50%) scale(1.05);opacity:1}}
+.orbit-particle{position:absolute;width:6px;height:6px;background:var(--cyan);border-radius:50%;box-shadow:0 0 10px var(--cyan);animation:orbitParticle 4s linear infinite}
+@keyframes orbitParticle{from{transform:rotate(0deg) translateX(140px) rotate(0deg)}to{transform:rotate(360deg) translateX(140px) rotate(-360deg)}}
+.attract-particle{position:absolute;width:4px;height:4px;background:rgba(0,229,255,.6);border-radius:50%;animation:attractToLogo 3s ease-in-out infinite}
+@keyframes attractToLogo{0%{transform:translate(var(--sx),var(--sy)) scale(1);opacity:0}20%{opacity:1}80%{transform:translate(0,0) scale(.3);opacity:.8}100%{transform:translate(0,0) scale(0);opacity:0}}
+
+/* ===== SLIDE 2: Rolling 1200+ counter ===== */
+.counter-container{position:relative;display:inline-block}
+.counter-digit{display:inline-block;font-variant-numeric:tabular-nums;animation:digitRoll .5s ease-out}
+@keyframes digitRoll{from{transform:translateY(-100%);opacity:0}to{transform:translateY(0);opacity:1}}
+.research-particles{position:absolute;inset:0;pointer-events:none}
+.research-particle{position:absolute;width:5px;height:5px;background:var(--cyan);border-radius:50%;opacity:.6;animation:floatUp 4s ease-in-out infinite}
+@keyframes floatUp{0%,100%{transform:translateY(0);opacity:.3}50%{transform:translateY(-20px);opacity:.8}}
+.strategy-card{position:absolute;padding:8px 14px;background:rgba(15,21,37,.9);border:1px solid rgba(0,229,255,.2);border-radius:8px;font-family:"JetBrains Mono";font-size:.65rem;color:var(--cyan);animation:strategyFloat 6s ease-in-out infinite;white-space:nowrap}
+@keyframes strategyFloat{0%,100%{transform:translateY(0) rotate(-2deg)}50%{transform:translateY(-15px) rotate(2deg)}}
+
+/* ===== SLIDE 3: Math animations ===== */
+.math-symbol{position:absolute;font-family:"JetBrains Mono";color:rgba(0,229,255,.15);animation:mathFloat 8s ease-in-out infinite;pointer-events:none}
+@keyframes mathFloat{0%,100%{transform:translateY(0) rotate(0deg);opacity:.1}50%{transform:translateY(-30px) rotate(10deg);opacity:.25}}
+.math-formula{position:absolute;font-family:"JetBrains Mono";font-size:.75rem;color:rgba(139,149,168,.2);white-space:nowrap;animation:formulaScroll 20s linear infinite}
+@keyframes formulaScroll{from{transform:translateX(100%)}to{transform:translateX(-100%)}}
+.model-card .formula-bar{position:absolute;bottom:0;left:0;height:2px;background:linear-gradient(90deg,var(--cyan),var(--purple));animation:formulaBar 2s ease-in-out infinite}
+@keyframes formulaBar{0%,100%{width:0%;opacity:.3}50%{width:100%;opacity:1}}
+
+/* ===== SLIDE 4: Volatility chart animation ===== */
+.vol-chart-container{position:relative;width:100%;height:200px;margin-top:20px}
+.vol-svg{width:100%;height:100%}
+.vol-line{fill:none;stroke:var(--cyan);stroke-width:2;filter:drop-shadow(0 0 8px rgba(0,229,255,.6))}
+.vol-area{fill:url(#volGradient);opacity:.3}
+.vol-dot{fill:var(--cyan);filter:drop-shadow(0 0 6px var(--cyan))}
+.vol-grid-line{stroke:rgba(255,255,255,.05);stroke-width:1}
+.garch-eq{position:absolute;font-family:"JetBrains Mono";font-size:.7rem;color:rgba(0,229,255,.4);animation:eqPulse 2s ease-in-out infinite}
+@keyframes eqPulse{0%,100%{opacity:.3}50%{opacity:.8}}
+
+/* ===== SLIDE 5: Flow chart animation ===== */
+.flow-container{position:relative;width:100%;height:300px;margin-top:30px}
+.flow-node{position:absolute;padding:14px 20px;background:var(--glass);border:1px solid var(--border);border-radius:10px;font-family:"JetBrains Mono";font-size:.72rem;text-align:center;backdrop-filter:blur(10px)}
+.flow-node.active{border-color:var(--cyan);box-shadow:0 0 20px rgba(0,229,255,.3)}
+.flow-connection{position:absolute;height:2px;background:linear-gradient(90deg,rgba(0,229,255,.1),var(--cyan),rgba(0,229,255,.1));transform-origin:left center;animation:flowPulse 2s ease-in-out infinite}
+@keyframes flowPulse{0%,100%{opacity:.3}50%{opacity:1}}
+.flow-particle{position:absolute;width:8px;height:8px;background:var(--cyan);border-radius:50%;box-shadow:0 0 12px var(--cyan);animation:flowTravel 3s linear infinite}
+@keyframes flowTravel{0%{left:0;opacity:0}10%{opacity:1}90%{opacity:1}100%{left:calc(100% - 8px);opacity:0}}
+
+/* ===== SLIDE 6: Buy/Sell tape animation ===== */
+.tape-container{position:relative;width:100%;height:250px;margin-top:20px;overflow:hidden;border:1px solid var(--border);border-radius:12px;background:rgba(7,11,20,.5)}
+.tape-row{position:absolute;left:0;right:0;height:28px;display:flex;align-items:center;gap:20px;padding:0 15px;font-family:"JetBrains Mono";font-size:.68rem;white-space:nowrap;animation:tapeScroll 8s linear infinite}
+.tape-row.buy{color:var(--green)}
+.tape-row.sell{color:var(--red)}
+@keyframes tapeScroll{from{transform:translateX(100%)}to{transform:translateX(-100%)}}
+.order-book{position:absolute;right:10px;top:10px;width:150px;background:rgba(15,21,37,.9);border:1px solid var(--border);border-radius:8px;padding:10px;font-family:"JetBrains Mono";font-size:.6rem}
+.order-book-row{display:flex;justify-content:space-between;padding:3px 0;animation:bookUpdate .5s ease-in-out infinite}
+@keyframes bookUpdate{0%,100%{opacity:.7}50%{opacity:1}}
+
+/* ===== SLIDE 7: MT5 animation ===== */
+.mt5-container{position:relative;width:100%;height:280px;margin-top:20px}
+.mt5-window{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:80%;max-width:500px;background:rgba(15,21,37,.95);border:1px solid var(--border);border-radius:12px;overflow:hidden;box-shadow:0 20px 60px rgba(0,0,0,.5)}
+.mt5-header{padding:10px 15px;background:rgba(7,11,20,.8);border-bottom:1px solid var(--border);display:flex;justify-content:space-between;font-family:"JetBrains Mono";font-size:.65rem;color:var(--muted)}
+.mt5-chart{height:150px;position:relative;background:linear-gradient(rgba(0,229,255,.02),rgba(0,229,255,.05))}
+.mt5-candle{position:absolute;width:8px;animation:candleGrow 1s ease-out both}
+@keyframes candleGrow{from{transform:scaleY(0)}to{transform:scaleY(1)}}
+.mt5-price-line{position:absolute;left:0;right:0;height:1px;background:var(--cyan);box-shadow:0 0 10px var(--cyan);animation:priceLine 2s ease-in-out infinite}
+@keyframes priceLine{0%,100%{top:30%;opacity:.5}50%{top:70%;opacity:1}}
+.mt5-ea-status{position:absolute;bottom:10px;left:10px;padding:5px 10px;background:rgba(0,229,255,.1);border:1px solid rgba(0,229,255,.3);border-radius:5px;font-family:"JetBrains Mono";font-size:.6rem;color:var(--cyan);animation:eaBlink 1.5s ease-in-out infinite}
+@keyframes eaBlink{0%,100%{opacity:.6}50%{opacity:1}}
+
+/* ===== SLIDE 8: MQL5 coding animation ===== */
+.code-editor{position:relative;width:100%;height:300px;background:rgba(7,11,20,.9);border:1px solid var(--border);border-radius:12px;overflow:hidden;margin-top:20px}
+.code-header{padding:10px 15px;background:rgba(15,21,37,.8);border-bottom:1px solid var(--border);display:flex;align-items:center;gap:10px;font-family:"JetBrains Mono";font-size:.65rem;color:var(--muted)}
+.code-body{padding:15px;font-family:"JetBrains Mono";font-size:.72rem;line-height:1.8;height:calc(100% - 40px);overflow:hidden;position:relative}
+.code-line{opacity:0;transform:translateX(-20px);animation:codeLineIn .3s ease-out forwards}
+@keyframes codeLineIn{to{opacity:1;transform:translateX(0)}}
+.code-line .kw{color:#c792ea}.code-line .fn{color:#82aaff}.code-line .str{color:#c3e88d}.code-line .num{color:#f78c6c}.code-line .cm{color:#676e95}
+.typing-cursor{position:absolute;width:2px;height:16px;background:var(--cyan);animation:blink .8s step-end infinite;box-shadow:0 0 8px var(--cyan)}
+@keyframes blink{50%{opacity:0}}
+
+/* ===== SLIDE 9: Deployment animation ===== */
+.deploy-container{position:relative;width:100%;height:250px;margin-top:20px}
+.deploy-stage{position:absolute;padding:16px 24px;background:var(--glass);border:1px solid var(--border);border-radius:12px;text-align:center;font-family:"JetBrains Mono";font-size:.72rem;backdrop-filter:blur(10px)}
+.deploy-stage.active{border-color:var(--cyan);box-shadow:0 0 25px rgba(0,229,255,.3)}
+.deploy-arrow{position:absolute;color:var(--cyan);font-size:1.5rem;animation:deployArrow 1s ease-in-out infinite}
+@keyframes deployArrow{0%,100%{opacity:.3;transform:translateX(0)}50%{opacity:1;transform:translateX(10px)}}
+.deploy-progress{position:absolute;height:3px;background:linear-gradient(90deg,var(--cyan),var(--blue));border-radius:2px;animation:deployProgress 4s ease-in-out infinite}
+@keyframes deployProgress{0%{width:0%;opacity:1}90%{width:100%;opacity:1}100%{width:100%;opacity:0}}
+
+/* ===== SLIDE 10: Global network ===== */
+.global-container{position:relative;width:100%;height:300px;margin-top:20px}
+.global-center{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:80px;height:80px;background:radial-gradient(circle,rgba(0,229,255,.2),transparent);border-radius:50%;display:grid;place-items:center;font-family:"JetBrains Mono";font-size:.7rem;color:var(--cyan)}
+.global-node{position:absolute;width:12px;height:12px;background:var(--cyan);border-radius:50%;box-shadow:0 0 15px var(--cyan);animation:nodePulse 2s ease-in-out infinite}
+@keyframes nodePulse{0%,100%{transform:scale(1);opacity:.6}50%{transform:scale(1.3);opacity:1}}
+.global-connection{position:absolute;height:1px;background:linear-gradient(90deg,transparent,rgba(0,229,255,.3),transparent);transform-origin:left center;animation:connPulse 2s ease-in-out infinite}
+@keyframes connPulse{0%,100%{opacity:.2}50%{opacity:.6}}
+.global-data-packet{position:absolute;width:6px;height:6px;background:var(--cyan);border-radius:50%;box-shadow:0 0 10px var(--cyan);animation:packetTravel 3s linear infinite}
+@keyframes packetTravel{0%{left:0;opacity:0}10%{opacity:1}90%{opacity:1}100%{left:100%;opacity:0}}
+
+/* ===== SLIDE 11: Final ===== */
+.final-particles{position:absolute;inset:0;pointer-events:none;overflow:hidden}
+.final-ring{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);border:1px solid rgba(0,229,255,.15);border-radius:50%;animation:finalRing 4s ease-out infinite}
+@keyframes finalRing{0%{width:100px;height:100px;opacity:.6}100%{width:800px;height:800px;opacity:0}}
+.final-particle{position:absolute;width:4px;height:4px;background:var(--cyan);border-radius:50%;opacity:.5;animation:finalFloat 6s ease-in-out infinite}
+@keyframes finalFloat{0%,100%{transform:translate(0,0);opacity:.2}25%{transform:translate(20px,-30px);opacity:.6}50%{transform:translate(-10px,-50px);opacity:.3}75%{transform:translate(-30px,-20px);opacity:.5}}
+
+/* ===== Common FX ===== */
+.market-grid{background-image:linear-gradient(rgba(0,229,255,.045) 1px,transparent 1px),linear-gradient(90deg,rgba(0,229,255,.045) 1px,transparent 1px);background-size:34px 34px;mask-image:linear-gradient(to bottom,transparent,#000 18%,#000 82%,transparent)}
+.scanline{position:absolute;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--cyan),transparent);box-shadow:0 0 18px var(--cyan);animation:scanDown 3.6s linear infinite;opacity:.65}
+@keyframes scanDown{from{top:0}to{top:100%}}
+.research-orbit{position:absolute;inset:9%;border:1px solid rgba(0,229,255,.16);border-radius:50%;animation:orbitSpin 18s linear infinite}
+.research-orbit.o2{inset:22%;animation-duration:12s;animation-direction:reverse;border-color:rgba(124,58,237,.2)}
+.research-orbit:before{content:"";position:absolute;width:9px;height:9px;border-radius:50%;background:var(--cyan);box-shadow:0 0 18px var(--cyan);left:50%;top:-5px}
+@keyframes orbitSpin{to{transform:rotate(360deg)}}
+.model-card:before{content:"";position:absolute;inset:0;background:radial-gradient(circle at var(--mx,50%) var(--my,50%),rgba(0,229,255,.12),transparent 35%);opacity:0;transition:.25s;pointer-events:none}
+.model-card:hover:before{opacity:1}
+.vol-wave{position:absolute;left:4%;right:4%;bottom:8%;height:90px;opacity:.75}
+.vol-wave svg{width:100%;height:100%;overflow:visible}
+.vol-path{fill:none;stroke:var(--cyan);stroke-width:2;stroke-dasharray:900;stroke-dashoffset:900;filter:drop-shadow(0 0 7px rgba(0,229,255,.8))}
+.slide.active .vol-path{animation:drawWave 2.2s .35s ease forwards,glowWave 2s 2.6s ease-in-out infinite}
+@keyframes drawWave{to{stroke-dashoffset:0}} @keyframes glowWave{50%{opacity:.35}}
+.pipeline .node{position:relative;overflow:hidden}
+.pipeline .node:before{content:"";position:absolute;left:-45%;top:0;width:30%;height:100%;background:linear-gradient(90deg,transparent,rgba(0,229,255,.22),transparent);transform:skewX(-20deg)}
+.slide.active .pipeline .node:before{animation:packetSweep 2.4s infinite}
+@keyframes packetSweep{to{left:125%}}
+.slide.active .arrow{animation:arrowPulse .72s infinite alternate}
+@keyframes arrowPulse{from{opacity:.28;transform:translateX(-3px)}to{opacity:1;transform:translateX(4px);text-shadow:0 0 15px var(--cyan)}}
+.liquidity-pulse{position:absolute;border:1px solid rgba(0,229,255,.25);border-radius:50%;width:22px;height:22px;animation:liq 2.8s infinite}
+.lp1{left:25%;top:28%}.lp2{right:24%;top:43%;animation-delay:.8s}.lp3{left:47%;bottom:24%;animation-delay:1.4s}
+@keyframes liq{0%{transform:scale(.4);opacity:1}100%{transform:scale(6);opacity:0}}
+.platform-packet{position:absolute;width:7px;height:7px;border-radius:50%;background:var(--cyan);box-shadow:0 0 14px var(--cyan);animation:dataFly 3.5s linear infinite}
+.pp1{left:8%;top:22%}.pp2{left:18%;top:55%;animation-delay:1s}.pp3{left:3%;top:78%;animation-delay:2s}
+@keyframes dataFly{0%{transform:translateX(0);opacity:0}10%{opacity:1}100%{transform:translateX(86vw);opacity:0}}
+.vision .panel:after{content:"";position:absolute;inset:auto 0 0;height:2px;background:linear-gradient(90deg,transparent,var(--cyan),transparent);transform:translateX(-100%)}
+.slide.active .vision .panel:after{animation:partnerFlow 2.8s infinite}
+.slide.active .vision .panel:nth-child(2):after{animation-delay:.45s}.slide.active .vision .panel:nth-child(3):after{animation-delay:.9s}.slide.active .vision .panel:nth-child(4):after{animation-delay:1.35s}
+@keyframes partnerFlow{to{transform:translateX(100%)}}
+.global-ring{position:absolute;left:50%;top:50%;width:120px;height:120px;border:1px solid rgba(0,229,255,.3);border-radius:50%;transform:translate(-50%,-50%);animation:globalPulse 4s infinite;opacity:0}
+.global-ring.g2{animation-delay:1.3s}.global-ring.g3{animation-delay:2.6s}
+@keyframes globalPulse{0%{width:80px;height:80px;opacity:.65}100%{width:900px;height:900px;opacity:0}}
+.hero-card{transform-style:preserve-3d;transition:transform .18s ease,border-color .25s}
+
+/* ===== Slide-specific FX backgrounds ===== */
+.slide:nth-of-type(1) .slide-fx:before{inset:0;background:radial-gradient(circle at 72% 38%,rgba(0,229,255,.11),transparent 24%),linear-gradient(rgba(0,229,255,.035) 1px,transparent 1px),linear-gradient(90deg,rgba(0,229,255,.035) 1px,transparent 1px);background-size:auto,38px 38px,38px 38px}
+.slide:nth-of-type(1) .slide-fx:after{width:46%;height:1px;right:3%;top:23%;background:linear-gradient(90deg,transparent,var(--cyan),transparent);box-shadow:0 0 16px var(--cyan);animation:execScan 2.2s linear infinite}
+@keyframes execScan{0%{transform:translateY(0);opacity:0}15%{opacity:1}100%{transform:translateY(430px);opacity:0}}
+.slide:nth-of-type(2) .big-number{font-variant-numeric:tabular-nums;text-shadow:0 0 34px rgba(0,229,255,.18)}
+.slide:nth-of-type(2) .slide-fx:before{width:620px;height:620px;right:-120px;top:50%;transform:translateY(-50%);border:1px solid rgba(0,229,255,.12);border-radius:50%;box-shadow:inset 0 0 80px rgba(0,229,255,.035);animation:libOrbit 18s linear infinite}
+.slide:nth-of-type(2) .slide-fx:after{width:390px;height:390px;right:-5px;top:50%;margin-top:-195px;border:1px dashed rgba(124,58,237,.22);border-radius:50%;animation:libOrbit 11s linear infinite reverse}
+@keyframes libOrbit{to{transform:translateY(-50%) rotate(360deg)}}
+.slide:nth-of-type(3) .slide-fx{background-image:radial-gradient(circle at 18% 24%,rgba(0,229,255,.08),transparent 18%),radial-gradient(circle at 80% 72%,rgba(124,58,237,.08),transparent 20%)}
+.slide:nth-of-type(4) .slide-fx:before{left:2%;right:2%;bottom:5%;height:38%;background:repeating-linear-gradient(0deg,rgba(255,255,255,.035) 0 1px,transparent 1px 34px),repeating-linear-gradient(90deg,rgba(255,255,255,.025) 0 1px,transparent 1px 52px)}
+.slide:nth-of-type(5) .slide-fx:before{left:5%;right:5%;top:50%;height:2px;background:linear-gradient(90deg,transparent,rgba(0,229,255,.15),var(--cyan),rgba(0,229,255,.15),transparent);background-size:220% 100%;animation:flowBeam 2.4s linear infinite}
+.slide:nth-of-type(5) .slide-fx:after{width:10px;height:10px;border-radius:50%;top:calc(50% - 4px);left:7%;background:var(--cyan);box-shadow:0 0 22px var(--cyan);animation:flowPacket 3s linear infinite}
+@keyframes flowBeam{to{background-position:-220% 0}} @keyframes flowPacket{to{left:92%}}
+.slide:nth-of-type(6) .slide-fx:before{content:"BUY 1.08452   SELL 1.08449   BUY 1.08455   SELL 1.08451   BUY 1.08461   SELL 1.08458";left:0;right:0;top:9%;white-space:nowrap;font:600 13px 'JetBrains Mono',monospace;color:rgba(0,229,255,.22);animation:tape 4s linear infinite}
+.slide:nth-of-type(6) .slide-fx:after{content:"SELL 1.08447   BUY 1.08450   SELL 1.08446   BUY 1.08457   SELL 1.08453   BUY 1.08463";left:0;right:0;bottom:9%;white-space:nowrap;font:600 13px 'JetBrains Mono',monospace;color:rgba(255,95,86,.19);animation:tape 3.2s linear infinite reverse}
+@keyframes tape{from{transform:translateX(100%)}to{transform:translateX(-130%)}}
+.slide:nth-of-type(7) .slide-fx:before{content:"MetaTrader 5  •  Expert Advisor  •  Strategy Tester  •  MQL5  •  OnTick()  •  OrderSend()  •  PositionSelect()  •  CopyBuffer()";left:0;bottom:5%;white-space:nowrap;font:500 13px 'JetBrains Mono',monospace;color:rgba(0,229,255,.2);animation:mt5Ticker 14s linear infinite}
+.slide:nth-of-type(7) .slide-fx:after{width:360px;height:360px;right:-90px;top:16%;border-radius:50%;background:conic-gradient(from 0deg,transparent,rgba(0,229,255,.13),transparent 28%);animation:spin 6s linear infinite}
+@keyframes mt5Ticker{from{transform:translateX(100%)}to{transform:translateX(-130%)}}
+.slide:nth-of-type(8) .slide-fx:before{content:"#property strict\A input double Lots = 0.10;\A void OnTick() {\A   double atr = iATR(_Symbol, PERIOD_M5, 14);\A   if(signal == BUY) trade.Buy(Lots);\A   ManagePosition();\A }";white-space:pre;right:5%;top:17%;width:43%;padding:22px;border:1px solid rgba(0,229,255,.1);border-radius:14px;background:rgba(7,11,20,.28);font:500 13px/1.9 'JetBrains Mono',monospace;color:rgba(165,243,252,.2);animation:codeGlow 2.2s ease-in-out infinite}
+.slide:nth-of-type(8) .slide-fx:after{right:7%;top:19%;width:2px;height:18px;background:var(--cyan);box-shadow:0 0 8px var(--cyan);animation:codeCursor 5.2s steps(12) infinite}
+@keyframes codeGlow{50%{border-color:rgba(0,229,255,.26)}} @keyframes codeCursor{0%{transform:translate(0,0)}25%{transform:translate(-120px,48px)}50%{transform:translate(-30px,96px)}75%{transform:translate(-170px,144px)}100%{transform:translate(-55px,192px)}}
+.slide:nth-of-type(9) .slide-fx:before{content:"BACKTEST  →  OPTIMIZE  →  FORWARD TEST  →  .EX5  →  MT5 VPS  →  BROKER";left:8%;right:8%;top:11%;font:600 13px 'JetBrains Mono',monospace;letter-spacing:2px;color:rgba(0,229,255,.16);text-align:center}
+.slide:nth-of-type(9) .slide-fx:after{left:10%;top:15%;height:2px;width:10%;background:var(--cyan);box-shadow:0 0 16px var(--cyan);animation:deploy 4.8s ease-in-out infinite}
+@keyframes deploy{0%{left:10%;width:6%}50%{left:45%;width:18%}100%{left:84%;width:6%}}
+.slide:nth-of-type(10) .slide-fx:before{content:"MT5";position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);font:900 86px Inter,sans-serif;color:rgba(0,229,255,.025);letter-spacing:12px}
+
+
+/* ===== SLIDE 2 ONLY: Quant Research Code Factory ===== */
+.research-engine{height:400px;position:relative;overflow:hidden;border:1px solid rgba(0,229,255,.18);border-radius:18px;background:linear-gradient(180deg,rgba(15,21,37,.94),rgba(7,11,20,.82));box-shadow:0 25px 70px rgba(0,0,0,.36),inset 0 0 60px rgba(0,229,255,.025)}
+.re-head{height:48px;padding:0 18px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--border);font:600 .65rem "JetBrains Mono";letter-spacing:1px;color:var(--muted)}
+.re-live{color:var(--cyan);text-shadow:0 0 10px rgba(0,229,255,.6);animation:reBlink 1.2s ease-in-out infinite}
+@keyframes reBlink{50%{opacity:.35}}
+.re-code{height:286px;padding:15px 18px;font:500 .68rem/1.7 "JetBrains Mono";overflow:hidden;position:relative}
+.re-line{display:grid;grid-template-columns:28px 1fr;gap:9px;opacity:0;transform:translateY(8px);animation:reLineIn .28s forwards}
+.re-line .ln{color:#465168;text-align:right;user-select:none}.re-line .kw{color:#c792ea}.re-line .fn{color:#82aaff}.re-line .num{color:#f78c6c}.re-line .str{color:#c3e88d}.re-line .cm{color:#59657a}.re-line .cyan{color:#7eeeff}
+@keyframes reLineIn{to{opacity:1;transform:none}}
+.re-cursor{display:inline-block;width:7px;height:13px;background:var(--cyan);vertical-align:-2px;margin-left:4px;box-shadow:0 0 8px var(--cyan);animation:reCursor .65s step-end infinite}
+@keyframes reCursor{50%{opacity:0}}
+.re-bottom{position:absolute;left:0;right:0;bottom:0;height:64px;border-top:1px solid var(--border);display:grid;grid-template-columns:repeat(3,1fr);background:rgba(7,11,20,.82)}
+.re-bottom>div{padding:10px 14px;border-right:1px solid var(--border);display:flex;flex-direction:column;gap:4px}.re-bottom>div:last-child{border-right:0}
+.re-bottom span{font:500 .52rem "JetBrains Mono";color:#667187;letter-spacing:1px}.re-bottom b{font:600 .68rem "JetBrains Mono";color:#d7dfeb}.re-bottom b.cyan{color:var(--cyan)}
+.re-scan{position:absolute;left:0;right:0;height:1px;top:48px;background:linear-gradient(90deg,transparent,var(--cyan),transparent);box-shadow:0 0 14px var(--cyan);opacity:.45;animation:reScan 3.2s linear infinite}
+@keyframes reScan{to{transform:translateY(286px)}}
+
+/* ===== SLIDE 6 ONLY: Homepage-style live multi-asset MT5 execution ===== */
+.execution-engine{height:420px;position:relative;overflow:hidden;border:1px solid rgba(0,229,255,.18);border-radius:18px;background:linear-gradient(180deg,rgba(15,21,37,.96),rgba(8,13,23,.94));box-shadow:0 28px 80px rgba(0,0,0,.42),inset 0 0 55px rgba(0,229,255,.025)}
+.exec-head{height:54px;display:flex;align-items:center;justify-content:space-between;padding:0 18px;border-bottom:1px solid var(--border);font:600 .62rem "JetBrains Mono";letter-spacing:1px;color:#9aa5b8}
+.exec-latency{font-size:.52rem;color:#667187}.exec-latency b{color:var(--cyan);font-size:.68rem}
+.exec-columns,.exec-row{display:grid;grid-template-columns:1.35fr .75fr .65fr 1fr .8fr;align-items:center;padding:0 17px}
+.exec-columns{height:30px;border-bottom:1px solid rgba(255,255,255,.05);font:500 .5rem "JetBrains Mono";letter-spacing:1px;color:#59657a}
+.exec-rows{height:286px;overflow:hidden}
+.exec-row{height:40px;border-bottom:1px solid rgba(255,255,255,.045);font:600 .66rem "JetBrains Mono";position:relative;animation:execRowIn .25s ease-out}
+@keyframes execRowIn{from{opacity:0;transform:translateX(18px);background:rgba(0,229,255,.12)}to{opacity:1;transform:none;background:transparent}}
+.exec-symbol{color:#d7dfeb}.exec-side{justify-self:start;padding:5px 8px;border-radius:5px;font-size:.58rem}.exec-side.buy{color:#67ef84;background:rgba(39,202,64,.14)}.exec-side.sell{color:#ff7c75;background:rgba(255,95,86,.14)}
+.exec-lot{color:#818ca0}.exec-price{color:var(--cyan);text-shadow:0 0 9px rgba(0,229,255,.22)}.exec-status{font-size:.56rem;color:#68758b}.exec-status.fill{color:#55e67b}
+.exec-flash{position:absolute;inset:0;pointer-events:none;animation:tradeFlash .42s ease-out}
+.exec-flash.buy{background:linear-gradient(90deg,rgba(39,202,64,.13),transparent 55%)}.exec-flash.sell{background:linear-gradient(90deg,rgba(255,95,86,.13),transparent 55%)}
+@keyframes tradeFlash{from{opacity:1}to{opacity:0}}
+.exec-foot{position:absolute;left:0;right:0;bottom:0;height:50px;display:flex;align-items:center;justify-content:space-between;padding:0 17px;border-top:1px solid var(--border);background:rgba(7,11,20,.86);font:500 .52rem "JetBrains Mono";color:#667187}.exec-foot b{color:var(--cyan)}
+
+@media(max-width:900px){.slide{padding:30px 24px;overflow:auto;align-items:start}.hero-grid,.two{grid-template-columns:1fr;gap:28px}.hero-card,.radar{display:none}.models{grid-template-columns:1fr 1fr}.vision{grid-template-columns:1fr 1fr}.stats{grid-template-columns:1fr 1fr}.stats .stat:last-child{grid-column:1/-1}.topbar{padding:0 20px}.top-meta{display:none}.controls{padding:0 20px}.hint{display:none}h1{letter-spacing:-2px}.logo-particles-container{width:200px;height:200px}.logo-center{width:120px;height:120px}}
+@media(max-width:560px){.models,.vision{grid-template-columns:1fr}.slide{inset:76px 0 62px}.big-number{letter-spacing:-4px}.pipeline{justify-content:flex-start}.arrow{transform:rotate(90deg)}}
+
+/* ===== AUTO FIT PRESENTATION TO VIEWPORT =====
+   Keeps the original 1700x860 visual composition and automatically scales it
+   to the available browser viewport. No browser zoom-out required. */
+:root{--deck-scale:1}
+html,body{width:100%;height:100%;overflow:hidden}
+body{position:relative}
+.app{
+  width:calc(100vw / var(--deck-scale));
+  height:calc(100vh / var(--deck-scale));
+  transform:scale(var(--deck-scale));
+  transform-origin:top left;
+}
+.app.active{display:block}
+.topbar,.controls{width:calc(100vw / var(--deck-scale))}
+.deck{height:calc(100vh / var(--deck-scale))}
+
+</style>
+</head>
+<body>
+<div class="noise"></div><canvas id="particles"></canvas>
+<div class="cursor-glow"></div>
+<div class="cursor-trail"></div><div class="orb o1"></div><div class="orb o2"></div>
+
+<div class="lock" id="lock">
+ <div class="lock-card">
+   <img class="lock-logo" src="/quant_particle_logo.png" onerror="this.src='/quant_particle_logo_fevicon.png'" alt="QuantParticle">
+   <h1>Private Presentation</h1>
+   <p>QuantParticle quantitative research & B2B retail-algorithm infrastructure presentation.</p>
+   <form id="loginForm">
+     <input class="pw" id="password" type="password" autocomplete="current-password" placeholder="Enter access password" autofocus>
+     <button class="unlock" type="submit">Unlock Presentation →</button>
+     <div class="error" id="error"></div>
+   </form>
+ </div>
+</div>
+
+<div class="app" id="app">
+<header class="topbar">
+ <div class="brand"><img src="/quant_particle_logo.png" onerror="this.src='/quant_particle_logo_fevicon.png'" alt="QuantParticle"></div>
+ <div class="top-meta"><span class="live"></span> FINTECH TECHNOLOGY SOLUTIONS <span>•</span> QUANTPARTICLE</div>
+</header>
+
+<main class="deck">
+<section class="slide active"><div class="slide-fx"></div><div class="wrap"><div class="hero-grid"><div><div class="eyebrow">FinTech Technology Solutions</div><h1>Building the technology behind <span class="grad">financial businesses.</span></h1><p class="lead">QuantParticle develops trading platforms, scanners, automation infrastructure, quantitative technology, risk systems, financial workflows and connected FinTech products for brokers, fintech companies and financial institutions.</p><div class="stats"><div class="stat"><strong>8</strong><span>Technology capability layers</span></div><div class="stat"><strong>1200+</strong><span>Quant & mathematical R&D concepts</span></div><div class="stat"><strong>API First</strong><span>Connected architecture</span></div></div></div><div class="hero-card"><div class="terminal-head"><span>QP_FINTECH_CORE</span><span style="color:var(--green)">● ONLINE</span></div><div class="code"><span class="m">01</span> Trading Terminal <span class="g">CONNECTED</span><br><span class="m">02</span> Scanner Engine <span class="g">STREAMING</span><br><span class="m">03</span> Algo Automation <span class="g">ROUTING</span><br><span class="m">04</span> Quant Research <span class="g">MODELLING</span><br><span class="m">05</span> Risk Management <span class="g">MONITORING</span><br><span class="m">06</span> Workflow Automation <span class="g">RUNNING</span><br><span class="m">07</span> Web / Mobile <span class="g">DEPLOYED</span><br><span class="m">08</span> API Integration <span class="g">SYNCED</span></div></div></div></div></section>
+<section class="slide"><div class="slide-fx"></div><div class="wrap"><div class="eyebrow">Trading Platforms & Terminals</div><h2>From advanced charts to <span class="grad">complete trading interfaces.</span></h2><div class="models"><div class="model-card"><small>WEB TERMINAL</small><h3>Advanced Trading Terminals</h3><p>Modern web-based interfaces for market monitoring, trading and position management.</p></div><div class="model-card"><small>MULTI-CHART</small><h3>Trading Workspaces</h3><p>Multiple synchronized charts and configurable trading layouts.</p></div><div class="model-card"><small>CHARTING</small><h3>Interactive Charts</h3><p>Advanced charting, indicators, overlays and trading visualization.</p></div><div class="model-card"><small>ORDERS</small><h3>Execution Interfaces</h3><p>Order placement, modification and position-management interfaces.</p></div><div class="model-card"><small>PORTFOLIO</small><h3>Trading Dashboards</h3><p>Portfolio, P&L, positions and account-level dashboards.</p></div><div class="model-card"><small>OPERATIONS</small><h3>Dealer / Admin Terminals</h3><p>Custom control interfaces for internal dealing and administration teams.</p></div></div><div class="pipeline"><div class="node">MARKET DATA</div><div class="arrow">→</div><div class="node">CHART ENGINE</div><div class="arrow">→</div><div class="node">ORDER UI</div><div class="arrow">→</div><div class="node">BROKER API</div></div></div></section>
+<section class="slide"><div class="slide-fx"></div><div class="wrap"><div class="eyebrow">Trading Scanners & Analytics</div><h2>Find market opportunities through <span class="grad">real-time intelligence.</span></h2><div class="two"><div class="list"><div class="li"><b>Real-time market scanners</b> across configurable instruments and conditions.</div><div class="li"><b>Technical & quantitative scanners</b> for systematic filtering.</div><div class="li"><b>Options scanners</b> and custom screeners.</div><div class="li"><b>Alert engines</b> for strategy and market events.</div><div class="li"><b>Analytics & visualization</b> for decision-support dashboards.</div></div><div class="hero-card"><div class="terminal-head"><span>QP_SCANNER // LIVE</span><span style="color:var(--cyan)">SCANNING</span></div><div id="finScanner" class="code"></div></div></div></div></section>
+<section class="slide"><div class="slide-fx"></div><div class="wrap"><div class="eyebrow">Algorithmic Trading & Automation</div><h2>Connect strategy logic to <span class="grad">automated execution.</span></h2><p class="lead">Infrastructure for strategy automation, TradingView alerts, broker APIs, MT5 integrations, execution management and deployment.</p><div class="pipeline"><div class="node">STRATEGY</div><div class="arrow">→</div><div class="node">TRADINGVIEW / MT5</div><div class="arrow">→</div><div class="node">QP AUTOMATION</div><div class="arrow">→</div><div class="node">RISK ENGINE</div><div class="arrow">→</div><div class="node">BROKER</div></div><div class="models"><div class="model-card"><small>AUTOMATION</small><h3>Strategy Automation</h3><p>Transform systematic rules into deployable automated workflows.</p></div><div class="model-card"><small>BRIDGE</small><h3>API Bridge</h3><p>TradingView-to-broker and custom alert-to-order infrastructure.</p></div><div class="model-card"><small>MT5</small><h3>MT5 Integration</h3><p>Expert Advisors and custom MetaTrader connectivity.</p></div></div></div></section>
+<section class="slide"><div class="slide-fx"></div><div class="wrap"><div class="eyebrow">Quantitative Technology</div><h2>Researching <span class="grad">1,200+ quantitative & mathematical concepts.</span></h2><div class="two"><div><div class="big-number" id="finQuant">0+</div><div class="big-caption">QUANTITATIVE & MATHEMATICAL STRATEGY / MODEL R&D</div><p class="lead">Research across volatility, statistical models, risk algorithms, position management and systematic trading infrastructure.</p></div><div class="hero-card"><div class="terminal-head"><span>QUANT_RESEARCH_ENGINE</span><span>R&D</span></div><div class="code" id="quantCode">σ²ₜ = ω + αε²ₜ₋₁ + βσ²ₜ₋₁<br><span class="v">dS = μSdt + σSdW</span><br>z = (x − μ) / σ<br><span class="g">risk = f(volatility, exposure, regime)</span><br>signal = model(features)<br>position = risk_adjust(signal)</div></div></div></div></section>
+<section class="slide"><div class="slide-fx"></div><div class="wrap"><div class="eyebrow">Risk Management Systems</div><h2>Real-time controls for <span class="grad">exposure, positions and P&L.</span></h2><div class="two"><div class="list"><div class="li">Custom RMS development</div><div class="li">Exposure and position monitoring</div><div class="li">P&L and risk dashboards</div><div class="li">User-level trading controls</div><div class="li">Automated risk rules</div><div class="li">Kill-switch and position-exit systems</div><div class="li">Real-time alerts and monitoring</div></div><div class="hero-card"><div class="terminal-head"><span>RISK_CONTROL_CENTER</span><span style="color:var(--green)">● MONITORING</span></div><div class="stats" style="grid-template-columns:1fr 1fr;margin-top:10px"><div class="stat"><strong id="rmsExp">₹12.8L</strong><span>Net exposure</span></div><div class="stat"><strong id="rmsPnl">+₹24.8K</strong><span>Live P&L</span></div><div class="stat"><strong>18</strong><span>Open positions</span></div><div class="stat"><strong id="rmsRisk">42%</strong><span>Risk utilization</span></div></div><div class="li" style="margin-top:15px;border-left-color:var(--red)"><b>KILL SWITCH:</b> ARMED — position exit control available</div></div></div></div></section>
+<section class="slide"><div class="slide-fx"></div><div class="wrap"><div class="eyebrow">Financial Process Automation</div><h2>Automate the operations <span class="grad">behind financial products.</span></h2><div class="two"><div class="list"><div class="li">Back-office process automation</div><div class="li">Client onboarding workflows</div><div class="li">KYC/API workflow integrations</div><div class="li">Reporting and reconciliation systems</div><div class="li">Automated reports and notifications</div><div class="li">CRM and lead-management workflows</div><div class="li">Operational dashboards & data processing</div></div><div class="hero-card"><div class="terminal-head"><span>AUTOMATION_LOG</span><span style="color:var(--cyan)">WORKFLOW ACTIVE</span></div><div class="code" id="workflowLog"></div></div></div></div></section>
+<section class="slide"><div class="slide-fx"></div><div class="wrap"><div class="eyebrow">Web & Mobile Development</div><h2>Complete digital products for <span class="grad">FinTech businesses.</span></h2><div class="models"><div class="model-card"><small>WEB</small><h3>FinTech Websites</h3><p>Corporate sites, financial portals and product experiences.</p></div><div class="model-card"><small>APPLICATION</small><h3>Web Applications</h3><p>Interactive financial applications and user workflows.</p></div><div class="model-card"><small>MOBILE</small><h3>Mobile Applications</h3><p>Connected mobile experiences for customers and teams.</p></div><div class="model-card"><small>DASHBOARD</small><h3>Client Dashboards</h3><p>Account, analytics, reporting and service interfaces.</p></div><div class="model-card"><small>ADMIN</small><h3>Admin Panels</h3><p>Operations, content, user and product management.</p></div><div class="model-card"><small>SAAS</small><h3>SaaS Platforms</h3><p>Subscription, membership and scalable financial products.</p></div><div class="model-card"><small>TOOLS</small><h3>Financial Calculators</h3><p>Custom calculators, planning tools and utilities.</p></div></div></div></section>
+<section class="slide"><div class="slide-fx"></div><div class="wrap"><div class="eyebrow">API & System Integration</div><h2>Connect your financial stack into <span class="grad">one infrastructure.</span></h2><div class="pipeline"><div class="node">BROKER API</div><div class="arrow">↔</div><div class="node">QP INTEGRATION CORE</div><div class="arrow">↔</div><div class="node">MARKET DATA</div><div class="arrow">↔</div><div class="node">CRM / KYC</div><div class="arrow">↔</div><div class="node">PAYMENTS</div></div><div class="models"><div class="model-card"><small>REAL TIME</small><h3>Webhooks</h3><p>Event-driven communication and real-time data systems.</p></div><div class="model-card"><small>THIRD PARTY</small><h3>Financial APIs</h3><p>Integrate external financial services into your products.</p></div><div class="model-card"><small>INTERNAL</small><h3>System-to-System</h3><p>Connect existing internal tools and operational systems.</p></div></div></div></section>
+<section class="slide"><div class="slide-fx"></div><div class="wrap"><div class="eyebrow">Technology Partnership</div><h2>Your extended <span class="grad">FinTech technology team.</span></h2><p class="lead">QuantParticle can work on a single project or as an ongoing technology partner—from concept and architecture through development, integration and deployment.</p><div class="vision"><div class="panel"><div class="n">01 // DISCOVER</div><h3>Requirement</h3><p>Understand business, customer, workflow and product requirements.</p></div><div class="panel"><div class="n">02 // ARCHITECT</div><h3>System Design</h3><p>Define technology architecture, integrations, data and deployment.</p></div><div class="panel"><div class="n">03 // BUILD</div><h3>Development</h3><p>Build the platform, application, automation or financial infrastructure.</p></div><div class="panel"><div class="n">04 // DEPLOY</div><h3>Launch & Support</h3><p>Testing, deployment, integration and ongoing technology execution.</p></div></div><div class="note">Trading terminal • Advanced charts • Scanner • Automation platform • RMS • Financial workflow system • Website • Mobile application • API integration • Completely custom FinTech product</div></div></section>
+<section class="slide"><div class="slide-fx"></div><div class="wrap" style="text-align:center"><div class="eyebrow" style="justify-content:center">QuantParticle FinTech Solutions</div><h1 style="margin:auto">From financial idea to <span class="grad">production technology.</span></h1><p class="lead" style="margin:25px auto">Technology infrastructure for brokers, fintech companies, trading businesses and financial institutions.</p><div class="stats" style="max-width:900px;margin:38px auto 0"><div class="stat"><strong>Concept</strong><span>Product architecture</span></div><div class="stat"><strong>Build</strong><span>Development</span></div><div class="stat"><strong>Integrate</strong><span>APIs & systems</span></div></div></div></section>
+</main>
+
+<footer class="controls">
+ <div class="progress" id="progress"></div><div class="counter" id="counter">01 / --</div>
+ <div class="hint">← → ARROW KEYS &nbsp;•&nbsp; SPACE TO ADVANCE</div>
+ <div class="navbtns"><button class="navbtn" id="prev" aria-label="Previous slide">←</button><button class="navbtn" id="next" aria-label="Next slide">→</button></div>
+</footer>
+</div>
+<script>
+const PASSWORD="Mitesh@1010";
+const lock=document.getElementById("lock"),app=document.getElementById("app"),form=document.getElementById("loginForm"),pw=document.getElementById("password"),err=document.getElementById("error");
+form.addEventListener("submit",e=>{e.preventDefault();if(pw.value===PASSWORD){sessionStorage.setItem("qp_access","1");lock.classList.add("hidden");app.classList.add("active");initAnimations()}else{err.textContent="Incorrect password. Please try again.";pw.select()}});
+if(sessionStorage.getItem("qp_access")==="1"){lock.classList.add("hidden");app.classList.add("active");setTimeout(initAnimations,100)}
+
+const slides=[...document.querySelectorAll(".slide")],counter=document.getElementById("counter"),progress=document.getElementById("progress");let current=0;
+function show(n){const old=current;current=(n+slides.length)%slides.length;slides.forEach((s,i)=>{s.classList.remove("active","prev");if(i===old&&old!==current)s.classList.add("prev")});slides[current].classList.add("active");counter.textContent=String(current+1).padStart(2,"0")+" / "+String(slides.length).padStart(2,"0");progress.style.width=((current+1)/slides.length*100)+"%";triggerSlideAnimations(current)}
+document.getElementById("next").onclick=()=>show(current+1);document.getElementById("prev").onclick=()=>show(current-1);
+document.addEventListener("keydown",e=>{if(!app.classList.contains("active"))return;if(["ArrowRight","PageDown"," "].includes(e.key)){e.preventDefault();show(current+1)}if(["ArrowLeft","PageUp"].includes(e.key)){e.preventDefault();show(current-1)}if(e.key==="Home")show(0);if(e.key==="End")show(slides.length-1)});
+let touchX=0;document.addEventListener("touchstart",e=>touchX=e.changedTouches[0].screenX,{passive:true});document.addEventListener("touchend",e=>{let d=e.changedTouches[0].screenX-touchX;if(Math.abs(d)>55)show(current+(d<0?1:-1))},{passive:true});
+
+// Cursor
+const cursor=document.querySelector('.cursor-glow');
+const trail=document.querySelector('.cursor-trail');
+let mouseX=0,mouseY=0,cursorX=0,cursorY=0,trailX=0,trailY=0;
+document.addEventListener('mousemove',e=>{mouseX=e.clientX;mouseY=e.clientY});
+function animateCursor(){
+ if(cursor&&trail&&window.innerWidth>968){
+   cursorX+=(mouseX-cursorX)*.15; cursorY+=(mouseY-cursorY)*.15;
+   trailX+=(mouseX-trailX)*.08; trailY+=(mouseY-trailY)*.08;
+   cursor.style.left=cursorX+'px'; cursor.style.top=cursorY+'px';
+   trail.style.left=trailX+'px'; trail.style.top=trailY+'px';
+ }
+ requestAnimationFrame(animateCursor);
+}
+animateCursor();
+document.querySelectorAll('a,button,input,.model-card,.panel,.stat,.node,.hero-card').forEach(el=>{
+ el.addEventListener('mouseenter',()=>cursor&&cursor.classList.add('hover'));
+ el.addEventListener('mouseleave',()=>cursor&&cursor.classList.remove('hover'));
+});
+
+// 3D cards
+document.querySelectorAll('.hero-card').forEach(card=>{
+ card.addEventListener('mousemove',e=>{
+   const r=card.getBoundingClientRect();
+   const rx=((e.clientY-r.top)/r.height-.5)*-5,ry=((e.clientX-r.left)/r.width-.5)*7;
+   card.style.transform=`perspective(900px) rotateX(${rx}deg) rotateY(${ry}deg)`;
+ });
+ card.addEventListener('mouseleave',()=>card.style.transform='');
+});
+document.querySelectorAll('.model-card').forEach(card=>{
+ card.addEventListener('mousemove',e=>{
+   const r=card.getBoundingClientRect();
+   card.style.setProperty('--mx',((e.clientX-r.left)/r.width*100)+'%');
+   card.style.setProperty('--my',((e.clientY-r.top)/r.height*100)+'%');
+ });
+});
+
+// Particle field
+const particleMouse={x:null,y:null,radius:200};
+window.addEventListener('mousemove',e=>{particleMouse.x=e.clientX;particleMouse.y=e.clientY});
+window.addEventListener('mouseout',()=>{particleMouse.x=null;particleMouse.y=null});
+const c=document.getElementById("particles"),x=c.getContext("2d");let pts=[];
+function resize(){
+ c.width=innerWidth;c.height=innerHeight;
+ pts=Array.from({length:Math.min(150,Math.floor((c.width*c.height)/12000))},()=>({
+  x:Math.random()*c.width,y:Math.random()*c.height,baseX:0,baseY:0,
+  vx:(Math.random()-.5)*.5,vy:(Math.random()-.5)*.5,r:Math.random()*2+.5,
+  density:Math.random()*25+5,opacity:Math.random()*.5+.2
+ })).map(p=>{p.baseX=p.x;p.baseY=p.y;return p});
+}
+resize();addEventListener("resize",resize);
+function updateParticle(p){
+ if(particleMouse.x!=null){
+   const dx=particleMouse.x-p.x,dy=particleMouse.y-p.y,dist=Math.hypot(dx,dy);
+   if(dist<particleMouse.radius&&dist>0){
+     const force=(particleMouse.radius-dist)/particleMouse.radius;
+     const push=force*p.density*.8;
+     p.x+=(dx/dist)*push;p.y+=(dy/dist)*push;
+   }
+ }
+ p.x+=p.vx;p.y+=p.vy;
+ p.x-=(p.x-p.baseX)*.02;p.y-=(p.y-p.baseY)*.02;
+ if(p.x<0)p.x=c.width;if(p.x>c.width)p.x=0;if(p.y<0)p.y=c.height;if(p.y>c.height)p.y=0;
+}
+(function draw(){
+ x.clearRect(0,0,c.width,c.height);
+ pts.forEach(p=>{updateParticle(p);x.beginPath();x.arc(p.x,p.y,p.r,0,Math.PI*2);x.fillStyle=`rgba(0,229,255,${p.opacity})`;x.fill()});
+ for(let i=0;i<pts.length;i++)for(let j=i+1;j<pts.length;j++){
+   const d=Math.hypot(pts[i].x-pts[j].x,pts[i].y-pts[j].y);
+   if(d<100){x.beginPath();x.strokeStyle=`rgba(0,229,255,${(1-d/100)*.15})`;x.moveTo(pts[i].x,pts[i].y);x.lineTo(pts[j].x,pts[j].y);x.stroke()}
+ }
+ requestAnimationFrame(draw);
+})();
+
+// ===== SLIDE-SPECIFIC ANIMATIONS =====
+let animationsInitialized = false;
+
+function initAnimations(){
+ if(animationsInitialized) return;
+ animationsInitialized = true;
+
+ // Slide 1: Logo particles
+ createLogoParticles();
+
+ // Slide 2: Rolling counter
+ startRollingCounter();
+
+ // Slide 3: Math symbols
+ createMathSymbols();
+
+ // Slide 4: Volatility chart
+ initVolChart();
+
+ // Slide 5: Flow chart
+ initFlowChart();
+
+ // Slide 6: Buy/Sell tape
+ initTape();
+
+ // Slide 7: MT5 candles
+ initMT5Candles();
+
+ // Slide 8: MQL5 code typing
+ initCodeTyping();
+
+ // Slide 9: Deployment
+ initDeployment();
+
+ // Slide 11: Final particles
+ createFinalParticles();
+}
+
+function triggerSlideAnimations(slideIndex){
+ // Re-trigger animations when slide becomes active
+ switch(slideIndex){
+  case 0: resetLogoParticles(); break;
+  case 1: resetRollingCounter(); break;
+  case 3: resetVolChart(); break;
+  case 4: resetFlowChart(); break;
+  case 5: resetTape(); break;
+  case 6: resetMT5Candles(); break;
+  case 7: resetCodeTyping(); break;
+  case 8: resetDeployment(); break;
+ }
+}
+
+// SLIDE 1: Logo Particle Attraction
+function createLogoParticles(){
+ const container = document.getElementById('logoParticles');
+ if(!container) return;
+
+ // Create orbiting particles
+ for(let i=0;i<8;i++){
+  const p = document.createElement('div');
+  p.className = 'orbit-particle';
+  p.style.animationDelay = (i*0.5)+'s';
+  p.style.animationDuration = (3+Math.random()*3)+'s';
+  container.appendChild(p);
+ }
+
+ // Create attracting particles
+ for(let i=0;i<20;i++){
+  const p = document.createElement('div');
+  p.className = 'attract-particle';
+  const angle = (i/20)*Math.PI*2;
+  const dist = 150+Math.random()*100;
+  const sx = Math.cos(angle)*dist;
+  const sy = Math.sin(angle)*dist;
+  p.style.setProperty('--sx', sx+'px');
+  p.style.setProperty('--sy', sy+'px');
+  p.style.animationDelay = (Math.random()*3)+'s';
+  p.style.animationDuration = (2+Math.random()*2)+'s';
+  container.appendChild(p);
+ }
+}
+
+function resetLogoParticles(){
+ const container = document.getElementById('logoParticles');
+ if(!container) return;
+ const particles = container.querySelectorAll('.attract-particle');
+ particles.forEach(p=>{
+  p.style.animation='none';
+  p.offsetHeight;
+  p.style.animation='';
+ });
+}
+
+// SLIDE 2: Rolling Counter
+let counterInterval;
+function startRollingCounter(){
+ animateCounter();
+}
+
+function animateCounter(){
+ const el = document.getElementById('rollingCounter');
+ if(!el) return;
+ let current = 0;
+ const target = 1200;
+ const duration = 2000;
+ const start = performance.now();
+
+ function update(now){
+  const elapsed = now - start;
+  const progress = Math.min(elapsed/duration, 1);
+  const eased = 1 - Math.pow(1-progress, 3);
+  current = Math.floor(eased * target);
+  el.textContent = current.toLocaleString() + (progress===1?'+':'');
+  if(progress<1) requestAnimationFrame(update);
+ }
+ requestAnimationFrame(update);
+}
+
+function resetRollingCounter(){
+ animateCounter();
+ // Add floating strategy cards
+ addStrategyCards();
+}
+
+let researchTimer;
+function addStrategyCards(){
+ const box=document.getElementById('researchCode');
+ if(!box) return;
+ clearTimeout(researchTimer);
+ const lines=[
+  ['<span class="cm">// QuantParticle Research Engine / MT5 R&D</span>'],
+  ['<span class="kw">model</span> = <span class="fn">GARCH</span>(alpha=<span class="num">0.10</span>, beta=<span class="num">0.88</span>)'],
+  ['vol = <span class="fn">ConditionalVariance</span>(returns)'],
+  ['signal = <span class="fn">BayesianRegimeFilter</span>(features)'],
+  ['factor = <span class="fn">PCA</span>(market_matrix, components=<span class="num">3</span>)'],
+  ['sparse = <span class="fn">LASSO</span>(X, y, lambda=<span class="num">0.015</span>)'],
+  ['flow = <span class="fn">OrderFlowImbalance</span>(bid, ask, volume)'],
+  ['entry = signal &amp;&amp; flow &gt; threshold'],
+  ['risk = <span class="fn">VolatilityAdaptiveSL</span>(vol, multiplier)'],
+  ['ea = <span class="fn">CompileMQL5</span>(strategy, risk, execution)'],
+  ['<span class="cyan">BUILD → QP_Research_Model.ex5</span>'],
+  ['<span class="str">✓ strategy research package ready for MT5 testing</span>']
+ ];
+ let i=0;
+ box.innerHTML='';
+ function next(){
+  if(i>=lines.length){ researchTimer=setTimeout(addStrategyCards,1700); return; }
+  const d=document.createElement('div'); d.className='re-line';
+  d.innerHTML=`<span class="ln">${String(i+1).padStart(2,'0')}</span><span>${lines[i][0]}${i===lines.length-1?'<i class="re-cursor"></i>':''}</span>`;
+  box.appendChild(d);
+  if(box.children.length>11) box.removeChild(box.firstChild);
+  i++; researchTimer=setTimeout(next,220);
+ }
+ next();
+}
+
+// SLIDE 3: Math Symbols
+function createMathSymbols(){
+ const slide = slides[2];
+ if(!slide) return;
+ const symbols = ['Σ','∫','σ²','μ','λ','∂','β','α','π','∇','ρ','Φ'];
+ symbols.forEach((s,i)=>{
+  const el = document.createElement('div');
+  el.className = 'math-symbol';
+  el.textContent = s;
+  el.style.left = (5+Math.random()*90)+'%';
+  el.style.top = (10+Math.random()*80)+'%';
+  el.style.fontSize = (20+Math.random()*30)+'px';
+  el.style.animationDelay = (i*0.5)+'s';
+  slide.querySelector('.slide-fx').appendChild(el);
+ });
+}
+
+// SLIDE 4: Volatility Chart
+let volData = [];
+let volAnimationId;
+function initVolChart(){
+ volData = [];
+ for(let i=0;i<50;i++){
+  volData.push(50 + Math.sin(i*0.2)*20 + Math.random()*15);
+ }
+ animateVolChart();
+}
+
+function animateVolChart(){
+ const line = document.getElementById('volLine');
+ const area = document.getElementById('volArea');
+ const dot = document.getElementById('volDot');
+ if(!line) return;
+
+ // Shift data
+ volData.shift();
+ volData.push(50 + Math.sin(Date.now()*0.001)*20 + Math.random()*15);
+
+ // Create path
+ let path = 'M';
+ let areaPath = 'M';
+ volData.forEach((v,i)=>{
+  const xPos = (i/(volData.length-1))*400;
+  const yPos = 200 - v;
+  path += (i===0?'':',') + xPos + ',' + yPos;
+  areaPath += (i===0?'':',') + xPos + ',' + yPos;
+ });
+ areaPath += ' L400,200 L0,200 Z';
+
+ line.setAttribute('d', path);
+ area.setAttribute('d', areaPath);
+ dot.setAttribute('cx', 400);
+ dot.setAttribute('cy', 200 - volData[volData.length-1]);
+
+ volAnimationId = setTimeout(animateVolChart, 100);
+}
+
+function resetVolChart(){
+ clearTimeout(volAnimationId);
+ initVolChart();
+}
+
+// SLIDE 5: Flow Chart
+function initFlowChart(){
+ const container = document.getElementById('flowChart');
+ if(!container) return;
+
+ // Create connections
+ const nodes = container.querySelectorAll('.flow-node');
+ nodes.forEach((node,i)=>{
+  if(i<nodes.length-1){
+   const next = nodes[i+1];
+   const conn = document.createElement('div');
+   conn.className = 'flow-connection';
+   const x1 = parseFloat(node.style.left)+10;
+   const y1 = parseFloat(node.style.top)+20;
+   const x2 = parseFloat(next.style.left);
+   const y2 = parseFloat(next.style.top)+20;
+   const length = Math.sqrt(Math.pow(x2-x1,2)+Math.pow(y2-y1,2));
+   const angle = Math.atan2(y2-y1,x2-x1)*180/Math.PI;
+   conn.style.left = x1+'%';
+   conn.style.top = y1+'%';
+   conn.style.width = length+'%';
+   conn.style.transform = `rotate(${angle}deg)`;
+   conn.style.animationDelay = (i*0.2)+'s';
+   container.appendChild(conn);
+
+   // Add particle
+   const particle = document.createElement('div');
+   particle.className = 'flow-particle';
+   particle.style.animationDelay = (i*0.3)+'s';
+   conn.appendChild(particle);
+  }
+ });
+
+ // Animate nodes
+ animateFlowNodes();
+}
+
+function animateFlowNodes(){
+ const nodes = document.querySelectorAll('.flow-node');
+ nodes.forEach((n,i)=>{
+  setTimeout(()=>{
+   n.classList.add('active');
+   setTimeout(()=>n.classList.remove('active'), 500);
+  }, i*300);
+ });
+ setTimeout(animateFlowNodes, nodes.length*300+1000);
+}
+
+function resetFlowChart(){
+ const nodes = document.querySelectorAll('.flow-node');
+ nodes.forEach(n=>n.classList.remove('active'));
+}
+
+// SLIDE 6: Homepage-style live multi-asset Buy/Sell execution
+let executionTimer=null, executionOrders=0;
+const executionMarkets=[
+ {s:'XAUUSD',p:3828.42,d:0.42},{s:'BTCUSD',p:112684.30,d:34.0},
+ {s:'XAGUSD',p:46.715,d:0.035},{s:'USOIL',p:64.82,d:0.12},
+ {s:'EURUSD',p:1.17342,d:0.00018},{s:'GBPUSD',p:1.34188,d:0.00022},
+ {s:'NAS100',p:24618.7,d:8.5},{s:'US30',p:46520.0,d:13.0}
+];
+function marketPrice(m){
+ m.p += (Math.random()-.48)*m.d;
+ if(m.s.includes('USD') && m.p<10) return m.p.toFixed(m.s==='XAGUSD'?3:5);
+ return m.p.toLocaleString(undefined,{minimumFractionDigits:2,maximumFractionDigits:2});
+}
+function makeExecutionRow(){
+ const rows=document.getElementById('execRows'); if(!rows)return;
+ const m=executionMarkets[Math.floor(Math.random()*executionMarkets.length)];
+ const buy=Math.random()>.48, lot=(Math.random()*.9+.1).toFixed(2), fill=Math.random()>.18;
+ const row=document.createElement('div'); row.className='exec-row';
+ row.innerHTML=`<span class="exec-symbol">${m.s}</span><span class="exec-side ${buy?'buy':'sell'}">${buy?'BUY':'SELL'}</span><span class="exec-lot">${lot}</span><span class="exec-price">${marketPrice(m)}</span><span class="exec-status ${fill?'fill':''}">${fill?'FILL':'PEND'}</span><i class="exec-flash ${buy?'buy':'sell'}"></i>`;
+ rows.prepend(row);
+ while(rows.children.length>7) rows.removeChild(rows.lastChild);
+ executionOrders++; const c=document.getElementById('orderCount'); if(c)c.textContent=String(executionOrders).padStart(4,'0');
+}
+function initTape(){
+ clearInterval(executionTimer);
+ const rows=document.getElementById('execRows'); if(!rows)return;
+ rows.innerHTML=''; executionOrders=0;
+ ['XAUUSD','BTCUSD','XAGUSD','USOIL','EURUSD','NAS100'].forEach((sym,i)=>{
+   setTimeout(()=>{
+    const m=executionMarkets.find(x=>x.s===sym), buy=i%2===0, row=document.createElement('div');
+    row.className='exec-row';
+    row.innerHTML=`<span class="exec-symbol">${m.s}</span><span class="exec-side ${buy?'buy':'sell'}">${buy?'BUY':'SELL'}</span><span class="exec-lot">${(0.1+i*.1).toFixed(2)}</span><span class="exec-price">${marketPrice(m)}</span><span class="exec-status fill">FILL</span><i class="exec-flash ${buy?'buy':'sell'}"></i>`;
+    rows.prepend(row); executionOrders++;
+   },i*90);
+ });
+ executionTimer=setInterval(makeExecutionRow,430);
+}
+function resetTape(){ initTape(); }
+
+// SLIDE 7: MT5 Candles
+function initMT5Candles(){
+ const chart = document.getElementById('mt5Chart');
+ if(!chart) return;
+
+ for(let i=0;i<15;i++){
+  const candle = document.createElement('div');
+  candle.className = 'mt5-candle';
+  const isUp = Math.random()>0.5;
+  candle.style.left = (5+i*6)+'%';
+  candle.style.bottom = '20%';
+  candle.style.height = (30+Math.random()*60)+'px';
+  candle.style.background = isUp?'var(--green)':'var(--red)';
+  candle.style.animationDelay = (i*0.1)+'s';
+  chart.appendChild(candle);
+ }
+}
+
+function resetMT5Candles(){
+ const chart = document.getElementById('mt5Chart');
+ const candles = chart.querySelectorAll('.mt5-candle');
+ candles.forEach(c=>{
+  c.style.animation='none';
+  c.offsetHeight;
+  c.style.animation='';
+ });
+}
+
+// SLIDE 8: MQL5 Code Typing
+const mqlCode = [
+ {text:'//+------------------------------------------------------------------+', cls:'cm'},
+ {text:'//| QP_Strategy_v2.mq5 - QuantParticle Expert Advisor               |', cls:'cm'},
+ {text:'//+------------------------------------------------------------------+', cls:'cm'},
+ {text:'#property strict', cls:'kw'},
+ {text:'#property version   "2.00"', cls:'kw'},
+ {text:'', cls:''},
+ {text:'input double    Lots = 0.10;', cls:''},
+ {text:'input int       StopLoss = 50;', cls:''},
+ {text:'input int       TakeProfit = 100;', cls:''},
+ {text:'', cls:''},
+ {text:'int OnInit()', cls:'fn'},
+ {text:'  {', cls:''},
+ {text:'   Print("QP Strategy v2 initialized");', cls:'fn'},
+ {text:'   return(INIT_SUCCEEDED);', cls:'kw'},
+ {text:'  }', cls:''},
+ {text:'', cls:''},
+ {text:'void OnTick()', cls:'fn'},
+ {text:'  {', cls:''},
+ {text:'   double atr = iATR(_Symbol, PERIOD_M5, 14, 0);', cls:'fn'},
+ {text:'   double close = iClose(_Symbol, PERIOD_M5, 0);', cls:'fn'},
+ {text:'   ', cls:''},
+ {text:'   if(signal == BUY && CountPositions() == 0)', cls:'kw'},
+ {text:'      trade.Buy(Lots, _Symbol, close, StopLoss, TakeProfit);', cls:'fn'},
+ {text:'   ', cls:''},
+ {text:'   ManagePosition();', cls:'fn'},
+ {text:'  }', cls:''},
+];
+
+let codeLineIndex = 0;
+function initCodeTyping(){
+ codeLineIndex = 0;
+ typeNextLine();
+}
+
+function typeNextLine(){
+ const body = document.getElementById('codeBody');
+ if(!body || codeLineIndex >= mqlCode.length) return;
+
+ const line = mqlCode[codeLineIndex];
+ const div = document.createElement('div');
+ div.className = 'code-line';
+ div.innerHTML = `<span class="${line.cls}">${line.text}</span>`;
+ body.appendChild(div);
+
+ // Remove old lines if too many
+ while(body.children.length > 15){
+  body.removeChild(body.firstChild);
+ }
+
+ codeLineIndex++;
+ setTimeout(typeNextLine, 100+Math.random()*200);
+}
+
+function resetCodeTyping(){
+ const body = document.getElementById('codeBody');
+ if(body) body.innerHTML = '';
+ codeLineIndex = 0;
+ setTimeout(typeNextLine, 500);
+}
+
+// SLIDE 9: Deployment
+function initDeployment(){
+ animateDeployment();
+}
+
+function animateDeployment(){
+ const stages = document.querySelectorAll('.deploy-stage');
+ stages.forEach((s,i)=>{
+  setTimeout(()=>{
+   s.classList.add('active');
+   setTimeout(()=>s.classList.remove('active'), 800);
+  }, i*600);
+ });
+ setTimeout(animateDeployment, stages.length*600+2000);
+}
+
+function resetDeployment(){
+ const stages = document.querySelectorAll('.deploy-stage');
+ stages.forEach(s=>s.classList.remove('active'));
+}
+
+// SLIDE 11: Final Particles
+function createFinalParticles(){
+ const container = document.getElementById('finalParticles');
+ if(!container) return;
+
+ // Create rings
+ for(let i=0;i<3;i++){
+  const ring = document.createElement('div');
+  ring.className = 'final-ring';
+  ring.style.animationDelay = (i*1.3)+'s';
+  container.appendChild(ring);
+ }
+
+ // Create particles
+ for(let i=0;i<30;i++){
+  const p = document.createElement('div');
+  p.className = 'final-particle';
+  p.style.left = Math.random()*100+'%';
+  p.style.top = Math.random()*100+'%';
+  p.style.animationDelay = (Math.random()*6)+'s';
+  p.style.animationDuration = (4+Math.random()*4)+'s';
+  container.appendChild(p);
+ }
+}
+
+// Initialize counter display
+counter.textContent="01 / "+String(slides.length).padStart(2,"0");
+progress.style.width=(1/slides.length*100)+"%";
+
+// ===== Automatic viewport fitting =====
+// Designed around the presentation's comfortable desktop canvas.
+// Scale only DOWN; never enlarge above 100%.
+function fitPresentationToScreen(){
+  const DESIGN_W = 1700;
+  const DESIGN_H = 860;
+  const vw = window.innerWidth;
+  const vh = window.innerHeight;
+  let scale = Math.min(1, vw / DESIGN_W, vh / DESIGN_H);
+  // A tiny safety margin prevents font rounding from clipping the last pixels.
+  scale = Math.max(.62, scale * .985);
+  document.documentElement.style.setProperty('--deck-scale', scale.toFixed(4));
+}
+fitPresentationToScreen();
+window.addEventListener('resize', fitPresentationToScreen);
+window.addEventListener('orientationchange', ()=>setTimeout(fitPresentationToScreen,120));
+
+
+// FinTech presentation dynamic animations
+const fsym=['XAUUSD','BTCUSD','NIFTY','BANKNIFTY','NAS100','EURUSD'];
+function fintechScanner(){const b=document.getElementById('finScanner');if(!b)return;b.innerHTML=fsym.map((x,i)=>`<span class="m">${x.padEnd(10)}</span> ${Math.random()>.5?'<span class="g">BUY  ↑</span>':'<span style="color:#ff7b73">SELL ↓</span>'} &nbsp; score ${(70+Math.random()*29).toFixed(1)}<br>`).join('')}
+setInterval(fintechScanner,900);fintechScanner();
+let wf=['CLIENT_CREATED → onboarding started','KYC_API → verified','CRM_SYNC → completed','RECON_ENGINE → matched','REPORT_ENGINE → generated','NOTIFY → dispatched'],wi=0;setInterval(()=>{let b=document.getElementById('workflowLog');if(b){b.innerHTML='<span class="g">✓ '+wf[wi++%wf.length]+'</span><br>'+b.innerHTML;b.innerHTML=b.innerHTML.split('<br>').slice(0,7).join('<br>')}},800);
+setInterval(()=>{let e=document.getElementById('rmsExp'),p=document.getElementById('rmsPnl'),r=document.getElementById('rmsRisk');if(e)e.textContent='₹'+(11+Math.random()*3).toFixed(1)+'L';if(p)p.textContent='+₹'+(18+Math.random()*12).toFixed(1)+'K';if(r)r.textContent=Math.floor(35+Math.random()*18)+'%'},1100);
+function qcount(){let e=document.getElementById('finQuant');if(!e||e.dataset.done)return;e.dataset.done=1;let s=performance.now();function t(n){let p=Math.min(1,(n-s)/1400);e.textContent=Math.floor(1200*(1-Math.pow(1-p,4))).toLocaleString()+'+';if(p<1)requestAnimationFrame(t)}requestAnimationFrame(t)}
+new MutationObserver(()=>{if(document.getElementById('finQuant')?.closest('.slide')?.classList.contains('active'))qcount()}).observe(document.querySelector('.deck'),{subtree:true,attributes:true,attributeFilter:['class']});
+</script>
+</body>
+</html>
