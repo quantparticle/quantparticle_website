@@ -1,0 +1,934 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<meta name="robots" content="noindex,nofollow,noarchive">
+<title>ANSPL 2.0 | 3-Year Digital, Quant & Wealth Transformation Roadmap</title>
+<link rel="icon" href="/quant_particle_logo_fevicon.png" type="image/png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+ --bg:#070b14;--surface:#0f1525;--surface2:#141d2e;--text:#e8ecf1;--muted:#8b95a8;
+ --cyan:#00e5ff;--blue:#4f46e5;--purple:#7c3aed;--green:#27ca40;--red:#ff5f56;--gold:#f59e0b;
+ --border:rgba(255,255,255,.08);--glass:rgba(15,21,37,.74);
+ --deck-scale:1;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{width:100%;height:100%;overflow:hidden;scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:Inter,system-ui,sans-serif;position:relative}
+button,input{font:inherit}
+.noise{position:fixed;inset:0;pointer-events:none;opacity:.025;z-index:50;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='4' stitchTiles='stitchTiles'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+#particles{position:fixed;inset:0;z-index:0;pointer-events:none}
+.orb{position:fixed;border-radius:50%;filter:blur(110px);opacity:.13;pointer-events:none;z-index:0}
+.o1{width:440px;height:440px;background:var(--blue);left:-180px;top:10%}
+.o2{width:380px;height:380px;background:var(--cyan);right:-150px;bottom:5%}
+
+/* ===== Lock Screen ===== */
+.lock{position:fixed;inset:0;z-index:9999;display:grid;place-items:center;background:radial-gradient(circle at 50% 25%,rgba(79,70,229,.19),transparent 38%),#070b14;padding:22px}
+.lock.hidden{display:none}
+.lock-card{width:min(480px,100%);padding:38px;border:1px solid var(--border);border-radius:22px;background:rgba(15,21,37,.84);backdrop-filter:blur(22px);box-shadow:0 30px 90px rgba(0,0,0,.6);text-align:center}
+.lock-badge{display:inline-flex;align-items:center;gap:8px;padding:6px 14px;border-radius:99px;border:1px solid rgba(0,229,255,.3);background:rgba(0,229,255,.08);font-family:"JetBrains Mono";font-size:.68rem;color:var(--cyan);margin-bottom:20px;letter-spacing:1.5px}
+.lock h1{font-size:1.7rem;margin-bottom:9px;letter-spacing:-.5px}
+.lock p{color:var(--muted);line-height:1.6;margin-bottom:24px;font-size:.9rem}
+.pw{width:100%;padding:15px 16px;border-radius:11px;border:1px solid var(--border);background:#090e19;color:#fff;outline:none;font-family:"JetBrains Mono";margin-bottom:12px}
+.pw:focus{border-color:var(--cyan);box-shadow:0 0 0 3px rgba(0,229,255,.08)}
+.unlock{width:100%;border:0;border-radius:11px;padding:15px;background:linear-gradient(135deg,var(--cyan),var(--blue));color:#061019;font-weight:800;cursor:pointer;transition:.2s}
+.unlock:hover{filter:brightness(1.1);transform:translateY(-1px)}
+.error{height:20px;color:#ff7b73;text-align:center;font-size:.78rem;margin-top:10px}
+
+/* ===== Viewport Scaling App Shell ===== */
+.app{
+ width:calc(100vw / var(--deck-scale));
+ height:calc(100vh / var(--deck-scale));
+ transform:scale(var(--deck-scale));
+ transform-origin:top left;
+ position:relative;z-index:1;display:none;
+}
+.app.active{display:block}
+.topbar{position:fixed;left:0;right:0;top:0;width:calc(100vw / var(--deck-scale));height:74px;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:0 34px;background:rgba(7,11,20,.76);backdrop-filter:blur(20px);border-bottom:1px solid var(--border)}
+.brand{display:flex;align-items:center;gap:14px}
+.brand-mark{padding:8px 14px;border-radius:10px;background:linear-gradient(135deg,rgba(0,229,255,.16),rgba(79,70,229,.22));border:1px solid rgba(0,229,255,.35);font-family:"JetBrains Mono";font-weight:800;font-size:.95rem;color:#fff;letter-spacing:1px;box-shadow:0 0 20px rgba(0,229,255,.2)}
+.brand-mark span{color:var(--cyan)}
+.brand-sub{font-family:"JetBrains Mono";font-size:.68rem;color:var(--muted);letter-spacing:1.2px}
+.top-meta{display:flex;align-items:center;gap:14px;font-family:"JetBrains Mono";font-size:.69rem;color:var(--muted);letter-spacing:.8px}
+.live{width:7px;height:7px;border-radius:50%;background:var(--cyan);box-shadow:0 0 12px var(--cyan);animation:pulse 1.8s infinite}
+@keyframes pulse{50%{opacity:.35}}
+
+.deck{height:calc(100vh / var(--deck-scale));position:relative}
+.slide{position:absolute;inset:74px 0 60px;display:grid;place-items:center;padding:32px 5.2vw;opacity:0;visibility:hidden;transform:translateX(45px);transition:.5s cubic-bezier(.2,.8,.2,1)}
+.slide.active{opacity:1;visibility:visible;transform:none}
+.slide.prev{transform:translateX(-45px)}
+.wrap{width:min(1320px,100%);margin:auto;position:relative;z-index:2}
+
+/* ===== Typography & Components ===== */
+.eyebrow{font-family:"JetBrains Mono";font-size:.71rem;color:var(--cyan);letter-spacing:2.8px;text-transform:uppercase;margin-bottom:14px;display:flex;align-items:center;gap:10px}
+.eyebrow:before{content:"";width:28px;height:1px;background:var(--cyan);box-shadow:0 0 8px var(--cyan)}
+h1{font-size:clamp(2.4rem,4.7vw,4.5rem);line-height:1.02;letter-spacing:-2.8px;max-width:1050px}
+h2{font-size:clamp(1.85rem,3.3vw,2.95rem);line-height:1.08;letter-spacing:-1.6px;margin-bottom:14px}
+.grad{background:linear-gradient(100deg,#fff,var(--cyan),#8d83ff);-webkit-background-clip:text;color:transparent}
+.grad-gold{background:linear-gradient(100deg,#fff,var(--gold),var(--cyan));-webkit-background-clip:text;color:transparent}
+.lead{font-size:clamp(.92rem,1.25vw,1.08rem);line-height:1.68;color:var(--muted);max-width:860px;margin-top:14px}
+
+.hero-grid,.two{display:grid;grid-template-columns:1.12fr .88fr;gap:48px;align-items:center}
+.two-equal{display:grid;grid-template-columns:1fr 1fr;gap:36px;align-items:stretch}
+.hero-card,.panel,.model-card,.stat{background:var(--glass);border:1px solid var(--border);backdrop-filter:blur(18px);box-shadow:0 24px 70px rgba(0,0,0,.32)}
+.hero-card{border-radius:20px;padding:22px;position:relative;overflow:hidden;transform-style:preserve-3d;transition:transform .18s ease,border-color .25s}
+.hero-card:before{content:"";position:absolute;inset:0;background:linear-gradient(135deg,rgba(0,229,255,.07),transparent 42%,rgba(124,58,237,.08));pointer-events:none}
+
+.terminal-head{display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid var(--border);padding-bottom:13px;margin-bottom:15px;font-family:"JetBrains Mono";font-size:.66rem;color:var(--muted)}
+.dots{display:flex;gap:7px}
+.dots i{width:9px;height:9px;border-radius:50%;background:#ff5f56;display:inline-block}
+.dots i:nth-child(2){background:#ffbd2e}
+.dots i:nth-child(3){background:#27ca40}
+
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:26px}
+.stats.three{grid-template-columns:repeat(3,1fr)}
+.stat{padding:18px;border-radius:14px;position:relative;overflow:hidden}
+.stat strong{display:block;font-size:1.75rem;color:var(--cyan);margin-bottom:4px;font-weight:800;letter-spacing:-.8px}
+.stat strong.gold{color:var(--gold)}
+.stat strong.green{color:var(--green)}
+.stat span{font-family:"JetBrains Mono";font-size:.64rem;color:var(--muted);text-transform:uppercase;letter-spacing:1px;display:block;line-height:1.4}
+
+.models{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:22px}
+.models.four{grid-template-columns:repeat(4,1fr)}
+.model-card{padding:18px;border-radius:14px;min-height:118px;transition:.25s;position:relative;overflow:hidden}
+.model-card:hover{border-color:rgba(0,229,255,.35);transform:translateY(-3px)}
+.model-card:before{content:"";position:absolute;inset:0;background:radial-gradient(circle at var(--mx,50%) var(--my,50%),rgba(0,229,255,.12),transparent 38%);opacity:0;transition:.25s;pointer-events:none}
+.model-card:hover:before{opacity:1}
+.model-card small{font-family:"JetBrains Mono";color:var(--cyan);font-size:.61rem;letter-spacing:1.1px;text-transform:uppercase;display:block}
+.model-card small.gold{color:var(--gold)}
+.model-card small.green{color:var(--green)}
+.model-card h3{font-size:.96rem;margin:7px 0 6px;color:#fff}
+.model-card p{font-size:.76rem;color:var(--muted);line-height:1.5}
+.model-card .formula-bar{position:absolute;bottom:0;left:0;height:2px;background:linear-gradient(90deg,var(--cyan),var(--purple));animation:formulaBar 2.4s ease-in-out infinite}
+@keyframes formulaBar{0%,100%{width:15%;opacity:.35}50%{width:100%;opacity:1}}
+
+.list{display:grid;gap:11px;margin-top:18px}
+.li{padding:12px 15px;border-left:2px solid var(--cyan);background:linear-gradient(90deg,rgba(0,229,255,.06),transparent);color:#b9c2d0;font-size:.82rem;line-height:1.5}
+.li b{color:#fff}
+.li.gold{border-left-color:var(--gold);background:linear-gradient(90deg,rgba(245,158,11,.08),transparent)}
+
+.vision{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:22px}
+.vision.three{grid-template-columns:repeat(3,1fr)}
+.vision .panel{border-radius:15px;padding:19px;position:relative;overflow:hidden}
+.vision .n{font-family:"JetBrains Mono";color:var(--cyan);font-size:.66rem;letter-spacing:1px}
+.vision h3{font-size:.98rem;margin:9px 0 7px;color:#fff}
+.vision p{font-size:.76rem;color:var(--muted);line-height:1.52}
+.vision .panel:after{content:"";position:absolute;inset:auto 0 0;height:2px;background:linear-gradient(90deg,transparent,var(--cyan),transparent);transform:translateX(-100%)}
+.slide.active .vision .panel:after{animation:partnerFlow 2.8s infinite}
+@keyframes partnerFlow{to{transform:translateX(100%)}}
+
+.badge-row{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+.pill{padding:5px 10px;border-radius:6px;background:rgba(0,229,255,.09);border:1px solid rgba(0,229,255,.22);font-family:"JetBrains Mono";font-size:.62rem;color:var(--cyan)}
+.pill.gold{background:rgba(245,158,11,.1);border-color:rgba(245,158,11,.3);color:var(--gold)}
+.pill.green{background:rgba(39,202,64,.1);border-color:rgba(39,202,64,.3);color:var(--green)}
+
+.big-number{font-size:clamp(3.8rem,8.5vw,6.8rem);font-weight:900;letter-spacing:-5px;line-height:.88;background:linear-gradient(135deg,#fff,var(--cyan),var(--blue));-webkit-background-clip:text;color:transparent;font-variant-numeric:tabular-nums}
+.big-caption{font-family:"JetBrains Mono";color:var(--cyan);font-size:.78rem;margin-top:14px;letter-spacing:2px}
+.note{font-size:.7rem;color:#6f7a8e;margin-top:16px;max-width:950px;line-height:1.5}
+
+/* ===== Controls ===== */
+.controls{position:fixed;bottom:0;left:0;right:0;width:calc(100vw / var(--deck-scale));height:60px;z-index:120;background:rgba(7,11,20,.84);backdrop-filter:blur(18px);border-top:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;padding:0 34px}
+.progress{position:absolute;left:0;top:-1px;height:2px;background:linear-gradient(90deg,var(--cyan),var(--blue));transition:.35s}
+.counter{font-family:"JetBrains Mono";font-size:.7rem;color:var(--muted)}
+.navbtns{display:flex;gap:8px}
+.navbtn{width:40px;height:35px;border:1px solid var(--border);background:var(--surface);color:#fff;border-radius:9px;cursor:pointer;transition:.2s}
+.navbtn:hover{border-color:var(--cyan);color:var(--cyan)}
+.hint{font-family:"JetBrains Mono";font-size:.63rem;color:#606b7d}
+
+/* ===== Cursor ===== */
+.cursor-glow{position:fixed;width:20px;height:20px;border:2px solid var(--cyan);border-radius:50%;pointer-events:none;z-index:99999;transform:translate(-50%,-50%);transition:width .2s,height .2s,background .2s;mix-blend-mode:difference}
+.cursor-glow.hover{width:50px;height:50px;background:rgba(0,229,255,.12)}
+.cursor-trail{position:fixed;width:6px;height:6px;background:var(--cyan);border-radius:50%;pointer-events:none;z-index:99998;transform:translate(-50%,-50%);opacity:.5}
+
+/* ===== Slide Animations & Custom Widgets ===== */
+.slide-fx{position:absolute;inset:0;overflow:hidden;pointer-events:none;z-index:0}
+.slide.active .eyebrow{animation:slideUp .6s .04s both}
+.slide.active h1,.slide.active h2,.slide.active .big-number{animation:slideUp .72s .1s both}
+.slide.active .lead,.slide.active .big-caption{animation:slideUp .68s .18s both}
+.slide.active .hero-card{animation:cardIn .85s .18s both}
+.slide.active .stat{animation:fadeUp .58s .28s both}
+.slide.active .model-card{animation:fadeUp .55s .2s both}
+.slide.active .li{animation:fromLeft .55s .24s both}
+.slide.active .vision .panel{animation:fadeUp .6s .24s both}
+@keyframes slideUp{from{opacity:0;transform:translateY(30px);filter:blur(6px)}to{opacity:1;transform:none;filter:none}}
+@keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:none}}
+@keyframes fromLeft{from{opacity:0;transform:translateX(-24px)}to{opacity:1;transform:none}}
+@keyframes cardIn{from{opacity:0;transform:translateX(36px) scale(.97)}to{opacity:1;transform:none}}
+
+/* Slide 1 Orbit Core */
+.logo-particles-container{position:relative;width:320px;height:320px;margin:0 auto}
+.logo-center{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:175px;height:175px;border-radius:50%;background:radial-gradient(circle,rgba(0,229,255,.18),rgba(15,21,37,.92));border:1px solid rgba(0,229,255,.4);display:flex;flex-direction:column;align-items:center;justify-content:center;box-shadow:0 0 45px rgba(0,229,255,.25);animation:logoFloat 3.2s ease-in-out infinite}
+.logo-center strong{font-size:1.7rem;letter-spacing:2px;color:#fff}
+.logo-center span{font-family:"JetBrains Mono";font-size:.6rem;color:var(--cyan);margin-top:4px;letter-spacing:1.5px}
+@keyframes logoFloat{0%,100%{transform:translate(-50%,-50%) translateY(0)}50%{transform:translate(-50%,-50%) translateY(-9px)}}
+.logo-ring{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);border:1px solid rgba(0,229,255,.22);border-radius:50%}
+.logo-ring.r1{width:215px;height:215px;animation:ringPulse 2.2s ease-in-out infinite}
+.logo-ring.r2{width:265px;height:265px;animation:ringPulse 2.2s ease-in-out infinite .5s;border-color:rgba(124,58,237,.22)}
+.logo-ring.r3{width:315px;height:315px;animation:ringPulse 2.2s ease-in-out infinite 1s;border-color:rgba(0,229,255,.12)}
+@keyframes ringPulse{0%,100%{transform:translate(-50%,-50%) scale(1);opacity:.5}50%{transform:translate(-50%,-50%) scale(1.05);opacity:1}}
+.orbit-particle{position:absolute;left:50%;top:50%;width:7px;height:7px;background:var(--cyan);border-radius:50%;box-shadow:0 0 12px var(--cyan);animation:orbitParticle 4.5s linear infinite}
+@keyframes orbitParticle{from{transform:rotate(0deg) translateX(148px) rotate(0deg)}to{transform:rotate(360deg) translateX(148px) rotate(-360deg)}}
+.attract-particle{position:absolute;left:50%;top:50%;width:4px;height:4px;background:rgba(0,229,255,.7);border-radius:50%;animation:attractToLogo 3s ease-in-out infinite}
+@keyframes attractToLogo{0%{transform:translate(var(--sx),var(--sy)) scale(1);opacity:0}20%{opacity:1}85%{transform:translate(0,0) scale(.3);opacity:.8}100%{transform:translate(0,0) scale(0);opacity:0}}
+
+/* Slide 2 & 8 Terminal Code Box */
+.research-engine{height:385px;position:relative;overflow:hidden;border:1px solid rgba(0,229,255,.2);border-radius:18px;background:linear-gradient(180deg,rgba(15,21,37,.95),rgba(7,11,20,.88));box-shadow:0 25px 70px rgba(0,0,0,.4)}
+.re-head{height:46px;padding:0 18px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--border);font:600 .64rem "JetBrains Mono";letter-spacing:1px;color:var(--muted)}
+.re-live{color:var(--cyan);text-shadow:0 0 10px rgba(0,229,255,.6);animation:pulse 1.2s infinite}
+.re-code{height:275px;padding:14px 18px;font:500 .68rem/1.72 "JetBrains Mono";overflow:hidden;position:relative}
+.re-line{display:grid;grid-template-columns:28px 1fr;gap:9px;opacity:0;transform:translateY(8px);animation:reLineIn .26s forwards}
+.re-line .ln{color:#465168;text-align:right;user-select:none}.re-line .kw{color:#c792ea}.re-line .fn{color:#82aaff}.re-line .num{color:#f78c6c}.re-line .str{color:#c3e88d}.re-line .cm{color:#59657a}.re-line .cyan{color:#7eeeff}
+@keyframes reLineIn{to{opacity:1;transform:none}}
+.re-bottom{position:absolute;left:0;right:0;bottom:0;height:62px;border-top:1px solid var(--border);display:grid;grid-template-columns:repeat(3,1fr);background:rgba(7,11,20,.88)}
+.re-bottom>div{padding:10px 14px;border-right:1px solid var(--border);display:flex;flex-direction:column;gap:4px}.re-bottom>div:last-child{border-right:0}
+.re-bottom span{font:500 .52rem "JetBrains Mono";color:#667187;letter-spacing:1px}.re-bottom b{font:600 .68rem "JetBrains Mono";color:#d7dfeb}.re-bottom b.cyan{color:var(--cyan)}
+.re-scan{position:absolute;left:0;right:0;height:1px;top:46px;background:linear-gradient(90deg,transparent,var(--cyan),transparent);box-shadow:0 0 14px var(--cyan);opacity:.45;animation:reScan 3.2s linear infinite}
+@keyframes reScan{to{transform:translateY(275px)}}
+
+/* Slide 6 Dhan-Style Web Terminal Mockup */
+.execution-engine{height:395px;position:relative;overflow:hidden;border:1px solid rgba(0,229,255,.22);border-radius:18px;background:linear-gradient(180deg,rgba(15,21,37,.96),rgba(8,13,23,.94));box-shadow:0 28px 80px rgba(0,0,0,.45)}
+.exec-head{height:50px;display:flex;align-items:center;justify-content:space-between;padding:0 18px;border-bottom:1px solid var(--border);font:600 .62rem "JetBrains Mono";letter-spacing:1px;color:#9aa5b8}
+.exec-latency{font-size:.55rem;color:#667187}.exec-latency b{color:var(--cyan);font-size:.68rem}
+.exec-columns,.exec-row{display:grid;grid-template-columns:1.4fr .7fr .75fr 1fr .85fr;align-items:center;padding:0 16px}
+.exec-columns{height:28px;border-bottom:1px solid rgba(255,255,255,.06);font:500 .52rem "JetBrains Mono";letter-spacing:1px;color:#59657a}
+.exec-rows{height:268px;overflow:hidden}
+.exec-row{height:38px;border-bottom:1px solid rgba(255,255,255,.045);font:600 .64rem "JetBrains Mono";position:relative;animation:execRowIn .25s ease-out}
+@keyframes execRowIn{from{opacity:0;transform:translateX(18px);background:rgba(0,229,255,.12)}to{opacity:1;transform:none;background:transparent}}
+.exec-symbol{color:#d7dfeb}.exec-side{justify-self:start;padding:4px 8px;border-radius:5px;font-size:.56rem}.exec-side.buy{color:#67ef84;background:rgba(39,202,64,.14)}.exec-side.sell{color:#ff7c75;background:rgba(255,95,86,.14)}
+.exec-lot{color:#818ca0}.exec-price{color:var(--cyan)}.exec-status{font-size:.55rem;color:#55e67b}
+.exec-foot{position:absolute;left:0;right:0;bottom:0;height:48px;display:flex;align-items:center;justify-content:space-between;padding:0 17px;border-top:1px solid var(--border);background:rgba(7,11,20,.9);font:500 .54rem "JetBrains Mono";color:#667187}.exec-foot b{color:var(--cyan)}
+
+/* Slide 9 Funnel Stages */
+.deploy-container{position:relative;width:100%;height:96px;margin-top:18px;display:flex;align-items:center;justify-content:space-between;gap:8px}
+.deploy-stage{flex:1;padding:14px 10px;background:var(--glass);border:1px solid var(--border);border-radius:12px;text-align:center;font-family:"JetBrains Mono";font-size:.66rem;transition:.3s}
+.deploy-stage.active{border-color:var(--cyan);box-shadow:0 0 25px rgba(0,229,255,.28);color:#fff}
+.deploy-stage span{display:block;font-size:.55rem;color:var(--cyan);margin-bottom:4px}
+.deploy-arrow{color:var(--cyan);font-size:1.2rem;font-family:"JetBrains Mono"}
+
+/* Slide 12 Live Chart */
+.vol-chart-container{position:relative;width:100%;height:185px;margin-top:12px}
+.vol-svg{width:100%;height:100%}
+.vol-line{fill:none;stroke:var(--cyan);stroke-width:2.4;filter:drop-shadow(0 0 8px rgba(0,229,255,.6))}
+.vol-area{fill:url(#volGradient);opacity:.35}
+.vol-dot{fill:var(--cyan);filter:drop-shadow(0 0 6px var(--cyan))}
+.vol-grid-line{stroke:rgba(255,255,255,.06);stroke-width:1}
+
+/* Table Matrix */
+.matrix-table{width:100%;border-collapse:collapse;margin-top:16px;font-size:.76rem;background:var(--glass);border:1px solid var(--border);border-radius:14px;overflow:hidden}
+.matrix-table th,.matrix-table td{padding:12px 15px;text-align:left;border-bottom:1px solid var(--border)}
+.matrix-table th{font-family:"JetBrains Mono";font-size:.64rem;color:var(--cyan);text-transform:uppercase;letter-spacing:1px;background:rgba(7,11,20,.6)}
+.matrix-table tr:last-child td{border-bottom:0}
+.matrix-table td b{color:#fff}
+
+@media(max-width:950px){
+ .slide{padding:24px;overflow-y:auto;align-items:start}
+ .hero-grid,.two,.two-equal{grid-template-columns:1fr;gap:22px}
+ .models,.models.four,.vision,.vision.three,.stats{grid-template-columns:1fr 1fr}
+ .deploy-container{flex-wrap:wrap;height:auto}
+}
+</style>
+</head>
+<body>
+<div class="noise"></div>
+<canvas id="particles"></canvas>
+<div class="cursor-glow"></div>
+<div class="cursor-trail"></div>
+<div class="orb o1"></div>
+<div class="orb o2"></div>
+
+<!-- PASSWORD LOCK -->
+<div class="lock" id="lock">
+ <div class="lock-card">
+   <div class="lock-badge">● BOARDROOM STRATEGY DECK // ANSPL 2.0</div>
+   <h1>ANSPL Next-Gen Masterplan</h1>
+   <p>3-Year Execution Roadmap: Digital Transformation, HNI Wealth Events, Dhan-Grade Terminal, Quant Algo Infrastructure & National Brand Fame.</p>
+   <form id="loginForm">
+     <input class="pw" id="password" type="password" value="Mitesh@1010" autocomplete="current-password" placeholder="Enter access password" autofocus>
+     <button class="unlock" type="submit">Launch Executive Presentation →</button>
+     <div class="error" id="error"></div>
+   </form>
+ </div>
+</div>
+
+<!-- PRESENTATION APP -->
+<div class="app" id="app">
+<header class="topbar">
+ <div class="brand">
+   <div class="brand-mark">ANSPL <span>2.0</span> × QUANTPARTICLE</div>
+   <div class="brand-sub">30-YEAR GUJARAT LEGACY → NATIONAL FINTECH POWERHOUSE</div>
+ </div>
+ <div class="top-meta"><span class="live"></span> 3-YEAR EXECUTION BLUEPRINT <span>•</span> PREPARED BY MITESH MISTRY</div>
+</header>
+
+<main class="deck">
+
+<!-- SLIDE 01: COVER & VISION -->
+<section class="slide active">
+ <div class="slide-fx"></div>
+ <div class="wrap">
+  <div class="hero-grid">
+   <div>
+    <div class="eyebrow">Executive Vision • 2026–2029 Transformation</div>
+    <h1>Transforming 30 Years of Trust into <span class="grad">National Fintech Dominance.</span></h1>
+    <p class="lead">ANS Pvt. Ltd. (ANSPL) possesses what new-age discount brokers spend ₹300 Cr trying to buy: <b>65,000+ customers, a rock-solid balance sheet, an in-house NBFC, and 3 decades of unshakeable Gujarat trust.</b> Our mission is to pair this 1st-Gen foundation with Next-Gen technology, media fame, and a high-velocity sales engine.</p>
+    <div class="stats">
+      <div class="stat"><strong>65,000+</strong><span>Total Customer Base</span></div>
+      <div class="stat"><strong class="green">18,000</strong><span>Active Desk Traders</span></div>
+      <div class="stat"><strong class="gold">30+ Yrs</strong><span>Legacy Since 1991</span></div>
+      <div class="stat"><strong>36 Mos</strong><span>National Scale Horizon</span></div>
+    </div>
+   </div>
+   <div class="logo-particles-container" id="logoParticles">
+    <div class="logo-ring r1"></div>
+    <div class="logo-ring r2"></div>
+    <div class="logo-ring r3"></div>
+    <div class="logo-center">
+      <strong>ANSPL</strong>
+      <span>NEXT-GEN ENGINE</span>
+    </div>
+   </div>
+  </div>
+ </div>
+</section>
+
+<!-- SLIDE 02: CURRENT REALITY & THE SLEEPING GIANT -->
+<section class="slide">
+ <div class="slide-fx"></div>
+ <div class="wrap two">
+  <div>
+   <div class="eyebrow">01 / Strategic Diagnosis</div>
+   <div class="big-number" id="rollingCounter">47,000+</div>
+   <div class="big-caption">DORMANT & UNDER-MONETIZED ACCOUNTS READY FOR REACTIVATION</div>
+   <p class="lead">1st-Gen leadership built a highly profitable, relationship-driven business in Gujarat via "Call-to-Desk" order punching and referrals. However, zero digital presence and a 90s-era UI mean <b>~47,000 accounts sit idle</b> and younger retail traders are migrating to modern apps.</p>
+   <div class="list">
+     <div class="li"><b>The Strength:</b> High client satisfaction, clean balance sheet, NSE/BSE/MCX/NCDEX/CDSL memberships, plus in-house NBFC, Mutual Funds & PMS.</div>
+     <div class="li gold"><b>The Gap:</b> Outsourced dev team lacks modern product leadership; zero Meta/YouTube acquisition; no national brand fame for Next-Gen promoters.</div>
+   </div>
+  </div>
+  <div class="research-engine">
+   <div class="re-head"><span>ANSPL_INFRA_AUDIT // LIVE DIAGNOSTIC</span><span class="re-live">● SCANNING</span></div>
+   <div class="re-code" id="researchCode"></div>
+   <div class="re-bottom">
+    <div><span>LEGACY BASE</span><b>60K–70K CLIENTS</b></div>
+    <div><span>CORE REGION</span><b>RAJKOT / GUJARAT</b></div>
+    <div><span>OPPORTUNITY</span><b class="cyan">10X VALUATION</b></div>
+   </div>
+   <div class="re-scan"></div>
+  </div>
+ </div>
+</section>
+
+<!-- SLIDE 03: OLD CUSTOMER HOSPITALITY & HNI GATHERINGS -->
+<section class="slide">
+ <div class="slide-fx"></div>
+ <div class="wrap">
+  <div class="eyebrow">02 / Existing Client Monetization & Hospitality</div>
+  <h2>Turn 65,000 Existing Customers into a <span class="grad-gold">Multi-Crore Wealth Flywheel.</span></h2>
+  <p class="lead">We never force happy offline desk clients to change habits overnight. Instead, we celebrate them through <b>high-trust offline gatherings, lunches, and investor conclaves</b>—converting single-product brokerage clients into multi-product family wealth accounts.</p>
+  <table class="matrix-table">
+    <thead>
+      <tr>
+        <th>Customer Segment</th>
+        <th>Engagement Format (Offline + Hospitality)</th>
+        <th>Primary Upsell Products</th>
+        <th>3-Year Revenue Target</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><b>Tier 1: Top 1,000 HNIs</b><br><span style="color:var(--muted)">Portfolio &gt; ₹25 Lakhs</span></td>
+        <td><b>"ANSPL Chairman’s Circle"</b> — Quarterly 5-Star Gala Lunches / High-Tea in Rajkot, Ahmedabad, Surat &amp; Vadodara with Celebrity Finfluencers &amp; Promoters.</td>
+        <td><span class="pill gold">PMS Ticket (₹50L+)</span> <span class="pill">NBFC LAS / MTF</span> <span class="pill green">Direct Debt / AIF</span></td>
+        <td><b>₹150 Cr+ New AUM</b><br><span style="color:var(--green)">High Recurring Yield</span></td>
+      </tr>
+      <tr>
+        <td><b>Tier 2: 18,000 Active</b><br><span style="color:var(--muted)">Call-to-Desk Traders</span></td>
+        <td><b>Dealer-to-RM Upgrade</b> — Every call-to-punch order triggers a smart CRM cross-sell pitch + Regional Investor Meetups &amp; Diwali Muhurat Dinners.</td>
+        <td><span class="pill">4x MTF Funding</span> <span class="pill green">Family SIP (ANS Money)</span> <span class="pill">SEBI RA Model Basket</span></td>
+        <td><b>3x ARPU Expansion</b><br><span style="color:var(--cyan)">40% SIP Penetration</span></td>
+      </tr>
+      <tr>
+        <td><b>Tier 3: 47,000 Dormant</b><br><span style="color:var(--muted)">Inactive Legacy Accounts</span></td>
+        <td><b>"Welcome Home" Campaign</b> — WhatsApp BackOffice blast + Tele-RM call offering Free Portfolio Checkup by SEBI RA + Zero AMC for 12 Months.</td>
+        <td><span class="pill green">30-Day ₹0 Brokerage</span> <span class="pill">1-Tap IPO / SGB</span> <span class="pill">New ANS Trade App</span></td>
+        <td><b>12,000+ Reactivated</b><br><span style="color:var(--gold)">Near-Zero CAC</span></td>
+      </tr>
+    </tbody>
+  </table>
+ </div>
+</section>
+
+<!-- SLIDE 04: FULL-STACK FINANCIAL SUPERMARKET -->
+<section class="slide">
+ <div class="slide-fx"></div>
+ <div class="wrap">
+  <div class="eyebrow">03 / Full-Stack Monetization</div>
+  <h2>One Customer. Six Revenue Streams. <span class="grad">Brokerage to NBFC.</span></h2>
+  <div class="models">
+   <div class="model-card"><small>01 / CORE BROKING</small><h3>Equity, F&O & Commodities</h3><p>Keep high-yield offline desk brokerage intact while introducing competitive flat/hybrid plans to win digital F&O volume across NSE, BSE, MCX & NCDEX.</p><div class="formula-bar"></div></div>
+   <div class="model-card"><small class="gold">02 / IN-HOUSE NBFC ENGINE</small><h3>MTF (Margin Funding) & LAS</h3><p>Our biggest profit lever. Offer seamless 4x Margin Trading Facility & Instant Loan Against Shares inside ANS Trade—earning 14%–18% NIM safely.</p><div class="formula-bar"></div></div>
+   <div class="model-card"><small class="green">03 / WEALTH & PMS</small><h3>Curated PMS & High-Conviction Baskets</h3><p>Package internal and third-party PMS products for Gujarat’s business owners, industrialists, doctors, and NRIs seeking hands-off compounding.</p><div class="formula-bar"></div></div>
+   <div class="model-card"><small>04 / MUTUAL FUNDS (ANS MONEY)</small><h3>Demat-Mode Family SIP Engine</h3><p>Position ANS Money as the "Family Wealth App"—one login to track spouse/parents' portfolios, automated step-up SIPs, and NFO/Bond allocation.</p><div class="formula-bar"></div></div>
+   <div class="model-card"><small class="gold">05 / SEBI RESEARCH ANALYST DESK</small><h3>Advisory & Model Portfolios</h3><p>Dedicated in-house SEBI RA publishing daily swing calls, fundamental pick-of-the-week, and options strategies exclusively for ANSPL active clients.</p><div class="formula-bar"></div></div>
+   <div class="model-card"><small class="green">06 / B2B PARTNER NETWORK</small><h3>ANS Connect (AP / Sub-Brokers)</h3><p>Empower Authorised Persons & MF Distributors across Maharashtra, Rajasthan & MP with a modern partner dashboard, instant payouts & co-branded marketing.</p><div class="formula-bar"></div></div>
+  </div>
+ </div>
+</section>
+
+<!-- SLIDE 05: UI/UX & IT TRANSFORMATION (KILLING THE 90s LOOK) -->
+<section class="slide">
+ <div class="slide-fx"></div>
+ <div class="wrap two">
+  <div>
+   <div class="eyebrow">04 / IT & Product Transformation</div>
+   <h2>From 1990s Utility to <span class="grad">2026 Fintech Elegance.</span></h2>
+   <p class="lead">ANSPL already pays an outsourced development team, but without strong internal product architecture, the output looks dated. I will take direct ownership of <b>Product Management, Figma Design Systems, and Sprint Execution</b> to overhaul the entire tech stack in 90 days.</p>
+   <div class="list">
+     <div class="li"><b>Website Revamp (ansplshares.com):</b> High-converting dark/light fintech landing pages, live brokerage calculators, IPO GMP hub, and instant lead capture.</div>
+     <div class="li"><b>3-Minute Paperless eKYC Funnel:</b> Zero-drop onboarding via DigiLocker, Aadhaar OTP, instant bank verification, and automated WhatsApp resume links.</div>
+     <div class="li"><b>Unified App Ecosystem:</b> Merge the fragmented feel of <i>ANS Trade, ANS Money &amp; ANS BO</i> into a sleek, single-sign-on (SSO) super-app experience.</div>
+     <div class="li gold"><b>WhatsApp BackOffice 2.0:</b> 1-click ledger, P&amp;L tax statement, margin pledge OTP, and instant fund payout via verified WhatsApp bot.</div>
+   </div>
+  </div>
+  <div class="hero-card">
+   <div class="terminal-head"><div class="dots"><i></i><i></i><i></i></div><span>IT_SPRINT_GOVERNANCE // OUTSOURCED DEV CONTROL</span><span style="color:var(--green)">● ACTIVE</span></div>
+   <div class="vision" style="grid-template-columns:1fr 1fr;margin-top:8px;gap:12px">
+     <div class="panel"><div class="n">SPRINT 01 (DAYS 1-30)</div><h3>Figma Design System</h3><p>Complete UI/UX redesign of Web, Mobile Apps & eKYC flow; audit existing vendor codebase & API latency.</p></div>
+     <div class="panel"><div class="n">SPRINT 02 (DAYS 31-60)</div><h3>3-Min Digital KYC</h3><p>Launch frictionless online account opening so Meta/YouTube ads convert 24/7 without manual paperwork.</p></div>
+     <div class="panel"><div class="n">SPRINT 03 (DAYS 61-120)</div><h3>Pro Web Terminal</h3><p>Deploy laptop/desktop trader terminal with TradingView charts, Option Chain & Live Scanners.</p></div>
+     <div class="panel"><div class="n">SPRINT 04 (MONTH 6+)</div><h3>ANSPL Algo Studio</h3><p>Integrate low-latency API execution & pre-built quantitative strategy marketplace for retail & HNIs.</p></div>
+   </div>
+  </div>
+ </div>
+</section>
+
+<!-- SLIDE 06: DHAN-STYLE WEB TERMINAL & SCANNERS -->
+<section class="slide">
+ <div class="slide-fx"></div>
+ <div class="wrap two">
+  <div>
+   <div class="eyebrow">05 / Pro Desktop & Laptop Web Terminal</div>
+   <h2>Attracting Active Traders with a <span class="grad">Dhan-Class Web Terminal.</span></h2>
+   <p class="lead">Serious F&amp;O and intraday traders trade on laptops and multi-monitor desktops. By launching <b>ANSPL Pro Web</b> featuring ultra-fast charting and built-in market scanners, we create a powerful hook to win active traders from discount brokers.</p>
+   <div class="list">
+     <div class="li"><b>Trade Directly From Charts:</b> Custom TradingView integration with drag-and-drop Stop-Loss / Target modification and multi-layout screens.</div>
+     <div class="li"><b>Smart Option Chain &amp; Scalper Pad:</b> Live Greeks, PCR, Multi-Strike OI, Payoff Analyzer, and 1-Click Basket Execution with Iceberg slicing.</div>
+     <div class="li"><b>Real-Time Intraday Scanners:</b> Built-in <i>15-Min ORB Breakout, Unusual Volume Spike, Long/Short OI Buildup, Pocket Pivot &amp; NR7 Scanners</i>.</div>
+     <div class="li gold"><b>Hybrid Desk + Terminal Sync:</b> Positions punched on the web terminal are visible in real-time to the client’s dedicated dealing desk RM for emergency support.</div>
+   </div>
+  </div>
+  <div>
+   <div class="execution-engine">
+    <div class="exec-head"><span>ANSPL_PRO_WEB_TERMINAL // SCANNER &amp; ORDER TAPE</span><span class="exec-latency">API PING <b>11.4ms</b></span></div>
+    <div class="exec-columns"><span>INSTRUMENT</span><span>SIGNAL</span><span>LOTS</span><span>LTP / STRIKE</span><span>SCANNER TAG</span></div>
+    <div class="exec-rows" id="execRows"></div>
+    <div class="exec-foot"><span>TRADINGVIEW ENGINE: <b>READY</b></span><span>SCANNERS <b id="orderCount">LIVE</b></span><span>NSE/MCX <b>CONNECTED</b></span></div>
+   </div>
+  </div>
+ </div>
+</section>
+
+<!-- SLIDE 07: MONTH 6+ QUANT & ALGO INFRASTRUCTURE -->
+<section class="slide">
+ <div class="slide-fx"></div>
+ <div class="wrap">
+  <div class="eyebrow">06 / Phase-2 Technological Moat (Month 6 Onwards)</div>
+  <h2>The Ultimate Differentiator: <span class="grad">Retail & HNI Algo Ecosystem.</span></h2>
+  <p class="lead">Once UI/UX, Web Terminal, and Digital Acquisition stabilize in Months 1–5, we roll out <b>ANSPL Quant &amp; Algo Infrastructure</b> in Month 6. Traditional brokers cannot build this; discount brokers don't hand-hold clients through it. ANSPL will do both.</p>
+  <div class="vision">
+   <div class="panel"><div class="n">01 / PLUG &amp; PLAY ALGOS</div><h3>1-Click Strategy Store</h3><p>Pre-built, SEBI-compliant rule-based strategies (Option Straddles, Momentum Equity, Volatility Trailing) for non-coding clients.</p></div>
+   <div class="panel"><div class="n">02 / BRIDGE &amp; WEBHOOKS</div><h3>TradingView → ANSPL</h3><p>Direct PineScript webhook execution so younger technical traders route their automated alerts straight into ANSPL accounts.</p></div>
+   <div class="panel"><div class="n">03 / SMART RISK LAYER</div><h3>Auto Drawdown Guard</h3><p>Automated MTM kill-switch, volatility-adjusted trailing stops, and slippage analytics to protect retail trader capital.</p></div>
+   <div class="panel"><div class="n">04 / HNI QUANT DESK</div><h3>NBFC + Hedged Algos</h3><p>Pledge long-term holdings/Mutual Funds for margin and run delta-neutral option yield strategies to generate extra 8–12% annual alpha.</p></div>
+  </div>
+  <div class="stats three">
+    <div class="stat"><strong>3.8x</strong><span>Higher Turnover per Algo User vs Manual</span></div>
+    <div class="stat"><strong class="green">85%+</strong><span>12-Month Client Retention Rate</span></div>
+    <div class="stat"><strong class="gold">Zero</strong><span>Competitors in Rajkot/Saurashtra with Native Quant Stack</span></div>
+  </div>
+ </div>
+</section>
+
+<!-- SLIDE 08: NEXT-GEN FAME, RESEARCH AUTHORITY & FINFLUENCER ENGINE -->
+<section class="slide">
+ <div class="slide-fx"></div>
+ <div class="wrap two">
+  <div>
+   <div class="eyebrow">07 / Brand Fame, Media &amp; Research Authority</div>
+   <h2>Making ANSPL &amp; Next-Gen Leadership <span class="grad-gold">Household Names.</span></h2>
+   <p class="lead">The new generation wants exponential growth <b>and</b> market prestige. We will build an institutional-grade media and research powerhouse around ANSPL and its leadership.</p>
+   <div class="list">
+     <div class="li"><b>In-House SEBI Research Analyst (RA) Hub:</b> Daily Pre-Market PDF notes (8:30 AM), IPO Subscribe/Avoid notes, Sectoral Deep-Dives, and WhatsApp Research Broadcasts for old &amp; new clients.</div>
+     <div class="li"><b>YouTube &amp; Podcast Authority:</b> Daily Live Market Stream (8:45–9:30 AM) + Flagship Podcast where Next-Gen Promoters interview top Fund Managers, Industrialists &amp; Finfluencers.</div>
+     <div class="li"><b>Daily Reels, Blogs &amp; SEO Engine:</b> 2 high-production Instagram Reels/Shorts daily + 15 SEO blogs/week targeting IPOs, Stock Scanners &amp; Gujarati wealth stories.</div>
+     <div class="li gold"><b>Finfluencer Collaborations &amp; Townhalls:</b> Co-host mega offline "Traders &amp; Investors Summits" across Gujarat inviting top Finfluencers as keynote speakers—capturing 500+ warm accounts per event.</div>
+   </div>
+  </div>
+  <div class="hero-card">
+   <div class="terminal-head"><span>CONTENT_TO_TRUST_ENGINE // WEEKLY CALENDAR</span><span style="color:var(--cyan)">● 365 DAYS</span></div>
+   <div class="models" style="grid-template-columns:1fr 1fr;margin-top:6px;gap:11px">
+     <div class="model-card" style="min-height:95px"><small>DAILY 08:30 AM</small><h3>Morning Research Note</h3><p>Nifty/BankNifty levels, FII data &amp; 3 Stocks in Focus sent to 65K WhatsApp list.</p></div>
+     <div class="model-card" style="min-height:95px"><small class="gold">DAILY 08:45 AM &amp; 04:00 PM</small><h3>YouTube Live &amp; Wrap</h3><p>Live pre-market scanner review + post-market institutional wrap by SEBI RA.</p></div>
+     <div class="model-card" style="min-height:95px"><small class="green">2X DAILY (IG / YT SHORTS)</small><h3>Viral Fin-Reels</h3><p>IPO reviews, Hidden Gujarat Gems, Option adjustments &amp; Founder thoughts.</p></div>
+     <div class="model-card" style="min-height:95px"><small>MONTHLY OFFLINE</small><h3>Finfluencer Conclave</h3><p>Hotel seminar for 250+ existing &amp; prospect investors with live Q&amp;A &amp; lunch.</p></div>
+   </div>
+   <div class="badge-row" style="margin-top:16px">
+     <span class="pill">PR in Economic Times / CNBC Bajar</span>
+     <span class="pill gold">Founder Personal Branding</span>
+     <span class="pill green">Regional Gujarati + Hindi Content</span>
+   </div>
+  </div>
+ </div>
+</section>
+
+<!-- SLIDE 09: DIGITAL LEAD GENERATION & META FUNNEL -->
+<section class="slide">
+ <div class="slide-fx"></div>
+ <div class="wrap">
+  <div class="eyebrow">08 / Performance Marketing &amp; Retail Acquisition</div>
+  <h2>End-to-End Digital Funnel: <span class="grad">From Meta Ad to Funded Account.</span></h2>
+  <p class="lead">Instead of relying only on referrals, we build a predictable digital acquisition machine across Meta (Instagram/Facebook), Google Search, YouTube, and Telegram—optimized for lowest Customer Acquisition Cost (CAC) and fast payback via NBFC/Broking.</p>
+  <div class="deploy-container" id="deployChart">
+   <div class="deploy-stage"><span>STAGE 01</span>META / YT AD HOOK<br><small style="color:var(--muted)">Research PDF / Scanner / MTF</small></div>
+   <div class="deploy-arrow">→</div>
+   <div class="deploy-stage"><span>STAGE 02</span>OTP LANDING PAGE<br><small style="color:var(--muted)">Instant Lead Capture</small></div>
+   <div class="deploy-arrow">→</div>
+   <div class="deploy-stage"><span>STAGE 03</span>WHATSAPP AI DRIP<br><small style="color:var(--muted)">Auto Sample Report + KYC Link</small></div>
+   <div class="deploy-arrow">→</div>
+   <div class="deploy-stage"><span>STAGE 04</span>5-MIN TELE-SALES SLA<br><small style="color:var(--muted)">Inside Sales Assisted KYC</small></div>
+   <div class="deploy-arrow">→</div>
+   <div class="deploy-stage"><span>STAGE 05</span>FIRST TRADE + MTF<br><small style="color:var(--muted)">RA Onboarding Call</small></div>
+  </div>
+  <div class="vision" style="margin-top:20px">
+   <div class="panel"><div class="n">HOOK 01 / RESEARCH</div><h3>IPO &amp; Sector Reports</h3><p>Run Meta Lead Ads offering free SEBI RA Multibagger/IPO PDF reports—acquiring high-intent investors at ₹60–₹110/lead.</p></div>
+   <div class="panel"><div class="n">HOOK 02 / PLATFORM</div><h3>Free Pro Scanners</h3><p>Target F&amp;O traders with "Get Free Live OI &amp; Breakout Scanners + TradingView Web Terminal" upon free Demat opening.</p></div>
+   <div class="panel"><div class="n">HOOK 03 / NBFC MTF</div><h3>Low-Interest Margin</h3><p>Attract heavy delivery traders with "Buy 4x Stocks with ANSPL MTF + Dedicated Dealer Support at Discounted Rates".</p></div>
+   <div class="panel"><div class="n">HOOK 04 / WEBINARS</div><h3>Sunday Masterclass</h3><p>Weekly Zoom webinar by SEBI RA &amp; Guest Finfluencers converting 15–20% of attendees into active Demat/PMS leads.</p></div>
+  </div>
+ </div>
+</section>
+
+<!-- SLIDE 10: PROMOTIONAL SCHEMES & BROKERAGE OFFERS -->
+<section class="slide">
+ <div class="slide-fx"></div>
+ <div class="wrap">
+  <div class="eyebrow">09 / Growth Hacks, Schemes &amp; Pricing Psychology</div>
+  <h2>Irresistible Schemes to <span class="grad-gold">Accelerate Account Opening &amp; Referrals.</span></h2>
+  <p class="lead">To break inertia among both new retail traders and our 65,000 existing customers, we launch structured, compliance-friendly promotional schemes that reward activation, portfolio transfer, and family referrals.</p>
+  <div class="models">
+   <div class="model-card"><small class="green">SCHEME 01 / NEW USER HOOK</small><h3>First 30 Days ₹0 Brokerage</h3><p>Zero brokerage for the first 30 days + Zero AMC for Year 1 + Free 30-day access to ANSPL Pro Scanners &amp; RA Research Desk.</p><div class="formula-bar"></div></div>
+   <div class="model-card"><small class="gold">SCHEME 02 / DORMANT REVIVAL</small><h3>"Restart &amp; Trade Free"</h3><p>100% waiver of past dormant AMC dues + ₹1,000 Brokerage Cashback Wallet credit when an inactive client funds account with ₹25,000+.</p><div class="formula-bar"></div></div>
+   <div class="model-card"><small>SCHEME 03 / DEMAT SWITCH</small><h3>"Transfer Portfolio, Get MTF"</h3><p>Clients transferring ₹5L+ Demat holdings from other brokers via CDSL Easiest get 30 days of 0% Interest MTF up to ₹2 Lakhs.</p><div class="formula-bar"></div></div>
+   <div class="model-card"><small class="gold">SCHEME 04 / FAMILY WEALTH</small><h3>"One Family, Zero AMC Forever"</h3><p>When an existing client opens minor/spouse/parent accounts and starts a ₹5,000+ SIP on ANS Money, the entire family gets Lifetime Zero AMC.</p><div class="formula-bar"></div></div>
+   <div class="model-card"><small class="green">SCHEME 05 / REFERRAL VIP</small><h3>Ambassador Club</h3><p>Refer 5 active friends → Get 20% revenue share + VIP invite to the next 5-Star Finfluencer &amp; Chairman's Dinner in Gujarat.</p><div class="formula-bar"></div></div>
+   <div class="model-card"><small>SCHEME 06 / ACTIVE TRADER</small><h3>Freedom Hybrid Plan</h3><p>Choice of ₹15/order Digital Plan (self-traded on Web/App) OR Volume-Slab Desk Plan (includes dedicated human dealer + RA calls).</p><div class="formula-bar"></div></div>
+  </div>
+ </div>
+</section>
+
+<!-- SLIDE 11: HIRING, SALES ENGINE & ORG STRUCTURE -->
+<section class="slide">
+ <div class="slide-fx"></div>
+ <div class="wrap two">
+  <div>
+   <div class="eyebrow">10 / Organization, Hiring &amp; Sales Architecture</div>
+   <h2>Building a High-Performance <span class="grad">Sales &amp; Digital Organization.</span></h2>
+   <p class="lead">Strategy without execution is hallucination. As Head of Execution &amp; Growth, I will recruit, train, and enforce daily KPI dashboards across four specialized pods—turning ANSPL into a process-driven growth machine.</p>
+   <div class="list">
+     <div class="li"><b>Pod 1: Digital &amp; Brand Studio (4–5 Hires):</b> Performance Marketer (Meta/Google), Video Producer/Editor (Reels/YT), Content/Copywriter, and Senior UI/UX Product Designer.</div>
+     <div class="li"><b>Pod 2: Inside Sales &amp; Reactivation Desk (12–15 Hires):</b> High-energy tele-conversion executives with CRM auto-dialers—50% dedicated to fresh digital leads, 50% calling the 47K dormant base.</div>
+     <div class="li"><b>Pod 3: HNI Wealth &amp; Event RMs (6–8 Senior Hires):</b> Seasoned wealth managers managing offline HNI lunches, pitching PMS (₹50L+), NBFC LAS/MTF, and high-ticket Mutual Funds.</div>
+     <div class="li gold"><b>Pod 4: SEBI RA &amp; Dealing Desk Upgrade:</b> Lead SEBI Research Analyst + 2 Associates, alongside incentive restructuring for existing dealers on MF/MTF cross-sales.</div>
+   </div>
+  </div>
+  <div class="hero-card">
+   <div class="terminal-head"><span>EXECUTION_ORG_CHART // KPI &amp; INCENTIVE ENGINE</span><span style="color:var(--green)">● SCALABLE</span></div>
+   <div class="vision" style="grid-template-columns:1fr 1fr;margin-top:6px;gap:12px">
+     <div class="panel"><div class="n">TELE-SALES KPI</div><h3>100 Dials / Day</h3><p>5-minute lead callback SLA; minimum 35–45 funded KYCs per executive/month + reactivation bonus.</p></div>
+     <div class="panel"><div class="n">DEALER DESK KPI</div><h3>Punch + Cross-Sell</h3><p>Existing dealers earn 15% incentive on every MTF book expansion, SIP registration &amp; dormant revival.</p></div>
+     <div class="panel"><div class="n">WEALTH RM KPI</div><h3>₹2 Cr AUM / Mo</h3><p>Each HNI RM hosts 2 micro-lunches/month to close PMS, AIF, Corporate Treasury &amp; LAS mandates.</p></div>
+     <div class="panel"><div class="n">TECH VENDOR KPI</div><h3>Bi-Weekly Releases</h3><p>Outsourced dev team tied to strict Jira sprint milestones, bug SLAs, and UI/UX pixel-perfection audits.</p></div>
+   </div>
+  </div>
+ </div>
+</section>
+
+<!-- SLIDE 12: 3-YEAR ROADMAP & TARGETS -->
+<section class="slide">
+ <div class="slide-fx"></div>
+ <div class="wrap two">
+  <div>
+   <div class="eyebrow">11 / The 3-Year Master Execution Horizon</div>
+   <h2>From Regional Broker to <span class="grad">National Wealth &amp; Quant Leader.</span></h2>
+   <p class="lead">A disciplined, quarter-by-quarter execution roadmap that protects 1st-Gen profitability while compounding Next-Gen scale, digital valuation, and national recognition.</p>
+   <div class="list">
+     <div class="li"><b>Year 1 (Foundation, Revival &amp; Terminal):</b> Overhaul UI/UX &amp; 3-Min KYC; launch Dhan-style Web Terminal &amp; Scanners; reactivate 12,000+ dormant clients; host 8 HNI events; launch Algo Studio in Month 6.</div>
+     <div class="li"><b>Year 2 (Aggressive Scale &amp; NBFC/PMS Surge):</b> Scale Meta/YouTube funnels to 5,000+ new accounts/month; expand Finfluencer Conclaves across West India; 3x MTF &amp; MF SIP book.</div>
+     <div class="li gold"><b>Year 3 (National Fame &amp; Institutional Scale):</b> 1,50,000+ Total Clients; 60,000+ Active Traders; ₹2,500 Cr+ MF/PMS/MTF Assets; top-tier national brand authority.</div>
+   </div>
+   <div class="stats three" style="margin-top:18px">
+     <div class="stat"><strong>1.5L+</strong><span>Year-3 Total Clients</span></div>
+     <div class="stat"><strong class="green">60,000+</strong><span>Active Revenue Users</span></div>
+     <div class="stat"><strong class="gold">4x–5x</strong><span>Net Revenue &amp; Valuation</span></div>
+   </div>
+  </div>
+  <div class="hero-card">
+   <div class="terminal-head"><span>ANSPL_3YR_GROWTH_TRAJECTORY // ACTIVE CLIENTS &amp; AUM</span><span style="color:var(--green)">● PROJECTED</span></div>
+   <div class="vol-chart-container">
+    <svg class="vol-svg" viewBox="0 0 400 200" preserveAspectRatio="none">
+     <defs>
+      <linearGradient id="volGradient" x1="0" y1="0" x2="0" y2="1">
+       <stop offset="0%" stop-color="#00e5ff" stop-opacity=".45"/>
+       <stop offset="100%" stop-color="#00e5ff" stop-opacity="0"/>
+      </linearGradient>
+     </defs>
+     <line class="vol-grid-line" x1="0" y1="45" x2="400" y2="45"/>
+     <line class="vol-grid-line" x1="0" y1="95" x2="400" y2="95"/>
+     <line class="vol-grid-line" x1="0" y1="145" x2="400" y2="145"/>
+     <path class="vol-area" id="volArea" d=""/>
+     <path class="vol-line" id="volLine" d=""/>
+     <circle class="vol-dot" id="volDot" r="4.5" cx="0" cy="0"/>
+    </svg>
+   </div>
+   <div class="vision" style="grid-template-columns:repeat(3,1fr);margin-top:14px;gap:10px">
+     <div class="panel" style="padding:12px"><div class="n">YEAR 01</div><h3>30K Active</h3><p>Tech Overhaul + Revival + Algo Launch</p></div>
+     <div class="panel" style="padding:12px"><div class="n">YEAR 02</div><h3>45K Active</h3><p>Pan-Gujarat &amp; West India Scale</p></div>
+     <div class="panel" style="padding:12px"><div class="n">YEAR 03</div><h3>60K+ Active</h3><p>National Fintech &amp; Wealth Leader</p></div>
+   </div>
+   <p class="note" style="margin-top:12px">Ready to execute from Day 1 • Product + Tech + Growth + Sales + Quant Leadership.</p>
+  </div>
+ </div>
+</section>
+
+</main>
+
+<footer class="controls">
+ <div class="progress" id="progress"></div>
+ <div class="counter" id="counter">01 / 12</div>
+ <div class="hint">← → ARROW KEYS &nbsp;•&nbsp; SPACE TO ADVANCE &nbsp;•&nbsp; SWIPE ON MOBILE</div>
+ <div class="navbtns">
+   <button class="navbtn" id="prev" aria-label="Previous slide">←</button>
+   <button class="navbtn" id="next" aria-label="Next slide">→</button>
+ </div>
+</footer>
+</div>
+
+<script>
+const PASSWORD="Mitesh@1010";
+const lock=document.getElementById("lock"),app=document.getElementById("app"),form=document.getElementById("loginForm"),pw=document.getElementById("password"),err=document.getElementById("error");
+form.addEventListener("submit",e=>{
+  e.preventDefault();
+  if(pw.value===PASSWORD){
+    sessionStorage.setItem("anspl_access","1");
+    lock.classList.add("hidden");
+    app.classList.add("active");
+    initAnimations();
+  }else{
+    err.textContent="Incorrect password. Use Mitesh@1010";
+    pw.select();
+  }
+});
+if(sessionStorage.getItem("anspl_access")==="1"){
+  lock.classList.add("hidden");
+  app.classList.add("active");
+  setTimeout(initAnimations,100);
+}
+
+const slides=[...document.querySelectorAll(".slide")],counter=document.getElementById("counter"),progress=document.getElementById("progress");
+let current=0;
+function show(n){
+  const old=current;
+  current=(n+slides.length)%slides.length;
+  slides.forEach((s,i)=>{
+    s.classList.remove("active","prev");
+    if(i===old&&old!==current)s.classList.add("prev");
+  });
+  slides[current].classList.add("active");
+  counter.textContent=String(current+1).padStart(2,"0")+" / "+String(slides.length).padStart(2,"0");
+  progress.style.width=((current+1)/slides.length*100)+"%";
+  triggerSlideAnimations(current);
+}
+document.getElementById("next").onclick=()=>show(current+1);
+document.getElementById("prev").onclick=()=>show(current-1);
+document.addEventListener("keydown",e=>{
+  if(!app.classList.contains("active"))return;
+  if(["ArrowRight","PageDown"," "].includes(e.key)){e.preventDefault();show(current+1)}
+  if(["ArrowLeft","PageUp"].includes(e.key)){e.preventDefault();show(current-1)}
+  if(e.key==="Home")show(0);
+  if(e.key==="End")show(slides.length-1);
+});
+let touchX=0;
+document.addEventListener("touchstart",e=>touchX=e.changedTouches[0].screenX,{passive:true});
+document.addEventListener("touchend",e=>{
+  let d=e.changedTouches[0].screenX-touchX;
+  if(Math.abs(d)>55)show(current+(d<0?1:-1));
+},{passive:true});
+
+// Custom Cursor
+const cursor=document.querySelector('.cursor-glow');
+const trail=document.querySelector('.cursor-trail');
+let mouseX=0,mouseY=0,cursorX=0,cursorY=0,trailX=0,trailY=0;
+document.addEventListener('mousemove',e=>{mouseX=e.clientX;mouseY=e.clientY});
+function animateCursor(){
+  if(cursor&&trail&&window.innerWidth>968){
+    cursorX+=(mouseX-cursorX)*.15; cursorY+=(mouseY-cursorY)*.15;
+    trailX+=(mouseX-trailX)*.08; trailY+=(mouseY-trailY)*.08;
+    cursor.style.left=cursorX+'px'; cursor.style.top=cursorY+'px';
+    trail.style.left=trailX+'px'; trail.style.top=trailY+'px';
+  }
+  requestAnimationFrame(animateCursor);
+}
+animateCursor();
+document.querySelectorAll('a,button,input,.model-card,.panel,.stat,.hero-card,.deploy-stage').forEach(el=>{
+  el.addEventListener('mouseenter',()=>cursor&&cursor.classList.add('hover'));
+  el.addEventListener('mouseleave',()=>cursor&&cursor.classList.remove('hover'));
+});
+
+// 3D Tilt Cards
+document.querySelectorAll('.hero-card').forEach(card=>{
+  card.addEventListener('mousemove',e=>{
+    const r=card.getBoundingClientRect();
+    const rx=((e.clientY-r.top)/r.height-.5)*-4,ry=((e.clientX-r.left)/r.width-.5)*6;
+    card.style.transform=`perspective(900px) rotateX(${rx}deg) rotateY(${ry}deg)`;
+  });
+  card.addEventListener('mouseleave',()=>card.style.transform='');
+});
+document.querySelectorAll('.model-card').forEach(card=>{
+  card.addEventListener('mousemove',e=>{
+    const r=card.getBoundingClientRect();
+    card.style.setProperty('--mx',((e.clientX-r.left)/r.width*100)+'%');
+    card.style.setProperty('--my',((e.clientY-r.top)/r.height*100)+'%');
+  });
+});
+
+// Interactive Particle Field
+const particleMouse={x:null,y:null,radius:200};
+window.addEventListener('mousemove',e=>{particleMouse.x=e.clientX;particleMouse.y=e.clientY});
+window.addEventListener('mouseout',()=>{particleMouse.x=null;particleMouse.y=null});
+const c=document.getElementById("particles"),x=c.getContext("2d");let pts=[];
+function resize(){
+  c.width=innerWidth;c.height=innerHeight;
+  pts=Array.from({length:Math.min(145,Math.floor((c.width*c.height)/12500))},()=>({
+    x:Math.random()*c.width,y:Math.random()*c.height,baseX:0,baseY:0,
+    vx:(Math.random()-.5)*.48,vy:(Math.random()-.5)*.48,r:Math.random()*2+.5,
+    density:Math.random()*25+5,opacity:Math.random()*.5+.2
+  })).map(p=>{p.baseX=p.x;p.baseY=p.y;return p});
+}
+resize();addEventListener("resize",resize);
+function updateParticle(p){
+  if(particleMouse.x!=null){
+    const dx=particleMouse.x-p.x,dy=particleMouse.y-p.y,dist=Math.hypot(dx,dy);
+    if(dist<particleMouse.radius&&dist>0){
+      const force=(particleMouse.radius-dist)/particleMouse.radius;
+      const push=force*p.density*.8;
+      p.x+=(dx/dist)*push;p.y+=(dy/dist)*push;
+    }
+  }
+  p.x+=p.vx;p.y+=p.vy;
+  p.x-=(p.x-p.baseX)*.02;p.y-=(p.y-p.baseY)*.02;
+  if(p.x<0)p.x=c.width;if(p.x>c.width)p.x=0;if(p.y<0)p.y=c.height;if(p.y>c.height)p.y=0;
+}
+(function draw(){
+  x.clearRect(0,0,c.width,c.height);
+  pts.forEach(p=>{
+    updateParticle(p);
+    x.beginPath();x.arc(p.x,p.y,p.r,0,Math.PI*2);
+    x.fillStyle=`rgba(0,229,255,${p.opacity})`;x.fill();
+  });
+  for(let i=0;i<pts.length;i++)for(let j=i+1;j<pts.length;j++){
+    const d=Math.hypot(pts[i].x-pts[j].x,pts[i].y-pts[j].y);
+    if(d<105){
+      x.beginPath();
+      x.strokeStyle=`rgba(0,229,255,${(1-d/105)*.15})`;
+      x.moveTo(pts[i].x,pts[i].y);x.lineTo(pts[j].x,pts[j].y);x.stroke();
+    }
+  }
+  requestAnimationFrame(draw);
+})();
+
+// Slide-Specific Animations
+let animationsInitialized=false;
+function initAnimations(){
+  if(animationsInitialized)return;
+  animationsInitialized=true;
+  createLogoParticles();
+  animateCounter();
+  addStrategyCards();
+  initTape();
+  animateDeployment();
+  initVolChart();
+}
+
+function triggerSlideAnimations(idx){
+  if(idx===1){animateCounter();addStrategyCards();}
+  if(idx===5){initTape();}
+  if(idx===11){resetVolChart();}
+}
+
+function createLogoParticles(){
+  const container=document.getElementById('logoParticles');
+  if(!container)return;
+  for(let i=0;i<8;i++){
+    const p=document.createElement('div');
+    p.className='orbit-particle';
+    p.style.animationDelay=(i*0.5)+'s';
+    p.style.animationDuration=(3.2+Math.random()*2.5)+'s';
+    container.appendChild(p);
+  }
+  for(let i=0;i<18;i++){
+    const p=document.createElement('div');
+    p.className='attract-particle';
+    const angle=(i/18)*Math.PI*2;
+    const dist=140+Math.random()*90;
+    p.style.setProperty('--sx',Math.cos(angle)*dist+'px');
+    p.style.setProperty('--sy',Math.sin(angle)*dist+'px');
+    p.style.animationDelay=(Math.random()*3)+'s';
+    p.style.animationDuration=(2+Math.random()*2)+'s';
+    container.appendChild(p);
+  }
+}
+
+function animateCounter(){
+  const el=document.getElementById('rollingCounter');
+  if(!el)return;
+  const target=47000,duration=1800,start=performance.now();
+  function update(now){
+    const p=Math.min((now-start)/duration,1);
+    const eased=1-Math.pow(1-p,3);
+    el.textContent=Math.floor(eased*target).toLocaleString()+(p===1?'+':'');
+    if(p<1)requestAnimationFrame(update);
+  }
+  requestAnimationFrame(update);
+}
+
+let researchTimer;
+function addStrategyCards(){
+  const box=document.getElementById('researchCode');
+  if(!box)return;
+  clearTimeout(researchTimer);
+  const lines=[
+    ['<span class="cm">// ANSPL 360° Legacy & Growth Audit</span>'],
+    ['<span class="kw">legacy_years</span> = <span class="num">30</span>; <span class="cm">// Est. 1991, Gujarat Powerhouse</span>'],
+    ['<span class="kw">total_clients</span> = <span class="num">65000</span>; <span class="kw">active_desk</span> = <span class="num">18000</span>;'],
+    ['<span class="kw">dormant_goldmine</span> = <span class="num">47000</span>; <span class="cm">// Zero-CAC Revival Target</span>'],
+    ['licenses = [<span class="str">"NSE"</span>, <span class="str">"BSE"</span>, <span class="str">"MCX"</span>, <span class="str">"NCDEX"</span>, <span class="str">"CDSL_DP"</span>];'],
+    ['products = [<span class="str">"NBFC_MTF_LAS"</span>, <span class="str">"PMS"</span>, <span class="str">"Mutual_Funds"</span>];'],
+    ['ui_upgrade = <span class="fn">Rebuild90sStack</span>(<span class="str">"Dhan_Class_Web_Terminal"</span>);'],
+    ['fame_engine = <span class="fn">LaunchMedia</span>(<span class="str">"SEBI_RA + YT + Finfluencers"</span>);'],
+    ['hni_upsell = <span class="fn">HostVIPGatherings</span>(<span class="str">"Rajkot_Ahmedabad_Surat"</span>);'],
+    ['algo_layer = <span class="fn">DeployMonth6</span>(<span class="str">"QuantParticle_Execution"</span>);'],
+    ['<span class="cyan">TARGET → 1,50,000+ Clients &amp; National Fintech Valuation</span>'],
+    ['<span class="str">✓ Execution Roadmap Validated &amp; Ready</span>']
+  ];
+  let i=0;box.innerHTML='';
+  function next(){
+    if(i>=lines.length){researchTimer=setTimeout(addStrategyCards,2200);return;}
+    const d=document.createElement('div');d.className='re-line';
+    d.innerHTML=`<span class="ln">${String(i+1).padStart(2,'0')}</span><span>${lines[i][0]}</span>`;
+    box.appendChild(d);
+    if(box.children.length>11)box.removeChild(box.firstChild);
+    i++;researchTimer=setTimeout(next,210);
+  }
+  next();
+}
+
+// Slide 6 Pro Web Terminal Tape
+let executionTimer=null;
+const indianMarkets=[
+  {s:'NIFTY 23000 CE',p:184.50,d:3.2,tag:'OI BREAKOUT'},
+  {s:'RELIANCE EQ',p:2945.20,d:6.5,tag:'MTF 4X BUY'},
+  {s:'BANKNIFTY FUT',p:51420.00,d:28.0,tag:'VOL SPIKE'},
+  {s:'MCX GOLDM',p:76450.00,d:45.0,tag:'ORB 15M HIGH'},
+  {s:'TATAELXSI EQ',p:7812.40,d:14.0,tag:'RA PICK BUY'},
+  {s:'SENSEX 74500 PE',p:210.80,d:4.5,tag:'SCALPER PAD'},
+  {s:'GUARSEED NCDEX',p:5480.00,d:12.0,tag:'HEDGED ALGO'}
+];
+function initTape(){
+  clearInterval(executionTimer);
+  const rows=document.getElementById('execRows');if(!rows)return;
+  rows.innerHTML='';
+  indianMarkets.slice(0,6).forEach((m,i)=>{
+    const buy=i%2===0,row=document.createElement('div');
+    row.className='exec-row';
+    row.innerHTML=`<span class="exec-symbol">${m.s}</span><span class="exec-side ${buy?'buy':'sell'}">${buy?'BUY':'SELL'}</span><span class="exec-lot">${(i+1)*2}L</span><span class="exec-price">₹${m.p.toFixed(2)}</span><span class="exec-status">${m.tag}</span>`;
+    rows.prepend(row);
+  });
+  executionTimer=setInterval(()=>{
+    const m=indianMarkets[Math.floor(Math.random()*indianMarkets.length)];
+    m.p+=(Math.random()-.46)*m.d;
+    const buy=Math.random()>.38,row=document.createElement('div');
+    row.className='exec-row';
+    row.innerHTML=`<span class="exec-symbol">${m.s}</span><span class="exec-side ${buy?'buy':'sell'}">${buy?'BUY':'SELL'}</span><span class="exec-lot">${Math.ceil(Math.random()*10)}L</span><span class="exec-price">₹${m.p.toFixed(2)}</span><span class="exec-status">${m.tag}</span>`;
+    rows.prepend(row);
+    while(rows.children.length>7)rows.removeChild(rows.lastChild);
+  },550);
+}
+
+// Slide 9 Funnel Animation
+function animateDeployment(){
+  const stages=document.querySelectorAll('.deploy-stage');
+  if(!stages.length)return;
+  stages.forEach((s,i)=>{
+    setTimeout(()=>{
+      s.classList.add('active');
+      setTimeout(()=>s.classList.remove('active'),750);
+    },i*550);
+  });
+  setTimeout(animateDeployment,stages.length*550+1200);
+}
+
+// Slide 12 Growth Trajectory Chart
+let volData=[],volAnimationId;
+function initVolChart(){
+  volData=[];
+  for(let i=0;i<45;i++){
+    volData.push(28 + (i*3.1) + Math.sin(i*0.35)*8);
+  }
+  animateVolChart();
+}
+function animateVolChart(){
+  const line=document.getElementById('volLine'),area=document.getElementById('volArea'),dot=document.getElementById('volDot');
+  if(!line)return;
+  volData.shift();
+  const base=volData[volData.length-1]||150;
+  let nextVal=base+(Math.random()-.42)*4.5;
+  if(nextVal>178)nextVal=165;
+  if(nextVal<135)nextVal=145;
+  volData.push(nextVal);
+  let path='M',areaPath='M';
+  volData.forEach((v,i)=>{
+    const xPos=(i/(volData.length-1))*400;
+    const yPos=200-v;
+    path+=(i===0?'':',')+xPos+','+yPos;
+    areaPath+=(i===0?'':',')+xPos+','+yPos;
+  });
+  areaPath+=' L400,200 L0,200 Z';
+  line.setAttribute('d',path);
+  area.setAttribute('d',areaPath);
+  dot.setAttribute('cx',400);
+  dot.setAttribute('cy',200-volData[volData.length-1]);
+  volAnimationId=setTimeout(animateVolChart,140);
+}
+function resetVolChart(){
+  clearTimeout(volAnimationId);
+  initVolChart();
+}
+
+// Auto-Fit Viewport Scaling
+function fitPresentationToScreen(){
+  const DESIGN_W=1680,DESIGN_H=860;
+  const vw=window.innerWidth,vh=window.innerHeight;
+  let scale=Math.min(1,vw/DESIGN_W,vh/DESIGN_H);
+  scale=Math.max(.62,scale*.985);
+  document.documentElement.style.setProperty('--deck-scale',scale.toFixed(4));
+}
+fitPresentationToScreen();
+window.addEventListener('resize',fitPresentationToScreen);
+window.addEventListener('orientationchange',()=>setTimeout(fitPresentationToScreen,120));
+</script>
+</body>
+</html>
