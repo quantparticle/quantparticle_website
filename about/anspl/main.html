@@ -5,27 +5,12 @@
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#070b14">
 <meta name="description" content="ANSPL MD Executive Budget & ROI Approval Deck (6 Slides) — Led by Mitesh. Phased capital allocation, Month-1 unit economics, AP & Influencer expansion, RA/Algo desks, and IT vendor roadmap.">
-<title>ANSPL | Budget & ROI Approval Brief · Mitesh</title>
+<title>ANSPL | MD Budget & ROI Approval Brief · Mitesh</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
-:root{
-  --bg:#070b14;
-  --bg2:#0d1422;
-  --panel:#101c2c;
-  --panel2:#142235;
-  --line:rgba(147,198,237,.15);
-  --text:#f0f5fb;
-  --muted:#9aaec1;
-  --cyan:#00e5ff;
-  --blue:#6486ff;
-  --purple:#a07aff;
-  --green:#49e2be;
-  --amber:#ffb84d;
-  --font:'Inter',Arial,sans-serif;
-  --mono:'JetBrains Mono',monospace;
-}
+:root{--bg:#070b14;--bg2:#0d1422;--panel:#101c2c;--panel2:#142235;--line:rgba(147,198,237,.15);--text:#f0f5fb;--muted:#9aaec1;--cyan:#00e5ff;--blue:#6486ff;--purple:#a07aff;--green:#49e2be;--amber:#ffb84d;--font:'Inter',Arial,sans-serif;--mono:'JetBrains Mono',monospace;}
 *{box-sizing:border-box}
 html,body{height:100%;margin:0}
 body{font-family:var(--font);color:var(--text);background:var(--bg);overflow:hidden;cursor:none}
@@ -34,11 +19,9 @@ button{font:inherit}
 canvas#stars{position:fixed;inset:0;z-index:0;pointer-events:none}
 body::before{content:'';position:fixed;inset:0;pointer-events:none;background:radial-gradient(ellipse at 12% 30%,rgba(62,48,140,.14),transparent 42%),radial-gradient(ellipse at 88% 65%,rgba(0,220,250,.1),transparent 38%);z-index:0;animation:ambientBg 10s ease-in-out infinite alternate}
 body::after{content:'';position:fixed;inset:0;pointer-events:none;opacity:.05;background-image:linear-gradient(rgba(255,255,255,.05) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.05) 1px,transparent 1px);background-size:60px 60px;z-index:0}
-
 .cursor{position:fixed;z-index:300;pointer-events:none;border:1.5px solid var(--cyan);width:22px;height:22px;border-radius:50%;left:-20px;top:-20px;transform:translate(-50%,-50%);box-shadow:0 0 20px #00e5ff5a;transition:width .2s,height .2s,background .2s,border-color .2s;mix-blend-mode:screen}
 .cursor.on{width:46px;height:46px;background:rgba(0,229,255,.1);border-color:#80f2ff}
 .cursor-dot{position:fixed;z-index:301;width:6px;height:6px;background:var(--cyan);border-radius:50%;pointer-events:none;transform:translate(-50%,-50%);box-shadow:0 0 10px var(--cyan)}
-
 #app{position:relative;z-index:1;height:100dvh;display:flex;flex-direction:column}
 .topbar{height:64px;flex:none;background:rgba(6,11,20,.88);border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;padding:0 clamp(16px,2.8vw,44px);backdrop-filter:blur(20px);gap:14px}
 .brand{display:flex;align-items:center;gap:13px;white-space:nowrap}
@@ -53,7 +36,6 @@ body::after{content:'';position:fixed;inset:0;pointer-events:none;opacity:.05;ba
 .actions{display:flex;gap:8px;align-items:center}
 .tb-btn{background:#0e1828;border:1px solid var(--line);color:#dbe9f8;padding:8px 12px;border-radius:9px;font-size:12px;font-weight:600;transition:.25s}
 .tb-btn:hover{border-color:#00e5ff79;color:var(--cyan);transform:translateY(-1px);box-shadow:0 6px 18px rgba(0,229,255,.12)}
-
 .stage{position:relative;flex:1;min-height:0;width:100%;overflow:hidden}
 .slide{position:absolute;inset:0;padding:clamp(14px,1.8vw,26px) clamp(20px,4.2vw,68px) clamp(12px,1.4vw,20px);display:none;overflow-y:auto;overflow-x:hidden}
 .slide.active{display:block;animation:fadeSlide .45s cubic-bezier(.2,.8,.2,1)}
@@ -65,7 +47,6 @@ body::after{content:'';position:fixed;inset:0;pointer-events:none;opacity:.05;ba
 .lead{font-size:clamp(11.5px,1.02vw,14.5px);color:var(--muted);line-height:1.48;margin:0;max-width:1180px}
 .slide-body{flex:1;min-height:0;display:flex;flex-direction:column;justify-content:center;padding:clamp(8px,1.4vh,16px) 0;gap:clamp(8px,1.3vh,14px)}
 .footnote{flex:none;border-top:1px solid var(--line);color:#7189a3;font:10px/1.4 var(--mono);padding-top:clamp(6px,1vh,10px);margin-top:clamp(4px,.8vh,10px);display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px}
-
 .bottom{height:52px;flex:none;padding:0 clamp(18px,3vw,46px);display:flex;align-items:center;justify-content:space-between;gap:15px;background:rgba(6,11,20,.92);border-top:1px solid var(--line)}
 .bottom-label{font:10px var(--mono);color:#66809a;letter-spacing:1.1px}
 .bottom-right{display:flex;align-items:center;gap:10px}
@@ -75,7 +56,6 @@ body::after{content:'';position:fixed;inset:0;pointer-events:none;opacity:.05;ba
 .progress{height:2px;position:absolute;bottom:52px;left:0;right:0;background:#112439;z-index:10}
 .progress-fill{background:linear-gradient(90deg,var(--blue),var(--cyan));height:100%;width:0%;transition:width .35s cubic-bezier(.2,.8,.2,1);box-shadow:0 0 12px var(--cyan)}
 .section-pill{border:1px solid var(--line);padding:5px 11px;border-radius:20px;color:#89a9c0;font:10px var(--mono);background:rgba(14,24,40,.6);animation:pillPulse 4s ease-in-out infinite}
-
 /* Cards, Grids, KPIs */
 .cards{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:11px;min-height:0}
 .cards.c3{grid-template-columns:repeat(3,minmax(0,1fr))}
@@ -96,7 +76,6 @@ body::after{content:'';position:fixed;inset:0;pointer-events:none;opacity:.05;ba
 .action-list li:before{content:'↗';position:absolute;left:0;color:var(--cyan);display:inline-block;animation:arrowBob 2.2s ease-in-out infinite}
 .action-list li b{color:#edf7ff;font-weight:650}
 .card-meta{margin-top:8px;padding-top:7px;border-top:1px solid var(--line);font:600 10px/1.35 var(--mono);color:var(--green);display:flex;justify-content:space-between;align-items:center}
-
 .kpi-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(0,1fr));gap:10px;flex:none}
 .kpi{position:relative;overflow:hidden;background:linear-gradient(135deg,#11243a,#0a1726);border:1px solid var(--line);border-radius:12px;padding:clamp(9px,1vw,14px);min-width:0;transition:transform .25s,border-color .25s,box-shadow .25s}
 .kpi:hover{transform:translateY(-3px);border-color:rgba(0,229,255,.45);box-shadow:0 10px 24px rgba(0,229,255,.12)}
@@ -107,12 +86,10 @@ body::after{content:'';position:fixed;inset:0;pointer-events:none;opacity:.05;ba
 .kpi b.amber{color:var(--amber)}
 .kpi span{display:block;font-size:clamp(10px,.78vw,11.5px);color:#c3d4e6;margin-top:5px;font-weight:700}
 .kpi small{display:block;font-size:9.5px;color:#7592ac;margin-top:3px;font-family:var(--mono)}
-
 .split{display:grid;grid-template-columns:1fr 1fr;gap:14px;align-items:stretch;min-height:0}
 .split-58{grid-template-columns:1.18fr .82fr}
 .split-62{grid-template-columns:1.28fr .72fr}
 .split>div{min-width:0;display:flex;flex-direction:column;gap:10px}
-
 .number-panel,.outcome,.funnel-math{position:relative;overflow:hidden;background:linear-gradient(135deg,rgba(14,40,61,.9),rgba(16,24,46,.93));border:1px solid #1b3e56;border-radius:15px;padding:clamp(13px,1.5vw,21px);height:100%;display:flex;flex-direction:column;justify-content:center;min-width:0;transition:transform .28s,border-color .28s,box-shadow .28s;transform-style:preserve-3d}
 .number-panel:hover,.outcome:hover,.funnel-math:hover{border-color:rgba(0,229,255,.48);box-shadow:0 16px 40px rgba(0,0,0,.45),0 0 24px rgba(0,229,255,.12)}
 .number-panel>span,.outcome>span,.funnel-math>span{font:700 10px var(--mono);letter-spacing:1.4px;color:var(--cyan);text-transform:uppercase;margin-bottom:4px}
@@ -124,7 +101,6 @@ body::after{content:'';position:fixed;inset:0;pointer-events:none;opacity:.05;ba
 .pair:hover{transform:translateY(-2px);border-color:var(--cyan)}
 .pair span{display:block;color:#7796ad;font-size:9.5px;font-family:var(--mono)}
 .pair strong{display:block;font-size:12px;margin-top:3px;color:#ecf6ff}
-
 .metric-line{display:grid;grid-template-columns:1.35fr auto 1.15fr;align-items:baseline;gap:10px;border-bottom:1px solid var(--line);padding:clamp(5px,.8vh,8px) 0;transition:background .2s,padding-left .2s}
 .metric-line:last-of-type{border-bottom:0}
 .metric-line:hover{background:rgba(0,229,255,.04);padding-left:5px}
@@ -134,7 +110,6 @@ body::after{content:'';position:fixed;inset:0;pointer-events:none;opacity:.05;ba
 .metric-line strong.green{color:var(--green)}
 .metric-line strong.amber{color:var(--amber)}
 .metric-line small{font-size:9.5px;color:#7595ac;text-align:right;font-family:var(--mono)}
-
 /* Tables */
 .big-table{border:1px solid var(--line);border-radius:13px;overflow:hidden;min-height:0;box-shadow:0 12px 32px rgba(0,0,0,.3);background:#0d1a2b}
 .big-table .t-row{display:grid;grid-template-columns:1.5fr .9fr 1.3fr .8fr .9fr;border-top:1px solid var(--line);align-items:center;padding:0;transition:background .2s}
@@ -148,7 +123,6 @@ body::after{content:'';position:fixed;inset:0;pointer-events:none;opacity:.05;ba
 .big-table .t-row>div.num{font-family:var(--mono);text-align:right;font-weight:600;color:#edf7ff}
 .big-table .t-row>div.hot{color:var(--cyan);font-weight:800;font-family:var(--mono);text-align:right}
 .big-table .t-row>div.green{color:var(--green);font-weight:700;font-family:var(--mono);text-align:right}
-
 /* Master Budget Table on Slide 5 */
 .master-table{border:1px solid var(--line);border-radius:13px;overflow:hidden;background:#0c1828;box-shadow:0 14px 36px rgba(0,0,0,.35)}
 .master-table .m-row{display:grid;grid-template-columns:1.8fr .85fr .75fr .95fr 1.6fr;border-top:1px solid rgba(147,198,237,.11);align-items:center;transition:background .18s,opacity .25s}
@@ -163,14 +137,12 @@ body::after{content:'';position:fixed;inset:0;pointer-events:none;opacity:.05;ba
 .master-table .m-row>div.r{text-align:right;font-family:var(--mono);color:#eaf6ff;font-weight:600}
 .master-table .m-row>div.c{text-align:center;font-family:var(--mono);font-size:10px;color:#93b3c9}
 .master-table .m-row.m-total>div{color:var(--cyan);font-weight:800;font-size:clamp(11px,.92vw,13px)}
-
 /* Filter bar */
 .filter-bar{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;background:#0d1a2b;border:1px solid var(--line);border-radius:11px;padding:7px 12px}
 .filter-tabs{display:flex;gap:6px;flex-wrap:wrap}
 .f-tab{background:#122338;border:1px solid var(--line);color:#a8bfd4;padding:5px 11px;border-radius:7px;font:600 10px var(--mono);transition:.2s}
 .f-tab:hover,.f-tab.active{background:rgba(0,229,255,.13);border-color:var(--cyan);color:var(--cyan);box-shadow:0 0 12px rgba(0,229,255,.2)}
 .filter-summary{font:600 11px var(--mono);color:var(--green)}
-
 /* Cover Orbit & Hero */
 .cover-wrap{display:grid;grid-template-columns:1.35fr .65fr;gap:18px;align-items:center;min-height:0}
 .orbit{position:relative;width:min(100%,290px);aspect-ratio:1;margin:auto;display:grid;place-items:center}
@@ -186,12 +158,10 @@ body::after{content:'';position:fixed;inset:0;pointer-events:none;opacity:.05;ba
 .t2{right:0;top:26%;animation:tagFloat 3.8s ease-in-out infinite .6s}
 .t3{left:-2%;bottom:24%;animation:tagFloat 4.1s ease-in-out infinite 1.1s}
 .t4{right:2%;bottom:10%;animation:tagFloat 3.6s ease-in-out infinite 1.7s}
-
 /* City Chips */
 .city-tags{display:flex;flex-wrap:wrap;gap:5px;margin-top:6px}
 .city-chip{font:500 9.5px var(--mono);padding:3px 7px;border-radius:5px;background:#0c1e30;border:1px solid rgba(0,229,255,.22);color:#bfeaf5}
 .city-chip.p2{border-color:rgba(160,122,255,.3);color:#d7c6ff;background:#14182f}
-
 /* Drawer */
 .drawer{position:fixed;top:64px;right:0;bottom:52px;width:min(440px,95vw);background:#091523;border-left:1px solid #2a4f63;z-index:160;transform:translateX(103%);transition:transform .24s;padding:22px;box-shadow:-15px 0 60px #0008;overflow:auto}
 .drawer.open{transform:translateX(0)}
@@ -202,7 +172,6 @@ body::after{content:'';position:fixed;inset:0;pointer-events:none;opacity:.05;ba
 .drawer-link span{color:#688eaa;font-family:var(--mono);font-weight:700}
 .drawer-dismiss{position:fixed;inset:64px 0 52px;z-index:155;background:#0009;display:none}
 .drawer-dismiss.open{display:block}
-
 /* Animations */
 @keyframes spin{to{transform:rotate(360deg)}}
 @keyframes spinRev{to{transform:rotate(-360deg)}}
@@ -219,980 +188,929 @@ body::after{content:'';position:fixed;inset:0;pointer-events:none;opacity:.05;ba
 @keyframes eyebrowGlow{0%,100%{width:25px;opacity:.7}50%{width:38px;opacity:1}}
 @keyframes pillPulse{0%,100%{border-color:var(--line)}50%{border-color:rgba(0,229,255,.45)}}
 @keyframes ambientBg{0%{transform:scale(1) translate(0,0)}100%{transform:scale(1.06) translate(12px,-10px)}}
-
 .slide.active .eyebrow{animation:popUpIn .45s .02s cubic-bezier(.2,.8,.2,1) both}
 .slide.active .slide-title{animation:popUpIn .52s .07s cubic-bezier(.2,.8,.2,1) both}
 .slide.active .lead{animation:popUpIn .52s .12s cubic-bezier(.2,.8,.2,1) both}
 .slide.active .card,.slide.active .kpi,.slide.active .number-panel,.slide.active .outcome,.slide.active .funnel-math,.slide.active .big-table,.slide.active .master-table,.slide.active .filter-bar,.slide.active .orbit{animation:popUpIn .55s .16s cubic-bezier(.2,.8,.2,1) both}
-
-@media(max-width:980px){
-  body,button,a{cursor:auto}
-  .cursor,.cursor-dot{display:none}
-  .top-pills,.top-sub,.divider{display:none}
-  .cover-wrap,.split,.split-58,.split-62,.cards,.cards.c3,.cards.c4{grid-template-columns:1fr}
-  .orbit{display:none}
-  .big-table,.master-table{overflow-x:auto}
-  .big-table .t-row,.master-table .m-row{min-width:680px}
-}
-@media print{
-  @page{size:16in 9in;margin:0}
-  body{background:#070b14!important;-webkit-print-color-adjust:exact;print-color-adjust:exact;overflow:visible;cursor:auto}
-  .topbar,.bottom,.progress,.drawer,.drawer-dismiss,.cursor,.cursor-dot,#stars{display:none!important}
-  #app,.stage{height:auto;display:block;overflow:visible}
-  .slide{display:block!important;position:relative;page-break-after:always;break-after:page;width:16in;height:9in;padding:.4in .6in;overflow:hidden}
-}
+@media(max-width:980px){body,button,a{cursor:auto}
+.cursor,.cursor-dot{display:none}
+.top-pills,.top-sub,.divider{display:none}
+.cover-wrap,.split,.split-58,.split-62,.cards,.cards.c3,.cards.c4{grid-template-columns:1fr}
+.orbit{display:none}
+.big-table,.master-table{overflow-x:auto}
+.big-table .t-row,.master-table .m-row{min-width:680px}}
+@media print{@page{size:16in 9in;margin:0}
+body{background:#070b14!important;-webkit-print-color-adjust:exact;print-color-adjust:exact;overflow:visible;cursor:auto}
+.topbar,.bottom,.progress,.drawer,.drawer-dismiss,.cursor,.cursor-dot,#stars{display:none!important}
+#app,.stage{height:auto;display:block;overflow:visible}
+.slide{display:block!important;position:relative;page-break-after:always;break-after:page;width:16in;height:9in;padding:.4in .6in;overflow:hidden}}
 </style>
 </head>
 <body>
 <canvas id="stars" aria-hidden="true"></canvas>
 <div class="cursor"></div>
 <div class="cursor-dot"></div>
-
 <div id="app">
-  <header class="topbar">
-    <div class="brand">
-      <div class="brandicon">A</div>
-      <div class="brandname">ANS<i>PL</i></div>
-      <div class="divider"></div>
-      <div class="top-sub">MD BUDGET & ROI APPROVAL BRIEF<br>EXECUTION OWNER: MITESH · 6 SLIDES</div>
-    </div>
-    <div class="top-pills" aria-label="Quick slide jump">
-      <button type="button" class="top-pill-btn active" data-jump="0">01 · Thesis</button>
-      <button type="button" class="top-pill-btn" data-jump="1">02 · M1 Core ₹1.14L</button>
-      <button type="button" class="top-pill-btn" data-jump="2">03 · AP & Influencers</button>
-      <button type="button" class="top-pill-btn" data-jump="3">04 · Clients, Events & Desks</button>
-      <button type="button" class="top-pill-btn" data-jump="4">05 · Year-1 Master Budget</button>
-      <button type="button" class="top-pill-btn" data-jump="5">06 · MD Sign-Off</button>
-    </div>
-    <div class="actions">
-      <button id="menu" class="tb-btn" type="button" aria-label="Slide overview">☷ &nbsp; All 6 Slides</button>
-      <button id="full" class="tb-btn" type="button">⛶ &nbsp; Fullscreen</button>
-      <button id="print" class="tb-btn" type="button">↓ &nbsp; Print / PDF</button>
-    </div>
-  </header>
-
-  <main class="stage" id="stage">
-
-    <!-- ==================== SLIDE 1: EXECUTIVE THESIS & SPEND VS RETURN ==================== -->
-    <section class="slide active" data-section="01 / EXECUTIVE SUMMARY" data-title="Phased Capital Allocation: What We Spend & What ANSPL Gets">
-      <div class="slide-inner">
-        <header class="slide-head">
-          <div class="eyebrow">01 / MD BUDGET & ROI BRIEF · OCTOBER 2026 <span style="margin-left:auto;color:#597891">SLIDE 01 / 06</span></div>
-          <h1 class="slide-title">What We Spend vs. What ANSPL Gets: A Stage-Gated Growth Engine.</h1>
-          <p class="lead">First 15 days require ₹0 spend—focused on planning, observation, customer database breakup, and IT vendor RFPs. Post-15 days, we launch Month 1 with a lean ₹1.14L core acquisition pod and scale across 12 months with strict 90-day ROI gates.</p>
-        </header>
-
-        <div class="slide-body">
-          <div class="cover-wrap">
-            <div style="display:flex;flex-direction:column;gap:11px">
-              <div class="kpi-row">
-                <div class="kpi">
-                  <b class="cyan">₹1,14,000</b>
-                  <span>Month-1 Core Spend (Ads + New-Client Pod)</span>
-                  <small>₹40K Ads + 2 Callers + 1 New-Client RM → 390 Accts/mo</small>
-                </div>
-                <div class="kpi">
-                  <b class="green">4,680 + 750 APs</b>
-                  <span>Year-1 Direct Paid Accounts + New AP Network</span>
-                  <small>390/mo from ads + 700–800 APs across Gujarat & Mumbai</small>
-                </div>
-                <div class="kpi">
-                  <b>₹48.55 Lakhs</b>
-                  <span>Full Year-1 Operating Budget (Phased)</span>
-                  <small>Q1: ₹7.35L → Q2: ₹11.85L → H2: ₹29.35L (ROI-Gated)</small>
-                </div>
-              </div>
-
-              <div class="cards c2">
-                <article class="card">
-                  <div class="card-tag">PHASE 0 · FIRST 15 DAYS <span class="badge green">₹0 SPEND</span></div>
-                  <h3>Prepare, Audit & Collect Vendor Quotes</h3>
-                  <ul class="action-list">
-                    <li><b>65K Existing Client Breakup:</b> Segregate database by Capital, Tenure, City & Engagement to determine exact <b>Existing-Client RM</b> headcount.</li>
-                    <li><b>IT & App Vendor RFPs:</b> Collect external vendor quotes for <b>App Revamp</b>, <b>Web Terminal</b>, <b>Scanners</b>, and <b>Options Delta</b>.</li>
-                    <li><b>Funnel & Tracking Setup:</b> Finalize Google/Meta ad accounts, CRM workflows, telecaller scripts, and RA desk compliance.</li>
-                  </ul>
-                  <div class="card-meta"><span>Deliverable: Day-15 Readiness Sign-Off</span><span>Owner: Mitesh</span></div>
-                </article>
-
-                <article class="card">
-                  <div class="card-tag">12-MONTH → 3-YEAR VISION <span class="badge">REVIEWED ANNUALLY</span></div>
-                  <h3>What ANSPL Builds Over 12 to 36 Months</h3>
-                  <ul class="action-list">
-                    <li><b>Direct Digital Acquisition:</b> 975 fresh leads/mo → <b>390 new accounts/mo</b> at ₹292 loaded CAC (₹102.56 media-only CAC).</li>
-                    <li><b>Partner & Creator Scale:</b> 700–800 new APs (Gujarat, Mumbai, then MH/RJ/MP/KA) + regional Influencer engine from Month 4.</li>
-                    <li><b>High-Value Desks:</b> Dedicated <b>RA Desk</b> & weekly reports from Month 1; YouTube guest RA webinars; <b>Algo Desk</b> after Month 6.</li>
-                  </ul>
-                  <div class="card-meta"><span>Y1 Exit: 10,000 Gross Accounts</span><span>Y3 Target: 100K+ Base (40% Active)</span></div>
-                </article>
-              </div>
-            </div>
-
-            <div class="orbit">
-              <div class="o-ring r1"></div>
-              <div class="o-ring r2"></div>
-              <div class="o-ring r3"></div>
-              <div class="o-center"><span>ANSPL</span><small>SPEND × RETURN</small></div>
-              <div class="o-tag t1">390 ACCTS/MO</div>
-              <div class="o-tag t2">700–800 APs</div>
-              <div class="o-tag t3">RA + ALGO DESK</div>
-              <div class="o-tag t4">90-DAY GATES</div>
-            </div>
-          </div>
-        </div>
-
-        <footer class="footnote">
-          <span>Prepared for ANSPL Managing Director · Execution Owner: Mitesh</span>
-          <span>Note: Year-2 & Year-3 budgets will be re-calibrated after Year-1 performance review.</span>
-        </footer>
-      </div>
-    </section>
-
-    <!-- ==================== SLIDE 2: MONTH-1 CORE ACQUISITION & RM CLARIFICATION ==================== -->
-    <section class="slide" data-section="02 / MONTH-1 CORE ENGINE" data-title="Month-1 Core Budget: ₹1,14,000 Spend Delivers 975 Leads & 390 Accounts">
-      <div class="slide-inner">
-        <header class="slide-head">
-          <div class="eyebrow">02 / MONTH-1 BASELINE UNIT ECONOMICS (POST 15-DAY PREP) <span style="margin-left:auto;color:#597891">SLIDE 02 / 06</span></div>
-          <h1 class="slide-title">Month-1 Core Engine: ₹1,14,000 Spend → 975 Leads → 390 New Accounts.</h1>
-          <p class="lead">Once the 15-day preparation is complete, we activate our core digital acquisition pod. Note that RM 1 (₹30,000/mo) is dedicated strictly to newly acquired customers; existing customer RM staffing is budgeted separately after the database breakup.</p>
-        </header>
-
-        <div class="slide-body">
-          <div class="split split-62">
-            <div>
-              <div class="big-table">
-                <div class="t-row t-head">
-                  <div>Section / Role</div>
-                  <div style="text-align:right">Monthly Cost</div>
-                  <div>Primary Responsibility / Remark</div>
-                  <div style="text-align:right">Result Leads</div>
-                  <div style="text-align:right">Conv. (40%)</div>
-                </div>
-                <div class="t-row">
-                  <div>Google Ads</div>
-                  <div class="num">₹5,000</div>
-                  <div>High-intent fresh lead generation (Search/Display)</div>
-                  <div class="num">100</div>
-                  <div class="green">40 Accts</div>
-                </div>
-                <div class="t-row">
-                  <div>Meta Ad Spend</div>
-                  <div class="num">₹35,000</div>
-                  <div>Targeted regional & trader acquisition campaigns</div>
-                  <div class="num">875</div>
-                  <div class="green">350 Accts</div>
-                </div>
-                <div class="t-row">
-                  <div>Telecaller 1</div>
-                  <div class="num">₹22,000</div>
-                  <div>Inbound sales calls, lead qualification & speed-to-lead</div>
-                  <div class="num">—</div>
-                  <div class="num">—</div>
-                </div>
-                <div class="t-row">
-                  <div>Telecaller 2</div>
-                  <div class="num">₹22,000</div>
-                  <div>Inbound sales calls, document follow-up & eKYC closure</div>
-                  <div class="num">—</div>
-                  <div class="num">—</div>
-                </div>
-                <div class="t-row">
-                  <div>RM 1 <span style="color:var(--cyan);font-size:10px;font-family:var(--mono)">(NEW CLIENTS ONLY)</span></div>
-                  <div class="num">₹30,000</div>
-                  <div>Onboarding, portfolio activation & upselling of <b>new customers only</b></div>
-                  <div class="num">—</div>
-                  <div class="num">—</div>
-                </div>
-                <div class="t-row t-total">
-                  <div>MONTH-1 CORE TOTAL</div>
-                  <div class="hot">₹1,14,000 / mo</div>
-                  <div>Annualized Core Run-Rate: ₹13,68,000 / year</div>
-                  <div class="hot">975 / mo</div>
-                  <div class="hot">390 / mo</div>
-                </div>
-              </div>
-
-              <div class="cards c2">
-                <article class="card">
-                  <div class="card-tag">NEW-CUSTOMER RM (₹30K/MO) <span class="badge">INCLUDED ABOVE</span></div>
-                  <h3>Dedicated to Fresh Digital & Partner Cohorts</h3>
-                  <ul class="action-list">
-                    <li>Handles the <b>390 new accounts/month</b> post-eKYC so new clients immediately trade, fund, and adopt scanners/research.</li>
-                    <li>Drives early cross-sell (SIP, MF, MTF, PMS referrals) within the first 30–90 days of account opening.</li>
-                  </ul>
-                </article>
-                <article class="card">
-                  <div class="card-tag">EXISTING-CUSTOMER RMs <span class="badge amber">SEPARATE POST-AUDIT</span></div>
-                  <h3>Sized After 15-Day Database Breakup</h3>
-                  <ul class="action-list">
-                    <li>Existing 65K client RM cost is <b>separate</b> from RM 1 above.</li>
-                    <li>During Days 1–15, we segregate the existing client list into 4 wealth brackets (>₹5Cr, ₹1–5Cr, ₹10L–1Cr, <₹10L) to calculate exact RM count required.</li>
-                  </ul>
-                </article>
-              </div>
-            </div>
-
-            <div>
-              <div class="outcome">
-                <span>MONTH-1 UNIT ECONOMICS</span>
-                <div class="metric-line">
-                  <span>Total Media Spend</span>
-                  <strong class="cyan">₹40,000 / mo</strong>
-                  <small>₹5K Google + ₹35K Meta</small>
-                </div>
-                <div class="metric-line">
-                  <span>Blended Cost Per Lead (CPL)</span>
-                  <strong>₹41.03</strong>
-                  <small>Google ₹50 · Meta ₹40</small>
-                </div>
-                <div class="metric-line">
-                  <span>Lead-to-Account Conversion</span>
-                  <strong class="green">40.0%</strong>
-                  <small>390 accounts from 975 leads</small>
-                </div>
-                <div class="metric-line">
-                  <span>Media-Only CAC</span>
-                  <strong class="cyan">₹102.56</strong>
-                  <small>₹40,000 ÷ 390 accounts</small>
-                </div>
-                <div class="metric-line">
-                  <span>New-Client Team Payroll</span>
-                  <strong>₹74,000 / mo</strong>
-                  <small>2 Callers (₹44K) + 1 RM (₹30K)</small>
-                </div>
-                <div class="metric-line">
-                  <span>Fully-Loaded CAC (Ads + Pod)</span>
-                  <strong class="green">₹292.31</strong>
-                  <small>₹1,14,000 ÷ 390 accounts</small>
-                </div>
-                <div class="metric-line">
-                  <span>12-Month Direct Paid Output</span>
-                  <strong class="cyan">4,680 Accts</strong>
-                  <small>From base ₹40K/mo ad spend</small>
-                </div>
-                <div class="rule"></div>
-                <p style="font-size:11px;color:#9eb8c9;margin:0;line-height:1.45"><b>Scale Rule:</b> As conversion holds ≥40%, we add +2 Telecallers & +1 New-Client RM in Month 4 (₹74K/mo) to absorb rising AP, Influencer & organic leads.</p>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <footer class="footnote">
-          <span>All inbound leads called within 5 minutes during business hours</span>
-          <span>40% conversion benchmark = 390 verified demat accounts/month</span>
-        </footer>
-      </div>
-    </section>
-
-    <!-- ==================== SLIDE 3: AP NETWORK & INFLUENCER MARKETING ==================== -->
-    <section class="slide" data-section="03 / AP & INFLUENCER ENGINE" data-title="Channel Expansion: 700–800 New AP Partners & Regional Influencer Engine">
-      <div class="slide-inner">
-        <header class="slide-head">
-          <div class="eyebrow">03 / B2B PARTNER NETWORK & CREATOR ACQUISITION <span style="margin-left:auto;color:#597891">SLIDE 03 / 06</span></div>
-          <h1 class="slide-title">Multiply Distribution: 700–800 New APs + Regional Influencer Engine.</h1>
-          <p class="lead">Low-CAC B2B and creator distribution engines that compound alongside direct ads—starting with our core stronghold in Gujarat and Mumbai before expanding into 4 additional states.</p>
-        </header>
-
-        <div class="slide-body">
-          <div class="split split-58">
-            <div>
-              <article class="card" style="height:100%">
-                <div class="card-tag">ENGINE 01 · AUTHORISED PERSON (AP) NETWORK <span class="badge green">700–800 NEW APs TARGET</span></div>
-                <h3>Phased Rollout: Events First, Followed by Targeted AP Ad Spend</h3>
-                <ul class="action-list">
-                  <li><b>Step 1 (Months 1–3 — Audit & Events First):</b> Map existing AP network in Gujarat & Mumbai; host <b>2–3 partner events</b> to evaluate engagement, then initiate <b>₹5,000/mo AP Ad Spend</b> for first 3 months.</li>
-                  <li><b>Step 2 (Month 4+ — Scale Budget on ROI):</b> Increase AP Ad Spend to <b>₹10,000/mo</b> (and higher based on return). Target 100 APs per major city; even at 50% achievement, we onboard <b>700–800 new APs</b>.</li>
-                  <li><b>Partner Enablement & Retention:</b> Structured product/platform certification, tiered AP-refers-AP bonus incentives, co-branded digital kits (localized creatives & landing pages), and Chamber of Commerce wealth seminars.</li>
-                </ul>
-
-                <div style="margin-top:8px">
-                  <div style="font:600 9.5px var(--mono);color:var(--cyan);margin-bottom:4px">PHASE 1 · 13 GUJARAT CITIES + 3 MUMBAI ZONES (MONTHS 1–6)</div>
-                  <div class="city-tags">
-                    <span class="city-chip">Ahmedabad</span><span class="city-chip">Rajkot</span><span class="city-chip">Surat</span><span class="city-chip">Vadodara</span><span class="city-chip">Gandhinagar</span><span class="city-chip">Anand</span><span class="city-chip">Bharuch</span><span class="city-chip">Bhavnagar</span><span class="city-chip">Jamnagar</span><span class="city-chip">Junagadh</span><span class="city-chip">Navsari</span><span class="city-chip">Vapi</span><span class="city-chip">Mehsana</span><span class="city-chip">Mumbai Western</span><span class="city-chip">Mumbai Central</span><span class="city-chip">Thane / Navi Mumbai</span>
-                  </div>
-                  <div style="font:600 9.5px var(--mono);color:var(--purple);margin:7px 0 4px">PHASE 2 · MULTI-STATE EXPANSION (MONTHS 7–12 & YEAR 2)</div>
-                  <div class="city-tags">
-                    <span class="city-chip p2">Pune (MH)</span><span class="city-chip p2">Nagpur (MH)</span><span class="city-chip p2">Nashik (MH)</span><span class="city-chip p2">Jaipur (RJ)</span><span class="city-chip p2">Jodhpur (RJ)</span><span class="city-chip p2">Udaipur (RJ)</span><span class="city-chip p2">Bengaluru (KA)</span><span class="city-chip p2">Mysuru (KA)</span><span class="city-chip p2">Indore (MP)</span><span class="city-chip p2">Bhopal (MP)</span>
-                  </div>
-                </div>
-                <div class="card-meta"><span>Year-1 AP Ad Spend: ₹1,05,000 (₹5K×3m + ₹10K×9m)</span><span>+8 Regional AP Events (₹2.80L)</span></div>
-              </article>
-            </div>
-
-            <div>
-              <div class="outcome">
-                <span>ENGINE 02 · INFLUENCER MARKETING (FROM MONTH 4)</span>
-                <h3 style="margin:4px 0 8px;font-size:17px;color:#f0f8ff">₹20,000 / Month · Quarterly ROI Review Cycles</h3>
-                <p style="font-size:11.5px;color:#a9bfd2;margin:0 0 10px;line-height:1.45">Months 1–3 dedicated to vetting nano/micro finance creators (10K–100K followers) & setting compliance/tracking links. Launches Month 4 across <b>Gujarati, Marathi, Hindi & Kannada</b>.</p>
-
-                <div class="metric-line">
-                  <span>1. Paid Collaborations / Content</span>
-                  <strong class="cyan">₹14,000 / mo</strong>
-                  <small>Fixed + performance fees</small>
-                </div>
-                <div class="metric-line">
-                  <span>2. Demat Account Opening Bonuses</span>
-                  <strong class="green">₹4,000 / mo</strong>
-                  <small>Verified account milestones</small>
-                </div>
-                <div class="metric-line">
-                  <span>3. Tools & Creative Support</span>
-                  <strong>₹2,000 / mo</strong>
-                  <small>Promo links & compliance</small>
-                </div>
-                <div class="metric-line">
-                  <span>Year-1 Influencer Total (Months 4–12)</span>
-                  <strong class="cyan">₹1,80,000</strong>
-                  <small>9 active months in Year 1</small>
-                </div>
-
-                <div class="rule"></div>
-                <div class="pairs">
-                  <div class="pair"><span>Co-Hosted Live Sessions</span><strong>Webinars for APs & Clients</strong></div>
-                  <div class="pair"><span>Every 3 Months</span><strong>Scale Winners / Pause Low ROI</strong></div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <footer class="footnote">
-          <span>AP & Influencer channels reduce reliance on paid social ads</span>
-          <span>All creator content pre-vetted for SEBI & Exchange compliance disclosures</span>
-        </footer>
-      </div>
-    </section>
-
-    <!-- ==================== SLIDE 4: EXISTING CLIENTS, EVENTS & NEW DESKS ==================== -->
-    <section class="slide" data-section="04 / CLIENTS, EVENTS & DESKS" data-title="Existing 65K Client Matrix, Offline Event Budgets & New Desks (RA + Algo)">
-      <div class="slide-inner">
-        <header class="slide-head">
-          <div class="eyebrow">04 / RETENTION, HOSPITALITY & INTELLECTUAL PROPERTY DESKS <span style="margin-left:auto;color:#597891">SLIDE 04 / 06</span></div>
-          <h1 class="slide-title">65K Client Segmentation, Event Hospitality & New Value Desks.</h1>
-          <p class="lead">We segregate existing customers across 4 wealth brackets to determine Existing-Client RM staffing, back it with recurring offline/online events, and launch a Month-1 RA Desk plus a Month-6 Algo Desk.</p>
-        </header>
-
-        <div class="slide-body">
-          <div class="cards c3">
-            <!-- Column 1: Existing Customer Segmentation -->
-            <article class="card">
-              <div class="card-tag">01 · EXISTING 65K BASE <span class="badge amber">RM COUNT POST-AUDIT</span></div>
-              <h3>4-Tier Wealth & RM Allocation Matrix</h3>
-              <p style="font-size:11px;color:#9eb5c8;margin:0 0 8px">Segregated in First 15 Days by <b>Capital, Vintage (1/3/5+ yrs), City & Engagement</b> (Focus Age >25 yrs):</p>
-              <div class="metric-line">
-                <span><b>Ultra HNI</b> (> ₹5 Cr)</span>
-                <strong class="cyan">1 RM : 100</strong>
-                <small>White-glove bespoke</small>
-              </div>
-              <div class="metric-line">
-                <span><b>HNI</b> (₹1 Cr – ₹5 Cr)</span>
-                <strong class="green">1 RM : 200</strong>
-                <small>Proactive + digital</small>
-              </div>
-              <div class="metric-line">
-                <span><b>Mass Affluent</b> (₹10L – ₹1Cr)</span>
-                <strong>1 RM : 500+</strong>
-                <small>Pooled RM + webinars</small>
-              </div>
-              <div class="metric-line">
-                <span><b>Retail</b> (< ₹10 Lakhs)</span>
-                <strong>Automated</strong>
-                <small>App nudges + support</small>
-              </div>
-              <div class="card-meta" style="color:var(--amber)"><span>Existing-Client RM Payroll: Decided after Day-15 breakup</span></div>
-            </article>
-
-            <!-- Column 2: Events, Hall Rent, Food & Webinars -->
-            <article class="card">
-              <div class="card-tag">02 · EVENTS, HALL RENT & FOOD <span class="badge green">₹10.96L / YEAR</span></div>
-              <h3>Offline Hospitality & Webinar Rhythm</h3>
-              <div class="metric-line">
-                <span><b>HNI Exclusive Events</b> (>₹30L Cap)</span>
-                <strong class="cyan">₹5,00,000</strong>
-                <small>10/yr @ ₹50K (Hotel + Dinner)</small>
-              </div>
-              <div class="metric-line">
-                <span><b>AP Partner Meetups</b> (Regional)</span>
-                <strong class="green">₹2,80,000</strong>
-                <small>8/yr @ ₹35K (Hall + Catering)</small>
-              </div>
-              <div class="metric-line">
-                <span><b>City Retail Seminars</b> (Quarterly)</span>
-                <strong>₹1,40,000</strong>
-                <small>4/yr @ ₹35K (Hall + High-Tea)</small>
-              </div>
-              <div class="metric-line">
-                <span><b>HNI & Top AP Gifting</b></span>
-                <strong>₹80,000</strong>
-                <small>₹20,000 / quarter</small>
-              </div>
-              <div class="metric-line">
-                <span><b>Zoom Webinar + CRM Tools</b></span>
-                <strong>₹96,000</strong>
-                <small>₹8,000/mo (Weekly Webinars)</small>
-              </div>
-              <div class="card-meta"><span>Includes Weekly Retail & Product-Dedicated Webinars (MF, Bonds, F&O, PMS)</span></div>
-            </article>
-
-            <!-- Column 3: New Value Desks (RA, Guest YouTube, Content, Algo) -->
-            <article class="card">
-              <div class="card-tag">03 · NEW VALUE DESKS <span class="badge">₹14.40L / YEAR</span></div>
-              <h3>RA Desk (M1), YouTube RAs & Algo Desk (M7)</h3>
-              <div class="metric-line">
-                <span><b>Dedicated RA Desk</b> (From M1)</span>
-                <strong class="cyan">₹5,40,000</strong>
-                <small>₹45K/mo · Weekly reports</small>
-              </div>
-              <div class="metric-line">
-                <span><b>Outside Guest RA Webinars</b></span>
-                <strong class="green">₹1,80,000</strong>
-                <small>₹15K/mo · YouTube branding</small>
-              </div>
-              <div class="metric-line">
-                <span><b>Social & Video Content Desk</b></span>
-                <strong>₹4,20,000</strong>
-                <small>₹35K/mo · Reels, YT, AP kits</small>
-              </div>
-              <div class="metric-line">
-                <span><b>Algo Desk Specialist</b> (After M6)</span>
-                <strong class="amber">₹3,00,000</strong>
-                <small>₹50K/mo × 6m (M7–M12)</small>
-              </div>
-              <ul class="action-list" style="margin-top:6px">
-                <li><b>Free Value for Every Client:</b> Weekly research report release, daily brief, core scanners, and learning library.</li>
-              </ul>
-              <div class="card-meta"><span>Algo Desk launches Month 7 post compliance gate</span></div>
-            </article>
-          </div>
-        </div>
-
-        <footer class="footnote">
-          <span>Hall rent, catering, AV, and hospitality factored into every offline event line item</span>
-          <span>Guest SEBI-registered RAs drive high-trust organic YouTube discovery</span>
-        </footer>
-      </div>
-    </section>
-
-    <!-- ==================== SLIDE 5: COMPLETE YEAR-1 MASTER BUDGET & IT VENDOR SCOPE ==================== -->
-    <section class="slide" data-section="05 / MASTER BUDGET SHEET" data-title="Complete Year-1 Operating Budget (₹48.55L) + External IT Vendor RFPs">
-      <div class="slide-inner">
-        <header class="slide-head">
-          <div class="eyebrow">05 / FULL YEAR-1 FINANCIAL COMMITMENT & CAPEX SEPARATION <span style="margin-left:auto;color:#597891">SLIDE 05 / 06</span></div>
-          <h1 class="slide-title">Year-1 Master Budget: ₹48.55L Operating Plan + Vendor-Quoted IT Capex.</h1>
-          <p class="lead">Filter the master table below by category or stage. Operating expenditure is released in phased tranches, while App Revamp, Web Terminal, Scanners & AI tools are budgeted separately upon receiving outside vendor quotations.</p>
-        </header>
-
-        <div class="slide-body">
-          <div class="filter-bar">
-            <div class="filter-tabs" role="tablist" aria-label="Filter budget rows">
-              <button type="button" class="f-tab active" data-filter="all">All Year-1 Opex (₹48.55L)</button>
-              <button type="button" class="f-tab" data-filter="m1core">Month-1 Core Pod (₹1.14L/mo)</button>
-              <button type="button" class="f-tab" data-filter="media">Ads & Creators (₹7.65L)</button>
-              <button type="button" class="f-tab" data-filter="desks">RA, Algo & Content Desks (₹14.40L)</button>
-              <button type="button" class="f-tab" data-filter="events">Events, Hall & Food (₹10.96L)</button>
-            </div>
-            <div class="filter-summary" id="filterSummary">Showing: All 10 Operating Line Items · Total ₹48,55,000</div>
-          </div>
-
-          <div class="split split-62">
-            <div>
-              <div class="master-table" id="masterTable">
-                <div class="m-row m-head">
-                  <div>Budget Line Item</div>
-                  <div style="text-align:right">Monthly Rate</div>
-                  <div style="text-align:center">Timeline</div>
-                  <div style="text-align:right">Year-1 Total</div>
-                  <div>Expected Output / Deliverable</div>
-                </div>
-                <div class="m-row" data-cat="m1core media">
-                  <div>1. Google + Meta Client Ads</div>
-                  <div class="r">₹40,000</div>
-                  <div class="c">M1–M12 (12m)</div>
-                  <div class="r">₹4,80,000</div>
-                  <div>975 leads/mo → <b>390 accounts/mo (4,680/yr)</b></div>
-                </div>
-                <div class="m-row" data-cat="m1core">
-                  <div>2. Initial Sales Pod (2 Callers + 1 New-Client RM)</div>
-                  <div class="r">₹74,000</div>
-                  <div class="c">M1–M12 (12m)</div>
-                  <div class="r">₹8,88,000</div>
-                  <div>2 Callers (₹44K) + 1 RM for <b>new customers only</b> (₹30K)</div>
-                </div>
-                <div class="m-row" data-cat="m1core">
-                  <div>3. Phase-2 Sales Scale (+2 Callers + 1 New RM)</div>
-                  <div class="r">₹74,000</div>
-                  <div class="c">M4–M12 (9m)</div>
-                  <div class="r">₹6,66,000</div>
-                  <div>Handles AP, Influencer & organic lead surge from Q2</div>
-                </div>
-                <div class="m-row" data-cat="media">
-                  <div>4. AP Network Acquisition Ads</div>
-                  <div class="r">₹5K → ₹10K</div>
-                  <div class="c">M1–3 / M4–12</div>
-                  <div class="r">₹1,05,000</div>
-                  <div><b>700–800 new APs</b> across 13 Gujarat cities & Mumbai</div>
-                </div>
-                <div class="m-row" data-cat="media">
-                  <div>5. Influencer Marketing Program</div>
-                  <div class="r">₹20,000</div>
-                  <div class="c">M4–M12 (9m)</div>
-                  <div class="r">₹1,80,000</div>
-                  <div>₹14K creators + ₹4K demat bonuses + ₹2K tools</div>
-                </div>
-                <div class="m-row" data-cat="desks">
-                  <div>6. Dedicated RA Desk (Weekly Reports)</div>
-                  <div class="r">₹45,000</div>
-                  <div class="c">M1–M12 (12m)</div>
-                  <div class="r">₹5,40,000</div>
-                  <div>52 weekly research reports + daily market briefs</div>
-                </div>
-                <div class="m-row" data-cat="desks">
-                  <div>7. Outside Guest RA YouTube Webinars</div>
-                  <div class="r">₹15,000</div>
-                  <div class="c">M1–M12 (12m)</div>
-                  <div class="r">₹1,80,000</div>
-                  <div>24–36 guest RA live sessions for organic branding</div>
-                </div>
-                <div class="m-row" data-cat="desks">
-                  <div>8. Digital Content, Video & Design Desk</div>
-                  <div class="r">₹35,000</div>
-                  <div class="c">M1–M12 (12m)</div>
-                  <div class="r">₹4,20,000</div>
-                  <div>Reels, YouTube videos, SEO pages & co-branded AP kits</div>
-                </div>
-                <div class="m-row" data-cat="desks">
-                  <div>9. Algo Desk Setup & Specialist</div>
-                  <div class="r">₹50,000</div>
-                  <div class="c">M7–M12 (6m)</div>
-                  <div class="r">₹3,00,000</div>
-                  <div>Launches after Month-6 regulatory & tech readiness gate</div>
-                </div>
-                <div class="m-row" data-cat="events">
-                  <div>10. Events (Hall + Food), Gifting & CRM Tools</div>
-                  <div class="r">Phased</div>
-                  <div class="c">M1–M12 (12m)</div>
-                  <div class="r">₹10,96,000</div>
-                  <div>10 HNI dinners (₹5L), 8 AP meets (₹2.8L), 4 seminars (₹1.4L), tools/gifts</div>
-                </div>
-                <div class="m-row m-total">
-                  <div>TOTAL YEAR-1 OPERATING BUDGET</div>
-                  <div class="r">~₹4.05L avg</div>
-                  <div class="c">12 Months</div>
-                  <div class="r">₹48,55,000</div>
-                  <div>Target: 10,000 Total New Accounts + 700–800 New APs</div>
-                </div>
-              </div>
-            </div>
-
-            <div>
-              <div class="outcome" style="border-color:rgba(255,184,77,.4)">
-                <span style="color:var(--amber)">SEPARATE APPROVAL · VENDOR QUOTATION & AUDIT ITEMS</span>
-                <h3 style="margin:4px 0 8px;font-size:16px;color:#fff">Submitted Post 15-Day Audit & Vendor RFPs</h3>
-                <div class="metric-line">
-                  <span><b>1. Existing-Client RM Team</b></span>
-                  <strong class="amber">Post-Audit</strong>
-                  <small>65K list breakup in Days 1–15</small>
-                </div>
-                <div class="metric-line">
-                  <span><b>2. Mobile App Revamp</b> (Advanced UI)</span>
-                  <strong class="amber">Vendor Quote</strong>
-                  <small>Outside dev quotation ASAP</small>
-                </div>
-                <div class="metric-line">
-                  <span><b>3. Web Trading Terminal</b></span>
-                  <strong class="amber">Vendor Quote</strong>
-                  <small>Scanners + Analytics + Options Delta</small>
-                </div>
-                <div class="metric-line">
-                  <span><b>4. Future AI Attraction Tools</b></span>
-                  <strong class="amber">Phase-2 Quote</strong>
-                  <small>AI screeners & customer journeys</small>
-                </div>
-                <div class="rule"></div>
-                <p style="font-size:11px;color:#b8cadb;margin:0;line-height:1.45"><b>Why Separate?</b> We will not guess software development costs upfront. In the first 15–30 days, Mitesh will bring competitive outside vendor quotes to the MD for direct comparison and sign-off.</p>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <footer class="footnote">
-          <span>Click any filter pill above to isolate specific cost centers</span>
-          <span>All figures in INR (excluding GST and external software capex quotes)</span>
-        </footer>
-      </div>
-    </section>
-
-    <!-- ==================== SLIDE 6: PHASED RELEASE GATES & MD SIGN-OFF ASK ==================== -->
-    <section class="slide" data-section="06 / MD SIGN-OFF" data-title="Phased Budget Release & Immediate MD Approval Ask">
-      <div class="slide-inner">
-        <header class="slide-head">
-          <div class="eyebrow">06 / GOVERNANCE, QUARTERLY GATES & IMMEDIATE ACTION <span style="margin-left:auto;color:#597891">SLIDE 06 / 06</span></div>
-          <h1 class="slide-title">Approve Tranche 1 Today — Scale Every 90 Days on Verified Results.</h1>
-          <p class="lead">We do not ask for a ₹48.55L lump-sum cheque on Day 1. Capital is released in quarterly tranches tied to verified account openings, AP onboarding, and revenue contribution—with full re-budgeting at the end of Year 1 for Years 2 and 3.</p>
-        </header>
-
-        <div class="slide-body">
-          <div class="cards c4">
-            <article class="card">
-              <div class="card-tag">STAGE 0 · DAYS 1–15 <span class="badge green">₹0 SPEND</span></div>
-              <h3>Prepare & Breakup Data</h3>
-              <ul class="action-list">
-                <li>Segregate 65K existing clients → propose <b>Existing-Client RM</b> headcount.</li>
-                <li>Collect vendor quotes for <b>App Revamp</b> & <b>Web Terminal + Options Delta</b>.</li>
-                <li>Set up CRM, ad pixels, scripts & hire initial 3-person pod.</li>
-              </ul>
-              <div class="card-meta"><span>Gate: Day-15 Readiness</span></div>
-            </article>
-
-            <article class="card">
-              <div class="card-tag">TRANCHE 1 · MONTHS 1–3 <span class="badge">₹7.35 LAKHS</span></div>
-              <h3>Launch Core Engine</h3>
-              <ul class="action-list">
-                <li><b>₹1.14L/mo Core:</b> ₹40K Ads + 2 Callers + 1 New-Client RM → <b>1,170 paid accounts</b> in Q1.</li>
-                <li><b>RA + Content + Guest Webinars:</b> ₹95K/mo (Weekly reports & YouTube).</li>
-                <li><b>AP Setup:</b> 2–3 AP events + ₹5K/mo AP ads + 1st HNI event.</li>
-              </ul>
-              <div class="card-meta"><span>Gate: Day-90 CAC & ROI Review</span></div>
-            </article>
-
-            <article class="card">
-              <div class="card-tag">TRANCHE 2 · MONTHS 4–6 <span class="badge">₹11.85 LAKHS</span></div>
-              <h3>Scale Partners & Team</h3>
-              <ul class="action-list">
-                <li><b>Influencer Launch:</b> ₹20K/mo across regional creators.</li>
-                <li><b>AP Ads Doubled:</b> ₹10K/mo across 13 Gujarat cities & Mumbai.</li>
-                <li><b>Team Scale:</b> Add +2 Callers & +1 New-Client RM (₹74K/mo).</li>
-                <li>Monthly HNI dinners & regional AP meets.</li>
-              </ul>
-              <div class="card-meta"><span>Gate: Month-6 Algo Readiness</span></div>
-            </article>
-
-            <article class="card">
-              <div class="card-tag">TRANCHE 3 · MONTHS 7–12 <span class="badge amber">₹29.35 LAKHS</span></div>
-              <h3>Algo Desk & State Expansion</h3>
-              <ul class="action-list">
-                <li><b>Algo Desk Live:</b> ₹50K/mo specialist + automated strategies.</li>
-                <li><b>Phase-2 States:</b> Expand AP network to Pune, Nagpur, Nashik, RJ, MP, KA.</li>
-                <li><b>Year-1 Exit Review:</b> Re-budget for Year 2 & Year 3 toward 100K+ base.</li>
-              </ul>
-              <div class="card-meta"><span>Gate: Year-1 Re-Budgeting</span></div>
-            </article>
-          </div>
-
-          <div class="split split-58">
-            <div>
-              <div class="big-table">
-                <div class="t-row t-head">
-                  <div>4 Immediate Decisions Requested from MD Today</div>
-                  <div style="text-align:right">Commitment</div>
-                  <div>What Starts Immediately</div>
-                  <div style="text-align:right">First Milestone</div>
-                  <div style="text-align:right">Owner</div>
-                </div>
-                <div class="t-row">
-                  <div>1. Approve 15-Day Prep & 65K Client Data Access</div>
-                  <div class="green">₹0 Spend</div>
-                  <div>Customer wealth breakup + Existing RM sizing + IT Vendor RFPs</div>
-                  <div class="num">Day 15</div>
-                  <div class="hot">Mitesh + IT</div>
-                </div>
-                <div class="t-row">
-                  <div>2. Approve Month-1 Core Acquisition Pod & Ads</div>
-                  <div class="hot">₹1,14,000 / mo</div>
-                  <div>₹40K Ads (Google/Meta) + 2 Callers (₹44K) + 1 New-Client RM (₹30K)</div>
-                  <div class="num">390 Accts/mo</div>
-                  <div class="hot">Mitesh</div>
-                </div>
-                <div class="t-row">
-                  <div>3. Approve Q1 Desks, AP Events & Webinars Envelope</div>
-                  <div class="hot">₹7.35L Total Q1</div>
-                  <div>RA Desk (₹45K), Guest Webinars (₹15K), Content (₹35K), First Events</div>
-                  <div class="num">Day 90 Gate</div>
-                  <div class="hot">Mitesh</div>
-                </div>
-                <div class="t-row">
-                  <div>4. Authorise External Vendor RFQ for App & Web Terminal</div>
-                  <div class="green">Quote Comparison</div>
-                  <div>Bring competitive vendor quotes for App Revamp, Terminal & Options Delta</div>
-                  <div class="num">Days 15–30</div>
-                  <div class="hot">MD + Mitesh</div>
-                </div>
-              </div>
-            </div>
-
-            <div>
-              <div class="number-panel">
-                <span>TOTAL TRANCHE-1 AUTHORISATION ASK</span>
-                <b>₹7.35 Lakhs</b>
-                <p>Covers Full Quarter 1 (Months 1–3) after the 15-day zero-cost setup phase—starting with <b>₹1,14,000/mo</b> core acquisition + RA/Content desks & initial AP/HNI events.</p>
-                <div class="pairs">
-                  <div class="pair"><span>Month-1 Core Pod</span><strong>₹1.14L → 390 Accts</strong></div>
-                  <div class="pair"><span>Full Year-1 Plan</span><strong>₹48.55L (Phased)</strong></div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <footer class="footnote">
-          <span>Execution Ownership: Mitesh · Sponsorship & Final Sign-Off: Managing Director, ANSPL</span>
-          <span>Next Deck: 12-Month Granular Team Execution Blueprint</span>
-        </footer>
-      </div>
-    </section>
-
-  </main>
-
-  <div class="progress"><div class="progress-fill" id="pfill"></div></div>
-  <footer class="bottom">
-    <div class="bottom-label">ANSPL / MD BUDGET & ROI APPROVAL BRIEF · MITESH</div>
-    <span class="section-pill" id="sectionpill">01 / EXECUTIVE SUMMARY</span>
-    <div class="bottom-right">
-      <button type="button" class="navbtn" id="prev" aria-label="Previous slide">←</button>
-      <span class="counter" id="counter">01 / 06</span>
-      <button type="button" class="navbtn" id="next" aria-label="Next slide">→</button>
-    </div>
-  </footer>
+<header class="topbar">
+<div class="brand">
+<div class="brandicon">A</div>
+<div class="brandname">ANS<i>PL</i></div>
+<div class="divider"></div>
+<div class="top-sub">MD BUDGET & ROI APPROVAL BRIEF<br>EXECUTION OWNER: MITESH · 6 SLIDES</div>
 </div>
-
+<div class="top-pills" aria-label="Quick slide jump">
+<button type="button" class="top-pill-btn active" data-jump="0">01 · Thesis</button>
+<button type="button" class="top-pill-btn" data-jump="1">02 · M1 Core ₹1.14L</button>
+<button type="button" class="top-pill-btn" data-jump="2">03 · AP & Influencers</button>
+<button type="button" class="top-pill-btn" data-jump="3">04 · Clients, Events & Desks</button>
+<button type="button" class="top-pill-btn" data-jump="4">05 · Year-1 Master Budget</button>
+<button type="button" class="top-pill-btn" data-jump="5">06 · MD Sign-Off</button>
+</div>
+<div class="actions">
+<button id="copyhtml" class="tb-btn" type="button" style="border-color:rgba(0,229,255,.45);color:var(--cyan)">⎘ &nbsp; Copy Clean HTML</button>
+<button id="menu" class="tb-btn" type="button" aria-label="Slide overview">☷ &nbsp; All 6 Slides</button>
+<button id="full" class="tb-btn" type="button">⛶ &nbsp; Fullscreen</button>
+<button id="print" class="tb-btn" type="button">↓ &nbsp; Print / PDF</button>
+</div>
+</header>
+<main class="stage" id="stage">
+<!-- ==================== SLIDE 1: EXECUTIVE THESIS & SPEND VS RETURN ==================== -->
+<section class="slide active" data-section="01 / EXECUTIVE SUMMARY" data-title="Phased Capital Allocation: What We Spend & What ANSPL Gets">
+<div class="slide-inner">
+<header class="slide-head">
+<div class="eyebrow">01 / MD BUDGET & ROI BRIEF · OCTOBER 2026 <span style="margin-left:auto;color:#597891">SLIDE 01 / 06</span></div>
+<h1 class="slide-title">What We Spend vs. What ANSPL Gets: A Stage-Gated Growth Engine.</h1>
+<p class="lead">First 15 days require ₹0 spend—focused on planning, observation, customer database breakup, and IT vendor RFPs. Post-15 days, we launch Month 1 with a lean ₹1.14L core acquisition pod and scale across 12 months with strict 90-day ROI gates.</p>
+</header>
+<div class="slide-body">
+<div class="cover-wrap">
+<div style="display:flex;flex-direction:column;gap:11px">
+<div class="kpi-row">
+<div class="kpi">
+<b class="cyan">₹1,14,000</b>
+<span>Month-1 Core Spend (Ads + New-Client Pod)</span>
+<small>₹40K Ads + 2 Callers + 1 New-Client RM → 390 Accts/mo</small>
+</div>
+<div class="kpi">
+<b class="green">4,680 + 750 APs</b>
+<span>Year-1 Direct Paid Accounts + New AP Network</span>
+<small>390/mo from ads + 700–800 APs across Gujarat & Mumbai</small>
+</div>
+<div class="kpi">
+<b>₹48.55 Lakhs</b>
+<span>Full Year-1 Operating Budget (Phased)</span>
+<small>Q1: ₹7.35L → Q2: ₹11.85L → H2: ₹29.35L (ROI-Gated)</small>
+</div>
+</div>
+<div class="cards c2">
+<article class="card">
+<div class="card-tag">PHASE 0 · FIRST 15 DAYS <span class="badge green">₹0 SPEND</span></div>
+<h3>Prepare, Audit & Collect Vendor Quotes</h3>
+<ul class="action-list">
+<li><b>65K Existing Client Breakup:</b> Segregate database by Capital, Tenure, City & Engagement to determine exact <b>Existing-Client RM</b> headcount.</li>
+<li><b>IT & App Vendor RFPs:</b> Collect external vendor quotes for <b>App Revamp</b>, <b>Web Terminal</b>, <b>Scanners</b>, and <b>Options Delta</b>.</li>
+<li><b>Funnel & Tracking Setup:</b> Finalize Google/Meta ad accounts, CRM workflows, telecaller scripts, and RA desk compliance.</li>
+</ul>
+<div class="card-meta"><span>Deliverable: Day-15 Readiness Sign-Off</span><span>Owner: Mitesh</span></div>
+</article>
+<article class="card">
+<div class="card-tag">12-MONTH → 3-YEAR VISION <span class="badge">REVIEWED ANNUALLY</span></div>
+<h3>What ANSPL Builds Over 12 to 36 Months</h3>
+<ul class="action-list">
+<li><b>Direct Digital Acquisition:</b> 975 fresh leads/mo → <b>390 new accounts/mo</b> at ₹292 loaded CAC (₹102.56 media-only CAC).</li>
+<li><b>Partner & Creator Scale:</b> 700–800 new APs (Gujarat, Mumbai, then MH/RJ/MP/KA) + regional Influencer engine from Month 4.</li>
+<li><b>High-Value Desks:</b> Dedicated <b>RA Desk</b> & weekly reports from Month 1; YouTube guest RA webinars; <b>Algo Desk</b> after Month 6.</li>
+</ul>
+<div class="card-meta"><span>Y1 Exit: 10,000 Gross Accounts</span><span>Y3 Target: 100K+ Base (40% Active)</span></div>
+</article>
+</div>
+</div>
+<div class="orbit">
+<div class="o-ring r1"></div>
+<div class="o-ring r2"></div>
+<div class="o-ring r3"></div>
+<div class="o-center"><span>ANSPL</span><small>SPEND × RETURN</small></div>
+<div class="o-tag t1">390 ACCTS/MO</div>
+<div class="o-tag t2">700–800 APs</div>
+<div class="o-tag t3">RA + ALGO DESK</div>
+<div class="o-tag t4">90-DAY GATES</div>
+</div>
+</div>
+</div>
+<footer class="footnote">
+<span>Prepared for ANSPL Managing Director · Execution Owner: Mitesh</span>
+<span>Note: Year-2 & Year-3 budgets will be re-calibrated after Year-1 performance review.</span>
+</footer>
+</div>
+</section>
+<!-- ==================== SLIDE 2: MONTH-1 CORE ACQUISITION & RM CLARIFICATION ==================== -->
+<section class="slide" data-section="02 / MONTH-1 CORE ENGINE" data-title="Month-1 Core Budget: ₹1,14,000 Spend Delivers 975 Leads & 390 Accounts">
+<div class="slide-inner">
+<header class="slide-head">
+<div class="eyebrow">02 / MONTH-1 BASELINE UNIT ECONOMICS (POST 15-DAY PREP) <span style="margin-left:auto;color:#597891">SLIDE 02 / 06</span></div>
+<h1 class="slide-title">Month-1 Core Engine: ₹1,14,000 Spend → 975 Leads → 390 New Accounts.</h1>
+<p class="lead">Once the 15-day preparation is complete, we activate our core digital acquisition pod. Note that RM 1 (₹30,000/mo) is dedicated strictly to newly acquired customers; existing customer RM staffing is budgeted separately after the database breakup.</p>
+</header>
+<div class="slide-body">
+<div class="split split-62">
+<div>
+<div class="big-table">
+<div class="t-row t-head">
+<div>Section / Role</div>
+<div style="text-align:right">Monthly Cost</div>
+<div>Primary Responsibility / Remark</div>
+<div style="text-align:right">Result Leads</div>
+<div style="text-align:right">Conv. (40%)</div>
+</div>
+<div class="t-row">
+<div>Google Ads</div>
+<div class="num">₹5,000</div>
+<div>High-intent fresh lead generation (Search/Display)</div>
+<div class="num">100</div>
+<div class="green">40 Accts</div>
+</div>
+<div class="t-row">
+<div>Meta Ad Spend</div>
+<div class="num">₹35,000</div>
+<div>Targeted regional & trader acquisition campaigns</div>
+<div class="num">875</div>
+<div class="green">350 Accts</div>
+</div>
+<div class="t-row">
+<div>Telecaller 1</div>
+<div class="num">₹22,000</div>
+<div>Inbound sales calls, lead qualification & speed-to-lead</div>
+<div class="num">—</div>
+<div class="num">—</div>
+</div>
+<div class="t-row">
+<div>Telecaller 2</div>
+<div class="num">₹22,000</div>
+<div>Inbound sales calls, document follow-up & eKYC closure</div>
+<div class="num">—</div>
+<div class="num">—</div>
+</div>
+<div class="t-row">
+<div>RM 1 <span style="color:var(--cyan);font-size:10px;font-family:var(--mono)">(NEW CLIENTS ONLY)</span></div>
+<div class="num">₹30,000</div>
+<div>Onboarding, portfolio activation & upselling of <b>new customers only</b></div>
+<div class="num">—</div>
+<div class="num">—</div>
+</div>
+<div class="t-row t-total">
+<div>MONTH-1 CORE TOTAL</div>
+<div class="hot">₹1,14,000 / mo</div>
+<div>Annualized Core Run-Rate: ₹13,68,000 / year</div>
+<div class="hot">975 / mo</div>
+<div class="hot">390 / mo</div>
+</div>
+</div>
+<div class="cards c2">
+<article class="card">
+<div class="card-tag">NEW-CUSTOMER RM (₹30K/MO) <span class="badge">INCLUDED ABOVE</span></div>
+<h3>Dedicated to Fresh Digital & Partner Cohorts</h3>
+<ul class="action-list">
+<li>Handles the <b>390 new accounts/month</b> post-eKYC so new clients immediately trade, fund, and adopt scanners/research.</li>
+<li>Drives early cross-sell (SIP, MF, MTF, PMS referrals) within the first 30–90 days of account opening.</li>
+</ul>
+</article>
+<article class="card">
+<div class="card-tag">EXISTING-CUSTOMER RMs <span class="badge amber">SEPARATE POST-AUDIT</span></div>
+<h3>Sized After 15-Day Database Breakup</h3>
+<ul class="action-list">
+<li>Existing 65K client RM cost is <b>separate</b> from RM 1 above.</li>
+<li>During Days 1–15, we segregate the existing client list into 4 wealth brackets (>₹5Cr, ₹1–5Cr, ₹10L–1Cr, <₹10L) to calculate exact RM count required.</li>
+</ul>
+</article>
+</div>
+</div>
+<div>
+<div class="outcome">
+<span>MONTH-1 UNIT ECONOMICS</span>
+<div class="metric-line">
+<span>Total Media Spend</span>
+<strong class="cyan">₹40,000 / mo</strong>
+<small>₹5K Google + ₹35K Meta</small>
+</div>
+<div class="metric-line">
+<span>Blended Cost Per Lead (CPL)</span>
+<strong>₹41.03</strong>
+<small>Google ₹50 · Meta ₹40</small>
+</div>
+<div class="metric-line">
+<span>Lead-to-Account Conversion</span>
+<strong class="green">40.0%</strong>
+<small>390 accounts from 975 leads</small>
+</div>
+<div class="metric-line">
+<span>Media-Only CAC</span>
+<strong class="cyan">₹102.56</strong>
+<small>₹40,000 ÷ 390 accounts</small>
+</div>
+<div class="metric-line">
+<span>New-Client Team Payroll</span>
+<strong>₹74,000 / mo</strong>
+<small>2 Callers (₹44K) + 1 RM (₹30K)</small>
+</div>
+<div class="metric-line">
+<span>Fully-Loaded CAC (Ads + Pod)</span>
+<strong class="green">₹292.31</strong>
+<small>₹1,14,000 ÷ 390 accounts</small>
+</div>
+<div class="metric-line">
+<span>12-Month Direct Paid Output</span>
+<strong class="cyan">4,680 Accts</strong>
+<small>From base ₹40K/mo ad spend</small>
+</div>
+<div class="rule"></div>
+<p style="font-size:11px;color:#9eb8c9;margin:0;line-height:1.45"><b>Scale Rule:</b> As conversion holds ≥40%, we add +2 Telecallers & +1 New-Client RM in Month 4 (₹74K/mo) to absorb rising AP, Influencer & organic leads.</p>
+</div>
+</div>
+</div>
+</div>
+<footer class="footnote">
+<span>All inbound leads called within 5 minutes during business hours</span>
+<span>40% conversion benchmark = 390 verified demat accounts/month</span>
+</footer>
+</div>
+</section>
+<!-- ==================== SLIDE 3: AP NETWORK & INFLUENCER MARKETING ==================== -->
+<section class="slide" data-section="03 / AP & INFLUENCER ENGINE" data-title="Channel Expansion: 700–800 New AP Partners & Regional Influencer Engine">
+<div class="slide-inner">
+<header class="slide-head">
+<div class="eyebrow">03 / B2B PARTNER NETWORK & CREATOR ACQUISITION <span style="margin-left:auto;color:#597891">SLIDE 03 / 06</span></div>
+<h1 class="slide-title">Multiply Distribution: 700–800 New APs + Regional Influencer Engine.</h1>
+<p class="lead">Low-CAC B2B and creator distribution engines that compound alongside direct ads—starting with our core stronghold in Gujarat and Mumbai before expanding into 4 additional states.</p>
+</header>
+<div class="slide-body">
+<div class="split split-58">
+<div>
+<article class="card" style="height:100%">
+<div class="card-tag">ENGINE 01 · AUTHORISED PERSON (AP) NETWORK <span class="badge green">700–800 NEW APs TARGET</span></div>
+<h3>Phased Rollout: Events First, Followed by Targeted AP Ad Spend</h3>
+<ul class="action-list">
+<li><b>Step 1 (Months 1–3 — Audit & Events First):</b> Map existing AP network in Gujarat & Mumbai; host <b>2–3 partner events</b> to evaluate engagement, then initiate <b>₹5,000/mo AP Ad Spend</b> for first 3 months.</li>
+<li><b>Step 2 (Month 4+ — Scale Budget on ROI):</b> Increase AP Ad Spend to <b>₹10,000/mo</b> (and higher based on return). Target 100 APs per major city; even at 50% achievement, we onboard <b>700–800 new APs</b>.</li>
+<li><b>Partner Enablement & Retention:</b> Structured product/platform certification, tiered AP-refers-AP bonus incentives, co-branded digital kits (localized creatives & landing pages), and Chamber of Commerce wealth seminars.</li>
+</ul>
+<div style="margin-top:8px">
+<div style="font:600 9.5px var(--mono);color:var(--cyan);margin-bottom:4px">PHASE 1 · 13 GUJARAT CITIES + 3 MUMBAI ZONES (MONTHS 1–6)</div>
+<div class="city-tags">
+<span class="city-chip">Ahmedabad</span><span class="city-chip">Rajkot</span><span class="city-chip">Surat</span><span class="city-chip">Vadodara</span><span class="city-chip">Gandhinagar</span><span class="city-chip">Anand</span><span class="city-chip">Bharuch</span><span class="city-chip">Bhavnagar</span><span class="city-chip">Jamnagar</span><span class="city-chip">Junagadh</span><span class="city-chip">Navsari</span><span class="city-chip">Vapi</span><span class="city-chip">Mehsana</span><span class="city-chip">Mumbai Western</span><span class="city-chip">Mumbai Central</span><span class="city-chip">Thane / Navi Mumbai</span>
+</div>
+<div style="font:600 9.5px var(--mono);color:var(--purple);margin:7px 0 4px">PHASE 2 · MULTI-STATE EXPANSION (MONTHS 7–12 & YEAR 2)</div>
+<div class="city-tags">
+<span class="city-chip p2">Pune (MH)</span><span class="city-chip p2">Nagpur (MH)</span><span class="city-chip p2">Nashik (MH)</span><span class="city-chip p2">Jaipur (RJ)</span><span class="city-chip p2">Jodhpur (RJ)</span><span class="city-chip p2">Udaipur (RJ)</span><span class="city-chip p2">Bengaluru (KA)</span><span class="city-chip p2">Mysuru (KA)</span><span class="city-chip p2">Indore (MP)</span><span class="city-chip p2">Bhopal (MP)</span>
+</div>
+</div>
+<div class="card-meta"><span>Year-1 AP Ad Spend: ₹1,05,000 (₹5K×3m + ₹10K×9m)</span><span>+8 Regional AP Events (₹2.80L)</span></div>
+</article>
+</div>
+<div>
+<div class="outcome">
+<span>ENGINE 02 · INFLUENCER MARKETING (FROM MONTH 4)</span>
+<h3 style="margin:4px 0 8px;font-size:17px;color:#f0f8ff">₹20,000 / Month · Quarterly ROI Review Cycles</h3>
+<p style="font-size:11.5px;color:#a9bfd2;margin:0 0 10px;line-height:1.45">Months 1–3 dedicated to vetting nano/micro finance creators (10K–100K followers) & setting compliance/tracking links. Launches Month 4 across <b>Gujarati, Marathi, Hindi & Kannada</b>.</p>
+<div class="metric-line">
+<span>1. Paid Collaborations / Content</span>
+<strong class="cyan">₹14,000 / mo</strong>
+<small>Fixed + performance fees</small>
+</div>
+<div class="metric-line">
+<span>2. Demat Account Opening Bonuses</span>
+<strong class="green">₹4,000 / mo</strong>
+<small>Verified account milestones</small>
+</div>
+<div class="metric-line">
+<span>3. Tools & Creative Support</span>
+<strong>₹2,000 / mo</strong>
+<small>Promo links & compliance</small>
+</div>
+<div class="metric-line">
+<span>Year-1 Influencer Total (Months 4–12)</span>
+<strong class="cyan">₹1,80,000</strong>
+<small>9 active months in Year 1</small>
+</div>
+<div class="rule"></div>
+<div class="pairs">
+<div class="pair"><span>Co-Hosted Live Sessions</span><strong>Webinars for APs & Clients</strong></div>
+<div class="pair"><span>Every 3 Months</span><strong>Scale Winners / Pause Low ROI</strong></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<footer class="footnote">
+<span>AP & Influencer channels reduce reliance on paid social ads</span>
+<span>All creator content pre-vetted for SEBI & Exchange compliance disclosures</span>
+</footer>
+</div>
+</section>
+<!-- ==================== SLIDE 4: EXISTING CLIENTS, EVENTS & NEW DESKS ==================== -->
+<section class="slide" data-section="04 / CLIENTS, EVENTS & DESKS" data-title="Existing 65K Client Matrix, Offline Event Budgets & New Desks (RA + Algo)">
+<div class="slide-inner">
+<header class="slide-head">
+<div class="eyebrow">04 / RETENTION, HOSPITALITY & INTELLECTUAL PROPERTY DESKS <span style="margin-left:auto;color:#597891">SLIDE 04 / 06</span></div>
+<h1 class="slide-title">65K Client Segmentation, Event Hospitality & New Value Desks.</h1>
+<p class="lead">We segregate existing customers across 4 wealth brackets to determine Existing-Client RM staffing, back it with recurring offline/online events, and launch a Month-1 RA Desk plus a Month-6 Algo Desk.</p>
+</header>
+<div class="slide-body">
+<div class="cards c3">
+<!-- Column 1: Existing Customer Segmentation -->
+<article class="card">
+<div class="card-tag">01 · EXISTING 65K BASE <span class="badge amber">RM COUNT POST-AUDIT</span></div>
+<h3>4-Tier Wealth & RM Allocation Matrix</h3>
+<p style="font-size:11px;color:#9eb5c8;margin:0 0 8px">Segregated in First 15 Days by <b>Capital, Vintage (1/3/5+ yrs), City & Engagement</b> (Focus Age >25 yrs):</p>
+<div class="metric-line">
+<span><b>Ultra HNI</b> (> ₹5 Cr)</span>
+<strong class="cyan">1 RM : 100</strong>
+<small>White-glove bespoke</small>
+</div>
+<div class="metric-line">
+<span><b>HNI</b> (₹1 Cr – ₹5 Cr)</span>
+<strong class="green">1 RM : 200</strong>
+<small>Proactive + digital</small>
+</div>
+<div class="metric-line">
+<span><b>Mass Affluent</b> (₹10L – ₹1Cr)</span>
+<strong>1 RM : 500+</strong>
+<small>Pooled RM + webinars</small>
+</div>
+<div class="metric-line">
+<span><b>Retail</b> (< ₹10 Lakhs)</span>
+<strong>Automated</strong>
+<small>App nudges + support</small>
+</div>
+<div class="card-meta" style="color:var(--amber)"><span>Existing-Client RM Payroll: Decided after Day-15 breakup</span></div>
+</article>
+<!-- Column 2: Events, Hall Rent, Food & Webinars -->
+<article class="card">
+<div class="card-tag">02 · EVENTS, HALL RENT & FOOD <span class="badge green">₹10.96L / YEAR</span></div>
+<h3>Offline Hospitality & Webinar Rhythm</h3>
+<div class="metric-line">
+<span><b>HNI Exclusive Events</b> (>₹30L Cap)</span>
+<strong class="cyan">₹5,00,000</strong>
+<small>10/yr @ ₹50K (Hotel + Dinner)</small>
+</div>
+<div class="metric-line">
+<span><b>AP Partner Meetups</b> (Regional)</span>
+<strong class="green">₹2,80,000</strong>
+<small>8/yr @ ₹35K (Hall + Catering)</small>
+</div>
+<div class="metric-line">
+<span><b>City Retail Seminars</b> (Quarterly)</span>
+<strong>₹1,40,000</strong>
+<small>4/yr @ ₹35K (Hall + High-Tea)</small>
+</div>
+<div class="metric-line">
+<span><b>HNI & Top AP Gifting</b></span>
+<strong>₹80,000</strong>
+<small>₹20,000 / quarter</small>
+</div>
+<div class="metric-line">
+<span><b>Zoom Webinar + CRM Tools</b></span>
+<strong>₹96,000</strong>
+<small>₹8,000/mo (Weekly Webinars)</small>
+</div>
+<div class="card-meta"><span>Includes Weekly Retail & Product-Dedicated Webinars (MF, Bonds, F&O, PMS)</span></div>
+</article>
+<!-- Column 3: New Value Desks (RA, Guest YouTube, Content, Algo) -->
+<article class="card">
+<div class="card-tag">03 · NEW VALUE DESKS <span class="badge">₹14.40L / YEAR</span></div>
+<h3>RA Desk (M1), YouTube RAs & Algo Desk (M7)</h3>
+<div class="metric-line">
+<span><b>Dedicated RA Desk</b> (From M1)</span>
+<strong class="cyan">₹5,40,000</strong>
+<small>₹45K/mo · Weekly reports</small>
+</div>
+<div class="metric-line">
+<span><b>Outside Guest RA Webinars</b></span>
+<strong class="green">₹1,80,000</strong>
+<small>₹15K/mo · YouTube branding</small>
+</div>
+<div class="metric-line">
+<span><b>Social & Video Content Desk</b></span>
+<strong>₹4,20,000</strong>
+<small>₹35K/mo · Reels, YT, AP kits</small>
+</div>
+<div class="metric-line">
+<span><b>Algo Desk Specialist</b> (After M6)</span>
+<strong class="amber">₹3,00,000</strong>
+<small>₹50K/mo × 6m (M7–M12)</small>
+</div>
+<ul class="action-list" style="margin-top:6px">
+<li><b>Free Value for Every Client:</b> Weekly research report release, daily brief, core scanners, and learning library.</li>
+</ul>
+<div class="card-meta"><span>Algo Desk launches Month 7 post compliance gate</span></div>
+</article>
+</div>
+</div>
+<footer class="footnote">
+<span>Hall rent, catering, AV, and hospitality factored into every offline event line item</span>
+<span>Guest SEBI-registered RAs drive high-trust organic YouTube discovery</span>
+</footer>
+</div>
+</section>
+<!-- ==================== SLIDE 5: COMPLETE YEAR-1 MASTER BUDGET & IT VENDOR SCOPE ==================== -->
+<section class="slide" data-section="05 / MASTER BUDGET SHEET" data-title="Complete Year-1 Operating Budget (₹48.55L) + External IT Vendor RFPs">
+<div class="slide-inner">
+<header class="slide-head">
+<div class="eyebrow">05 / FULL YEAR-1 FINANCIAL COMMITMENT & CAPEX SEPARATION <span style="margin-left:auto;color:#597891">SLIDE 05 / 06</span></div>
+<h1 class="slide-title">Year-1 Master Budget: ₹48.55L Operating Plan + Vendor-Quoted IT Capex.</h1>
+<p class="lead">Filter the master table below by category or stage. Operating expenditure is released in phased tranches, while App Revamp, Web Terminal, Scanners & AI tools are budgeted separately upon receiving outside vendor quotations.</p>
+</header>
+<div class="slide-body">
+<div class="filter-bar">
+<div class="filter-tabs" role="tablist" aria-label="Filter budget rows">
+<button type="button" class="f-tab active" data-filter="all">All Year-1 Opex (₹48.55L)</button>
+<button type="button" class="f-tab" data-filter="m1core">Month-1 Core Pod (₹1.14L/mo)</button>
+<button type="button" class="f-tab" data-filter="media">Ads & Creators (₹7.65L)</button>
+<button type="button" class="f-tab" data-filter="desks">RA, Algo & Content Desks (₹14.40L)</button>
+<button type="button" class="f-tab" data-filter="events">Events, Hall & Food (₹10.96L)</button>
+</div>
+<div class="filter-summary" id="filterSummary">Showing: All 10 Operating Line Items · Total ₹48,55,000</div>
+</div>
+<div class="split split-62">
+<div>
+<div class="master-table" id="masterTable">
+<div class="m-row m-head">
+<div>Budget Line Item</div>
+<div style="text-align:right">Monthly Rate</div>
+<div style="text-align:center">Timeline</div>
+<div style="text-align:right">Year-1 Total</div>
+<div>Expected Output / Deliverable</div>
+</div>
+<div class="m-row" data-cat="m1core media">
+<div>1. Google + Meta Client Ads</div>
+<div class="r">₹40,000</div>
+<div class="c">M1–M12 (12m)</div>
+<div class="r">₹4,80,000</div>
+<div>975 leads/mo → <b>390 accounts/mo (4,680/yr)</b></div>
+</div>
+<div class="m-row" data-cat="m1core">
+<div>2. Initial Sales Pod (2 Callers + 1 New-Client RM)</div>
+<div class="r">₹74,000</div>
+<div class="c">M1–M12 (12m)</div>
+<div class="r">₹8,88,000</div>
+<div>2 Callers (₹44K) + 1 RM for <b>new customers only</b> (₹30K)</div>
+</div>
+<div class="m-row" data-cat="m1core">
+<div>3. Phase-2 Sales Scale (+2 Callers + 1 New RM)</div>
+<div class="r">₹74,000</div>
+<div class="c">M4–M12 (9m)</div>
+<div class="r">₹6,66,000</div>
+<div>Handles AP, Influencer & organic lead surge from Q2</div>
+</div>
+<div class="m-row" data-cat="media">
+<div>4. AP Network Acquisition Ads</div>
+<div class="r">₹5K → ₹10K</div>
+<div class="c">M1–3 / M4–12</div>
+<div class="r">₹1,05,000</div>
+<div><b>700–800 new APs</b> across 13 Gujarat cities & Mumbai</div>
+</div>
+<div class="m-row" data-cat="media">
+<div>5. Influencer Marketing Program</div>
+<div class="r">₹20,000</div>
+<div class="c">M4–M12 (9m)</div>
+<div class="r">₹1,80,000</div>
+<div>₹14K creators + ₹4K demat bonuses + ₹2K tools</div>
+</div>
+<div class="m-row" data-cat="desks">
+<div>6. Dedicated RA Desk (Weekly Reports)</div>
+<div class="r">₹45,000</div>
+<div class="c">M1–M12 (12m)</div>
+<div class="r">₹5,40,000</div>
+<div>52 weekly research reports + daily market briefs</div>
+</div>
+<div class="m-row" data-cat="desks">
+<div>7. Outside Guest RA YouTube Webinars</div>
+<div class="r">₹15,000</div>
+<div class="c">M1–M12 (12m)</div>
+<div class="r">₹1,80,000</div>
+<div>24–36 guest RA live sessions for organic branding</div>
+</div>
+<div class="m-row" data-cat="desks">
+<div>8. Digital Content, Video & Design Desk</div>
+<div class="r">₹35,000</div>
+<div class="c">M1–M12 (12m)</div>
+<div class="r">₹4,20,000</div>
+<div>Reels, YouTube videos, SEO pages & co-branded AP kits</div>
+</div>
+<div class="m-row" data-cat="desks">
+<div>9. Algo Desk Setup & Specialist</div>
+<div class="r">₹50,000</div>
+<div class="c">M7–M12 (6m)</div>
+<div class="r">₹3,00,000</div>
+<div>Launches after Month-6 regulatory & tech readiness gate</div>
+</div>
+<div class="m-row" data-cat="events">
+<div>10. Events (Hall + Food), Gifting & CRM Tools</div>
+<div class="r">Phased</div>
+<div class="c">M1–M12 (12m)</div>
+<div class="r">₹10,96,000</div>
+<div>10 HNI dinners (₹5L), 8 AP meets (₹2.8L), 4 seminars (₹1.4L), tools/gifts</div>
+</div>
+<div class="m-row m-total">
+<div>TOTAL YEAR-1 OPERATING BUDGET</div>
+<div class="r">~₹4.05L avg</div>
+<div class="c">12 Months</div>
+<div class="r">₹48,55,000</div>
+<div>Target: 10,000 Total New Accounts + 700–800 New APs</div>
+</div>
+</div>
+</div>
+<div>
+<div class="outcome" style="border-color:rgba(255,184,77,.4)">
+<span style="color:var(--amber)">SEPARATE APPROVAL · VENDOR QUOTATION & AUDIT ITEMS</span>
+<h3 style="margin:4px 0 8px;font-size:16px;color:#fff">Submitted Post 15-Day Audit & Vendor RFPs</h3>
+<div class="metric-line">
+<span><b>1. Existing-Client RM Team</b></span>
+<strong class="amber">Post-Audit</strong>
+<small>65K list breakup in Days 1–15</small>
+</div>
+<div class="metric-line">
+<span><b>2. Mobile App Revamp</b> (Advanced UI)</span>
+<strong class="amber">Vendor Quote</strong>
+<small>Outside dev quotation ASAP</small>
+</div>
+<div class="metric-line">
+<span><b>3. Web Trading Terminal</b></span>
+<strong class="amber">Vendor Quote</strong>
+<small>Scanners + Analytics + Options Delta</small>
+</div>
+<div class="metric-line">
+<span><b>4. Future AI Attraction Tools</b></span>
+<strong class="amber">Phase-2 Quote</strong>
+<small>AI screeners & customer journeys</small>
+</div>
+<div class="rule"></div>
+<p style="font-size:11px;color:#b8cadb;margin:0;line-height:1.45"><b>Why Separate?</b> We will not guess software development costs upfront. In the first 15–30 days, Mitesh will bring competitive outside vendor quotes to the MD for direct comparison and sign-off.</p>
+</div>
+</div>
+</div>
+</div>
+<footer class="footnote">
+<span>Click any filter pill above to isolate specific cost centers</span>
+<span>All figures in INR (excluding GST and external software capex quotes)</span>
+</footer>
+</div>
+</section>
+<!-- ==================== SLIDE 6: PHASED RELEASE GATES & MD SIGN-OFF ASK ==================== -->
+<section class="slide" data-section="06 / MD SIGN-OFF" data-title="Phased Budget Release & Immediate MD Approval Ask">
+<div class="slide-inner">
+<header class="slide-head">
+<div class="eyebrow">06 / GOVERNANCE, QUARTERLY GATES & IMMEDIATE ACTION <span style="margin-left:auto;color:#597891">SLIDE 06 / 06</span></div>
+<h1 class="slide-title">Approve Tranche 1 Today — Scale Every 90 Days on Verified Results.</h1>
+<p class="lead">We do not ask for a ₹48.55L lump-sum cheque on Day 1. Capital is released in quarterly tranches tied to verified account openings, AP onboarding, and revenue contribution—with full re-budgeting at the end of Year 1 for Years 2 and 3.</p>
+</header>
+<div class="slide-body">
+<div class="cards c4">
+<article class="card">
+<div class="card-tag">STAGE 0 · DAYS 1–15 <span class="badge green">₹0 SPEND</span></div>
+<h3>Prepare & Breakup Data</h3>
+<ul class="action-list">
+<li>Segregate 65K existing clients → propose <b>Existing-Client RM</b> headcount.</li>
+<li>Collect vendor quotes for <b>App Revamp</b> & <b>Web Terminal + Options Delta</b>.</li>
+<li>Set up CRM, ad pixels, scripts & hire initial 3-person pod.</li>
+</ul>
+<div class="card-meta"><span>Gate: Day-15 Readiness</span></div>
+</article>
+<article class="card">
+<div class="card-tag">TRANCHE 1 · MONTHS 1–3 <span class="badge">₹7.35 LAKHS</span></div>
+<h3>Launch Core Engine</h3>
+<ul class="action-list">
+<li><b>₹1.14L/mo Core:</b> ₹40K Ads + 2 Callers + 1 New-Client RM → <b>1,170 paid accounts</b> in Q1.</li>
+<li><b>RA + Content + Guest Webinars:</b> ₹95K/mo (Weekly reports & YouTube).</li>
+<li><b>AP Setup:</b> 2–3 AP events + ₹5K/mo AP ads + 1st HNI event.</li>
+</ul>
+<div class="card-meta"><span>Gate: Day-90 CAC & ROI Review</span></div>
+</article>
+<article class="card">
+<div class="card-tag">TRANCHE 2 · MONTHS 4–6 <span class="badge">₹11.85 LAKHS</span></div>
+<h3>Scale Partners & Team</h3>
+<ul class="action-list">
+<li><b>Influencer Launch:</b> ₹20K/mo across regional creators.</li>
+<li><b>AP Ads Doubled:</b> ₹10K/mo across 13 Gujarat cities & Mumbai.</li>
+<li><b>Team Scale:</b> Add +2 Callers & +1 New-Client RM (₹74K/mo).</li>
+<li>Monthly HNI dinners & regional AP meets.</li>
+</ul>
+<div class="card-meta"><span>Gate: Month-6 Algo Readiness</span></div>
+</article>
+<article class="card">
+<div class="card-tag">TRANCHE 3 · MONTHS 7–12 <span class="badge amber">₹29.35 LAKHS</span></div>
+<h3>Algo Desk & State Expansion</h3>
+<ul class="action-list">
+<li><b>Algo Desk Live:</b> ₹50K/mo specialist + automated strategies.</li>
+<li><b>Phase-2 States:</b> Expand AP network to Pune, Nagpur, Nashik, RJ, MP, KA.</li>
+<li><b>Year-1 Exit Review:</b> Re-budget for Year 2 & Year 3 toward 100K+ base.</li>
+</ul>
+<div class="card-meta"><span>Gate: Year-1 Re-Budgeting</span></div>
+</article>
+</div>
+<div class="split split-58">
+<div>
+<div class="big-table">
+<div class="t-row t-head">
+<div>4 Immediate Decisions Requested from MD Today</div>
+<div style="text-align:right">Commitment</div>
+<div>What Starts Immediately</div>
+<div style="text-align:right">First Milestone</div>
+<div style="text-align:right">Owner</div>
+</div>
+<div class="t-row">
+<div>1. Approve 15-Day Prep & 65K Client Data Access</div>
+<div class="green">₹0 Spend</div>
+<div>Customer wealth breakup + Existing RM sizing + IT Vendor RFPs</div>
+<div class="num">Day 15</div>
+<div class="hot">Mitesh + IT</div>
+</div>
+<div class="t-row">
+<div>2. Approve Month-1 Core Acquisition Pod & Ads</div>
+<div class="hot">₹1,14,000 / mo</div>
+<div>₹40K Ads (Google/Meta) + 2 Callers (₹44K) + 1 New-Client RM (₹30K)</div>
+<div class="num">390 Accts/mo</div>
+<div class="hot">Mitesh</div>
+</div>
+<div class="t-row">
+<div>3. Approve Q1 Desks, AP Events & Webinars Envelope</div>
+<div class="hot">₹7.35L Total Q1</div>
+<div>RA Desk (₹45K), Guest Webinars (₹15K), Content (₹35K), First Events</div>
+<div class="num">Day 90 Gate</div>
+<div class="hot">Mitesh</div>
+</div>
+<div class="t-row">
+<div>4. Authorise External Vendor RFQ for App & Web Terminal</div>
+<div class="green">Quote Comparison</div>
+<div>Bring competitive vendor quotes for App Revamp, Terminal & Options Delta</div>
+<div class="num">Days 15–30</div>
+<div class="hot">MD + Mitesh</div>
+</div>
+</div>
+</div>
+<div>
+<div class="number-panel">
+<span>TOTAL TRANCHE-1 AUTHORISATION ASK</span>
+<b>₹7.35 Lakhs</b>
+<p>Covers Full Quarter 1 (Months 1–3) after the 15-day zero-cost setup phase—starting with <b>₹1,14,000/mo</b> core acquisition + RA/Content desks & initial AP/HNI events.</p>
+<div class="pairs">
+<div class="pair"><span>Month-1 Core Pod</span><strong>₹1.14L → 390 Accts</strong></div>
+<div class="pair"><span>Full Year-1 Plan</span><strong>₹48.55L (Phased)</strong></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<footer class="footnote">
+<span>Execution Ownership: Mitesh · Sponsorship & Final Sign-Off: Managing Director, ANSPL</span>
+<span>Next Deck: 12-Month Granular Team Execution Blueprint</span>
+</footer>
+</div>
+</section>
+</main>
+<div class="progress"><div class="progress-fill" id="pfill"></div></div>
+<footer class="bottom">
+<div class="bottom-label">ANSPL / MD BUDGET & ROI APPROVAL BRIEF · MITESH</div>
+<span class="section-pill" id="sectionpill">01 / EXECUTIVE SUMMARY</span>
+<div class="bottom-right">
+<button type="button" class="navbtn" id="prev" aria-label="Previous slide">←</button>
+<span class="counter" id="counter">01 / 06</span>
+<button type="button" class="navbtn" id="next" aria-label="Next slide">→</button>
+</div>
+</footer>
+</div>
 <div class="drawer-dismiss" id="shade"></div>
 <aside class="drawer" id="drawer" aria-hidden="true">
-  <div style="display:flex;justify-content:space-between;align-items:center">
-    <h3>MD Brief · 6 Slides</h3>
-    <button class="tb-btn" id="closemenu" type="button">Close ×</button>
-  </div>
-  <p>Keyboard: ← → navigate · M opens overview · Use Print / PDF for 16:9 landscape export.</p>
-  <button class="drawer-link" type="button" data-idx="0"><span>01</span>What We Spend vs. What ANSPL Gets (Executive Summary)</button>
-  <button class="drawer-link" type="button" data-idx="1"><span>02</span>Month-1 Core Engine: ₹1,14,000 → 975 Leads → 390 Accounts</button>
-  <button class="drawer-link" type="button" data-idx="2"><span>03</span>AP Network (700–800 Partners) & Influencer Marketing (₹20K/mo)</button>
-  <button class="drawer-link" type="button" data-idx="3"><span>04</span>65K Client Matrix, Event Budgets (Hall/Food) & RA/Algo Desks</button>
-  <button class="drawer-link" type="button" data-idx="4"><span>05</span>Complete Year-1 Master Budget (₹48.55L) + IT Vendor RFPs</button>
-  <button class="drawer-link" type="button" data-idx="5"><span>06</span>Phased Quarterly Release Gates & Immediate MD Approval Ask</button>
+<div style="display:flex;justify-content:space-between;align-items:center">
+<h3>MD Brief · 6 Slides</h3>
+<button class="tb-btn" id="closemenu" type="button">Close ×</button>
+</div>
+<p>Keyboard: ← → navigate · M opens overview · Use Print / PDF for 16:9 landscape export.</p>
+<button class="drawer-link" type="button" data-idx="0"><span>01</span>What We Spend vs. What ANSPL Gets (Executive Summary)</button>
+<button class="drawer-link" type="button" data-idx="1"><span>02</span>Month-1 Core Engine: ₹1,14,000 → 975 Leads → 390 Accounts</button>
+<button class="drawer-link" type="button" data-idx="2"><span>03</span>AP Network (700–800 Partners) & Influencer Marketing (₹20K/mo)</button>
+<button class="drawer-link" type="button" data-idx="3"><span>04</span>65K Client Matrix, Event Budgets (Hall/Food) & RA/Algo Desks</button>
+<button class="drawer-link" type="button" data-idx="4"><span>05</span>Complete Year-1 Master Budget (₹48.55L) + IT Vendor RFPs</button>
+<button class="drawer-link" type="button" data-idx="5"><span>06</span>Phased Quarterly Release Gates & Immediate MD Approval Ask</button>
 </aside>
-
 <script>
 (()=>{
-  const slideNodes=[...document.querySelectorAll('.slide')];
-  const total=slideNodes.length;
-  const counter=document.querySelector('#counter');
-  const prog=document.querySelector('#pfill');
-  const section=document.querySelector('#sectionpill');
-  const drawer=document.querySelector('#drawer');
-  const shade=document.querySelector('#shade');
-  const links=[...document.querySelectorAll('.drawer-link')];
-  const topPills=[...document.querySelectorAll('.top-pill-btn')];
-  let idx=0;
-  const clamp=(n,a,b)=>Math.max(a,Math.min(b,n));
-
-  function show(i,withHash=true){
-    idx=clamp(i,0,total-1);
-    slideNodes.forEach((el,j)=>{
-      const isAct=j===idx;
-      el.classList.toggle('active',isAct);
-      el.setAttribute('aria-hidden',!isAct);
-      if(isAct) el.scrollTop=0;
-    });
-    counter.textContent=String(idx+1).padStart(2,'0')+' / '+String(total).padStart(2,'0');
-    prog.style.width=((idx+1)/total*100)+'%';
-    section.textContent=slideNodes[idx].dataset.section;
-    links.forEach((l,j)=>l.classList.toggle('selected',j===idx));
-    topPills.forEach((p,j)=>p.classList.toggle('active',j===idx));
-    document.title='ANSPL MD Brief · '+slideNodes[idx].dataset.title;
-    if(withHash) history.replaceState(null,'','#'+(idx+1));
-  }
-
-  function next(){show(idx+1)}
-  function prev(){show(idx-1)}
-  function toggle(open){
-    const v=open===undefined?!drawer.classList.contains('open'):open;
-    drawer.classList.toggle('open',v);
-    shade.classList.toggle('open',v);
-    drawer.setAttribute('aria-hidden',!v);
-  }
-
-  document.querySelector('#next').addEventListener('click',next);
-  document.querySelector('#prev').addEventListener('click',prev);
-  document.querySelector('#menu').addEventListener('click',()=>toggle());
-  document.querySelector('#closemenu').addEventListener('click',()=>toggle(false));
-  shade.addEventListener('click',()=>toggle(false));
-  links.forEach((l,i)=>l.addEventListener('click',()=>{show(i);toggle(false)}));
-  topPills.forEach((p)=>p.addEventListener('click',()=>show(Number(p.dataset.jump))));
-  document.querySelector('#print').addEventListener('click',()=>window.print());
-  document.querySelector('#full').addEventListener('click',()=>{
-    if(!document.fullscreenElement) document.documentElement.requestFullscreen?.();
-    else document.exitFullscreen?.();
-  });
-
-  // Slide 5 Interactive Budget Filter
-  const filterTabs=[...document.querySelectorAll('.f-tab')];
-  const masterRows=[...document.querySelectorAll('#masterTable .m-row[data-cat]')];
-  const filterSummary=document.querySelector('#filterSummary');
-  const filterLabels={
-    all:'Showing: All 10 Operating Line Items · Total ₹48,55,000',
-    m1core:'Highlighting: New-Client Core Ads & Sales Pod · M1 ₹1,14,000/mo (₹20,34,000/yr with Q2 scale)',
-    media:'Highlighting: Client Ads + AP Ads + Influencer Marketing · Total ₹7,65,000/yr',
-    desks:'Highlighting: Dedicated RA Desk + Guest Webinars + Content + Algo Desk · Total ₹14,40,000/yr',
-    events:'Highlighting: HNI Dinners + AP Meets + City Seminars + Gifting + Zoom/CRM · Total ₹10,96,000/yr'
-  };
-  filterTabs.forEach(btn=>{
-    btn.addEventListener('click',()=>{
-      const f=btn.dataset.filter;
-      filterTabs.forEach(b=>b.classList.toggle('active',b===btn));
-      masterRows.forEach(row=>{
-        const cats=row.dataset.cat.split(' ');
-        row.classList.toggle('dimmed',f!=='all' && !cats.includes(f));
-      });
-      if(filterSummary && filterLabels[f]) filterSummary.textContent=filterLabels[f];
-    });
-  });
-
-  window.addEventListener('keydown',e=>{
-    if(e.key==='Escape'){toggle(false);return}
-    if(document.activeElement?.tagName==='INPUT')return;
-    if(['ArrowRight','PageDown',' '].includes(e.key)){e.preventDefault();next()}
-    else if(['ArrowLeft','PageUp'].includes(e.key)){e.preventDefault();prev()}
-    else if(e.key==='Home'){e.preventDefault();show(0)}
-    else if(e.key==='End'){e.preventDefault();show(total-1)}
-    else if(e.key.toLowerCase()==='m'){toggle()}
-  });
-
-  let touchX=0;
-  document.addEventListener('touchstart',e=>touchX=e.changedTouches[0].screenX,{passive:true});
-  document.addEventListener('touchend',e=>{
-    let d=e.changedTouches[0].screenX-touchX;
-    if(Math.abs(d)>55)(d<0?next():prev());
-  },{passive:true});
-
-  const fromHash=Number(location.hash.substring(1));
-  show(Number.isInteger(fromHash)&&fromHash>=1&&fromHash<=total?fromHash-1:0,false);
-
-  // Smooth Lerp Cursor + 3D Card Tilt & Radial Spotlight
-  const c=document.querySelector('.cursor'),dot=document.querySelector('.cursor-dot');
-  let mouseX=-300,mouseY=-300,cursorX=-300,cursorY=-300,trailX=-300,trailY=-300;
-  const particleMouse={x:null,y:null,radius:210};
-
-  window.addEventListener('pointermove',e=>{
-    mouseX=e.clientX;mouseY=e.clientY;
-    particleMouse.x=e.clientX;particleMouse.y=e.clientY;
-  });
-  window.addEventListener('mouseout',()=>{particleMouse.x=null;particleMouse.y=null});
-
-  function animateCursor(){
-    if(c&&dot&&window.innerWidth>980){
-      cursorX+=(mouseX-cursorX)*0.16;
-      cursorY+=(mouseY-cursorY)*0.16;
-      trailX+=(mouseX-trailX)*0.28;
-      trailY+=(mouseY-trailY)*0.28;
-      c.style.left=cursorX+'px';c.style.top=cursorY+'px';
-      dot.style.left=trailX+'px';dot.style.top=trailY+'px';
-    }
-    requestAnimationFrame(animateCursor);
-  }
-  animateCursor();
-
-  document.querySelectorAll('button,a,.card,.kpi,.number-panel,.outcome,.funnel-math,.pair,.city-chip').forEach(el=>{
-    el.addEventListener('mouseenter',()=>c&&c.classList.add('on'));
-    el.addEventListener('mouseleave',()=>c&&c.classList.remove('on'));
-  });
-
-  document.querySelectorAll('.card,.number-panel,.outcome,.funnel-math').forEach(card=>{
-    card.addEventListener('mousemove',e=>{
-      const r=card.getBoundingClientRect();
-      card.style.setProperty('--mx',((e.clientX-r.left)/r.width*100)+'%');
-      card.style.setProperty('--my',((e.clientY-r.top)/r.height*100)+'%');
-      const rx=((e.clientY-r.top)/r.height-0.5)*-3.2;
-      const ry=((e.clientX-r.left)/r.width-0.5)*4.0;
-      card.style.transform=`perspective(900px) rotateX(${rx}deg) rotateY(${ry}deg) translateY(-2px)`;
-    });
-    card.addEventListener('mouseleave',()=>{card.style.transform=''});
-  });
-
-  // Magnetic Attracting Particle Field (QuantParticle Physics: Attracts to Cursor + Neural Web Lines)
-  const canvas=document.querySelector('#stars');
-  const ctx=canvas.getContext('2d',{alpha:true});
-  let pts=[];
-
-  function resizeParticles(){
-    canvas.width=window.innerWidth;
-    canvas.height=window.innerHeight;
-    const count=Math.min(145,Math.floor((canvas.width*canvas.height)/12000));
-    pts=Array.from({length:count},()=>({
-      x:Math.random()*canvas.width,
-      y:Math.random()*canvas.height,
-      baseX:0,
-      baseY:0,
-      vx:(Math.random()-0.5)*0.5,
-      vy:(Math.random()-0.5)*0.5,
-      r:Math.random()*2+0.5,
-      density:Math.random()*25+5,
-      opacity:Math.random()*0.5+0.22
-    })).map(p=>{p.baseX=p.x;p.baseY=p.y;return p});
-  }
-  resizeParticles();
-  window.addEventListener('resize',resizeParticles);
-
-  function updateParticle(p){
-    if(particleMouse.x!=null&&particleMouse.y!=null){
-      const dx=particleMouse.x-p.x;
-      const dy=particleMouse.y-p.y;
-      const dist=Math.hypot(dx,dy);
-      if(dist<particleMouse.radius&&dist>4){
-        const force=(particleMouse.radius-dist)/particleMouse.radius;
-        const pull=force*p.density*0.75;
-        p.x+=(dx/dist)*pull;
-        p.y+=(dy/dist)*pull;
-      }
-    }
-    p.x+=p.vx;
-    p.y+=p.vy;
-    p.x-=(p.x-p.baseX)*0.02;
-    p.y-=(p.y-p.baseY)*0.02;
-    if(p.x<0)p.x=canvas.width;
-    if(p.x>canvas.width)p.x=0;
-    if(p.y<0)p.y=canvas.height;
-    if(p.y>canvas.height)p.y=0;
-  }
-
-  let running=true;
-  document.addEventListener('visibilitychange',()=>running=!document.hidden);
-
-  function drawParticles(){
-    if(running){
-      ctx.clearRect(0,0,canvas.width,canvas.height);
-      for(let i=0;i<pts.length;i++){
-        const p=pts[i];
-        updateParticle(p);
-        ctx.beginPath();
-        ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
-        ctx.fillStyle=`rgba(0,229,255,${p.opacity})`;
-        ctx.fill();
-      }
-      for(let i=0;i<pts.length;i++){
-        for(let j=i+1;j<pts.length;j++){
-          const d=Math.hypot(pts[i].x-pts[j].x,pts[i].y-pts[j].y);
-          if(d<105){
-            ctx.beginPath();
-            ctx.strokeStyle=`rgba(0,229,255,${(1-d/105)*0.16})`;
-            ctx.moveTo(pts[i].x,pts[i].y);
-            ctx.lineTo(pts[j].x,pts[j].y);
-            ctx.stroke();
-          }
-        }
-        if(particleMouse.x!=null){
-          const dm=Math.hypot(pts[i].x-particleMouse.x,pts[i].y-particleMouse.y);
-          if(dm<150){
-            ctx.beginPath();
-            ctx.strokeStyle=`rgba(0,229,255,${(1-dm/150)*0.22})`;
-            ctx.moveTo(particleMouse.x,particleMouse.y);
-            ctx.lineTo(pts[i].x,pts[i].y);
-            ctx.stroke();
-          }
-        }
-      }
-    }
-    requestAnimationFrame(drawParticles);
-  }
-  if(!matchMedia('(prefers-reduced-motion: reduce)').matches) requestAnimationFrame(drawParticles);
+const slideNodes=[...document.querySelectorAll('.slide')];
+const total=slideNodes.length;
+const counter=document.querySelector('#counter');
+const prog=document.querySelector('#pfill');
+const section=document.querySelector('#sectionpill');
+const drawer=document.querySelector('#drawer');
+const shade=document.querySelector('#shade');
+const links=[...document.querySelectorAll('.drawer-link')];
+const topPills=[...document.querySelectorAll('.top-pill-btn')];
+let idx=0;
+const clamp=(n,a,b)=>Math.max(a,Math.min(b,n));
+function show(i,withHash=true){
+idx=clamp(i,0,total-1);
+slideNodes.forEach((el,j)=>{
+const isAct=j===idx;
+el.classList.toggle('active',isAct);
+el.setAttribute('aria-hidden',!isAct);
+if(isAct) el.scrollTop=0;
+});
+counter.textContent=String(idx+1).padStart(2,'0')+' / '+String(total).padStart(2,'0');
+prog.style.width=((idx+1)/total*100)+'%';
+section.textContent=slideNodes[idx].dataset.section;
+links.forEach((l,j)=>l.classList.toggle('selected',j===idx));
+topPills.forEach((p,j)=>p.classList.toggle('active',j===idx));
+document.title='ANSPL MD Brief · '+slideNodes[idx].dataset.title;
+if(withHash) history.replaceState(null,'','#'+(idx+1));
+}
+function next(){show(idx+1)}
+function prev(){show(idx-1)}
+function toggle(open){
+const v=open===undefined?!drawer.classList.contains('open'):open;
+drawer.classList.toggle('open',v);
+shade.classList.toggle('open',v);
+drawer.setAttribute('aria-hidden',!v);
+}
+document.querySelector('#next').addEventListener('click',next);
+document.querySelector('#prev').addEventListener('click',prev);
+document.querySelector('#menu').addEventListener('click',()=>toggle());
+document.querySelector('#closemenu').addEventListener('click',()=>toggle(false));
+shade.addEventListener('click',()=>toggle(false));
+links.forEach((l,i)=>l.addEventListener('click',()=>{show(i);toggle(false)}));
+topPills.forEach((p)=>p.addEventListener('click',()=>show(Number(p.dataset.jump))));
+document.querySelector('#print').addEventListener('click',()=>window.print());
+document.querySelector('#copyhtml').addEventListener('click',()=>{
+const clone=document.documentElement.cloneNode(true);
+const st=clone.querySelector('#stars');if(st){st.removeAttribute('width');st.removeAttribute('height');}
+const cb=clone.querySelector('#copyhtml');if(cb)cb.innerHTML='⎘ &nbsp; Copy Clean HTML';
+const cleanDoc='<!doctype html>\n<html lang="en">\n'+clone.innerHTML.replace(/\u00a0/g,' ')+'\n</html>';
+const btn=document.querySelector('#copyhtml');
+if(navigator.clipboard&&navigator.clipboard.writeText){
+navigator.clipboard.writeText(cleanDoc).then(()=>{btn.textContent='✓ Copied Clean HTML!';setTimeout(()=>{btn.innerHTML='⎘ &nbsp; Copy Clean HTML'},2200)}).catch(()=>{});
+}else{
+const ta=document.createElement('textarea');ta.value=cleanDoc;document.body.appendChild(ta);ta.select();document.execCommand('copy');ta.remove();
+btn.textContent='✓ Copied Clean HTML!';setTimeout(()=>{btn.innerHTML='⎘ &nbsp; Copy Clean HTML'},2200);
+}
+});
+document.querySelector('#full').addEventListener('click',()=>{
+if(!document.fullscreenElement) document.documentElement.requestFullscreen?.();
+else document.exitFullscreen?.();
+});
+// Slide 5 Interactive Budget Filter
+const filterTabs=[...document.querySelectorAll('.f-tab')];
+const masterRows=[...document.querySelectorAll('#masterTable .m-row[data-cat]')];
+const filterSummary=document.querySelector('#filterSummary');
+const filterLabels={
+all:'Showing: All 10 Operating Line Items · Total ₹48,55,000',
+m1core:'Highlighting: New-Client Core Ads & Sales Pod · M1 ₹1,14,000/mo (₹20,34,000/yr with Q2 scale)',
+media:'Highlighting: Client Ads + AP Ads + Influencer Marketing · Total ₹7,65,000/yr',
+desks:'Highlighting: Dedicated RA Desk + Guest Webinars + Content + Algo Desk · Total ₹14,40,000/yr',
+events:'Highlighting: HNI Dinners + AP Meets + City Seminars + Gifting + Zoom/CRM · Total ₹10,96,000/yr'
+};
+filterTabs.forEach(btn=>{
+btn.addEventListener('click',()=>{
+const f=btn.dataset.filter;
+filterTabs.forEach(b=>b.classList.toggle('active',b===btn));
+masterRows.forEach(row=>{
+const cats=row.dataset.cat.split(' ');
+row.classList.toggle('dimmed',f!=='all' && !cats.includes(f));
+});
+if(filterSummary && filterLabels[f]) filterSummary.textContent=filterLabels[f];
+});
+});
+window.addEventListener('keydown',e=>{
+if(e.key==='Escape'){toggle(false);return}
+if(document.activeElement?.tagName==='INPUT')return;
+if(['ArrowRight','PageDown',' '].includes(e.key)){e.preventDefault();next()}
+else if(['ArrowLeft','PageUp'].includes(e.key)){e.preventDefault();prev()}
+else if(e.key==='Home'){e.preventDefault();show(0)}
+else if(e.key==='End'){e.preventDefault();show(total-1)}
+else if(e.key.toLowerCase()==='m'){toggle()}
+});
+let touchX=0;
+document.addEventListener('touchstart',e=>touchX=e.changedTouches[0].screenX,{passive:true});
+document.addEventListener('touchend',e=>{
+let d=e.changedTouches[0].screenX-touchX;
+if(Math.abs(d)>55)(d<0?next():prev());
+},{passive:true});
+const fromHash=Number(location.hash.substring(1));
+show(Number.isInteger(fromHash)&&fromHash>=1&&fromHash<=total?fromHash-1:0,false);
+// Smooth Lerp Cursor + 3D Card Tilt & Radial Spotlight
+const c=document.querySelector('.cursor'),dot=document.querySelector('.cursor-dot');
+let mouseX=-300,mouseY=-300,cursorX=-300,cursorY=-300,trailX=-300,trailY=-300;
+const particleMouse={x:null,y:null,radius:210};
+window.addEventListener('pointermove',e=>{
+mouseX=e.clientX;mouseY=e.clientY;
+particleMouse.x=e.clientX;particleMouse.y=e.clientY;
+});
+window.addEventListener('mouseout',()=>{particleMouse.x=null;particleMouse.y=null});
+function animateCursor(){
+if(c&&dot&&window.innerWidth>980){
+cursorX+=(mouseX-cursorX)*0.16;
+cursorY+=(mouseY-cursorY)*0.16;
+trailX+=(mouseX-trailX)*0.28;
+trailY+=(mouseY-trailY)*0.28;
+c.style.left=cursorX+'px';c.style.top=cursorY+'px';
+dot.style.left=trailX+'px';dot.style.top=trailY+'px';
+}
+requestAnimationFrame(animateCursor);
+}
+animateCursor();
+document.querySelectorAll('button,a,.card,.kpi,.number-panel,.outcome,.funnel-math,.pair,.city-chip').forEach(el=>{
+el.addEventListener('mouseenter',()=>c&&c.classList.add('on'));
+el.addEventListener('mouseleave',()=>c&&c.classList.remove('on'));
+});
+document.querySelectorAll('.card,.number-panel,.outcome,.funnel-math').forEach(card=>{
+card.addEventListener('mousemove',e=>{
+const r=card.getBoundingClientRect();
+card.style.setProperty('--mx',((e.clientX-r.left)/r.width*100)+'%');
+card.style.setProperty('--my',((e.clientY-r.top)/r.height*100)+'%');
+const rx=((e.clientY-r.top)/r.height-0.5)*-3.2;
+const ry=((e.clientX-r.left)/r.width-0.5)*4.0;
+card.style.transform=`perspective(900px) rotateX(${rx}deg) rotateY(${ry}deg) translateY(-2px)`;
+});
+card.addEventListener('mouseleave',()=>{card.style.transform=''});
+});
+// Magnetic Attracting Particle Field (QuantParticle Physics: Attracts to Cursor + Neural Web Lines)
+const canvas=document.querySelector('#stars');
+const ctx=canvas.getContext('2d',{alpha:true});
+let pts=[];
+function resizeParticles(){
+canvas.width=window.innerWidth;
+canvas.height=window.innerHeight;
+const count=Math.min(145,Math.floor((canvas.width*canvas.height)/12000));
+pts=Array.from({length:count},()=>({
+x:Math.random()*canvas.width,
+y:Math.random()*canvas.height,
+baseX:0,
+baseY:0,
+vx:(Math.random()-0.5)*0.5,
+vy:(Math.random()-0.5)*0.5,
+r:Math.random()*2+0.5,
+density:Math.random()*25+5,
+opacity:Math.random()*0.5+0.22
+})).map(p=>{p.baseX=p.x;p.baseY=p.y;return p});
+}
+resizeParticles();
+window.addEventListener('resize',resizeParticles);
+function updateParticle(p){
+if(particleMouse.x!=null&&particleMouse.y!=null){
+const dx=particleMouse.x-p.x;
+const dy=particleMouse.y-p.y;
+const dist=Math.hypot(dx,dy);
+if(dist<particleMouse.radius&&dist>4){
+const force=(particleMouse.radius-dist)/particleMouse.radius;
+const pull=force*p.density*0.75;
+p.x+=(dx/dist)*pull;
+p.y+=(dy/dist)*pull;
+}
+}
+p.x+=p.vx;
+p.y+=p.vy;
+p.x-=(p.x-p.baseX)*0.02;
+p.y-=(p.y-p.baseY)*0.02;
+if(p.x<0)p.x=canvas.width;
+if(p.x>canvas.width)p.x=0;
+if(p.y<0)p.y=canvas.height;
+if(p.y>canvas.height)p.y=0;
+}
+let running=true;
+document.addEventListener('visibilitychange',()=>running=!document.hidden);
+function drawParticles(){
+if(running){
+ctx.clearRect(0,0,canvas.width,canvas.height);
+for(let i=0;i<pts.length;i++){
+const p=pts[i];
+updateParticle(p);
+ctx.beginPath();
+ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
+ctx.fillStyle=`rgba(0,229,255,${p.opacity})`;
+ctx.fill();
+}
+for(let i=0;i<pts.length;i++){
+for(let j=i+1;j<pts.length;j++){
+const d=Math.hypot(pts[i].x-pts[j].x,pts[i].y-pts[j].y);
+if(d<105){
+ctx.beginPath();
+ctx.strokeStyle=`rgba(0,229,255,${(1-d/105)*0.16})`;
+ctx.moveTo(pts[i].x,pts[i].y);
+ctx.lineTo(pts[j].x,pts[j].y);
+ctx.stroke();
+}
+}
+if(particleMouse.x!=null){
+const dm=Math.hypot(pts[i].x-particleMouse.x,pts[i].y-particleMouse.y);
+if(dm<150){
+ctx.beginPath();
+ctx.strokeStyle=`rgba(0,229,255,${(1-dm/150)*0.22})`;
+ctx.moveTo(particleMouse.x,particleMouse.y);
+ctx.lineTo(pts[i].x,pts[i].y);
+ctx.stroke();
+}
+}
+}
+}
+requestAnimationFrame(drawParticles);
+}
+if(!matchMedia('(prefers-reduced-motion: reduce)').matches) requestAnimationFrame(drawParticles);
 })();
 </script>
 </body>
